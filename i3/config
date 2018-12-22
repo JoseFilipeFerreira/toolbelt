@@ -47,21 +47,19 @@ set $ws10 "10"
 
 set $mod Mod4
 
-#######################
-## Exec Applications ##
-#######################
+###############
+## Exec Apps ##
+###############
 
 exec --no-startup-id compton
 
-##########################
-## Startup Applications ##
-########################## 
+######################
+## Exec_always Apps ##
+###################### 
 
 exec_always --no-startup-id compton -b -f --config ~/.compton/compton.conf
 exec_always --no-startup-id feh --bg-scale /home/mightymime/.cache/i3lock/resized.png
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
-
 
 ###################
 ## Function keys ##
