@@ -17,6 +17,7 @@ set_from_resource	  $color00_i3wmthemer     color0
 set_from_resource	  $foreground_i3wmthemer  foreground
 set_from_resource     $background_i3wmthemer  background
 
+
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 set $ws1 "1"
@@ -61,6 +62,14 @@ exec_always --no-startup-id compton -b -f --config ~/.compton/compton.conf
 exec_always --no-startup-id feh --bg-scale /home/mightymime/.cache/i3lock/resized.png
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+
+####################
+## Fancy keybinds ##
+####################
+
+bindsym $mod+y fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
+bindsym $mod+Shift+y sticky disable; floating disable
+
 ###################
 ## Function keys ##
 ###################
@@ -78,7 +87,6 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #d
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
 
 # Media player controls
-# (spotify 1>/dev/null 2>&1 &) && sleep 3 && qdbus org.mpris.MediaPlayer2.spotify / org.freedesktop.MediaPlayer2.OpenUri spotify:user:jose.filipe.matos.ferreira:playlist:55QEssbpIHsFS9jIRjODOm
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioStop exec playerctl stop
 bindsym XF86AudioNext exec playerctl next
