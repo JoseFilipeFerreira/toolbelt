@@ -35,5 +35,5 @@ function isrunning {
 }
 
 #dowload from youtube
-alias dy="youtube-dl --embed-thumbnail -o '~/Videos/Youtube/%(title)s-%(id)s.%(ext)s'"
-alias dys="youtube-dl -x --audio-format mp3 --embed-thumbnail -o '~/Music/Youtube/%(title)s-%(id)s.%(ext)s'"
+alias dy="youtube-dl --embed-thumbnail -o '~/Videos/Youtube/%(title)s.%(ext)s'"
+alias dys="youtube-dl -x --audio-format mp3 --embed-thumbnail -o '~/Music/Youtube/%(title)s.%(ext)s'"
