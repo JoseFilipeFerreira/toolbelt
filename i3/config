@@ -61,7 +61,7 @@ exec --no-startup-id compton
 exec_always --no-startup-id compton -b -f --config ~/.compton/compton.conf
 exec_always --no-startup-id feh --bg-scale /home/mightymime/.cache/i3lock/resized.png
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
+exec_always --no-startup-id nm-applet
 
 ####################
 ## Fancy keybinds ##
