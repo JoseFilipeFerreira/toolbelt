@@ -19,8 +19,8 @@ order += "disk /"
 order += "disk /home"
 order += "wireless _first_"
 order += "ethernet _first_"
-order += "battery all"
 order += "load"
+order += "battery all"
 order += "tztime local"
 
 wireless _first_ {
