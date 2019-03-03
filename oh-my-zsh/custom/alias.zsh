@@ -12,6 +12,16 @@ function mvp {
     fi
 }
 
+#better mpv with plugins
+function pdf {
+    if [ $1 = "" ]; then
+        echo "Usage: $0 <file>"
+    else
+        zathura $1 &
+        disown
+    fi
+}
+
 #speedtest the internet connection
 alias speedtest='speedtest-cli'
 alias speed='speedtest'
@@ -37,3 +47,5 @@ function isrunning {
 #dowload from youtube
 alias dy="youtube-dl --embed-thumbnail -o '~/Videos/Youtube/%(title)s.%(ext)s'"
 alias dys="youtube-dl -x --audio-format mp3 --embed-thumbnail -o '~/Music/Youtube/%(title)s.%(ext)s'"
+
+alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
