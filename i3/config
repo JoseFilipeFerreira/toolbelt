@@ -71,6 +71,9 @@ exec_always --no-startup-id numlockx on
 bindsym $mod+y       fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 bindsym $mod+Shift+y sticky disable; floating disable
 bindsym $mod+Shift+w exec --no-startup-id $term -T "weather-terminal" #-e bash -c "curl http://wttr.in/ && read -s -r -n 1"
+bindsym Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym $mod+Print --release exec --no-startup-id scrot -s -e 'mv $f /tmp/ && feh /tmp/$f && rm /tmp/$f'
+bindsym $mod+Tab workspace back_and_forth
 
 ###################
 ## Function keys ##
@@ -100,12 +103,14 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+Shift+s  exec spotify
 bindsym $mod+Shift+d  exec discord
+bindsym $mod+Shift+f  exec firefox
 
 ###############
 ## Workspace ##
 ###############
 
 assign [class="Firefox"] $ws3
+assign [class="discord"] $ws4
 for_window [class="Spotify"] move to workspace $ws10
 for_window [title="weather-terminal"] fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 
