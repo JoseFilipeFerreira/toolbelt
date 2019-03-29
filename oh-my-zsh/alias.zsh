@@ -12,12 +12,20 @@ function mvp {
     fi
 }
 
-#better mpv with plugins
 function pdf {
     if [ $1 = "" ]; then
         echo "Usage: $0 <file>"
     else
         zathura $1 &
+        disown
+    fi
+}
+
+function png {
+    if [ $1 = "" ]; then
+        echo "Usage: $0 <file>"
+    else
+        sxiv $1 &
         disown
     fi
 }
