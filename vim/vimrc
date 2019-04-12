@@ -1,0 +1,61 @@
+runtime! archlinux.vim
+
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+Plug 'morhetz/gruvbox'
+
+Plug 'PotatoesMaster/i3-vim-syntax'
+
+Plug 'scrooloose/nerdtree'
+
+Plug 'kien/ctrlp.vim'
+
+Plug 'tpope/vim-commentary'
+
+call plug#end()
+
+""" PLUGIN CONFIGS
+
+" Gruvbox config
+colorscheme gruvbox
+set background=dark
+let g:gruvbox_contrast_dark = 'hard'
+highlight Normal ctermbg=None
+
+" Nerdtree config
+map <F2> :NERDTreeToggle<CR>
+
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.env|\.svn|node_modules|target|out)$'
+
+inoremap <C-v> <ESC>"+pa
+vnoremap <C-c> "+y
+vnoremap <C-x> "+d
+
+" split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+nnoremap <M-h> <C-w>H
+nnoremap <M-j> <C-w>J
+nnoremap <M-k> <C-w>K
+nnoremap <M-l> <C-w>L
+
+" Ctrl+S to save
+map <C-S> :w<CR>
+imap <C-S> <Esc>:w<CR>a
+
+" Alt-Tab
+map <Space><Tab> :e #<CR>
+
+set number

@@ -1,3 +1,11 @@
 set selection-clipboard clipboard
-map <C-i> recolor
 
+set default-bg "#000000" #00
+
+set recolor "true"
+set recolor-lightcolor "#000000" #00
+set recolor-darkcolor "#E0E0E0" #06
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+map i recolor

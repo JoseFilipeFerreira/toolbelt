@@ -60,7 +60,7 @@ exec --no-startup-id compton
 ###################### 
 
 exec_always --no-startup-id compton -b -f --config ~/.compton/compton.conf
-exec_always --no-startup-id feh --bg-scale /home/mightymime/Repos/Configs/i3/black.jpg
+exec_always --no-startup-id feh --bg-scale /home/mightymime/Repos/Nautilus-wallpaper/wallpaper.png
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id numlockx on
 
