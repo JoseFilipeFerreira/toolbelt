@@ -58,4 +58,11 @@ imap <C-S> <Esc>:w<CR>a
 " Alt-Tab
 map <Space><Tab> :e #<CR>
 
+"auto-close brackets
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+
 set number
