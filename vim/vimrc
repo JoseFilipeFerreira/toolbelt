@@ -18,6 +18,14 @@ Plug 'kien/ctrlp.vim'
 
 Plug 'tpope/vim-commentary'
 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+Plug 'deoplete-plugins/deoplete-jedi'
+
+Plug 'zchee/deoplete-clang'
+
+Plug 'deoplete-plugins/deoplete-jedi'
+
 call plug#end()
 
 """ PLUGIN CONFIGS
@@ -31,11 +39,41 @@ highlight Normal ctermbg=None
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
 
+" deoplete.
+let g:deoplete#enable_at_startup = 1
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ deoplete#manual_complete()
+function! s:check_back_space() abort "{{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction"}}}
+
+" deoplete C
+let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
+let g:deoplete#sources#clang#clang_header = '/usr/include/'
+
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.env|\.svn|node_modules|target|out)$'
 
+""" SETTINGS
+" indent using spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+" show line number
+set number
+
+" auto-close brackets
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+
+" copy paste in vim
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-x> "+d
@@ -58,11 +96,3 @@ imap <C-S> <Esc>:w<CR>a
 " Alt-Tab
 map <Space><Tab> :e #<CR>
 
-"auto-close brackets
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap { {}<left>
-
-set number
