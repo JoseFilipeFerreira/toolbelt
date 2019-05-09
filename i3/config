@@ -54,6 +54,7 @@ set $term xfce4-terminal
 ###############
 
 exec --no-startup-id compton
+exec --no-startup-id setxkbmap -option caps:escape
 
 ######################
 ## Exec_always Apps ##

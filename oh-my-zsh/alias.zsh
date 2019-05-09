@@ -2,6 +2,7 @@ alias :r='source ~/.zshrc; '
 alias  c='clear'
 alias stahp='poweroff'
 alias vim="nvim"
+alias cast="castnow --address 192.168.0.188"
 
 #better mpv with plugins
 function mvp {
