@@ -96,3 +96,10 @@ imap <C-S> <Esc>:w<CR>a
 " Alt-Tab
 map <Space><Tab> :e #<CR>
 
+" Scroll with mouse
+set mouse=a
+
+"spelling
+set spell! spelllang=en_gb,pt_pt
+" Open spelling suggestions
+nnoremap <A-Enter> z=
