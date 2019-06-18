@@ -32,6 +32,17 @@ function png {
     fi
 }
 
+function dock {
+    xrandr --output HDMI2 --auto
+    xrandr --output eDP1 --off
+    wallup
+}
+
+function undock {
+    xrandr --output HDMI2 --off
+    xrandr --output eDP1 --auto
+}
+
 #speedtest the internet connection
 alias speedtest='speedtest-cli'
 alias speed='speedtest-cli'
