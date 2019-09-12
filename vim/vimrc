@@ -65,6 +65,10 @@ autocmd BufEnter *.tex set linebreak
 autocmd FileType tex map <Space>r :silent !pdflatex  --shell-escape %:p > /dev/null &<Return>
 autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
 
+"lp_solve
+autocmd BufEnter *.lp map <Space>r :!lp_solve %:p <enter>
+autocmd BufEnter *.lp set syntax=perl
+
 """ SETTINGS
 " indent using spaces
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
