@@ -65,10 +65,6 @@ function isrunning {
     ps -ef | grep -i $1 | grep -v grep
 }
 
-#dowload from youtube
-alias dy="youtube-dl --embed-thumbnail -o '~/Videos/Youtube/%(title)s.%(ext)s'"
-alias dys="youtube-dl -x --audio-format mp3 --embed-thumbnail -o '~/Music/Youtube/%(title)s.%(ext)s'"
-
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
 function matrix {
@@ -76,3 +72,5 @@ function matrix {
 }
 
 alias wallup="/home/mightymime/Repos/Nautilus-wallpaper/wallpaper.sh MiEI"
+
+alias nospace="for file in *; do mv $file $(echo $file | sed -r 's/ - /-/g;s/ _ /_/g;s/,//g;s/\(//g;s/\)//g;s/\!//g;s/ /_/g'); done;"
