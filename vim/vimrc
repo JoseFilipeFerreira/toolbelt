@@ -109,3 +109,11 @@ nmap <space><space> :noh<CR>
 set spell! spelllang=en_gb,pt_pt
 " Open spelling suggestions
 nnoremap <A-Enter> z=
+
+""" COMMANDS
+command! W w
+command! Q q
+command! WQ wq
+
+set undodir=~/.cache/vimundo
+set undofile
