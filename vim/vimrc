@@ -14,6 +14,8 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'scrooloose/nerdtree'
 
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 Plug 'kien/ctrlp.vim'
 
 Plug 'tpope/vim-commentary'
@@ -25,6 +27,11 @@ Plug 'deoplete-plugins/deoplete-jedi'
 Plug 'zchee/deoplete-clang'
 
 Plug 'deoplete-plugins/deoplete-jedi'
+
+Plug 'junegunn/goyo.vim'
+
+" Let me sudo save in nvim
+Plug 'lambdalisue/suda.vim'
 
 call plug#end()
 
@@ -38,6 +45,35 @@ highlight Normal ctermbg=None
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
+
+" let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+" hide brackets around git status
+augroup nerdtreeconcealbrackets
+      autocmd!
+      autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\]" contained conceal containedin=ALL
+      autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\[" contained conceal containedin=ALL
+      autocmd FileType nerdtree setlocal conceallevel=2
+      autocmd FileType nerdtree setlocal concealcursor=nvic
+augroup END
+
+" custom simbols for git status
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "! ",
+    \ "Staged"    : "+ ",
+    \ "Untracked" : "? ",
+    \ "Renamed"   : "> ",
+    \ "Unmerged"  : "# ",
+    \ "Deleted"   : "- ",
+    \ "Dirty"     : "? ",
+    \ "Clean"     : "",
+    \ "Ignored"   : "",
+    \ "Unknown"   : ""
+    \ }
+
+" quit nerdtree on open
+let NERDTreeQuitOnOpen = 1
 
 " deoplete.
 let g:deoplete#enable_at_startup = 1
@@ -62,7 +98,7 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.env|\.svn|node_modules|target|o
 
 " LaTeX
 autocmd BufEnter *.tex set linebreak
-autocmd FileType tex map <Space>r :silent !pdflatex  --shell-escape %:p > /dev/null &<Return>
+autocmd FileType tex map <Space>r :silent !pdflatex --shell-escape %:p <enter>
 autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
 
 "lp_solve
@@ -117,3 +153,5 @@ command! WQ wq
 
 set undodir=~/.cache/vimundo
 set undofile
+
+set scrolloff=4

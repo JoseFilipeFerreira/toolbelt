@@ -23,11 +23,11 @@ set $ws6 6
 set $ws7 7
 set $ws8 8
 set $ws9 9
-set $ws10 10 : Media
+set $ws10 10
 
 ######################################## ON BOOT LAUNCH APPS ###################################
 exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id compton -I 1 -O 1
+exec --no-startup-id compton --config ~/Repos/Configs/Compton/compton.conf
 exec --no-startup-id feh --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
 exec --no-startup-id nm-applet
 exec --no-startup-id numlockx on
@@ -38,9 +38,9 @@ bindsym $mod+y       fullscreen disable; floating enable; resize set 422 240; st
 bindsym $mod+Shift+y sticky disable; floating disable
 bindsym Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+ctrl+l exec "scrot -o /tmp/screenshot.png; convert /tmp/screenshot.png -blur 0x5 /tmp/screenshot.png; i3lock -i /tmp/screenshot.png"
 
 ####### MEDIA KEYS
-bindsym $mod+ctrl+l exec "scrot -o /tmp/screenshot.png; convert /tmp/screenshot.png -blur 0x5 /tmp/screenshot.png; i3lock -i /tmp/screenshot.png"
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen b rightness
 bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
@@ -154,11 +154,9 @@ bindsym $mod+r mode "resize"
 
 ####################################### BEHAVIOR ##############################################
 
-assign [class="firefox"] $ws3
+assign [class="(?i)firefox"] $ws3
 assign [class="discord"] $ws4
-assign [class="mpv"] $ws10
 for_window [class="Spotify"] move to workspace $ws10
-for_window [title="weather-terminal"] fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
