@@ -2,7 +2,7 @@
 
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
-set $term urxvt
+set $term termite
 set $repos /home/mightymime/Repos
 set $configs /home/mightymime/Repos/Configs
 
@@ -56,8 +56,7 @@ bindsym $mod+Shift+s      exec spotify
 bindsym $mod+Shift+d      exec discord
 bindsym $mod+Shift+f      exec firefox
 bindsym $mod+d            exec rofi -show run
-bindsym $mod+Return       exec --no-startup-id $term
-bindsym $mod+Shift+Return exec --no-startup-id $configs/i3/termFromHere.sh
+bindsym $mod+Return       exec --no-startup-id $term --config=$configs/termite/config
 
 ####### NAVIGATION
 # switch to workspace
