@@ -16,19 +16,11 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-Plug 'kien/ctrlp.vim'
-
 Plug 'tpope/vim-commentary'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-Plug 'deoplete-plugins/deoplete-jedi'
-
-Plug 'zchee/deoplete-clang'
-
-Plug 'deoplete-plugins/deoplete-jedi'
-
 Plug 'junegunn/goyo.vim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Let me sudo save in nvim
 Plug 'lambdalisue/suda.vim'
@@ -45,11 +37,8 @@ highlight Normal ctermbg=None
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
-
-" let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
-" hide brackets around git status
 augroup nerdtreeconcealbrackets
       autocmd!
       autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\]" contained conceal containedin=ALL
@@ -58,7 +47,6 @@ augroup nerdtreeconcealbrackets
       autocmd FileType nerdtree setlocal concealcursor=nvic
 augroup END
 
-" custom simbols for git status
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "! ",
     \ "Staged"    : "+ ",
@@ -72,34 +60,46 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : ""
     \ }
 
-" quit nerdtree on open
 let NERDTreeQuitOnOpen = 1
 
-" deoplete.
-let g:deoplete#enable_at_startup = 1
+" Coc
+" Use tab for trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ deoplete#manual_complete()
-function! s:check_back_space() abort "{{{
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-" deoplete
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include/'
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.env|\.svn|node_modules|target|out)$'
+nmap <silent> <F10> <Plug>(coc-diagnostic-prev)
+nmap <silent> <F12> <Plug>(coc-diagnostic-next)
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " LaTeX
 autocmd BufEnter *.tex set linebreak
 autocmd FileType tex map <Space>r :silent !pdflatex --shell-escape %:p <enter>
 autocmd BufEnter *.tex command! Re !pdflatex --shell-escape %:p
+autocmd BufEnter *.tex set textwidth=80
 
 "lp_solve
 autocmd BufEnter *.lp map <Space>r :!lp_solve %:p <enter>
@@ -109,13 +109,16 @@ autocmd BufEnter *.lp set syntax=perl
 " indent using spaces
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
+" splitbelow and right
+set splitright splitbelow
+
 " show line number
 set number
 
 " copy paste in vim
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
-vnoremap <C-x> "+d
+vnoremap <C-x> "+d 
 
 " split navigations
 nnoremap <C-J> <C-W><C-J>
@@ -150,6 +153,9 @@ nnoremap <A-Enter> z=
 command! W w
 command! Q q
 command! WQ wq
+
+" make path recursive
+set path=**
 
 set undodir=~/.cache/vimundo
 set undofile
