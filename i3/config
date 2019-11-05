@@ -29,7 +29,6 @@ set $ws10 10
 exec --no-startup-id compton --config $configs/compton/compton.conf
 exec --no-startup-id feh --no-fehbg --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
 exec --no-startup-id nm-applet
-exec --no-startup-id numlockx on
 
 ######################################### KEYBOARD SHORTCUTS ###################################
 ####### FANCY KEYBINDS
