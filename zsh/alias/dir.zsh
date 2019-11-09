@@ -22,17 +22,10 @@ alias l='ls -lah'
 alias grep='grep --color=auto --exclude-dir=.git'
 alias pygrep='grep -r --include="*.py"'
 
-#make a directory and cd into it
-function mkcd (){
-    case $# in
-    1)
-        mkdir -p $1
-        cd $1
-        ;;
-    *)
-        echo "USAGE : mkcd rep"
-        ;;
-    esac
+
+function mkcd() {
+  mkdir -p $@
+  cd $@
 }
 
 function nospace (){

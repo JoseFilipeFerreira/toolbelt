@@ -9,7 +9,6 @@ function git_current_branch() {
   echo ${ref#refs/heads/}
 }
 
-alias g='git'
 alias ga='git add'
 
 alias gb='git branch'

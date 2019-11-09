@@ -58,14 +58,6 @@ function ex {
   fi
 }
 
-function aura() {
-        pushd /tmp >> /dev/null
-        git clone https://aur.archlinux.org/$1
-        cd $1
-        makepkg -si
-        popd >> /dev/null
-}
-
 function dock {
     xrandr --output HDMI2 --auto
     xrandr --output eDP1 --off
@@ -89,6 +81,6 @@ function isrunning (){
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
 function wallup(){
-    sh /home/mightymime/Repos/Nautilus-wallpaper/wallpaper.sh MiEI
+    sh $HOME/Repos/Nautilus-wallpaper/wallpaper.sh MiEI
 }
 
