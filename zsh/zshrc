@@ -46,6 +46,9 @@ bindkey "^[[B"      down-line-or-beginning-search        # down arrow
 bindkey "^[[A"      up-line-or-beginning-search          # up arrow
 bindkey -M menuselect '^o' accept-and-infer-next-history # enter
 
+#Custom Commands
+compdef _zathura pdf
+
 #---- Load alias
 for config_file ($DOTFILES/zsh/alias/*.zsh(N)); do
   source $config_file
