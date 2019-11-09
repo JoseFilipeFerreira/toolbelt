@@ -1,0 +1,27 @@
+#!/bin/bash
+#---- Update path to DOTFILES
+DOTF=$(pwd)
+sed -i -r 's|DOTFILES=.*|DOTFILES='"$DOTF"'|g' zsh/zprofile
+sed -i -r 's|set $configs.*|set $configs '"$DOTF"'|g' i3/config
+export DOTFILES=$DOTF
+
+#---- Install standard workflow
+source .workflow
+#packages
+yes | sudo pacman -S  "${packages[@]}"
+
+source $DOTFILES/zsh/alias/aura.zsh
+
+#aur packages
+for p in "${aurpackages[@]}"
+do
+    aura "$p"
+done
+
+#npm packages
+for p in "${npmpackages[@]}"
+do
+    sudo npm install "$p" -g
+done
+
+sh nail

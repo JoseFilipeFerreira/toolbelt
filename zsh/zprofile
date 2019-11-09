@@ -16,6 +16,7 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
     toilet -f mono9 -F metal "           Starting i3  "
+    sh $DOTFILES/nail
     pgrep i3 || startx 2> /dev/null
     clear
 fi
