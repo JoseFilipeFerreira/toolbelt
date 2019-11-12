@@ -22,6 +22,7 @@ alias l='ls -lah'
 alias grep='grep --color=auto --exclude-dir=.git'
 alias pygrep='grep -r --include="*.py"'
 
+alias watch='watch --color'
 
 function mkcd() {
   mkdir -p $@
