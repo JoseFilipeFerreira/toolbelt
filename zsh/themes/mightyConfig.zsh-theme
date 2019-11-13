@@ -6,4 +6,5 @@ _get_branch() {
     fi
 }
 
-RPS1='$(_get_branch)'
+setopt PROMPT_SUBST
+RPS1=$'$(_get_branch)'
