@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function cleanTools {
+cleanTools() {
     for tool in ~/.local/bin/*
     do
         if [ -h "$tool" ] && ! [ -e "$tool" ]; then
@@ -11,7 +11,7 @@ function cleanTools {
     return 1;
 }
 
-function newTools {
+newTools() {
     for tool in toolbox/*.sh; do
         [ -h ~/.local/bin/"$(basename "$tool" .sh)" ] || return 0
     done

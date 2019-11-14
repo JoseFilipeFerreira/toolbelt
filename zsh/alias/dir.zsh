@@ -24,11 +24,11 @@ alias pygrep='grep -r --include="*.py"'
 
 alias watch='watch --color'
 
-function mkcd() {
+mkcd() {
   mkdir -p $@
   cd $@
 }
 
-function nospace (){
+nospace() {
     for file in *; do mv $file $(echo $file | sed -r 's/ - /-/g;s/ _ /_/g;s/,//g;s/\(//g;s/\)//g;s/\!//g;s/ /_/g'); done;
 }

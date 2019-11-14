@@ -5,7 +5,7 @@ alias vim="nvim"
 alias cast="castnow --address 192.168.0.188"
 alias castvid="castnow --address 192.168.0.129"
 
-function pdf {
+pdf() {
     if [ $# -lt 1 ]; then
         echo "Usage: $0 <file>"
     else
@@ -14,7 +14,7 @@ function pdf {
     fi
 }
 
-function png {
+png() {
     if [ $# -lt 1 ]; then
         echo "Usage: $0 <file>"
     else
@@ -23,7 +23,7 @@ function png {
     fi
 }
 
-function make {
+make() {
     if [ -e Makefile ] || [ -e makefile ]
     then
         bash -c "make $*"
@@ -36,7 +36,7 @@ function make {
     fi
 }
 
-function ex {
+ex() {
   if [ -f "$1" ] ; then
     case "$1" in
       *.tar.bz2)   tar xjf "$1"   ;;
@@ -58,13 +58,13 @@ function ex {
   fi
 }
 
-function dock {
+dock() {
     xrandr --output HDMI2 --auto
     xrandr --output eDP1 --off
     wallup
 }
 
-function undock {
+undock() {
     xrandr --output HDMI2 --off
     xrandr --output eDP1 --auto
     wallup
@@ -74,13 +74,13 @@ function undock {
 alias speedtest='speedtest-cli'
 alias speed='speedtest-cli'
 
-function isrunning (){
+isrunning() {
     ps -ef | grep -i $1 | grep -v grep
 }
 
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
-function wallup(){
+wallup() {
     sh $HOME/Repos/Nautilus-wallpaper/wallpaper.sh MiEI
 }
 
