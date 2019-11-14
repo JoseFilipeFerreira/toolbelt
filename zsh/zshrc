@@ -5,7 +5,7 @@ mkdir -p $ZSH_CACHE
 autoload -U colors && colors
 
 #---- Load Theme
-source "$DOTFILES/zsh/themes/mightyConfig.zsh-theme"
+source "$DOTFILES/zsh/themes/mightyConfig.zsh"
 
 #---- History
 HISTSIZE=10000
