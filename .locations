@@ -4,3 +4,4 @@ nvim/init.vim:~/.config/nvim/init.vim
 zathura/zathurarc:~/.config/zathura/zathurarc
 zsh/zprofile:~/.zprofile
 zsh/zshrc:~/.zshrc
+termite:~/.config/termite

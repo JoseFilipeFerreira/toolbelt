@@ -53,8 +53,9 @@ bindsym XF86AudioPrev         exec playerctl previous
 bindsym $mod+Shift+d      exec discord
 bindsym $mod+Shift+f      exec firefox
 bindsym $mod+d            exec rofi -config $configs/rofi/config.rasi -show run
-bindsym $mod+Return       exec --no-startup-id $term --config=$configs/termite/config
-bindsym $mod+Shift+Return exec --no-startup-id $config/i3/termFromHere.sh $configs/termite/config
+bindsym $mod+Return       exec --no-startup-id $term
+bindsym $mod+Shift+Return exec --no-startup-id termFromHere
+bindsym $mod+Control+Return exec --no-startup-id dateTerm
 
 ####### NAVIGATION
 # switch to workspace

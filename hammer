@@ -24,4 +24,5 @@ do
     sudo npm install "$p" -g
 done
 
+sh storeTools
 sh nail
