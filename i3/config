@@ -36,25 +36,25 @@ bindsym $mod+y       fullscreen disable; floating enable; resize set 422 240; st
 bindsym $mod+Shift+y sticky disable; floating disable
 bindsym Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
 bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+ctrl+l exec "scrot -o /tmp/screenshot.png; convert /tmp/screenshot.png -blur 0x5 /tmp/screenshot.png; i3lock -i /tmp/screenshot.png"
+bindsym $mod+ctrl+l exec --no-startup-id lock 
 
 ####### MEDIA KEYS
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen b rightness
-bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym XF86AudioPlay         exec playerctl play-pause
 bindsym XF86AudioStop         exec playerctl stop
 bindsym XF86AudioNext         exec playerctl next
 bindsym XF86AudioPrev         exec playerctl previous
 
 ####### APP
-bindsym $mod+Shift+d      exec discord
-bindsym $mod+Shift+f      exec firefox
-bindsym $mod+d            exec rofi -config $configs/rofi/config.rasi -show run
-bindsym $mod+Return       exec --no-startup-id $term
-bindsym $mod+Shift+Return exec --no-startup-id termFromHere
+bindsym $mod+Shift+d        exec discord
+bindsym $mod+Shift+f        exec firefox
+bindsym $mod+d              exec rofi -config $configs/rofi/config.rasi -show run
+bindsym $mod+Return         exec --no-startup-id $term
+bindsym $mod+Shift+Return   exec --no-startup-id termFromHere
 bindsym $mod+Control+Return exec --no-startup-id dateTerm
 
 ####### NAVIGATION
@@ -241,24 +241,24 @@ mode "$mode_gaps" {
     bindsym Escape mode "default"
 }
 mode "$mode_gaps_inner" {
-    bindsym plus  gaps inner current plus 5
-    bindsym minus gaps inner current minus 5
+    bindsym plus  gaps inner current plus 1
+    bindsym minus gaps inner current minus 1
     bindsym 0     gaps inner current set 0
 
-    bindsym Shift+plus  gaps inner all plus 5
-    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+plus  gaps inner all plus 1
+    bindsym Shift+minus gaps inner all minus 1
     bindsym Shift+0     gaps inner all set 0
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 mode "$mode_gaps_outer" {
-    bindsym plus  gaps outer current plus 5
-    bindsym minus gaps outer current minus 5
+    bindsym plus  gaps outer current plus 1
+    bindsym minus gaps outer current minus 1
     bindsym 0     gaps outer current set 0
 
-    bindsym Shift+plus  gaps outer all plus 5
-    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+plus  gaps outer all plus 1
+    bindsym Shift+minus gaps outer all minus 1
     bindsym Shift+0     gaps outer all set 0
 
     bindsym Return mode "default"
