@@ -1,4 +1,5 @@
 alias gst='git status'
+alias gd='git diff'
 alias gb='git branch'
 
 alias gco='git checkout'
