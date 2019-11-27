@@ -5,3 +5,4 @@ zathura/zathurarc:~/.config/zathura/zathurarc
 zsh/zprofile:~/.zprofile
 zsh/zshrc:~/.zshrc
 termite:~/.config/termite
+ghci/ghci.conf:~/.ghc/ghci.conf
