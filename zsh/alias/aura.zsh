@@ -5,7 +5,7 @@ aura() {
             # pacman "$1" "$2"
             ;;
         -Ss)
-            curl -s "https://aur.archlinux.org/rpc/?v=5&type=search&by=name&arg=$1" \
+            curl -s "https://aur.archlinux.org/rpc/?v=5&type=search&by=name&arg=$2" \
                 | jq '.results[] | "\(.Name) -> \(.Description)"'
             ;;
         -S)
