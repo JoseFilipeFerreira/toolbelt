@@ -7,10 +7,6 @@ endfunction
 
 autocmd FileType tex call SetTexOpts()
 function SetTexOpts()
-    map <leader>r :silent !pdflatex --shell-escape %:p <Return>
     command! Re !pdflatex --shell-escape %:p
 endfunction
 
-"lp_solve
-autocmd BufEnter *.lp map <leader>r :!lp_solve %:p <Return>
-autocmd BufEnter *.lp set syntax=perl

@@ -8,6 +8,13 @@ set splitright splitbelow
 " show line number
 set number
 
+" set default shell
+if exists('$SHELL')
+    set shell=$SHELL\ -i
+else
+    set shell=/bin/sh
+endif
+
 " make path recursive
 set path=**
 
