@@ -5,7 +5,7 @@ then
 fi
 
 _get_branch() {
-    if [ -d ".git" ]; then
+    if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
         git branch --show-current
     fi
 }
