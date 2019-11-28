@@ -1,20 +1,27 @@
-ZSH_CACHE="$HOME/.cache/zsh"
-mkdir -p $ZSH_CACHE
+######### Appearance ########
 
-#---- Enable Colors
 autoload -U colors && colors
-
-#---- Load Theme
 source "$DOTFILES/zsh/themes/mightyConfig.zsh"
 
-#---- History
+######### Load alias ########
+
+for config_file ($DOTFILES/zsh/alias/*.zsh(N)); do
+  source $config_file
+done
+unset config_file
+
+########## History ##########
+
 HISTSIZE=10000
 SAVEHIST=10000
+ZSH_CACHE="$HOME/.cache/zsh"
+mkdir -p $ZSH_CACHE
 HISTFILE="$ZSH_CACHE/zsh_history"
 setopt SHARE_HISTORY # share history between sessions ???
 setopt EXTENDED_HISTORY # add timestamps to history
 
-#---- Autocomplete
+####### Autocomplete ########
+
 setopt always_to_end #move cursor to the end of the word    
 setopt auto_menu # show completion menu on successive tab press
 setopt auto_name_dirs
@@ -49,8 +56,3 @@ bindkey -M menuselect '^o' accept-and-infer-next-history # enter
 #Custom Commands
 compdef _zathura pdf
 
-#---- Load alias
-for config_file ($DOTFILES/zsh/alias/*.zsh(N)); do
-  source $config_file
-done
-unset config_file
