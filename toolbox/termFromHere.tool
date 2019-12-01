@@ -31,4 +31,4 @@ else
 fi
 disown
 exit
-} &>> ~/termFromHereLog &
+} &>> ~/.termFromHereLog &
