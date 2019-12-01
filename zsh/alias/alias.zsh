@@ -80,7 +80,3 @@ isrunning() {
 
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
-wallup() {
-    sh $HOME/Repos/Nautilus-wallpaper/wallpaper.sh MiEI
-}
-
