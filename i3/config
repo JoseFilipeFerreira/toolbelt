@@ -1,19 +1,16 @@
 # i3 config file (v4) Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 set $term termite
 set $repos /home/mightymime/Repos
 set $configs /home/mightymime/Repos/Configs
 
-new_window none
-new_float normal
-hide_edge_borders none
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block.
 font pango:Droid Sans Mono Dotted 8
 
 ######################################## WORKSPACES ##########################################
+
 set $ws1 1
 set $ws2 2
 set $ws3 3
@@ -26,50 +23,71 @@ set $ws9 9
 set $ws10 10
 
 ######################################## ON BOOT LAUNCH APPS ###################################
-exec --no-startup-id setxkbmap -option caps:escape
-exec --no-startup-id compton --config ~/Repos/Configs/Compton/compton.conf
-exec --no-startup-id feh --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
+
+exec --no-startup-id compton --config $configs/compton/compton.conf
+exec --no-startup-id feh --no-fehbg --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
 exec --no-startup-id nm-applet
-exec --no-startup-id numlockx on
+
+####################################### BEHAVIOR ##############################################
+
+assign [class="(?i)firefox"] $ws3
+assign [class="discord"] $ws4
+
+mouse_warping output
+new_window none
+new_float normal
+hide_edge_borders none
 
 ######################################### KEYBOARD SHORTCUTS ###################################
-####### FANCY KEYBINDS
+
+####### FANCY KEYBINDS #######
+
+# app
+bindsym $mod+F1        exec discord
+bindsym $mod+F2        exec firefox
+bindsym $mod+d         exec dmenu_IQ
+bindsym $mod+Shift+d   exec menu
+
+# terminal
+bindsym $mod+Return         exec --no-startup-id $term
+bindsym $mod+Shift+Return   exec --no-startup-id termFromHere
+bindsym $mod+Control+Return exec --no-startup-id dateTerm
+
+# printscreen
+bindsym Print      --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym $mod+Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png'    -e 'xclip -sel clip -t image/png $f && rm $f'
+
+# misc
 bindsym $mod+y       fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 bindsym $mod+Shift+y sticky disable; floating disable
-bindsym Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+ctrl+l exec "scrot -o /tmp/screenshot.png; convert /tmp/screenshot.png -blur 0x5 /tmp/screenshot.png; i3lock -i /tmp/screenshot.png"
+bindsym $mod+ctrl+l  exec --no-startup-id lock 
 
-####### MEDIA KEYS
+####### MEDIA KEYS #######
+
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen b rightness
-bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute 0 toggle
 bindsym XF86AudioPlay         exec playerctl play-pause
 bindsym XF86AudioStop         exec playerctl stop
 bindsym XF86AudioNext         exec playerctl next
 bindsym XF86AudioPrev         exec playerctl previous
 
-####### APP
-bindsym $mod+Shift+s      exec spotify
-bindsym $mod+Shift+d      exec discord
-bindsym $mod+Shift+f      exec firefox
-bindsym $mod+d            exec rofi -show run
-bindsym $mod+Return       exec --no-startup-id $term --config=$configs/termite/config
+####### NAVIGATION #######
 
-####### NAVIGATION
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+# switch workspace
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+1   workspace $ws1
+bindsym $mod+2   workspace $ws2
+bindsym $mod+3   workspace $ws3
+bindsym $mod+4   workspace $ws4
+bindsym $mod+5   workspace $ws5
+bindsym $mod+6   workspace $ws6
+bindsym $mod+7   workspace $ws7
+bindsym $mod+8   workspace $ws8
+bindsym $mod+9   workspace $ws9
+bindsym $mod+0   workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -83,6 +101,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# change container focus
 bindsym $mod+h     focus left
 bindsym $mod+j     focus down
 bindsym $mod+k     focus up
@@ -92,6 +111,7 @@ bindsym $mod+Down  focus down
 bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
+# move container on focus
 bindsym $mod+Shift+h     move left
 bindsym $mod+Shift+j     move down
 bindsym $mod+Shift+k     move up
@@ -108,23 +128,88 @@ bindsym $mod+a focus parent
 # kill focused window
 bindsym $mod+Shift+q kill
 
-####### LAYOUT
+####### LAYOUT #######
+
 bindsym $mod+v split toggle
 bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-####### RELOAD
+####### RELOAD #######
+
 # restart
 bindsym $mod+Shift+r restart
+
 # exit
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+####################################### APPEARANCE ############################################
+
+####### Set gaps #######
+gaps inner 2
+gaps outer 0
+
+smart_borders no_gaps
+
+####### colors #######
+
+set_from_resource $term_background background
+set_from_resource $term_foreground foreground
+set_from_resource $term_color0     color0
+set_from_resource $term_color1     color1
+set_from_resource $term_color2     color2
+set_from_resource $term_color3     color3
+set_from_resource $term_color4     color4
+set_from_resource $term_color5     color5
+set_from_resource $term_color6     color6
+set_from_resource $term_color7     color7
+set_from_resource $term_color8     color8
+set_from_resource $term_color9     color9
+set_from_resource $term_color10    color10
+set_from_resource $term_color11    color11
+set_from_resource $term_color12    color12
+set_from_resource $term_color13    color13
+set_from_resource $term_color14    color14
+set_from_resource $term_color15    color15
+
+####### bar #######
+
+bar {
+  i3bar_command i3bar -t
+  status_command i3status
+  position top
+  mode hide
+
+## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+#	tray_output primary
+#	tray_output eDP1
+
+  bindsym button4 nop
+  bindsym button5 nop
+  strip_workspace_numbers no
+
+  colors {
+    background #000000B3
+    statusline #FFFFFF
+    separator  #666666
+
+    # item             border  bground   text
+    focused_workspace  #4C7899 #285577E6 #FFFFFF
+    active_workspace   #333333 #222222E6 #FFFFFF
+    inactive_workspace #333333 #222222E6 #BBBBBB
+    urgent_workspace   #2F343A #900000E6 #FFFFFF
+    binding_mode       #2F343A #0E5815   #FFFFFF
+  }
+}
 
 ####################################### ALTERNATIVE MODES #####################################
-# resize window (you can also use the mouse for that)
+
+####### resize tile #######
+
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
@@ -151,81 +236,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-####################################### BEHAVIOR ##############################################
-
-assign [class="(?i)firefox"] $ws3
-assign [class="discord"] $ws4
-for_window [class="Spotify"] move to workspace $ws10
-
-set_from_resource $term_background background
-set_from_resource $term_foreground foreground
-set_from_resource $term_color0     color0
-set_from_resource $term_color1     color1
-set_from_resource $term_color2     color2
-set_from_resource $term_color3     color3
-set_from_resource $term_color4     color4
-set_from_resource $term_color5     color5
-set_from_resource $term_color6     color6
-set_from_resource $term_color7     color7
-set_from_resource $term_color8     color8
-set_from_resource $term_color9     color9
-set_from_resource $term_color10    color10
-set_from_resource $term_color11    color11
-set_from_resource $term_color12    color12
-set_from_resource $term_color13    color13
-set_from_resource $term_color14    color14
-set_from_resource $term_color15    color15
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-  i3bar_command i3bar
-  status_command i3status
-  position top
-  mode hide
-
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
-
-  bindsym button4 nop
-  bindsym button5 nop
-#   font xft:URWGothic-Book 11
-  strip_workspace_numbers no
-
-  colors {
-    background #000000
-    statusline #FFFFFF
-    separator  #666666
-
-    # item             border  bground text
-    focused_workspace  #4C7899 #285577 #FFFFFF
-    active_workspace   #333333 #222222 #FFFFFF
-    inactive_workspace #333333 #222222 #BBBBBB
-    urgent_workspace   #2F343A #900000 #FFFFFF
-    binding_mode       #2F343A #0E5815 #FFFFFF
-  }
-}
-
-##########################
-## settings for i3-gaps ##
-##########################
-
-# Set inner/outer gaps
-gaps inner 2
-gaps outer 1
-
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
-
-# Smart gaps (gaps used if only more than one container on the workspace)
-# smart_gaps on
-
-# Smart borders (draw borders around container only if it is not the only container on this workspace)
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders no_gaps
+####### resize gaps #######
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i 
 #for modifying outer/inner gaps. Press one of + / - 
@@ -244,24 +255,24 @@ mode "$mode_gaps" {
     bindsym Escape mode "default"
 }
 mode "$mode_gaps_inner" {
-    bindsym plus  gaps inner current plus 5
-    bindsym minus gaps inner current minus 5
+    bindsym plus  gaps inner current plus 1
+    bindsym minus gaps inner current minus 1
     bindsym 0     gaps inner current set 0
 
-    bindsym Shift+plus  gaps inner all plus 5
-    bindsym Shift+minus gaps inner all minus 5
+    bindsym Shift+plus  gaps inner all plus 1
+    bindsym Shift+minus gaps inner all minus 1
     bindsym Shift+0     gaps inner all set 0
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 mode "$mode_gaps_outer" {
-    bindsym plus  gaps outer current plus 5
-    bindsym minus gaps outer current minus 5
+    bindsym plus  gaps outer current plus 1
+    bindsym minus gaps outer current minus 1
     bindsym 0     gaps outer current set 0
 
-    bindsym Shift+plus  gaps outer all plus 5
-    bindsym Shift+minus gaps outer all minus 5
+    bindsym Shift+plus  gaps outer all plus 1
+    bindsym Shift+minus gaps outer all minus 1
     bindsym Shift+0     gaps outer all set 0
 
     bindsym Return mode "default"

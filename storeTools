@@ -1,0 +1,38 @@
+#!/bin/bash
+
+cleanTools() {
+    for tool in ~/.local/bin/*
+    do
+        if [ -h "$tool" ] && ! [ -e "$tool" ]; then
+            echo -e "\033[31mRemoving broken tools: $(basename "$tool")\033[0m"
+            rm "$tool"
+        fi
+    done
+    return 1;
+}
+
+newTools() {
+    for tool in toolbox/*.tool; do
+        [ -h ~/.local/bin/"$(basename "$tool" .tool)" ] || return 0
+    done
+    return 1;
+}
+
+mkdir -p ~/.local/bin
+cd "$(dirname "$(realpath "$0")")" || return 0
+
+cleanTools
+newTools || exit 0
+
+echo -e "\033[35mStoring Tools...\033[0m"
+
+for tool in toolbox/*.tool
+do
+    tool_name=$(basename "$tool" .tool)
+    if ! [ -h ~/.local/bin/"$tool_name" ]; then
+        echo -e "\033[33m\t$tool_name\033[0m"
+        ln -s "$(pwd)/$tool" ~/.local/bin/"$tool_name"
+    fi
+done
+chmod +x toolbox/*
+echo -e "\033[35mDone!\033[0m"

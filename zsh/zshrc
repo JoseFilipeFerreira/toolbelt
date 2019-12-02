@@ -1,0 +1,58 @@
+######### Appearance ########
+
+autoload -U colors && colors
+source "$DOTFILES/zsh/themes/mightyConfig.zsh"
+
+######### Load alias ########
+
+for config_file ($DOTFILES/zsh/alias/*.zsh(N)); do
+  source $config_file
+done
+unset config_file
+
+########## History ##########
+
+HISTSIZE=10000
+SAVEHIST=10000
+ZSH_CACHE="$HOME/.cache/zsh"
+mkdir -p $ZSH_CACHE
+HISTFILE="$ZSH_CACHE/zsh_history"
+setopt SHARE_HISTORY # share history between sessions ???
+setopt EXTENDED_HISTORY # add timestamps to history
+
+####### Autocomplete ########
+
+setopt always_to_end #move cursor to the end of the word    
+setopt auto_menu # show completion menu on successive tab press
+setopt auto_name_dirs
+setopt complete_in_word # Allow completion from within a word/phrase
+unsetopt menu_complete # do not autoselect the first completion entry
+
+export FPATH=$DOTFILES/zsh/completions:$FPATH
+zmodload zsh/complist
+zstyle ':completion:*' menu select
+#ls colors for auto complete menu
+eval `dircolors -b`
+zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+# Better completion for killall
+zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+# case insensitive auto complete
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+
+autoload -Uz compinit
+#store zcompdump in cache (create zsh folder)
+compinit -d $ZSH_CACHE/zcompdump-$ZSH_VERSION
+
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey ' ' magic-space                                  # [Space] - do history expansion
+bindkey "^[[B"      down-line-or-beginning-search        # down arrow
+bindkey "^[[A"      up-line-or-beginning-search          # up arrow
+bindkey -M menuselect '^o' accept-and-infer-next-history # enter
+
+#Custom Commands
+compdef _zathura pdf
+

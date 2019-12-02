@@ -1,0 +1,12 @@
+#!/bin/bash
+git -C $DOTFILES pull
+
+while IFS= read -r l; do
+    orig=$DOTFILES/$(echo $l | cut -d: -f1)
+    dest=$(echo $l | cut -d: -f2 | sed "s|~|$HOME|g")
+    if [ ! -h "$dest" ]; then
+        echo -en "\033[35mLinking\033[33m "
+        ln -fvsn "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
+        echo -en "\033[0m"
+    fi
+done < $DOTFILES/.locations
