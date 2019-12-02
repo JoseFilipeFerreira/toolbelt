@@ -1,6 +1,6 @@
 #!/bin/sh
 # Give dmenu list of all unicode characters to copy.
-chosen=$(cat $DOTFILES/dmenu/emojis  | dmenu -i -l 20 -fn 'DejaVu Sans Mono-10')
+chosen=$(cat $DOTFILES/dmenu/.emojis  | dmenu -i -l 20)
 
 [ "$chosen" != "" ] || exit
 
