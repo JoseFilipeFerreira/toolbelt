@@ -36,7 +36,6 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 pygmentize
 python
-rofi
 rsync
 rust
 scrot
@@ -58,12 +57,16 @@ zathura-pdf-poppler
 zip
 zsh
 discord
+python-pynvim
 )
 
 export aurpackages=(
 oneko
+python2-neovim
+ruby-neovim
 toilet
 )
 export npmpackages=(
 castnow
+neovim
 )

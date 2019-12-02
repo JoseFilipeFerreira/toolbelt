@@ -1,19 +1,16 @@
 # i3 config file (v4) Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 set $term termite
 set $repos /home/mightymime/Repos
 set $configs /home/mightymime/Repos/Configs
 
-new_window none
-new_float normal
-hide_edge_borders none
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block.
 font pango:Droid Sans Mono Dotted 8
 
 ######################################## WORKSPACES ##########################################
+
 set $ws1 1
 set $ws2 2
 set $ws3 3
@@ -26,19 +23,47 @@ set $ws9 9
 set $ws10 10
 
 ######################################## ON BOOT LAUNCH APPS ###################################
+
 exec --no-startup-id compton --config $configs/compton/compton.conf
 exec --no-startup-id feh --no-fehbg --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
 exec --no-startup-id nm-applet
 
+####################################### BEHAVIOR ##############################################
+
+assign [class="(?i)firefox"] $ws3
+assign [class="discord"] $ws4
+
+mouse_warping output
+new_window none
+new_float normal
+hide_edge_borders none
+
 ######################################### KEYBOARD SHORTCUTS ###################################
-####### FANCY KEYBINDS
+
+####### FANCY KEYBINDS #######
+
+# app
+bindsym $mod+F1        exec discord
+bindsym $mod+F2        exec firefox
+bindsym $mod+d         exec dmenu_IQ
+bindsym $mod+Shift+d   exec menu
+
+# terminal
+bindsym $mod+Return         exec --no-startup-id $term
+bindsym $mod+Shift+Return   exec --no-startup-id termFromHere
+bindsym $mod+Control+Return exec --no-startup-id dateTerm
+
+# printscreen
+bindsym Print      --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym $mod+Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png'    -e 'xclip -sel clip -t image/png $f && rm $f'
+
+# misc
 bindsym $mod+y       fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 bindsym $mod+Shift+y sticky disable; floating disable
-bindsym Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+ctrl+l exec --no-startup-id lock 
+bindsym $mod+ctrl+l  exec --no-startup-id lock 
 
-####### MEDIA KEYS
+####### MEDIA KEYS #######
+
 bindsym XF86MonBrightnessUp   exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5%
@@ -49,26 +74,20 @@ bindsym XF86AudioStop         exec playerctl stop
 bindsym XF86AudioNext         exec playerctl next
 bindsym XF86AudioPrev         exec playerctl previous
 
-####### APP
-bindsym $mod+Shift+d        exec discord
-bindsym $mod+Shift+f        exec firefox
-bindsym $mod+d              exec rofi -config $configs/rofi/config.rasi -show run
-bindsym $mod+Return         exec --no-startup-id $term
-bindsym $mod+Shift+Return   exec --no-startup-id termFromHere
-bindsym $mod+Control+Return exec --no-startup-id dateTerm
+####### NAVIGATION #######
 
-####### NAVIGATION
-# switch to workspace
-bindsym $mod+1 workspace $ws1
-bindsym $mod+2 workspace $ws2
-bindsym $mod+3 workspace $ws3
-bindsym $mod+4 workspace $ws4
-bindsym $mod+5 workspace $ws5
-bindsym $mod+6 workspace $ws6
-bindsym $mod+7 workspace $ws7
-bindsym $mod+8 workspace $ws8
-bindsym $mod+9 workspace $ws9
-bindsym $mod+0 workspace $ws10
+# switch workspace
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+1   workspace $ws1
+bindsym $mod+2   workspace $ws2
+bindsym $mod+3   workspace $ws3
+bindsym $mod+4   workspace $ws4
+bindsym $mod+5   workspace $ws5
+bindsym $mod+6   workspace $ws6
+bindsym $mod+7   workspace $ws7
+bindsym $mod+8   workspace $ws8
+bindsym $mod+9   workspace $ws9
+bindsym $mod+0   workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -82,6 +101,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
+# change container focus
 bindsym $mod+h     focus left
 bindsym $mod+j     focus down
 bindsym $mod+k     focus up
@@ -91,6 +111,7 @@ bindsym $mod+Down  focus down
 bindsym $mod+Up    focus up
 bindsym $mod+Right focus right
 
+# move container on focus
 bindsym $mod+Shift+h     move left
 bindsym $mod+Shift+j     move down
 bindsym $mod+Shift+k     move up
@@ -107,53 +128,34 @@ bindsym $mod+a focus parent
 # kill focused window
 bindsym $mod+Shift+q kill
 
-####### LAYOUT
+####### LAYOUT #######
+
 bindsym $mod+v split toggle
 bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-####### RELOAD
+####### RELOAD #######
+
 # restart
 bindsym $mod+Shift+r restart
+
 # exit
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-####################################### ALTERNATIVE MODES #####################################
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+####################################### APPEARANCE ############################################
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym ccedilla resize grow width 10 px or 10 ppt
+####### Set gaps #######
+gaps inner 2
+gaps outer 0
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+smart_borders no_gaps
 
-        # back to normal: Enter or Escape or $mod+r
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-####################################### BEHAVIOR ##############################################
-
-assign [class="(?i)firefox"] $ws3
-assign [class="discord"] $ws4
+####### colors #######
 
 set_from_resource $term_background background
 set_from_resource $term_foreground foreground
@@ -174,8 +176,8 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
+####### bar #######
+
 bar {
   i3bar_command i3bar -t
   status_command i3status
@@ -204,25 +206,37 @@ bar {
   }
 }
 
-##########################
-## settings for i3-gaps ##
-##########################
+####################################### ALTERNATIVE MODES #####################################
 
-# Set inner/outer gaps
-gaps inner 2
-gaps outer 0
+####### resize tile #######
 
-# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
-# gaps inner|outer current|all set|plus|minus <px>
-# gaps inner all set 10
-# gaps outer all plus 5
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
 
-# Smart gaps (gaps used if only more than one container on the workspace)
-# smart_gaps on
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym ccedilla resize grow width 10 px or 10 ppt
 
-# Smart borders (draw borders around container only if it is not the only container on this workspace)
-# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
-smart_borders no_gaps
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+####### resize gaps #######
 
 # Press $mod+Shift+g to enter the gap mode. Choose o or i 
 #for modifying outer/inner gaps. Press one of + / - 
