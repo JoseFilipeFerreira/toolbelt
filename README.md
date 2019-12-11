@@ -2,6 +2,9 @@
  dotfiles and more 
 
 ## ToolBox ([Scripts](toolbox))
-* [termFromHere.sh](toolbox/termFromHere.sh) terminal in the current directory
-* [dateTerm.sh](toolbox/dateTerm.sh) contextual terminal based on [.timetable](toolbox/.timetable)
-* [lock.sh](toolbox/lock.sh) blured lockscreen
+* [termFromHere.tool](toolbox/termFromHere.tool) terminal in the current directory
+* [dateTerm.tool](toolbox/dateTerm.tool) contextual terminal based on [.timetable](toolbox/.timetable)
+* [lock.tool](toolbox/lock.tool) blured lockscreen
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
