@@ -2,6 +2,7 @@ PS1="%{$fg[green]%}%~%{$reset_color%} "
 if [ -n "$SSH_CLIENT" ]
 then
     PS1="%{$fg[yellow]%}%n@%M %{$fg[green]%}%~%{$reset_color%} "
+    export TERM=xterm
 fi
 
 _get_branch() {
