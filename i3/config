@@ -27,9 +27,11 @@ set $ws10 10
 exec --no-startup-id compton --config $configs/compton/compton.conf
 exec --no-startup-id feh --no-fehbg --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
 exec --no-startup-id nm-applet
+exec --no-startup-id dunst
 
 ####################################### BEHAVIOR ##############################################
 
+assign [class="jetbrains"] $ws2
 assign [class="(?i)firefox"] $ws3
 assign [class="discord"] $ws4
 

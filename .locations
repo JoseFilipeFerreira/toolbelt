@@ -1,8 +1,9 @@
+dunst:~/.config/dunst
+ghci/ghci.conf:~/.ghc/ghci.conf
 i3:~/.config/i3
 i3status:~/.config/i3status
 nvim/init.vim:~/.config/nvim/init.vim
-zathura/zathurarc:~/.config/zathura/zathurarc
+termite:~/.config/termite
+zathura:~/.config/zathura
 zsh/zprofile:~/.zprofile
 zsh/zshrc:~/.zshrc
-termite:~/.config/termite
-ghci/ghci.conf:~/.ghc/ghci.conf
