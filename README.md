@@ -1,5 +1,7 @@
 # ToolBelt
- dotfiles and more 
+dotfiles and more 
+
+## PowerTools ([.dotfiles](powertools))
 
 ## ToolBox ([Scripts](toolbox))
 * [termFromHere.tool](toolbox/termFromHere.tool) terminal in the current directory
