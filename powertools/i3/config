@@ -3,7 +3,7 @@
 set $mod Mod4
 set $term termite
 set $repos /home/mightymime/Repos
-set $configs /home/mightymime/Repos/Configs
+set $configs /home/mightymime/Repos/toolbelt
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block.

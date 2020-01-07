@@ -6,7 +6,7 @@ while IFS= read -r l; do
     dest=$(echo $l | cut -d: -f2 | sed "s|~|$HOME|g")
     if [ -h "$dest" ] && ! [ -e "$dest" ]
         then
-            echo -e "\033[31mRemoving broken rune: $(basename "$dest")\033[0m"
+            echo -e "\033[31mRemoving broken link: $(basename "$dest")\033[0m"
             rm "$dest"
         fi
     if [ ! -h "$dest" ]; then
@@ -14,4 +14,4 @@ while IFS= read -r l; do
         ln -fvsn "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
         echo -en "\033[0m"
     fi
-done < $DOTFILES/.locations
+done < $DOTFILES/powertools/.locations
