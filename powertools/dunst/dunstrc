@@ -126,7 +126,7 @@
     ### Icons ###
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Scale larger icons down to this size, set to 0 to disable
     max_icon_size = 32
@@ -210,12 +210,12 @@
 [urgency_low]
     background = "#222222"
     foreground = "#888888"
-    timeout = 10
+    timeout = 5
 
 [urgency_normal]
     background = "#273747"
     foreground = "#FFB454"
-    timeout = 20
+    timeout = 15
 
 [urgency_critical]
     background = "#900000"
