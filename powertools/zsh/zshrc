@@ -1,11 +1,11 @@
 ######### Appearance ########
 
 autoload -U colors && colors
-source "$DOTFILES/powertools/zsh/themes/mightyConfig.zsh"
+source "$POWERTOOLS/zsh/themes/mightyConfig.zsh"
 
 ######### Load alias ########
 
-for config_file ($DOTFILES/powertools/zsh/alias/*.zsh(N)); do
+for config_file ($POWERTOOLS/zsh/alias/*.zsh(N)); do
   source $config_file
 done
 unset config_file
@@ -28,7 +28,7 @@ setopt auto_name_dirs
 setopt complete_in_word # Allow completion from within a word/phrase
 unsetopt menu_complete # do not autoselect the first completion entry
 
-export FPATH=$DOTFILES/powertools/zsh/completions:$FPATH
+export FPATH=$POWERTOOLS/zsh/completions:$FPATH
 zmodload zsh/complist
 zstyle ':completion:*' menu select
 #ls colors for auto complete menu

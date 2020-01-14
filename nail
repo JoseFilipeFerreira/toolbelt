@@ -14,4 +14,4 @@ while IFS= read -r l; do
         ln -fvsn "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
         echo -en "\033[0m"
     fi
-done < $DOTFILES/powertools/.locations
+done < $POWERTOOLS/.locations

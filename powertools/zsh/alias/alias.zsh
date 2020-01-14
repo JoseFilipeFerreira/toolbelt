@@ -80,3 +80,5 @@ isrunning() {
 
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
+alias ghci="stack ghci"
+
