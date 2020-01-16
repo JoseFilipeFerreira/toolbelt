@@ -1,4 +1,4 @@
-LAYOUT=$(echo -e "dock\nundock\nsplit" | dmenu -i -p "Monitor Layout")
+LAYOUT=$(echo -e "dock\nundock" | dmenu -i -p "Monitor Layout")
 [ "$LAYOUT" = "" ] && exit 2 
 
 case "$LAYOUT" in

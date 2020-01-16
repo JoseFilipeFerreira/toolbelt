@@ -1,5 +1,5 @@
 #!/bin/bash
 cd $POWERTOOLS/dmenu
 
-./"$(find . | grep -v 'menu' | grep '\.dm' | sed -e 's|./||g' -e 's/\.dm$//g' | sort -r | dmenu -i -p "Pick a menu:")".dm &
+./"$(find . | grep '\.menu' | sed -e 's|./||g' -e 's/\.menu$//g' | sort -r | dmenu -i -p "Pick a menu:")".menu &
 diswon
