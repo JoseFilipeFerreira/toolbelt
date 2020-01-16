@@ -1,3 +1,9 @@
 setxkbmap -layout pt -option caps:escape
 numlockx on
+
+compton --config $POWERTOOLS/compton/compton.conf -b
+dunst &
+nm-applet &
+changeWall &
+
 exec i3

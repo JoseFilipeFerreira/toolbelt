@@ -2,7 +2,6 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 set $term termite
-set $repos /home/mightymime/Repos
 set $configs /home/mightymime/Repos/toolbelt
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -23,11 +22,6 @@ set $ws9 9
 set $ws10 10
 
 ######################################## ON BOOT LAUNCH APPS ###################################
-
-exec --no-startup-id compton --config $configs/powertools/compton/compton.conf
-exec --no-startup-id feh --no-fehbg --bg-scale $repos/Nautilus-wallpaper/wallpaper.png
-exec --no-startup-id nm-applet
-exec --no-startup-id dunst
 
 ####################################### BEHAVIOR ##############################################
 
