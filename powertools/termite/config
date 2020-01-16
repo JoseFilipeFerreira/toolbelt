@@ -50,7 +50,7 @@ foreground = #FFFFFF
 foreground_bold = #a8a19f
 background = #1b1918
 
-background = rgba(0, 0, 0, 0.7)
+background = rgba(5, 5, 5, 0.6)
 
 # If unset, will reverse foreground and background
 highlight = #2f2f2f
