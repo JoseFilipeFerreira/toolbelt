@@ -2,7 +2,6 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
 set $term termite
-set $configs /home/mightymime/Repos/toolbelt
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block.

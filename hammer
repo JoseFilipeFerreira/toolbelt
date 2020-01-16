@@ -4,7 +4,6 @@
 DOTF=$(pwd)
 SDOTF=$(echo $DOTF | sed "s|$HOME|~|g")
 sed -i -r 's|DOTFILES=.*|DOTFILES='"$SDOTF"'|g' zsh/zprofile
-sed -i -r 's|set $configs.*|set $configs '"$DOTF"'|g' i3/config
 export DOTFILES=$DOTF
 
 ###### Install standard workflow #####
