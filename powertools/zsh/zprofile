@@ -9,8 +9,10 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
-export DOTFILES=~/Repos/toolbelt
+export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.zprofile)")")")"
 export POWERTOOLS=$DOTFILES/powertools
+
+export WALLS=~/.wallpapers
 export MIEI=~/Miei
 export MIEI_NOTES=~/Miei/Notes
 

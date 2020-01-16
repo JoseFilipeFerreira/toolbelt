@@ -1,10 +1,5 @@
 #!/bin/bash
-
-####### Update path to DOTFILES ######
-DOTF=$(pwd)
-SDOTF=$(echo $DOTF | sed "s|$HOME|~|g")
-sed -i -r 's|DOTFILES=.*|DOTFILES='"$SDOTF"'|g' zsh/zprofile
-export DOTFILES=$DOTF
+export DOTFILES=$(pwd)
 
 ###### Install standard workflow #####
 source .workflow

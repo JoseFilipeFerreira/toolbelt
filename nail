@@ -1,4 +1,6 @@
 #!/bin/bash
+export DOTFILES=$(pwd)
+
 git -C $DOTFILES pull
 
 while IFS= read -r l; do
