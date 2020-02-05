@@ -4,9 +4,14 @@ dotfiles and more
 ## PowerTools ([.dotfiles](powertools))
 
 ## ToolBox ([Scripts](toolbox))
-* [termFromHere.tool](toolbox/termFromHere.tool) terminal in the current directory
-* [dateTerm.tool](toolbox/dateTerm.tool) contextual terminal based on [.timetable](toolbox/.timetable)
-* [lock.tool](toolbox/lock.tool) blured lockscreen
+* [calendar](toolbox/calendar.tool) get calendar based on [.timetable](toolbox/.timetable)
+* [changeWall](toolbox/changeWall.tool) change wallpaper
+* [dateTerm](toolbox/dateTerm.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
+* [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
+* [lock](toolbox/lock.tool) blured lockscreen
+* [menu](toolbox/menu.tool) dmenu menu launcher
+* [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
+* [wallpaper](toolbox/wallpaper.tool) wallpaper manager
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
