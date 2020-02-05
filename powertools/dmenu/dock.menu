@@ -1,4 +1,4 @@
-LAYOUT=$(echo -e "dock\nundock" | dmenu -i -p "Monitor Layout")
+LAYOUT=$(echo -e "dock\nundock\nmirror" | dmenu -i -p "Monitor Layout")
 [ "$LAYOUT" = "" ] && exit 2 
 
 case "$LAYOUT" in
@@ -11,7 +11,9 @@ case "$LAYOUT" in
 	    xrandr --output HDMI2 --off
 	    xrandr --output eDP1 --auto
             ;;
-         
+        mirror)
+            xrandr --output HDMI2 --same-as eDP1
+            ;;
 esac
 
 changeWall
