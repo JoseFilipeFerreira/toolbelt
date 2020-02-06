@@ -2,7 +2,7 @@ powertools/xinitrc:~/.xinitrc
 powertools/dunst:~/.config/dunst
 powertools/ghci/ghci.conf:~/.ghc/ghci.conf
 powertools/i3:~/.config/i3
-powertools/i3status:~/.config/i3status
+powertools/i3blocks:~/.config/i3blocks
 powertools/nvim/init.vim:~/.config/nvim/init.vim
 powertools/termite:~/.config/termite
 powertools/zathura:~/.config/zathura

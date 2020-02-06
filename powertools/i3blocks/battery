@@ -1,0 +1,37 @@
+#!/bin/bash
+stat=$(acpi -b |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
+percent=$(acpi -b | cut -d ":" -f2 | grep -o '[0-9]*')
+
+case "$stat" in
+  Full)
+    symbol='🌩'
+    ;;
+  Charging)
+    symbol='⚡'
+    ;;
+esac
+
+echo "$symbol" "$percent""%" 
+echo "$symbol" "$percent""%"
+
+if [ "$percent" -lt "20" ]
+then
+    echo "#FF0000"
+else
+    if [ "$percent" -lt "40" ]
+    then
+        echo "#FF8400"
+    else
+        if [ "$percent" -lt "60" ] 
+        then
+            echo "#FFF700"
+        else
+            if [ "$percent" -lt "85" ]
+            then
+                echo "#AAFF00"
+            else
+                echo "#00FF00"
+            fi
+        fi
+    fi
+fi
