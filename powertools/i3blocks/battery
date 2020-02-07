@@ -9,29 +9,29 @@ case "$stat" in
   Charging)
     symbol='⚡'
     ;;
+  Discharging)
+    symbol=''
+    ;;
 esac
 
 echo "$symbol" "$percent""%" 
 echo "$symbol" "$percent""%"
 
-if [ "$percent" -lt "20" ]
-then
+
+case $(echo ""$percent" / 20" | bc) in
+  0)
     echo "#FF0000"
-else
-    if [ "$percent" -lt "40" ]
-    then
-        echo "#FF8400"
-    else
-        if [ "$percent" -lt "60" ] 
-        then
-            echo "#FFF700"
-        else
-            if [ "$percent" -lt "85" ]
-            then
-                echo "#AAFF00"
-            else
-                echo "#00FF00"
-            fi
-        fi
-    fi
-fi
+    ;;
+  1)
+    echo "#FF8400"
+    ;;
+  2)
+    echo "#FFF700"
+    ;;
+  3)
+    echo "#AAFF00"
+    ;;
+  *)
+    echo "#00FF00"
+    ;;
+esac
