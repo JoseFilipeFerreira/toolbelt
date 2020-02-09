@@ -1,6 +1,6 @@
 #!/bin/bash
 stat=$(acpi -b |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
-percent=$(acpi -b | cut -d ":" -f2 | grep -o '[0-9]*')
+percent=$(acpi -b | sed '$!d;/%/{s/%.*//;s/.*\s//}')
 
 case "$stat" in
   Full)
@@ -14,11 +14,11 @@ case "$stat" in
     ;;
 esac
 
-echo "$symbol" "$percent""%" 
+echo "$symbol" "$percent""%"
 echo "$symbol" "$percent""%"
 
 
-case $(echo ""$percent" / 20" | bc) in
+case $(echo "$percent"" / 20" | bc) in
   0)
     echo "#FF0000"
     ;;
