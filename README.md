@@ -4,6 +4,7 @@ dotfiles and more
 ## PowerTools ([.dotfiles](powertools))
 
 ## ToolBox ([Scripts](toolbox))
+* [aura](toolbox/aura.tool) AUR installer script
 * [calendar](toolbox/calendar.tool) get calendar based on [.timetable](toolbox/.timetable)
 * [changeWall](toolbox/changeWall.tool) change wallpaper
 * [dateTerm](toolbox/dateTerm.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
