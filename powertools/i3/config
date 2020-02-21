@@ -7,7 +7,7 @@ set $term termite
 # is used in the bar {} block.
 font pango:Droid Sans Mono Dotted 8
 
-######################################## WORKSPACES ##########################################
+######################################## WORKSPACES ###########################
 
 set $ws1 1
 set $ws2 2
@@ -20,9 +20,7 @@ set $ws8 8
 set $ws9 9
 set $ws10 10
 
-######################################## ON BOOT LAUNCH APPS ###################################
-
-####################################### BEHAVIOR ##############################################
+####################################### BEHAVIOR ###############################
 
 assign [class="jetbrains"] $ws2
 assign [class="(?i)firefox"] $ws3
@@ -33,15 +31,15 @@ new_window none
 new_float normal
 hide_edge_borders none
 
-######################################### KEYBOARD SHORTCUTS ###################################
+######################################### KEYBOARD SHORTCUTS ###################
 
 ####### FANCY KEYBINDS #######
 
 # app
-bindsym $mod+F1        exec discord
-bindsym $mod+F2        exec firefox
-bindsym $mod+d         exec dmenu_IQ
-bindsym $mod+Shift+d   exec menu
+bindsym $mod+F1       exec discord
+bindsym $mod+F2       exec firefox
+bindsym $mod+d        exec dmenu_IQ
+bindsym $mod+Shift+d  exec menu
 
 # terminal
 bindsym $mod+Return         exec --no-startup-id $term
@@ -49,18 +47,18 @@ bindsym $mod+Shift+Return   exec --no-startup-id termFromHere
 bindsym $mod+Control+Return exec --no-startup-id dateTerm
 
 # printscreen
-bindsym Print      --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png' -s -e 'xclip -sel clip -t image/png $f && rm $f'
-bindsym $mod+Print --release exec --no-startup-id scrot '%Y-%m-%d_$wx$h.png'    -e 'xclip -sel clip -t image/png $f && rm $f'
+bindsym Print      --release exec --no-startup-id cuffs --select --clipboard
+bindsym $mod+Print --release exec --no-startup-id cuffs --clipboard
 
 # misc
-bindsym $mod+y       fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
+bindsym $mod+y fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 bindsym $mod+Shift+y sticky disable; floating disable
 bindsym $mod+ctrl+l  exec --no-startup-id lock 
 
 ####### MEDIA KEYS #######
 
-bindsym XF86MonBrightnessUp   exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute 0 toggle
@@ -142,7 +140,7 @@ bindsym $mod+Shift+r restart
 # exit
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-####################################### APPEARANCE ############################################
+####################################### APPEARANCE #############################
 
 ####### Set gaps #######
 gaps inner 2
@@ -179,7 +177,7 @@ bar {
   position top
   mode hide
 
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+## please set your primary output first. Eg: 'xrandr --output eDP1 --primary'
 #	tray_output primary
 #	tray_output eDP1
 
@@ -201,7 +199,7 @@ bar {
   }
 }
 
-####################################### ALTERNATIVE MODES #####################################
+####################################### ALTERNATIVE MODES ######################
 
 ####### resize tile #######
 

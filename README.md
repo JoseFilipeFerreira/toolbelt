@@ -7,6 +7,7 @@ dotfiles and more
 * [aura](toolbox/aura.tool) AUR installer script
 * [calendar](toolbox/calendar.tool) get calendar based on [.timetable](toolbox/.timetable)
 * [changeWall](toolbox/changeWall.tool) change wallpaper
+* [cuffs](toolbox/cuffs.tools) screnshoot to clipboard
 * [dateTerm](toolbox/dateTerm.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [lock](toolbox/lock.tool) blured lockscreen
