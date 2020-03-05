@@ -3,6 +3,9 @@ command=$HOME/.config/i3blocks/$BLOCK_NAME
 separator=true
 separator_block_width=15
 
+[wifi]
+interval=5
+
 [volume]
 interval=once
 signal=10
@@ -15,3 +18,4 @@ signal=11
 [time]
 command=date '+%d/%m  %H:%M'
 interval=1
+

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+iface="$( cat /proc/net/wireless 2>/dev/null | tail -1 | awk '{print $1}' | sed 's/://g' )"
+
+if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
+    ip=$(ip route get 1.2.3.4 | awk '{print $7}')
+    ssid=$(iwgetid -r 2>/dev/null)
+    quality="$( awk -v cur="$(echo "${_iwconfig}"|grep -oE 'Link Quality=[/0-9]+'|grep -oE '[0-9]+'|head -1)" -v max="$(echo "${_iwconfig}"|grep -oE 'Link Quality=[/0-9]+'|grep -oE '[0-9]+'|tail -1)" 'BEGIN{printf("%0.f", cur*100/max)}')"
+
+        case $(echo "$quality"" / 20" | bc) in
+        0)
+            color="#FF0000"
+            ;;
+        1)
+            color="#FF8400"
+            ;;
+        2)
+            color="#FFF700"
+            ;;
+        3)
+            color="#AAFF00"
+            ;;
+        *)
+            color="#00FF00"
+            ;;
+        esac
+        format="W:($quality%@$ssid)$ip"
+fi
+
+echo "$format"
+echo "$format"
+echo "$color"
