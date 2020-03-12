@@ -20,8 +20,9 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" Let me sudo save in nvim
-Plug 'lambdalisue/suda.vim'
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+Plug 'sbdchd/neoformat'
 
 call plug#end()
 
@@ -92,3 +93,7 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" NeoFormat
+map <leader>f :Neoformat<CR>
+let g:shfmt_opt="-ci"
