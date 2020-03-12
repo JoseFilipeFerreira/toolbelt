@@ -6,24 +6,24 @@ if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
     ssid=$(iwgetid -r 2>/dev/null)
     quality="$( awk -v cur="$(echo "${_iwconfig}"|grep -oE 'Link Quality=[/0-9]+'|grep -oE '[0-9]+'|head -1)" -v max="$(echo "${_iwconfig}"|grep -oE 'Link Quality=[/0-9]+'|grep -oE '[0-9]+'|tail -1)" 'BEGIN{printf("%0.f", cur*100/max)}')"
 
-        case $(echo "$quality"" / 20" | bc) in
-        0)
-            color="#FF0000"
-            ;;
-        1)
-            color="#FF8400"
-            ;;
-        2)
-            color="#FFF700"
-            ;;
-        3)
-            color="#AAFF00"
-            ;;
-        *)
-            color="#00FF00"
-            ;;
-        esac
-        format="W:($quality%@$ssid)$ip"
+    case $(echo "$quality"" / 20" | bc) in
+    0)
+        color="#FF0000"
+        ;;
+    1)
+        color="#FF8400"
+        ;;
+    2)
+        color="#FFF700"
+        ;;
+    3)
+        color="#AAFF00"
+        ;;
+    *)
+        color="#00FF00"
+        ;;
+    esac
+    format="W:($quality%@$ssid)$ip"
 fi
 
 echo "$format"
