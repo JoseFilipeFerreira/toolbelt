@@ -1,5 +1,6 @@
 #!/bin/bash
 export DOTFILES=$(pwd)
+export POWERTOOLS=$(pwd)"/powertools"
 
 git -C $DOTFILES pull
 

@@ -1,24 +1,18 @@
 #!/bin/bash
+set -e
 export DOTFILES=$(pwd)
 
 ###### Install standard workflow #####
+sh storeTools
+
 source .workflow
 #packages
-yes | sudo pacman -S  "${packages[@]}"
-
-source $DOTFILES/zsh/alias/aura.zsh
+yes | sudo pacman -S --needed  "${packages[@]}"
 
 #aur packages
 for p in "${aurpackages[@]}"
 do
-    aura "$p"
+    aura -S "$p"
 done
 
-#npm packages
-for p in "${npmpackages[@]}"
-do
-    sudo npm install "$p" -g
-done
-
-sh storeTools
 sh nail
