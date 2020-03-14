@@ -1,15 +1,24 @@
 #!/bin/bash
 set -e
 addWall() {
+    case "$1" in
+        http*)
+            if [ "$2" = "" ]; then
+                wget "$1" -P "$WALLS"
+                file="$(basename "$1")"
+            else
+                wget "$1" -O "$WALLS/$2"
+                file="$2"
+            fi
+        ;;
+        *)
+            cp -v $1 "$WALLS" 
+            file="$(basename "$1")"
+        ;;
+    esac
+
     cd "$WALLS"
-    if [ "$2" = "" ]
-    then
-        wget "$1"
-        file="$(basename "$1")"
-    else
-        wget "$1" -O "$2"
-        file="$2"
-    fi
+
     res="$(convert "$file" -format '%[w]' info:)"
     if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
     then
