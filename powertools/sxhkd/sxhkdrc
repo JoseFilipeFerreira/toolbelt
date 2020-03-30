@@ -1,0 +1,54 @@
+super + {F1,F2}
+        {discord,$BROWSER}
+
+super + d
+        dmenu_IQ
+
+super + shift + d
+        menu
+
+@Print
+        cuffs --select --clipboard
+
+super + @Print
+        cuffs --clipboard
+
+super + Return
+        $TERMINAL
+
+super + shift + Return
+        termFromHere
+
+super + control + Return
+        dateTerm
+
+super + control + l
+        lock
+
+XF86MonBrightnessUp
+        xbacklight -inc 5
+
+XF86MonBrightnessDown
+        xbacklight -dec 5
+
+XF86AudioRaiseVolume
+        pactl set-sink-volume 0 +5%
+
+XF86AudioLowerVolume
+        pactl set-sink-volume 0 -5%
+
+XF86AudioMute
+        pactl set-sink-mute 0 toggle
+
+XF86AudioPlay
+        playerctl play-pause
+
+XF86AudioStop
+        playerctl stop
+
+XF86AudioNext
+        playerctl next
+
+XF86AudioPrev
+        playerctl previous
+

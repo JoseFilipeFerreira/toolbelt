@@ -8,3 +8,4 @@ powertools/termite:~/.config/termite
 powertools/zathura:~/.config/zathura
 powertools/zsh/zprofile:~/.zprofile
 powertools/zsh/zshrc:~/.zshrc
+powertools/sxhkd:~/.config/sxhkd

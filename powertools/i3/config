@@ -26,6 +26,8 @@ assign [class="jetbrains"] $ws2
 assign [class="(?i)firefox"] $ws3
 assign [class="discord"] $ws4
 
+for_window [title="CG-Engine"]                    border normal
+
 mouse_warping output
 new_window none
 new_float normal
@@ -35,37 +37,9 @@ hide_edge_borders none
 
 ####### FANCY KEYBINDS #######
 
-# app
-bindsym $mod+F1       exec discord
-bindsym $mod+F2       exec firefox
-bindsym $mod+d        exec dmenu_IQ
-bindsym $mod+Shift+d  exec menu
-
-# terminal
-bindsym $mod+Return         exec --no-startup-id $term
-bindsym $mod+Shift+Return   exec --no-startup-id termFromHere
-bindsym $mod+Control+Return exec --no-startup-id dateTerm
-
-# printscreen
-bindsym Print      --release exec --no-startup-id cuffs --select --clipboard
-bindsym $mod+Print --release exec --no-startup-id cuffs --clipboard
-
 # misc
 bindsym $mod+y fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 858 480
 bindsym $mod+Shift+y sticky disable; floating disable
-bindsym $mod+ctrl+l  exec --no-startup-id lock 
-
-####### MEDIA KEYS #######
-
-bindsym XF86MonBrightnessUp   exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-bindsym XF86AudioRaiseVolume  exec --no-startup-id pactl set-sink-volume 0 +5%
-bindsym XF86AudioLowerVolume  exec --no-startup-id pactl set-sink-volume 0 -5%
-bindsym XF86AudioMute         exec --no-startup-id pactl set-sink-mute 0 toggle
-bindsym XF86AudioPlay         exec playerctl play-pause
-bindsym XF86AudioStop         exec playerctl stop
-bindsym XF86AudioNext         exec playerctl next
-bindsym XF86AudioPrev         exec playerctl previous
 
 ####### NAVIGATION #######
 
@@ -99,20 +73,12 @@ bindsym $mod+h     focus left
 bindsym $mod+j     focus down
 bindsym $mod+k     focus up
 bindsym $mod+l     focus right
-bindsym $mod+Left  focus left
-bindsym $mod+Down  focus down
-bindsym $mod+Up    focus up
-bindsym $mod+Right focus right
 
 # move container on focus
 bindsym $mod+Shift+h     move left
 bindsym $mod+Shift+j     move down
 bindsym $mod+Shift+k     move up
 bindsym $mod+Shift+l     move right
-bindsym $mod+Shift+Left  move left
-bindsym $mod+Shift+Down  move down
-bindsym $mod+Shift+Up    move up
-bindsym $mod+Shift+Right move right
 
 # change focus
 bindsym $mod+space focus mode_toggle
@@ -214,12 +180,6 @@ mode "resize" {
         bindsym j resize grow height 10 px or 10 ppt
         bindsym k resize shrink height 10 px or 10 ppt
         bindsym l resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
 
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"

@@ -13,10 +13,14 @@ export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.zprofile)"
 export POWERTOOLS=$DOTFILES/powertools
 
 export WALLS=~/.wallpapers
+export MUSIC=~/.music
 export MIEI=~/Miei
 export MIEI_NOTES=~/Miei/Notes
 
 export PATH=~/.local/bin:$PATH
+
+export TERMINAL=termite
+export BROWSER=firefox
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
