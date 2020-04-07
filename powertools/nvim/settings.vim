@@ -21,7 +21,10 @@ set path=**
 " Scroll with mouse
 set mouse=a
 
+set termguicolors
+highlight Normal guibg=None
+
 set scrolloff=4
 
-set undodir=~/.cache/vimundo
+set undodir=$XDG_CACHE_HOME/vimundo
 set undofile
