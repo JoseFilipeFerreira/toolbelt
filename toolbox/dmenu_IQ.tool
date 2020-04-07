@@ -1,5 +1,5 @@
 #!/bin/bash
-CACHE="$HOME/.cache/dmenu_cache"
+CACHE="$XDG_CACHE_HOME/dmenu"
 CACHE_FILE="$CACHE""/IQhist"
 
 mkdir -p $CACHE

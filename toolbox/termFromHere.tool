@@ -1,6 +1,5 @@
 #!/bin/bash
 # depends: xorg-xdpyinfo xorg-xprop
-CMD=termite
 CWD=''
 
 # Get window ID
@@ -24,11 +23,11 @@ if [ -n "$PID" ]; then
 fi
 if [ -n "$CWD" ]; then
   cd "$CWD" || exit 1
-  "$CMD" "$@" &
+  "$TERMINAL" "$@" &
 else
   notify-send -u low -a termFromHere "Couldn't find cwd"
-  "$CMD" "$@" &
+  "$TERMINAL" "$@" &
 fi
 disown
 exit
-} &>> ~/.termFromHereLog &
+} &>> $XDG_CONFIG_HOME/termFromHereLog &
