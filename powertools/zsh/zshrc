@@ -1,11 +1,11 @@
 ######### Appearance ########
 
 autoload -U colors && colors
-source "$POWERTOOLS/zsh/themes/mightyConfig.zsh"
+source "$DOTFILES/powertools/zsh/themes/mightyConfig.zsh"
 
 ######### Load alias ########
 
-for config_file ($POWERTOOLS/zsh/alias/*.zsh(N)); do
+for config_file ($DOTFILES/powertools/zsh/alias/*.zsh(N)); do
   source $config_file
 done
 unset config_file
@@ -14,9 +14,9 @@ unset config_file
 
 HISTSIZE=10000
 SAVEHIST=10000
-ZSH_CACHE="$HOME/.cache/zsh"
+ZSH_CACHE="$XDG_CACHE_HOME/zsh"
 mkdir -p $ZSH_CACHE
-HISTFILE="$ZSH_CACHE/zsh_history"
+HISTFILE="$ZSH_CACHE/history"
 setopt SHARE_HISTORY # share history between sessions ???
 setopt EXTENDED_HISTORY # add timestamps to history
 
@@ -28,7 +28,7 @@ setopt auto_name_dirs
 setopt complete_in_word # Allow completion from within a word/phrase
 unsetopt menu_complete # do not autoselect the first completion entry
 
-export FPATH=$POWERTOOLS/zsh/completions:$FPATH
+export FPATH=$DOTFILES/powertools/zsh/completions:$FPATH
 zmodload zsh/complist
 zstyle ':completion:*' menu select
 #ls colors for auto complete menu
@@ -49,8 +49,8 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
 bindkey ' ' magic-space                                  # [Space] - do history expansion
-bindkey "^[[B"      down-line-or-beginning-search        # down arrow
-bindkey "^[[A"      up-line-or-beginning-search          # up arrow
+bindkey "^N"      down-line-or-beginning-search        # down arrow
+bindkey "^P"      up-line-or-beginning-search          # up arrow
 bindkey -M menuselect '^o' accept-and-infer-next-history # enter
 
 #Custom Commands
