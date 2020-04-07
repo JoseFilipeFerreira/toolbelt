@@ -1,9 +1,13 @@
 alias :r='source ~/.zshrc; '
 alias  c='clear'
+alias cl='clear; ls -lah'
 alias stahp='poweroff'
 alias vim="nvim"
+alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
 alias cast="castnow --address 192.168.0.188"
 alias castvid="castnow --address 192.168.0.129"
+alias sudo="sudo "
+alias wget="wget --no-hsts"
 
 pdf() {
     if [ $# -lt 1 ]; then
@@ -58,22 +62,6 @@ ex() {
   fi
 }
 
-dock() {
-    xrandr --output HDMI2 --auto
-    xrandr --output eDP1 --off
-    wallup
-}
-
-undock() {
-    xrandr --output HDMI2 --off
-    xrandr --output eDP1 --auto
-    wallup
-}
-
-#speedtest the internet connection
-alias speedtest='speedtest-cli'
-alias speed='speedtest-cli'
-
 isrunning() {
     ps -ef | grep -i $1 | grep -v grep
 }
@@ -81,4 +69,4 @@ isrunning() {
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
 alias ghci="stack ghci"
-
+alias ghc="stack ghc"
