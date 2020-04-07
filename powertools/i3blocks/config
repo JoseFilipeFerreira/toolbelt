@@ -1,5 +1,5 @@
 # Global properties
-command=$HOME/.config/i3blocks/$BLOCK_NAME
+command=$XDG_CONFIG_HOME/i3blocks/$BLOCK_NAME
 separator=true
 separator_block_width=15
 
@@ -12,6 +12,10 @@ signal=10
 #STEP=5%
 
 [battery]
+interval=30
+signal=11
+
+[battery BAT1]
 interval=30
 signal=11
 
