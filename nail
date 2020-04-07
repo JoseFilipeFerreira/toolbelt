@@ -1,11 +1,10 @@
 #!/bin/bash
-export DOTFILES=$(pwd)
-export POWERTOOLS=$(pwd)"/powertools"
+[[ ! -n "$DOTFILES" ]] && export DOTFILES=$(pwd)
 
 git -C $DOTFILES pull
 
 while IFS= read -r l; do
-    orig=$DOTFILES/$(echo $l | cut -d: -f1)
+    orig=$DOTFILES/powertools/$(echo $l | cut -d: -f1)
     dest=$(echo $l | cut -d: -f2 | sed "s|~|$HOME|g")
     if [ -h "$dest" ] && ! [ -e "$dest" ]
         then
@@ -17,4 +16,4 @@ while IFS= read -r l; do
         ln -fvsn "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
         echo -en "\033[0m"
     fi
-done < $POWERTOOLS/.locations
+done < <(envsubst < "$DOTFILES/powertools/.locations")

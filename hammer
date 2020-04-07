@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export DOTFILES=$(pwd)
+[[ ! -n "$DOTFILES" ]] && export DOTFILES=$(pwd)
 
 ###### Install standard workflow #####
 sh storeTools
