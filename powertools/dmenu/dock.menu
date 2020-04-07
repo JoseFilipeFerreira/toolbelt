@@ -3,12 +3,12 @@ LAYOUT=$(echo -e "dock\nundock\nmirror" | dmenu -i -p "Monitor Layout")
 
 case "$LAYOUT" in
         dock)
-            xrandr --output HDMI2 --auto
+            xrandr --output DP2-2 --auto
             xrandr --output eDP1 --off
             ;;
 
         undock)
-	    xrandr --output HDMI2 --off
+	    xrandr --output DP2-2 --off
 	    xrandr --output eDP1 --auto
             ;;
         mirror)

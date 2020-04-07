@@ -4,7 +4,7 @@
 # Select an existing entry to remove it from the file, or type a new entry to
 # add it.
 
-file="$HOME/.cache/dmenu_cache/todo"
+file="$XDG_CACHE_HOME/dmenu/todo"
 touch "$file"
 height=$(wc -l "$file" | awk '{print $1}')
 prompt="Add/delete a task: "
