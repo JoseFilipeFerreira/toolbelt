@@ -20,6 +20,8 @@ alias gpsup='git push --set-upstream origin $(git branch --show-current)'
 
 alias grhh='git reset --hard'
 
+alias gfi='$BROWSER github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*).git/\1/g")'
+
 alias glog="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias glogs="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --stat"
 alias glogd="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --date=short"
