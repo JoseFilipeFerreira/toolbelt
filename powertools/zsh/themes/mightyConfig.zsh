@@ -12,11 +12,11 @@ then
     fi
 fi
 
-_get_branch() {
-    if [ -d ".git" ] || git rev-parse --git-dir > /dev/null 2>&1; then
+_git_branch() {
+    if [[ -d .git ]] || [[ -d ../.git ]] || [[ -d ../../.git ]]  ; then
         git branch --show-current
     fi
 }
 
 setopt PROMPT_SUBST
-RPS1=$'$(_get_branch)'
+RPS1=$'$(_git_branch)'
