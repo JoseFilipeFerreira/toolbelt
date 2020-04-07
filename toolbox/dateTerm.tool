@@ -9,4 +9,4 @@ else
     cd $MIEI;
     notify-send -i $notImage -u low -a dateTerm "Not in class"
 fi
-termite
+$TERMINAL
