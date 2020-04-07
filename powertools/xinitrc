@@ -1,7 +1,7 @@
 setxkbmap -layout gb -option caps:escape
 numlockx on
 
-compton --config $POWERTOOLS/compton/compton.conf -b
+compton --config $DOTFILES/powertools/compton/compton.conf -b
 dunst &
 nm-applet &
 changeWall &
