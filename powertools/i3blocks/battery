@@ -1,6 +1,18 @@
 #!/bin/bash
-stat=$(acpi -b |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
-percent=$(acpi -b | sed '$!d;/%/{s/%.*//;s/.*\s//}')
+case $1 in
+  BAT1)
+    _acpi=$(acpi -b | sed -n '2 p')
+    if [ ! "$_acpi" ]; then
+        exit
+    fi
+    ;;
+  *)
+    _acpi=$(acpi -b)
+    ;;
+esac
+
+stat=$(echo $_acpi |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
+percent=$(echo $_acpi | sed '$!d;/%/{s/%.*//;s/.*\s//}')
 
 case "$stat" in
   Full)
