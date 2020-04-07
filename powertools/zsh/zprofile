@@ -1,3 +1,7 @@
+export PATH=$HOME/.local/bin:$PATH
+
+#Default programs
+export TERMINAL="termite"
 export BROWSER="firefox"
 
 export PAGER="less"
@@ -9,25 +13,32 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
-export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.zprofile)")")")"
-export POWERTOOLS=$DOTFILES/powertools
+# ~/ clean-up
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export LESSHISTFILE="-"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export STACK_ROOT="$XDG_DATA_HOME/stack"
+export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 
-export WALLS=~/.wallpapers
-export MUSIC=~/.music
-export MIEI=~/Miei
-export MIEI_NOTES=~/Miei/Notes
-
-export PATH=~/.local/bin:$PATH
-
-export TERMINAL=termite
-export BROWSER=firefox
+# dotfiles
+export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink "$ZDOTDIR"/.zprofile)")")")"
+export WALLS="$XDG_DATA_HOME/wallpapers"
+export MUSIC="$XDG_DATA_HOME/music"
+export GAMES="$XDG_DATA_HOME/games"
+export MIEI="$HOME/Miei"
+export MIEI_NOTES="$HOME/Miei/Notes"
 
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
+
 if [ "$(tty)" = "/dev/tty1" ]; then
     toilet -f mono9 -F metal "           Starting i3  "
-    sh $DOTFILES/nail
+    bash $DOTFILES/nail
     pgrep i3 || startx 2> /dev/null
     clear
 fi
