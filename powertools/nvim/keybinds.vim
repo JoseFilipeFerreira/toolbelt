@@ -3,6 +3,10 @@ inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
 vnoremap <C-x> "+d 
 
+" I don't need help
+:nmap <F1> :echo<CR>
+:imap <F1> <C-o>:echo<CR>
+
 " split navigations
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
