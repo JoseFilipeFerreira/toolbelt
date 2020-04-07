@@ -1,9 +1,9 @@
 # ToolBelt
 dotfiles and more 
 
-## PowerTools ([.dotfiles](powertools))
+## [PowerTools](powertools) (.dotfiles)
 
-## ToolBox ([Scripts](toolbox))
+## [ToolBox](toolbox) (scripts)
 * [aura](toolbox/aura.tool) AUR installer script
 * [calendar](toolbox/calendar.tool) get calendar based on [.timetable](toolbox/.timetable)
 * [changeWall](toolbox/changeWall.tool) change wallpaper
