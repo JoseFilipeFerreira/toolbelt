@@ -1,5 +1,5 @@
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+if empty(glob('$XDG_DATA_HOME/nvim/site/autoload/plug.vim'))
+  silent !curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -20,9 +20,15 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'octol/vim-cpp-enhanced-highlight'
-
 Plug 'sbdchd/neoformat'
+
+" Syntax highlighting
+Plug 'cespare/vim-toml'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'udalov/kotlin-vim'
+Plug 'vim-python/python-syntax'
+Plug 'baskerville/vim-sxhkdrc'
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
