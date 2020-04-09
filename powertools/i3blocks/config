@@ -7,7 +7,7 @@ separator_block_width=15
 interval=5
 
 [volume]
-interval=once
+interval=5
 signal=10
 #STEP=5%
 
