@@ -2,6 +2,7 @@ alias :r='source ~/.zshrc; '
 alias  c='clear'
 alias cl='clear; ls -lah'
 alias stahp='poweroff'
+alias tmux='tmux -2'
 alias vim="nvim"
 alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
 alias cast="castnow --address 192.168.0.188"
