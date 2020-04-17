@@ -25,7 +25,7 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 
 # dotfiles
-export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".zprofile)")")")"
+export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".zprofile")")")")"
 export WALLS="$XDG_DATA_HOME/wallpapers"
 export MUSIC="$XDG_DATA_HOME/music"
 export GAMES="$XDG_DATA_HOME/games"
