@@ -5,8 +5,6 @@ alias stahp='poweroff'
 alias tmux='tmux -2'
 alias vim="nvim"
 alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
-alias cast="castnow --address 192.168.0.188"
-alias castvid="castnow --address 192.168.0.129"
 alias sudo="sudo "
 alias wget="wget --no-hsts"
 
@@ -61,6 +59,20 @@ ex() {
   else
     echo "$1 is not a valid file"
   fi
+}
+
+dock(){
+    setxkbmap pt -option caps:esc
+    xrandr --output DP-2-2 --auto
+    xrandr --output eDP-1 --off
+    wallpaper
+}
+
+undock(){
+    setxkbmap gb -option caps:esc
+    xrandr --output eDP-1 --auto
+    xrandr --output DP-2-2 --off
+    wallpaper
 }
 
 isrunning() {
