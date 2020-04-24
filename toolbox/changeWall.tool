@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ -e "$1" ]
 then
     file=$1

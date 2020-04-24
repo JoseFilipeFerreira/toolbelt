@@ -22,7 +22,7 @@ next_location(){
 display(){
     for h in {9..19}
     do
-        echo -n ""$h"h|"
+        echo -n "$h""h|"
         for d in {1..5}
         do
             awk -F: 'BEGIN { d='"$d"' ;h='"$h"' } d == $1 && h >= $2 && h < $3 {printf "%s-%s", $4, $5}' \

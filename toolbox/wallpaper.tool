@@ -12,7 +12,7 @@ addWall() {
             fi
         ;;
         *)
-            cp -v $1 "$WALLS" 
+            cp -v "$1" "$WALLS" 
             file="$(basename "$1")"
         ;;
     esac

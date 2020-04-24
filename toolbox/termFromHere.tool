@@ -30,4 +30,4 @@ else
 fi
 disown
 exit
-} &>> $XDG_CONFIG_HOME/termFromHereLog &
+} &>> "$XDG_CONFIG_HOME/termFromHereLog" &

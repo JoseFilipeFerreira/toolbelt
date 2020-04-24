@@ -1,3 +1,6 @@
+#!/bin/bash
+CACHE="$XDG_CACHE_HOME/aura"
+mkdir -p "$CACHE"
 case "$1" in
     -R*)
         pacman -Rsn "$2"
@@ -12,11 +15,11 @@ case "$1" in
         ;;
     *)
         old="$(pwd)"
-        cd /tmp || exit 1
+        cd $CACHE || exit 1
         git clone https://aur.archlinux.org/"$1"
         cd "$1" || exit 1
         makepkg -si --clean
         cd "$old" || exit 1
-        rm -rf /tmp/"$1"
+        rm -rf "$CACHE"/"$1"
         ;;
 esac

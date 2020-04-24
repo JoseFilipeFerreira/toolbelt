@@ -14,7 +14,7 @@ fi
 
 _git_branch() {
     if [[ -d .git ]] || [[ -d ../.git ]] || [[ -d ../../.git ]]  ; then
-        git branch --show-current
+        git symbolic-ref HEAD --short
     fi
 }
 
