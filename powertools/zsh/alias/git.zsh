@@ -1,20 +1,29 @@
+gcl() {
+    case "$1" in
+        git@*|http://*|https://*)
+            git clone "$1" "${@:2}"
+            ;;
+        */*)
+            git clone git@github.com:$1 "${@:2}"
+            ;;
+        *)
+            git clone git@github.com:"$(git config --global user.name)"/"$1" "${@:2}"
+            ;;
+    esac
+}
+
 alias gst='git status'
 alias gd='git diff'
-alias gb='git branch'
 
 alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gcm='git checkout master'
 
-alias gl='git pull'
-gcl() {
-    git clone git@github.com:$1
-}
 
 alias ga='git add'
-
 alias gc='git commit -v'
 
+alias gl='git pull'
 alias gp='git push'
 alias gpsup='git push --set-upstream origin $(git branch --show-current)'
 
