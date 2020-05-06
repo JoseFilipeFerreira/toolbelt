@@ -1,21 +1,6 @@
 #!/bin/bash
-curr_class(){
-    awk -F: 'BEGIN { d='"$(date +%u)"' ;h='"$(date +%H)"' } d == $1 && h >= $2 && h < $3 {print $4}' \
-        "$DOTFILES""/toolbox/.timetable"
-}
-
-curr_location(){
-    awk -F: 'BEGIN { d='"$(date +%u)"' ;h='"$(date +%H)"' } d == $1 && h >= $2 && h < $3 {print $5}' \
-        "$DOTFILES""/toolbox/.timetable"
-}
-
-next_class(){
-    awk -F: 'BEGIN { d='"$(date +%u)"' ;h='"$(date +%H)"' } d == $1 && h < $2 {print $4; exit}' \
-        "$DOTFILES""/toolbox/.timetable"
-}
-
-next_location(){
-    awk -F: 'BEGIN { d='"$(date +%u)"' ;h='"$(date +%H)"' } d == $1 && h < $2 {print $5; exit}' \
+_curr_line(){
+    awk -F: 'BEGIN { d='"$(date +%u)"' ;h='"$(date +%H)"' } d == $1 && h >= $2 && h < $3 {print $0}' \
         "$DOTFILES""/toolbox/.timetable"
 }
 
@@ -35,16 +20,13 @@ display(){
 
 case "$1" in
     --curr)
-        curr_class
+        _curr_line | cut -d: -f4
         ;;
     --curr-location)
-        curr_location
+        _curr_line | cut -d: -f5
         ;;
-    --next)
-        next_class
-        ;;
-    --next-location)
-        next_location
+    --curr-link)
+        echo "https://elearning.uminho.pt/webapps/collab-ultra/tool/collabultra?course_id=$(_curr_line | cut -d: -f6)"
         ;;
     --show|"")
         display | column -t -N " ,seg,ter,qua,qui,sex" -R 1 -s "|"

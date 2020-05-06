@@ -1,5 +1,5 @@
-super + {F1,F2}
-        {discord,$BROWSER}
+super + {F1,F2,F3}
+        {discord,$BROWSER,$BROWSER $(calendar --curr-link)}
 
 super + {_,shift +} d
         {dmenu_IQ,menu}
@@ -19,6 +19,7 @@ super + control + l
 XF86MonBrightness{Up,Down}
         xbacklight {-inc,-dec} 5
 
+#Media keys:
 XF86Audio{Raise,Lower}Volume
         pactl set-sink-volume 0 {+5%,-5%}
 
@@ -30,3 +31,14 @@ XF86Audio{Play,Stop}
 
 XF86Audio{Prev,Next}
         playerctl {previous, next}
+
+
+super + {Up, Down}
+        pactl set-sink-volume 0 {+5%,-5%}
+
+super + {Prior,Next}
+        playerctl {play-pause,stop}
+
+super + {Left,Right}
+        playerctl {previous, next}
+
