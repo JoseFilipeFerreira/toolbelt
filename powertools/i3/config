@@ -32,6 +32,7 @@ mouse_warping output
 new_window none
 new_float normal
 hide_edge_borders none
+floating_modifier $mod
 
 ######################################### KEYBOARD SHORTCUTS ###################
 
