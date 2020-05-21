@@ -12,8 +12,6 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 
 Plug 'scrooloose/nerdtree'
 
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
 Plug 'tpope/vim-commentary'
 
 Plug 'junegunn/goyo.vim'
@@ -33,6 +31,8 @@ Plug 'plasticboy/vim-markdown'
 call plug#end()
 
 """ PLUGIN CONFIGS
+" vim-markdown config
+let g:vim_markdown_folding_disabled = 1
 
 " Gruvbox config
 colorscheme gruvbox
@@ -43,27 +43,6 @@ highlight Normal ctermbg=None
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeDirArrows = 1
-
-augroup nerdtreeconcealbrackets
-      autocmd!
-      autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\]" contained conceal containedin=ALL
-      autocmd FileType nerdtree syntax match hideBracketsInNerdTree "\[" contained conceal containedin=ALL
-      autocmd FileType nerdtree setlocal conceallevel=2
-      autocmd FileType nerdtree setlocal concealcursor=nvic
-augroup END
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "! ",
-    \ "Staged"    : "+ ",
-    \ "Untracked" : "? ",
-    \ "Renamed"   : "> ",
-    \ "Unmerged"  : "# ",
-    \ "Deleted"   : "- ",
-    \ "Dirty"     : "? ",
-    \ "Clean"     : "",
-    \ "Ignored"   : "",
-    \ "Unknown"   : ""
-    \ }
 
 let NERDTreeQuitOnOpen = 1
 
