@@ -1,4 +1,4 @@
-alias :r='source ~/.zshrc; '
+alias :r='source $ZDOTDIR/.zshrc; '
 alias  c='clear'
 alias cl='clear; ls -lah'
 alias stahp='poweroff'
@@ -7,6 +7,8 @@ alias vim="nvim"
 alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
 alias sudo="sudo "
 alias wget="wget --no-hsts"
+
+alias py="python"
 
 pdf() {
     if [ $# -lt 1 ]; then
@@ -27,8 +29,7 @@ png() {
 }
 
 make() {
-    if [ -e Makefile ] || [ -e makefile ]
-    then
+    if [ -e Makefile ] || [ -e makefile ]; then
         bash -c "make $*"
     else
         for i in *.c;
