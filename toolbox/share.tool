@@ -2,7 +2,7 @@
 CACHE="$XDG_CACHE_HOME/fileshare"
 
 _upload(){
-    rsync -av --info=progress2 "$1" jff.sh:~/share
+    rsync -av --info=progress2 "$1" kiwi:~/share
     url="http://jff.sh/share/$(basename "$1")"
     echo "$url" | xclip -sel clip
     echo "$url"
