@@ -1,5 +1,5 @@
 #!/bin/bash
-[[ ! -n "$DOTFILES" ]] && export DOTFILES=$(pwd)
+[[ ! -n "$DOTFILES" ]] && source $(pwd)"/powertools/zsh/zprofile"
 
 git -C $DOTFILES pull
 

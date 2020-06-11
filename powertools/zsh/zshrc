@@ -1,3 +1,5 @@
+[[ ! -n "$DOTFILES" ]] && source $(pwd)"/powertools/zsh/zprofile"
+
 ######### Appearance ########
 
 autoload -U colors && colors
