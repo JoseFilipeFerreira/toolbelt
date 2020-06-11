@@ -1,4 +1,4 @@
-[[ ! -n "$DOTFILES" ]] && source $(pwd)"/powertools/zsh/zprofile"
+[[ -n "$DOTFILES" ]] || . "~/.zprofile"
 
 ######### Appearance ########
 
