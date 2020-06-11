@@ -1,9 +1,9 @@
 #!/bin/bash
-PACTL=$(pactl list sinks)
+PACTL=$(pactl list sinks | grep --after-context 10 "^[[:space:]]State: RUNNING")
 
-VOLUME=$(echo "$PACTL" | grep "^[[:space:]]Volume" | cut -d'/' -f 2 | sed 's/ //g')
+VOLUME=$(echo "$PACTL" | grep "^[[:space:]]Volume" | cut -d' ' -f5)
 
-MUTE_STATUS=$(echo "$PACTL" | grep "Mute" | cut -d':' -f2 | sed "s/ //g")
+MUTE_STATUS=$(echo "$PACTL" | grep "Mute" | cut -d' ' -f2)
 
 if [[ $MUTE_STATUS = yes ]]; then
     echo "MUTE"

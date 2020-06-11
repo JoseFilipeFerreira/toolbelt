@@ -11,8 +11,8 @@ case $1 in
     ;;
 esac
 
-stat=$(echo $_acpi |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
-percent=$(echo $_acpi | sed '$!d;/%/{s/%.*//;s/.*\s//}')
+stat=$(echo "$_acpi" |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
+percent=$(echo "$_acpi" | sed '$!d;/%/{s/%.*//;s/.*\s//}')
 
 case "$stat" in
   Full)
