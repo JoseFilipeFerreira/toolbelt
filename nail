@@ -1,5 +1,5 @@
 #!/bin/bash
-[[ ! -n "$DOTFILES" ]] && source $(pwd)"/powertools/zsh/zprofile"
+[[ ! -n "$DOTFILES" ]] && source "$(dirname "$(readlink -f "$0")")powertools/zsh/zprofile"
 
 git -C $DOTFILES pull
 
