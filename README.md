@@ -12,6 +12,7 @@ dotfiles and more
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher
+* [nospace](toolbox/nospace.tool) correct filenames
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
 * [wallpaper](toolbox/wallpaper.tool) wallpaper manager
