@@ -6,6 +6,7 @@ git -C $DOTFILES pull
 while IFS= read -r l; do
     orig=$DOTFILES/powertools/$(echo $l | cut -d: -f1)
     dest=$(echo $l | cut -d: -f2 | sed "s|~|$HOME|g")
+    mkdir -p $(dirname "$dest")
     if [ -h "$dest" ] && ! [ -e "$dest" ]
         then
             echo -e "\033[31mRemoving broken link: $(basename "$dest")\033[0m"
