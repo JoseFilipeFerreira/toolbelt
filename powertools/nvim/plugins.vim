@@ -20,6 +20,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 Plug 'sbdchd/neoformat'
 
+Plug 'machakann/vim-highlightedyank'
+
 " Syntax highlighting
 Plug 'cespare/vim-toml'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -27,6 +29,8 @@ Plug 'udalov/kotlin-vim'
 Plug 'vim-python/python-syntax'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'plasticboy/vim-markdown'
+Plug 'sudar/vim-arduino-syntax'
+
 
 call plug#end()
 
@@ -45,6 +49,9 @@ map <F2> :NERDTreeToggle<CR>
 let NERDTreeDirArrows = 1
 
 let NERDTreeQuitOnOpen = 1
+
+"highlight yank
+let g:highlightedyank_highlight_duration = 100
 
 " Coc
 " Use tab for trigger completion with characters ahead and navigate.

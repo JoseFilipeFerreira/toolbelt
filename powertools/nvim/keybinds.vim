@@ -34,3 +34,13 @@ map <leader><Tab> :e #<CR>
 " clear search register
 nmap <leader><leader> :noh<CR>
 
+" Fix Y
+nnoremap Y y$
+
+" Jumps
+inoremap ,, <Esc>/<++><Enter>"_c4l
+
+" Fast replace
+nnoremap s :s//g<Left><Left>
+nnoremap S :%s//g<Left><Left>
+vnoremap s :s//g<Left><Left>
