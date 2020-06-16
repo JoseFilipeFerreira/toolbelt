@@ -1,27 +1,26 @@
 #!/bin/bash
-options=()
+
+file=$(date +'%d%h%Y-%H:%m:%S.png')
 
 while (( "$#" )); do
     case $1 in
       --clipboard|-c)
-        options+=(-e 'xclip -sel clip -t image/png $f && rm $f')
+        clip="true"
         shift
         ;;
     
       --select|-s)
-        options+=(-f -s)
+        selection=$(hacksaw -f "-i %i -g %g")
         shift
         ;;
-    
-      --delay|-d)
-        options=(-d "$2")
-        shift 2
-        ;;
-    
       *)
         shift
         ;;
     esac
 done
 
-scrot '%d%h%Y-%H:%m:%S_$wx$h.png' "${options[@]}"
+if [ "$clip" ]; then
+    shotgun $selection - | xclip -t 'image/png' -selection clipboard
+else
+    shotgun "$file" $selection
+fi
