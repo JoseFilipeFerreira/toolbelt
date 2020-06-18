@@ -2,14 +2,39 @@
 set -e
 YDL_FLAGS=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'music/%(title)s.%(ext)s'")
 
-addMusic() {
+_sync_music() {
+    for i in "$@"; do
+        case $i in
+            -t=*|--title=*)
+                TITLE="${i#*=}"
+                shift
+                ;;
+            --no-exit)
+                EXIT="no"
+                shift
+                ;;
+        esac
+    done
+
+    if ssh -q kiwi exit
+    then
+        echo -e "\e[35m$TITLE Music...\e[33m"
+        rsync -av kiwi:~/music/ "$MUSIC"
+        echo -e "\e[35mDone!\e[0m"
+    else
+        echo -e "\e[31mCouldn't connect to server"
+        [ "$EXIT" ] || exit
+    fi
+}
+
+_add_music() {
     case "$1" in
         --clipboard|-c)
-            addMusic  "$(xclip -sel clip -o)"
+            _add_music  "$(xclip -sel clip -o)"
         ;;
         http*youtube*)
-                ssh kiwi youtube-dl "${YDL_FLAGS[@]}" "'$1'"
-                ssh kiwi ~/.local/bin/nospace ~/music/*
+            ssh kiwi youtube-dl "${YDL_FLAGS[@]}" "'$1'"
+            ssh kiwi ~/.local/bin/nospace ~/music/*
         ;;
         http*)
             if [ "$2" = "" ]; then
@@ -24,10 +49,10 @@ addMusic() {
             ssh kiwi ~/.local/bin/nospace ~/music/*
         ;;
     esac
-    rsync -av kiwi:~/music/ "$MUSIC"
+    _sync_music --no-exit --title="Syncing"
 }
 
-discordMusic() {
+_discord_music() {
     WEBSITE="http://jff.sh/music"
     sleep 3
     MUSIC_LINK=$(curl "$WEBSITE" | grep '<a' | cut -d"'" -f2 | shuf | nl)
@@ -47,20 +72,16 @@ discordMusic() {
     xdotool key 'Return'
 }
 
-if [ ! -d "$MUSIC" ] || ssh -q kiwi exit
-then
-    echo -e "\e[35mDowloading Music...\e[33m"
-    rsync -av kiwi:~/music/ "$MUSIC"
-    echo -e "\e[35mDone!\e[0m"
-fi
+[ -d "$MUSIC" ] || _sync_music --title="Dowloading"
 
 case "$1" in
     add)
-        addMusic "${@:2}"
+        _add_music "${@:2}"
         ;;
     play)
+        _sync_music --no-exit --title="Syncing"
         mpv --shuffle --no-video "$MUSIC"
         ;;
     discord)
-        discordMusic "${@:2}"
+        _discord_music "${@:2}"
 esac

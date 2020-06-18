@@ -15,6 +15,7 @@ dotfiles and more
 * [nospace](toolbox/nospace.tool) correct filenames
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
+* [udm](toolbox/udm.tool) playlist manager
 * [wallpaper](toolbox/wallpaper.tool) wallpaper manager
 
 ## License
