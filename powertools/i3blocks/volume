@@ -1,7 +1,7 @@
 #!/bin/bash
 PACTL=$(pactl list sinks | grep --after-context 10 "^[[:space:]]State: RUNNING")
 
-VOLUME=$(echo "$PACTL" | grep "^[[:space:]]Volume" | cut -d' ' -f5)
+VOLUME=$(echo "$PACTL" | grep -Eo "[0-9]+\%" | head -n1)
 
 MUTE_STATUS=$(echo "$PACTL" | grep "Mute" | cut -d' ' -f2)
 
