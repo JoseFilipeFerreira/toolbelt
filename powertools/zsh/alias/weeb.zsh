@@ -2,6 +2,7 @@ alias nyancat='nyancat --no-counter --no-title'
 alias starwars='telnet towel.blinkenlights.nl'
 alias parrot='curl parrot.live'
 alias aquarium='asciiquarium'
+
 alias mi='oneko -tora -name Mi & disown'
 alias byemi='killall oneko'
 

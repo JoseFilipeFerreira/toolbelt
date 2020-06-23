@@ -1,65 +1,40 @@
 alias :r='source $ZDOTDIR/.zshrc; '
-alias  c='clear'
+
+alias sudo="sudo "
+
+alias c='clear'
 alias cl='clear; ls -lah'
 alias stahp='poweroff'
-alias tmux='tmux -2'
+
 alias vim="nvim"
 alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
-alias sudo="sudo "
-alias wget="wget --no-hsts"
+alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
 alias py="python"
+alias ghc="stack ghc"
+alias ghci="stack ghci"
+alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
-pdf() {
-    if [ $# -lt 1 ]; then
-        echo "Usage: $0 <file>"
-    else
-        zathura $@ &
-        disown
-    fi
-}
+alias tmux='tmux -2'
+alias wget="wget --no-hsts"
 
-png() {
-    if [ $# -lt 1 ]; then
-        echo "Usage: $0 <file>"
-    else
-        sxiv $@ &
-        disown
-    fi
+alias pdf='zathura $@ &; disown'
+alias png='sxiv $@ &; disown'
+alias mpv='mpv $@ &; disown'
+
+hist_stats () {
+    fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n20
 }
 
 make() {
     if [ -e Makefile ] || [ -e makefile ]; then
-        bash -c "make $*"
+        bash -c "make -j$(nproc || echo 4) $*"
     else
-        for i in *.c;
-        do
+        for i in *.c; do
             file=${i//\.c/}
             bash -c "make $file"
         done
     fi
-}
-
-ex() {
-  if [ -f "$1" ] ; then
-    case "$1" in
-      *.tar.bz2)   tar xjf "$1"   ;;
-      *.tar.gz)    tar xzf "$1"   ;;
-      *.bz2)       bunzip2 -v "$1"   ;;
-      *.rar)       unrar x "$1"   ;;
-      *.gz)        gunzip "$1"    ;;
-      *.tar)       tar xf "$1"    ;;
-      *.tbz2)      tar xjf "$1"   ;;
-      *.tgz)       tar xzf "$1"   ;;
-      *.zip)       unzip "$1"     ;;
-      *.Z)         uncompress "$1";;
-      *.7z)        7z x "$1"      ;;
-      *.xz)        xz -d "$1"     ;;
-      *)           echo "$1 cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "$1 is not a valid file"
-  fi
 }
 
 dock(){
@@ -75,12 +50,3 @@ undock(){
     xrandr --output DP-2-2 --off
     wallpaper
 }
-
-isrunning() {
-    ps -ef | grep -i $1 | grep -v grep
-}
-
-alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
-
-alias ghci="stack ghci"
-alias ghc="stack ghc"
