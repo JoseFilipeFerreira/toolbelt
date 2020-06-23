@@ -18,9 +18,6 @@ endif
 " make path recursive
 set path=**
 
-" Scroll with mouse
-set mouse=a
-
 set termguicolors
 highlight Normal guibg=None
 
