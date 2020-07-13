@@ -18,11 +18,17 @@ alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=al
 alias tmux='tmux -2'
 alias wget="wget --no-hsts"
 
-alias pdf='zathura $@ &; disown'
-alias png='sxiv $@ &; disown'
-alias mpv='mpv $@ &; disown'
+pdf() {
+    zathura $@ &
+    disown
+}
 
-hist_stats () {
+png() {
+    sxiv $@ &
+    disown
+}
+
+hist_stats() {
     fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n20
 }
 
