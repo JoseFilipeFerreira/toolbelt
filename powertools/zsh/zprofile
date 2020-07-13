@@ -3,6 +3,8 @@ export PATH=$HOME/.local/bin:$PATH
 #Default programs
 export TERMINAL="termite"
 export BROWSER="firefox"
+export VISUAL="nvim"
+export EDITOR="nvim"
 
 export PAGER="less"
 export LESS_TERMCAP_mb=$'\e[1;35m'
@@ -39,8 +41,9 @@ export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    toilet -f mono9 -F metal "           Starting i3  "
+    toilet -f mono9 -F metal "Starting X"
     bash $DOTFILES/nail
-    pgrep i3 || startx 2> /dev/null
+    rm -rf /tmp/startx.log
+    startx &> /tmp/startx.log
     clear
 fi

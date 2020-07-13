@@ -6,9 +6,9 @@ then
     export TERM=xterm
     if [ -z "$TMUX" ]; then
         exit() {
-            tmux detach
+            tmux -2 detach
         }
-        tmux a &>/dev/null || tmux
+        tmux -2 a &>/dev/null || tmux -2
     fi
 fi
 

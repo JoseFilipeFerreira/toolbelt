@@ -7,4 +7,11 @@ nm-applet &
 changeWall &
 sxhkd &
 
-exec i3
+case $(hostname) in
+    cake)
+        exec bspwm
+        ;;
+    *)
+        exec i3
+        ;;
+esac
