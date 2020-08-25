@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -e "$1" ]
+if [ -n "$1" ]
 then
     file=$1
 else
