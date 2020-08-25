@@ -1,6 +1,11 @@
 # ToolBelt
 dotfiles and more 
 
+## Install
+* [hammer](hammer) Install dotfiles and programs that are part of my [workflow](.workflow)
+* [nail](nail) Update dotfiles
+* [storeTools](storeTools) create all symlinks for my [scripts](toolbox)
+
 ## [PowerTools](powertools) (.dotfiles)
 
 ## [ToolBox](toolbox) (scripts)
