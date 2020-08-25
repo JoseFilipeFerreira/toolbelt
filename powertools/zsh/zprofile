@@ -39,10 +39,8 @@ export MIEI_NOTES="$HOME/Miei/Notes"
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-
 if [ "$(tty)" = "/dev/tty1" ]; then
     toilet -f mono9 -F metal "Starting X"
-    bash $DOTFILES/nail
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
     clear
