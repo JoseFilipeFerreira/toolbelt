@@ -48,7 +48,7 @@ make() {
 }
 
 dock(){
-    setxkbmap pt -option caps:esc
+    setxkbmap gb -option caps:esc
     xrandr --output DP-2-2 --auto
     xrandr --output eDP-1 --off
     wallpaper
