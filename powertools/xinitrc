@@ -1,5 +1,4 @@
 setxkbmap -layout gb -option caps:escape
-numlockx on
 
 compton --config $DOTFILES/powertools/compton/compton.conf -b
 dunst &
