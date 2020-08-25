@@ -1,20 +1,31 @@
 #!/bin/bash
 [[ ! -n "$DOTFILES" ]] && source "$(dirname "$(readlink -f "$0")")powertools/zsh/zprofile"
 
-git -C $DOTFILES pull
-
-while IFS= read -r l; do
-    orig=$DOTFILES/powertools/$(echo $l | cut -d: -f1)
-    dest=$(echo $l | cut -d: -f2 | sed "s|~|$HOME|g")
-    mkdir -p $(dirname "$dest")
-    if [ -h "$dest" ] && ! [ -e "$dest" ]
-        then
-            echo -e "\033[31mRemoving broken link: $(basename "$dest")\033[0m"
-            rm "$dest"
+deploy_symlinks(){
+    while IFS= read -r l; do
+        orig=$DOTFILES/powertools/$(echo $l | cut -d: -f1)
+        dest=$(echo $l | cut -d: -f2 | sed "s|~|$HOME|g")
+        mkdir -p $(dirname "$dest")
+        if [ -h "$dest" ] && ! [ -e "$dest" ]
+            then
+                echo -e "\033[31mRemoving broken link: $(basename "$dest")\033[0m"
+                rm "$dest"
+            fi
+        if [ ! -h "$dest" ]; then
+            echo -en "\033[35mLinking\033[33m "
+            ln -fvsn "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
+            echo -en "\033[0m"
         fi
-    if [ ! -h "$dest" ]; then
-        echo -en "\033[35mLinking\033[33m "
-        ln -fvsn "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
-        echo -en "\033[0m"
-    fi
-done < <(cat "$DOTFILES/powertools/.locations" | perl -pe 's/\$(\w+)/$ENV{$1}/g' | sed -e "s|$HOME|~|g")
+    done < <(cat "$DOTFILES/powertools/.locations" | perl -pe 's/\$(\w+)/$ENV{$1}/g' | sed -e "s|$HOME|~|g")
+}
+
+git -C $DOTFILES pull
+deploy_symlinks
+
+case "$1" in
+    --no-storeTools)
+        ;;
+    *)
+        sh "$DOTFILES"/storeTools
+        ;;
+esac

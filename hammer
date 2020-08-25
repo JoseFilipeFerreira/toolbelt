@@ -15,4 +15,4 @@ do
     aura -S "$p"
 done
 
-sh nail
+sh nail --no-storeTools
