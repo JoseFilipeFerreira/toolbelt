@@ -5,6 +5,19 @@
 autoload -U colors && colors
 source "$DOTFILES/powertools/zsh/themes/mightyConfig.zsh"
 
+############# SSH ###########
+#
+if [ -n "$SSH_CLIENT" ]
+then
+    export TERM=xterm
+    if [ -z "$TMUX" ]; then
+        exit() {
+            tmux -2 detach
+        }
+        tmux -2 a &>/dev/null || tmux -2
+    fi
+fi
+
 ######### Load alias ########
 
 for config_file ($DOTFILES/powertools/zsh/alias/*.zsh(N)); do
@@ -33,15 +46,19 @@ unsetopt menu_complete # do not autoselect the first completion entry
 export FPATH=$DOTFILES/powertools/zsh/completions:$FPATH
 zmodload zsh/complist
 zstyle ':completion:*' menu select
+
 #ls colors for auto complete menu
 eval `dircolors -b`
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
+
 # Better completion for killall
 zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
+
 # case insensitive auto complete
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
 autoload -Uz compinit
+
 #store zcompdump in cache (create zsh folder)
 compinit -d $ZSH_CACHE/zcompdump-$ZSH_VERSION
 
@@ -50,11 +67,10 @@ autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-bindkey ' ' magic-space                                  # [Space] - do history expansion
-bindkey "^N"      down-line-or-beginning-search        # down arrow
-bindkey "^P"      up-line-or-beginning-search          # up arrow
-bindkey -M menuselect '^o' accept-and-infer-next-history # enter
+bindkey ' '  magic-space
+bindkey "^N" down-line-or-beginning-search
+bindkey "^P" up-line-or-beginning-search
+bindkey -M menuselect '^o' accept-and-infer-next-history
 
 #Custom Commands
 compdef _zathura pdf
-
