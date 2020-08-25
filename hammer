@@ -7,7 +7,7 @@ sh storeTools
 
 source .workflow
 #packages
-yes | sudo pacman -S --needed  "${packages[@]}"
+yes | sudo pacman -S --needed  "${essentials[@]}"
 
 #aur packages
 for p in "${aurpackages[@]}"
