@@ -10,6 +10,10 @@ alias vim="nvim"
 alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
 alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
+alias tr="transmission-remote"
+alias tra="transmission-remote -a"
+alias trl="transmission-remote -l"
+
 alias py="python"
 alias ghc="stack ghc"
 alias ghci="stack ghci"
