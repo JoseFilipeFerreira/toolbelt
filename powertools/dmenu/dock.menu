@@ -3,17 +3,18 @@ LAYOUT=$(echo -e "dock\nundock\nmirror" | dmenu -i -p "Monitor Layout")
 
 case "$LAYOUT" in
         dock)
-            xrandr --output DP2-2 --auto
-            xrandr --output eDP1 --off
+            xrandr --output DP-2-2 --auto && xrandr --output eDP-1 --off
             ;;
 
         undock)
-	    xrandr --output DP2-2 --off
-	    xrandr --output eDP1 --auto
+	    xrandr --output eDP-1 --auto && xrandr --output DP-2-2 --off
             ;;
+
         mirror)
             xrandr --output HDMI2 --same-as eDP1
             ;;
 esac
+
+notify-send "$LAYOUT""ed"
 
 changeWall
