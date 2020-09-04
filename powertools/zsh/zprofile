@@ -27,6 +27,7 @@ export STACK_ROOT="$XDG_DATA_HOME/stack"
 export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 
 # dotfiles
 export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".zprofile")")")")"
@@ -40,8 +41,8 @@ export MIEI_NOTES="$HOME/Miei/Notes"
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    toilet -f mono9 -F metal "Starting X"
     bash "$DOTFILES"/nail
+    toilet -f mono9 -F metal "Starting X"
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
     clear
