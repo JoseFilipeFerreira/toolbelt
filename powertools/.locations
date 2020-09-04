@@ -11,3 +11,4 @@ xinitrc:$HOME/.xinitrc
 zathura:$XDG_CONFIG_HOME/zathura
 zsh/zprofile:$HOME/.zprofile
 zsh/zshrc:$ZDOTDIR/.zshrc
+neofetch:$XDG_CONFIG_HOME/neofetch
