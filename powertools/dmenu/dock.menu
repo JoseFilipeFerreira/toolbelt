@@ -1,9 +1,13 @@
-LAYOUT=$(echo -e "dock\nundock\nmirror" | dmenu -i -p "Monitor Layout")
+LAYOUT=$(echo -e "dock\ndock(1080p)\nundock\nmirror" | dmenu -i -p "Monitor Layout")
 [ "$LAYOUT" = "" ] && exit 2 
 
 case "$LAYOUT" in
         dock)
             xrandr --output DP-2-2 --auto && xrandr --output eDP-1 --off
+            ;;
+
+        dock\(1080p\))
+            xrandr --output DP-2-2 --mode 1920x1080 && xrandr --output eDP-1 --off
             ;;
 
         undock)
