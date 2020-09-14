@@ -5,6 +5,7 @@ dotfiles and more
 * [hammer](hammer) Install dotfiles and programs that are part of my [workflow](.workflow)
 * [nail](nail) Update dotfiles
 * [storeTools](storeTools) create all symlinks for my [scripts](toolbox)
+* [generate_config.py](generate_config.py) templating language for dotfiles (stolen from [Mendess](https://github.com/mendess/spell-book))
 
 ## [PowerTools](powertools) (.dotfiles)
 
