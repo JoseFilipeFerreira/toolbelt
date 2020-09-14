@@ -30,8 +30,8 @@ alias gpsup='git push --set-upstream origin $(git branch --show-current)'
 
 alias grhh='git reset --hard'
 
-alias gfi='$BROWSER github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*).git/\1/g")'
-alias gpr='$BROWSER https://github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*).git/\1/g")/pull/new/$(git symbolic-ref --short HEAD)'
+alias gfi='$BROWSER https://github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*)\.git/\1/g")'
+alias gpr='$BROWSER https://github.com/$(git remote get-url --push origin | sed -r "s/.*:(.*)\.git/\1/g")/pull/new/$(git symbolic-ref --short HEAD)'
 alias gpsupr='gpsup && gpr'
 
 alias glog="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
