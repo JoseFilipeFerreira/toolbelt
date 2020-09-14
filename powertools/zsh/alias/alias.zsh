@@ -33,7 +33,13 @@ png() {
 }
 
 hist_stats() {
-    fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl | head -n20
+    fc -l 1 | \
+    awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
+    grep -v "./" | \
+    column -c3 -s " " -t | \
+    sort -nr | \
+    nl | \
+    head -n20
 }
 
 make() {
@@ -45,18 +51,4 @@ make() {
             bash -c "make $file"
         done
     fi
-}
-
-dock(){
-    setxkbmap gb -option caps:esc
-    xrandr --output DP-2-2 --auto
-    xrandr --output eDP-1 --off
-    wallpaper
-}
-
-undock(){
-    setxkbmap gb -option caps:esc
-    xrandr --output eDP-1 --auto
-    xrandr --output DP-2-2 --off
-    wallpaper
 }
