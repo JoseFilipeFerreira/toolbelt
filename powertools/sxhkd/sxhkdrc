@@ -23,18 +23,18 @@ super + control + l
 ###### BRIGHTNESS ########
 
 XF86MonBrightness{Up,Down}
-        xbacklight {-inc,-dec} 5
+        blind {+,-}
 
 ######### MEDIA ###########
 
 XF86Audio{Raise,Lower}Volume
-        volume {+,-}
+        deaf {+,-}
 
 super + {Up, Down}
-        volume {+,-}
+        deaf {+,-}
 
 XF86AudioMute
-        volume mute
+        deaf mute
 
 XF86Audio{Play,Stop}
         playerctl {play-pause,stop}

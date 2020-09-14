@@ -10,10 +10,12 @@ dotfiles and more
 
 ## [ToolBox](toolbox) (scripts)
 * [aura](toolbox/aura.tool) AUR installer script
+* [blind](toolbox/blind.tool) brightness changer (uses chown)
 * [calendar](toolbox/calendar.tool) get calendar based on [.timetable](toolbox/.timetable)
 * [changeWall](toolbox/changeWall.tool) change wallpaper
 * [cuffs](toolbox/cuffs.tools) screnshoot to clipboard
 * [dateTerm](toolbox/dateTerm.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
+* [deaf](toolbox/deaf.tool) volume changer (interacts with [i3blocks](powertools/i3blocks))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher
