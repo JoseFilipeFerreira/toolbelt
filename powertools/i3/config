@@ -6,26 +6,13 @@ set $mod Mod4
 # is used in the bar {} block.
 font pango:Droid Sans Mono Dotted 8
 
-######################################## WORKSPACES ###########################
-
-set $ws1 1
-set $ws2 2
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
-set $ws10 10
-
 ####################################### BEHAVIOR ###############################
 
-assign [class="jetbrains"] $ws2
-assign [class="(?i)firefox"] $ws3
-assign [class="discord"] $ws4
+assign [class="jetbrains"]   2
+assign [class="(?i)firefox"] 3
+assign [class="discord"]     4
 
-for_window [title="CG-Engine"]                    border normal
+for_window [title="CG-Engine"] border normal
 
 mouse_warping output
 new_window none
