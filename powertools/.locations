@@ -1,8 +1,10 @@
 dunst:$XDG_CONFIG_HOME/dunst
 ghci/ghci.conf:$HOME/.ghc/ghci.conf
+htop:$XDG_CONFIG_HOME/htop
 i3:$XDG_CONFIG_HOME/i3
 i3blocks:$XDG_CONFIG_HOME/i3blocks
 mpv/scripts:$XDG_CONFIG_HOME/mpv/scripts
+neofetch:$XDG_CONFIG_HOME/neofetch
 nvim/init.vim:$XDG_CONFIG_HOME/nvim/init.vim
 pulse/daemon.conf:$XDG_CONFIG_HOME/pulse/daemon.conf
 sxhkd:$XDG_CONFIG_HOME/sxhkd
@@ -11,4 +13,3 @@ xinitrc:$HOME/.xinitrc
 zathura:$XDG_CONFIG_HOME/zathura
 zsh/zprofile:$HOME/.zprofile
 zsh/zshrc:$ZDOTDIR/.zshrc
-neofetch:$XDG_CONFIG_HOME/neofetch
