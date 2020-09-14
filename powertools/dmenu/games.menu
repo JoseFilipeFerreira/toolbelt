@@ -1,0 +1,24 @@
+#!/bin/bash
+
+EMULATOR=$(ls $GAMES | dmenu -i -l 20)
+[[ -z $EMULATOR ]] && exit 1
+
+GAME=$(ls "$GAMES/$EMULATOR" | dmenu -i -l 20)
+[[ -z $GAME ]] && exit 1
+
+case "$EMULATOR" in
+    megadrive)
+        ;;
+    n64)
+        ;;
+    nes)
+        ;;
+    snes)
+        bsnes "$GAMES/$EMULATOR/$GAME"
+        ;;
+    zxspectrum)
+        ;;
+    *)
+        echo "Invalid emulator"
+        ;;
+esac

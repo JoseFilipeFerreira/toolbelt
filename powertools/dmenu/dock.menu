@@ -21,4 +21,6 @@ esac
 
 notify-send "$LAYOUT""ed"
 
-changeWall
+setxkbmap gb -option caps:esc
+
+wallpaper
