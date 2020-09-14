@@ -1,3 +1,5 @@
+################################### PROGRAMS ###################################
+
 super + {F1,F2,F3}
         {discord,$BROWSER,$BROWSER $(calendar --curr-link)}
 
@@ -16,10 +18,15 @@ super + {_,shift +,control +} Return
 super + control + l
         lock
 
+################################### MEDIA KEYS #################################
+
+###### BRIGHTNESS ########
+
 XF86MonBrightness{Up,Down}
         xbacklight {-inc,-dec} 5
 
-# Media keys:
+######### MEDIA ###########
+
 XF86Audio{Raise,Lower}Volume
         pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
 
