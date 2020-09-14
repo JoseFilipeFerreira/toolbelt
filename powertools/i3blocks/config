@@ -7,19 +7,15 @@ separator_block_width=15
 interval=5
 
 [volume]
-interval=5
-signal=10
-#STEP=5%
+interval=once
+signal=1
 
 [battery]
 interval=30
-signal=11
 
 [battery BAT1]
 interval=30
-signal=11
 
 [time]
 command=date '+%d/%m  %H:%M'
 interval=1
-

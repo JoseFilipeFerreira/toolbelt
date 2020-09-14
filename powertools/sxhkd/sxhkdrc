@@ -28,23 +28,22 @@ XF86MonBrightness{Up,Down}
 ######### MEDIA ###########
 
 XF86Audio{Raise,Lower}Volume
-        pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
+        volume {+,-}
+
+super + {Up, Down}
+        volume {+,-}
 
 XF86AudioMute
-        pactl set-sink-mute @DEFAULT_SINK@ toggle
+        volume mute
 
 XF86Audio{Play,Stop}
         playerctl {play-pause,stop}
 
-XF86Audio{Prev,Next}
-        playerctl {previous, next}
-
-
-super + {Up, Down}
-        pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
-
 super + {Prior,Next}
         playerctl {play-pause,stop}
+
+XF86Audio{Prev,Next}
+        playerctl {previous, next}
 
 super + {Left,Right}
         playerctl {previous, next}
