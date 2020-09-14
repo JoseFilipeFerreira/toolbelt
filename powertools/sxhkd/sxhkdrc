@@ -64,16 +64,16 @@ super + shift + e
 
 ####### MOVE FOCUS #######
 
-super + {0-9, Tab}
-        i3-msg workspace {0-9,back_and_forth}
+super + {1-9, 0, Tab}
+        i3-msg workspace {1-9,10,back_and_forth}
 
 super + {h,j,k,l}
         i3-msg focus {left,down,up,right}
 
 ##### MOVE CONTAINER #####
 
-super + shift + {0-9}
-        i3-msg move container to workspace {0-9}
+super + shift + {1-9,0}
+        i3-msg move container to workspace {1-9,10}
 
 super + shift + {h,j,k,l}
         i3-msg move {left,down,up,right}
