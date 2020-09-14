@@ -1,0 +1,30 @@
+/* Hide close tab button */
+#tabbrowser-tabs .tabbrowser-tab .tab-close-button {
+    display:none !important;
+}
+
+/* Transparent Window */
+#main-window {
+	background: transparent !important;
+	border: none !important;
+}
+
+/* Transparent tabbar */
+.toolbar-items {	
+	background-color: transparent !important;
+}
+.tab-background {
+	border: none !important;
+	background: transparent !important;
+}
+
+/* https://www.reddit.com/r/firefox/comments/dfljq5/make_firefox_background_black_when_loading_a_page */
+@-moz-document url("chrome://browser/content/browser.xhtml") {
+  #tabbrowser-tabpanels {
+    background-color: #181A1C !important;
+  }
+  browser[type="content-primary"],
+  browser[type="content"] {
+    background: #181A1C !important;
+  }
+}

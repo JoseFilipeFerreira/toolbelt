@@ -1,0 +1,12 @@
+@import url("userChrome.css");
+
+/* Hide scrollbar */
+:root{
+	scrollbar-width: 1px !important;
+}
+
+@-moz-document url(about:privatebrowsing) {
+    :root{
+        scrollbar-width: 1px !important;
+    }
+}
