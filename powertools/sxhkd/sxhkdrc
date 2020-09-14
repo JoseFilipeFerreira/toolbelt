@@ -19,7 +19,7 @@ super + control + l
 XF86MonBrightness{Up,Down}
         xbacklight {-inc,-dec} 5
 
-#Media keys:
+# Media keys:
 XF86Audio{Raise,Lower}Volume
         pactl set-sink-volume @DEFAULT_SINK@ {+5%,-5%}
 
@@ -42,3 +42,46 @@ super + {Prior,Next}
 super + {Left,Right}
         playerctl {previous, next}
 
+######################################## WM KEYBINDS ###########################
+
+######### MISC ###########
+
+super + shift + q
+        i3-msg kill
+
+super + shift + r
+        i3-msg restart
+
+super + shift + e
+        i3-msg exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+####### MOVE FOCUS #######
+
+super + {0-9, Tab}
+        i3-msg workspace {0-9,back_and_forth}
+
+super + {h,j,k,l}
+        i3-msg focus {left,down,up,right}
+
+##### MOVE CONTAINER #####
+
+super + shift + {0-9}
+        i3-msg move container to workspace {0-9}
+
+super + shift + {h,j,k,l}
+        i3-msg move {left,down,up,right}
+
+######### LAYOUT #########
+
+super + shift + space
+        i3-msg floating toggle
+
+super + v
+        i3-msg split toggle
+
+super + f
+        i3-msg fullscreen toggle
+
+super + {s,w,e}
+        i3-msg layout {stacking,tabbed,toggle split}
