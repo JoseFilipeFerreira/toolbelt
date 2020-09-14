@@ -4,7 +4,7 @@ htop:$XDG_CONFIG_HOME/htop
 i3:$XDG_CONFIG_HOME/i3
 i3blocks:$XDG_CONFIG_HOME/i3blocks
 mpv/scripts:$XDG_CONFIG_HOME/mpv/scripts
-neofetch:$XDG_CONFIG_HOME/neofetch
+neofetch/config.conf:$XDG_CONFIG_HOME/neofetch/config.conf:generated
 nvim/init.vim:$XDG_CONFIG_HOME/nvim/init.vim
 pulse/daemon.conf:$XDG_CONFIG_HOME/pulse/daemon.conf
 sxhkd:$XDG_CONFIG_HOME/sxhkd
