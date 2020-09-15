@@ -11,7 +11,12 @@ case $1 in
     ;;
 esac
 
-stat=$(echo "$_acpi" |cut -d ":" -f2 | cut -d "," -f 1 | sed -e 's/^[ \t]*//')
+stat=$( \
+    echo "$_acpi" | \
+    cut -d ":" -f2 | \
+    cut -d "," -f 1 | \
+    sed -e 's/^[ \t]*//')
+
 percent=$(echo "$_acpi" | sed '$!d;/%/{s/%.*//;s/.*\s//}')
 
 case "$stat" in
@@ -31,19 +36,13 @@ echo "$symbol" "$percent""%"
 
 
 case $(echo "$percent"" / 20" | bc) in
-  0)
-    echo "#FF0000"
-    ;;
-  1)
-    echo "#FF8400"
-    ;;
-  2)
-    echo "#FFF700"
-    ;;
-  3)
-    echo "#AAFF00"
-    ;;
-  *)
-    echo "#00FF00"
-    ;;
+  0) echo "#FF0000" ;;
+
+  1) echo "#FF8400" ;;
+
+  2) echo "#FFF700" ;;
+
+  3) echo "#AAFF00" ;;
+
+  *) echo "#00FF00" ;;
 esac
