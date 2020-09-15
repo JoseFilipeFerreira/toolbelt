@@ -48,6 +48,11 @@ XF86Audio{Prev,Next}
 super + {Left,Right}
         playerctl {previous, next}
 
+######### MISC ###########
+
+XF86Tools
+        cd $DOTFILES && $TERMINAL
+
 ######################################## WM KEYBINDS ###########################
 
 ######### MISC ###########
