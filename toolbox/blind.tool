@@ -32,21 +32,15 @@ case "$1" in
         echo "$CURR_STEP"
 
         case $(echo "$CURR"*5/"$MAX" | bc) in
-            0)
-                echo "#424020"
-                ;;
-            1)
-                echo "#686538"
-                ;;
-            2)
-                echo "#939059"
-                ;;
-            3)
-                echo "#BDB881"
-                ;;
-            *)
-                echo "#FFFFFF"
-                ;;
+            0) echo "#424020" ;;
+
+            1) echo "#686538" ;;
+
+            2) echo "#939059" ;;
+
+            3) echo "#BDB881" ;;
+
+            *) echo "#FFFFFF" ;;
         esac
         ;;
     *)
