@@ -6,7 +6,13 @@ separator_block_width=15
 [wifi]
 interval=5
 
+[brightness]
+command=blind --block
+interval=once
+signal=2
+
 [volume]
+command=deaf --block
 interval=once
 signal=1
 
