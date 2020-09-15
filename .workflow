@@ -1,12 +1,13 @@
 #!/bin/bash
 export essentials=(
-git
-curl
 clang
 cmake
+curl
 gdb
+git
 htop
 imagemagick
+inetutils
 jq
 neofetch
 neovim
@@ -25,4 +26,3 @@ youtube-dl
 zip
 zsh
 )
-
