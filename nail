@@ -1,5 +1,6 @@
 #!/bin/bash
-[[ -z "$DOTFILES" ]] && source "$(dirname "$(readlink -f "$0")")powertools/zsh/zprofile"
+[[ -z "$DOTFILES" ]] && \
+    source "$(dirname "$(readlink -f "$0")")powertools/zsh/zprofile"
 
 make_symlink(){
     if [ -h "$2" ] && ! [ -e "$2" ]
@@ -14,25 +15,44 @@ make_symlink(){
     fi
 }
 
-make_generated_dotfile(){
-    echo -en "\033[35mGenerating\033[33m "
-    python "$DOTFILES"/generate_config.py "$1" "$2"
-    echo -en "\033[0m"
+make_makefile(){
+    make --directory="$orig" | grep -q "is up to date" \
+        && exit
+
+    OUT_INSTALL="$(make install --directory="$orig" | grep -v "directory")"
+
+    echo -e "\033[35mMake install:\033[33m $OUT_INSTALL \033[0m"
 }
 
 deploy_dotfiles(){
     while IFS= read -r l; do
-        orig="$DOTFILES/powertools/$(echo "$l" | cut -d: -f1)"
-        dest=$(echo "$l" | cut -d: -f2 | sed "s|~|$HOME|g")
+        orig="$DOTFILES/powertools/$(echo "$l" | cut -d, -f1)"
+        dest=$(echo "$l" | cut -d, -f2 | sed "s|~|$HOME|g")
         mkdir -p "$(dirname "$dest")"
 
-        IFS=':' read -ra ARGS <<< "$l"
+        IFS=',' read -ra VALUES <<< "$l"
+        ARGS=("${VALUES[@]:2}")
 
-        if [[ " ${ARGS[@]} " =~ "generated" ]]; then
-            make_generated_dotfile "$orig" "$dest"
-        else
-            make_symlink "$orig" "$dest"
-        fi
+        for ARG in "${ARGS[@]}"; do
+            case "$ARG" in
+                link)
+                    make_symlink "$orig" "$dest"
+                    ;;
+            
+                make)
+                    make_makefile "$orig" "$dest"
+                    ;;
+
+                generated)
+                    echo -en "\033[35mGenerating\033[33m "
+                    python "$DOTFILES"/generate_config.py "$orig" "$dest"
+                    echo -en "\033[0m"
+                    ;;
+                *)
+                    echo -e "\033[31mARGS not recognized: $ARG"
+                    ;;
+            esac
+        done
 
     done < <(perl -pe 's/\$(\w+)/$ENV{$1}/g' "$DOTFILES/$1" | sed -e "s|$HOME|~|g")
 }
