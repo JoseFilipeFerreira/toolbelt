@@ -16,10 +16,10 @@ make_symlink(){
 }
 
 make_makefile(){
-    make --directory="$orig" | grep -q "is up to date" \
+    make --directory="$1" | grep -q "is up to date" \
         && exit
 
-    OUT_INSTALL="$(make install --directory="$orig" | grep -v "directory")"
+    OUT_INSTALL="$(make install --directory="$1" | grep -v "directory")"
 
     echo -e "\033[35mMake install:\033[33m $OUT_INSTALL \033[0m"
 }
