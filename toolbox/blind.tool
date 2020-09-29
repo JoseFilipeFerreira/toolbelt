@@ -1,37 +1,33 @@
 #!/bin/bash
-FOLDER="/sys/class/backlight/intel_backlight"
+N_STEP="9"
 
-MAX="$(cat "$FOLDER/max_brightness")"
-
-STEP="$(echo "$MAX"/9 | bc)"
-
-BACKLIGHT="$FOLDER/brightness"
-CURR="$(cat "$BACKLIGHT")"
-
-[ "$(stat --format '%U' "$BACKLIGHT")" = "$USER" ] || \
-    sudo chown "$USER":"$USER" "$BACKLIGHT"
+STEP_PERCENT="$(echo 100/"$N_STEP" | bc)"
 
 case "$1" in
     +)
-        echo "$(( CURR + STEP ))" > "$BACKLIGHT"
+        brightnessctl set +"$STEP_PERCENT"%
+        pkill -SIGRTMIN+1 thonkbar
         ;;
 
     -)
-        echo "$(( CURR - STEP ))" > "$BACKLIGHT"
+        brightnessctl --min-value=6 set "$STEP_PERCENT"-%
+        pkill -SIGRTMIN+1 thonkbar
         ;;
 
     --block)
-        [ -n "$( \
-            xrandr | \
+        xrandr | \
             awk '/ connected/ && /[[:digit:]]x[[:digit:]].*+/{print $1}' | \
-            grep "eDP-1")" ] || exit
+            grep -q "eDP-1" \
+        || exit
 
-        CURR_STEP="$(echo "$CURR"/"$STEP" | bc)"
+        CURR_PERCENT="$(brightnessctl -m info | grep -Po "[0-9]*(?=%)")"
+
+        CURR_STEP="$(echo "$CURR_PERCENT"/"$STEP_PERCENT" | bc)"
 
         echo "$CURR_STEP"
         echo "$CURR_STEP"
 
-        case $(echo "$CURR"*5/"$MAX" | bc) in
+        case $(echo "$CURR_PERCENT/20" | bc) in
             0) echo "#424020" ;;
 
             1) echo "#686538" ;;
@@ -48,5 +44,3 @@ case "$1" in
         exit
         ;;
 esac
-
-pkill -RTMIN+2 i3blocks

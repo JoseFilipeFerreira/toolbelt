@@ -70,7 +70,7 @@ super + shift + e
 ####### MOVE FOCUS #######
 
 super + {1-9, 0, Tab}
-        i3-msg workspace {1-9,10,back_and_forth}
+        i3-msg workspace {1-9,10,back_and_forth} && pkill -64 thonkbar
 
 super + {h,j,k,l}
         i3-msg focus {left,down,up,right}
