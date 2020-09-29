@@ -19,4 +19,4 @@ install: $(EXEC) $(DAEMON)
 	cp $(EXEC) $(DAEMON) ~/.local/bin
 
 uninstall:
-	rm ~/.local/bin/$(EXEC)
+	rm ~/.local/bin/{$(EXEC),$(DAEMON)}
