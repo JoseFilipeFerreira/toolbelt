@@ -21,10 +21,10 @@ percent=$(echo "$_acpi" | sed '$!d;/%/{s/%.*//;s/.*\s//}')
 
 case "$stat" in
   Full)
-    symbol='🌩'
+    symbol='~'
     ;;
   Charging)
-    symbol='⚡'
+    symbol='^'
     ;;
   Discharging)
     symbol=''

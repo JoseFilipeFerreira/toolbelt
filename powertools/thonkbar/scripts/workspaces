@@ -1,0 +1,22 @@
+#!/bin/python
+import subprocess
+import json
+
+out = subprocess.Popen(['i3-msg', '-t', 'get_workspaces'], 
+           stdout=subprocess.PIPE, 
+           stderr=subprocess.STDOUT)
+stdout,stderr = out.communicate()
+
+for workspace in json.loads(stdout):
+    name = workspace['name']
+
+    if workspace['urgent']:
+        print("%{B#E6900000} ", name, end="")
+    elif workspace['focused']:
+        print("%{B#E6285577} ", name, end="")
+    else:
+        print("%{B#E6222222} ", name, end="")
+
+    print("  %{B-} ", end="")
+
+print()

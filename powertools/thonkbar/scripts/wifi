@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 iface="$( \
     tail -1 /proc/net/wireless 2>/dev/null | \
     awk '{print $1}' | \
@@ -33,9 +33,10 @@ if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
 
         *) color="#00FF00" ;;
     esac
-    format="W:($quality%@$ssid)$ip"
+    format="$quality%@$ssid($ip)"
+
+    echo "$format"
+    echo "$format"
+    echo "$color"
 fi
 
-echo "$format"
-echo "$format"
-echo "$color"
