@@ -2,15 +2,8 @@ setxkbmap -layout gb -option caps:escape
 
 compton --config $DOTFILES/powertools/compton/compton.conf -b
 dunst &
-nm-applet &
 changeWall &
 sxhkd &
+thonkbar_daemon &
 
-case $(hostname) in
-    cake)
-        exec bspwm
-        ;;
-    *)
-        exec i3
-        ;;
-esac
+exec i3
