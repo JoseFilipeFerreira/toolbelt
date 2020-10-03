@@ -83,6 +83,13 @@ super + shift + {1-9,0}
 super + shift + {h,j,k,l}
         i3-msg move {left,down,up,right}
 
+
+#### RESIZE CONTAINER ####
+
+super + alt + {h,j,k,l}
+       i3-msg resize {shrink width,grow height,shrink height,grow width} 10 px or 10 ppt
+
+
 ######### LAYOUT #########
 
 super + shift + space
@@ -94,5 +101,5 @@ super + v
 super + f
         i3-msg fullscreen toggle
 
-super + {s,w,e}
-        i3-msg layout {stacking,tabbed,toggle split}
+super + e
+        i3-msg layout tabbed
