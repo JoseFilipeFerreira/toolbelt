@@ -15,8 +15,8 @@ case "$1" in
         ;;
 
     --block)
-        xrandr | \
-            awk '/ connected/ && /[[:digit:]]x[[:digit:]].*+/{print $1}' | \
+        xrandr |
+            awk '/ connected/ && /[[:digit:]]x[[:digit:]].*+/{print $1}' |
             grep -q "eDP-1" \
         || exit
 

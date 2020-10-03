@@ -14,10 +14,10 @@ case "$1" in
         ;;
 
     --block)
-        PACTL=$(pactl list sinks | \
+        PACTL=$(pactl list sinks |
             grep --after-context 10 "^[[:space:]]State: RUNNING")
 
-        [ -z "$PACTL" ] && PACTL=$(pactl list sinks | \
+        [ -z "$PACTL" ] && PACTL=$(pactl list sinks |
             grep --after-context 12 "^Sink #")
 
         VOLUME=$(echo "$PACTL" | grep -Eo "[0-9]+\%" | head -n1)

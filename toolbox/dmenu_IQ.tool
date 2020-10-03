@@ -8,8 +8,8 @@ mkdir -p "$CACHE"
 ALL_CMD=$(dmenu_path)
 
 MOST_USED=$( \
-    sort -nr -k2 "$CACHE_FILE" | \
-    cut -f1 | \
+    sort -nr -k2 "$CACHE_FILE" |
+    cut -f1 |
     grep -F -x -f <(echo -e "$ALL_CMD"))
 
 ALL_CMD=$(echo -e "$ALL_CMD" | grep -F -x -v -f <(echo -e "$MOST_USED"))
