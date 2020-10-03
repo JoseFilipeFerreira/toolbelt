@@ -23,4 +23,6 @@ notify-send "$LAYOUT""ed"
 
 setxkbmap gb -option caps:esc
 
+thonkbar_daemon &
+
 wallpaper

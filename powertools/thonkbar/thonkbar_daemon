@@ -1,4 +1,6 @@
 #!/bin/bash
+killall -q thonkbar lemonbar
+
 thonkbar |
     lemonbar \
         -p \
