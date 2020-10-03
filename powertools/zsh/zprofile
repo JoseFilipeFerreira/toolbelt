@@ -28,6 +28,9 @@ export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
+export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
 
 # dotfiles
 export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".zprofile")")")")"
