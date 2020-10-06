@@ -19,6 +19,7 @@ rust
 scrot
 sxiv
 termite
+tmux
 unzip
 wget
 xclip
