@@ -6,11 +6,10 @@ mkdir -p "$WORKOUTS"
 AVAILABLE_WORKOUTS="$(find "$WORKOUTS" -type f -exec basename {} \;)"
 
 get_number(){
-    local VAR
     while :; do
-        read -rp "Insert $1: " VAR
-        if [ -n "$VAR" ] && [ "$VAR" -eq "$VAR" ] 2>/dev/null; then
-            NUMBER="$VAR"
+        read -rp "Insert $1: "
+        if [ -n "$REPLY" ] && [ "$REPLY" -eq "$REPLY" ] 2>/dev/null; then
+            NUMBER="$REPLY"
             break
         else
             echo "Invalid number"
@@ -19,15 +18,14 @@ get_number(){
 }
 
 get_time(){
-    local VAR
     while :; do
-        read -rp "Insert $1 (dd/mm/yy hh:mm) [Curr|custom]: " VAR
+        read -rp "Insert $1 (dd/mm/yy hh:mm) [Curr|custom]: "
 
-        if [[ -z "$VAR" || "$VAR" == "Curr" ]]; then
+        if [[ -z "$REPLY" || "$REPLY" == "Curr" ]]; then
             TIME="$(date +'%d/%m/%y %R')"
             break
         else
-            if [[ "$VAR" = $(date -d "$VAR" +'%d/%m/%y %R') ]]; then 
+            if [[ "$REPLY" = "$(date -d "$REPLY" +'%d/%m/%y %R')" ]]; then 
                 TIME="$date"
                 break
             else
@@ -58,7 +56,7 @@ ask_workout_data(){
                 ;;
             *)
                 echo "Unknown field \"$FIELD\" in file: $WORKOUTS/$SELECTED"
-                exit
+                exit 1
                 ;;
         esac
     done
