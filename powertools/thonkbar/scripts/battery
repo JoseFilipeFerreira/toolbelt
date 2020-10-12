@@ -1,15 +1,10 @@
 #!/bin/bash
-case $1 in
-  BAT1)
-    _acpi=$(acpi -b | sed -n '2 p')
-    if [ ! "$_acpi" ]; then
-        exit
-    fi
-    ;;
-  *)
-    _acpi=$(acpi -b)
-    ;;
-esac
+_acpi="$(acpi -b)"
+
+[ -n "$1" ] && \
+    _acpi="$(echo "$_acpi" | grep "Battery $1")"
+
+[ ! "$_acpi" ] && exit
 
 stat=$( \
     echo "$_acpi" | \
@@ -31,12 +26,8 @@ echo "$symbol" "$percent""%"
 
 case $(echo "$percent"" / 20" | bc) in
   0) echo "#FF0000" ;;
-
   1) echo "#FF8400" ;;
-
   2) echo "#FFF700" ;;
-
   3) echo "#AAFF00" ;;
-
   *) echo "#00FF00" ;;
 esac
