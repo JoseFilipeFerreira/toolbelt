@@ -5,8 +5,6 @@ iface="$( \
     sed 's/://g' )"
 
 if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
-    ip=$(ip route get 1.2.3.4 | awk '{print $7}')
-
     ssid=$(iwgetid -r 2>/dev/null)
 
     quality="$(awk \
@@ -33,7 +31,7 @@ if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
 
         *) color="#00FF00" ;;
     esac
-    format="$quality%@$ssid($ip)"
+    format="$quality%@$ssid"
 
     echo "$format"
     echo "$format"

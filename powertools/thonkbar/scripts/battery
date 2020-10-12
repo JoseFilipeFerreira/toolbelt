@@ -20,15 +20,9 @@ stat=$( \
 percent=$(echo "$_acpi" | sed '$!d;/%/{s/%.*//;s/.*\s//}')
 
 case "$stat" in
-  Full)
-    symbol='~'
-    ;;
-  Charging)
-    symbol='^'
-    ;;
-  Discharging)
-    symbol=''
-    ;;
+  Full)        symbol=''  ;;
+  Charging)    symbol='^' ;;
+  Discharging) symbol=''  ;;
 esac
 
 echo "$symbol" "$percent""%"
