@@ -22,7 +22,7 @@ addWall() {
     res="$(convert "$file" -format '%[w]' info:)"
     if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
     then
-        rsync -av "$WALLS"/ jff.sh:~/wallpapers
+        rsync -av "$WALLS"/ kiwi:~/wallpapers
     else
         rm "$file"
         echo -e "\033[31mImage too small\033[0m\nonly $res"
@@ -42,7 +42,7 @@ rmWall() {
 if [ ! -d "$WALLS" ]
 then
     echo -e "\033[35mDowloading Wallpapers...\033[33m"
-    rsync -av jff.sh:~/wallpapers/ "$WALLS"
+    rsync -av kiwi:~/wallpapers/ "$WALLS"
     echo -e "\033[35mDone!\033[0m"
 fi
 
