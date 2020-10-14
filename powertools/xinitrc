@@ -2,7 +2,7 @@ xrdb -merge ~/.config/X11/Xresources
 
 setxkbmap -layout gb -option caps:escape
 
-compton --config $DOTFILES/powertools/compton/compton.conf -b
+compton --config $DOTFILES/powertools/compton.conf -b
 dunst &
 changeWall &
 sxhkd &
