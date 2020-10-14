@@ -3,7 +3,7 @@
 ######### Appearance ########
 
 autoload -U colors && colors
-source "$DOTFILES/powertools/zsh/themes/mightyConfig.zsh"
+source "$DOTFILES/powertools/zsh/prompt.zsh"
 
 ############# SSH ###########
 
