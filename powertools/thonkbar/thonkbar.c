@@ -246,7 +246,7 @@ int main (int argc, char** argv) {
     insert_block(right, "deaf --block", 0);
     insert_block(right, "scripts/battery 1", 10);
     insert_block(right, "scripts/battery 0", 10);
-    insert_block(right, "date '+\%d/%m  %H:%M'", 1);
+    insert_block(right, "date '+\%d/%m  %H:%M   '", 1);
 
     insert_block(left, "scripts/workspaces", 0);
     insert_block(left, "uptime -p", 60);
