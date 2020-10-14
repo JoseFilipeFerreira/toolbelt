@@ -1,3 +1,4 @@
+X11/Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
 dunst,$XDG_CONFIG_HOME/dunst,link
 ghci/ghci.conf,$HOME/.ghc/ghci.conf,link
 htop,$XDG_CONFIG_HOME/htop,link
@@ -10,6 +11,7 @@ pulse/daemon.conf,$XDG_CONFIG_HOME/pulse/daemon.conf,link
 sxhkd,$XDG_CONFIG_HOME/sxhkd,link
 termite,$XDG_CONFIG_HOME/termite,link
 thonkbar,$XDG_CONFIG_HOME/thonkbar,make,link
+vdirsyncer/config,$XDG_CONFIG_HOME/vdirsyncer/config,link
 xinitrc,$HOME/.xinitrc,link
 zathura,$XDG_CONFIG_HOME/zathura,link
 zsh/zprofile,$HOME/.zprofile,link
