@@ -1,4 +1,4 @@
-X11/Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
+Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
 dunstrc,$XDG_CONFIG_HOME/dunst/dunstrc,link
 ghci.conf,$HOME/.ghc/ghci.conf,link
 htoprc,$XDG_CONFIG_HOME/htop/htoprc,link
