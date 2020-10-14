@@ -1,0 +1,51 @@
+export PATH=$HOME/.local/bin:$PATH
+
+#Default programs
+export TERMINAL="termite"
+export BROWSER="firefox"
+export VISUAL="nvim"
+export EDITOR="nvim"
+
+export PAGER="less"
+export LESS_TERMCAP_mb=$'\e[1;35m'
+export LESS_TERMCAP_md=$'\e[1;36m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;32m'
+
+# ~/ clean-up
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export LESSHISTFILE="-"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export STACK_ROOT="$XDG_DATA_HOME/stack"
+export PYLINTHOME="$XDG_CACHE_HOME/pylint"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
+export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
+
+# dotfiles
+export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".zprofile")")")")"
+export WALLS="$XDG_DATA_HOME/wallpapers"
+export MUSIC="$XDG_DATA_HOME/music"
+export GAMES="$XDG_DATA_HOME/games"
+export MIEI="$HOME/Miei"
+export MIEI_NOTES="$HOME/Miei/Notes"
+
+# ssh
+export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+if [ "$(tty)" = "/dev/tty1" ]; then
+    bash "$DOTFILES"/nail
+    toilet -f mono9 -F metal "Starting X"
+    rm -rf /tmp/startx.log
+    startx &> /tmp/startx.log
+    clear
+fi

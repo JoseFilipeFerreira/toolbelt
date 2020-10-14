@@ -1,4 +1,6 @@
 Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
+bash/profile,$HOME/.bash_profile,link
+bash/bashrc,$HOME/.bashrc,link
 dunstrc,$XDG_CONFIG_HOME/dunst/dunstrc,link
 ghci.conf,$HOME/.ghc/ghci.conf,link
 htoprc,$XDG_CONFIG_HOME/htop/htoprc,link
@@ -14,5 +16,3 @@ thonkbar,$XDG_CONFIG_HOME/thonkbar,make,link
 vdirsyncer.conf,$XDG_CONFIG_HOME/vdirsyncer/config,link
 xinitrc,$HOME/.xinitrc,link
 zathurarc,$XDG_CONFIG_HOME/zathura/zathurarc,link
-zsh/zprofile,$HOME/.zprofile,link
-zsh/zshrc,$ZDOTDIR/.zshrc,link

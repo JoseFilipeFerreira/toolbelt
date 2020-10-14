@@ -1,31 +1,22 @@
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
+hist_stats() {
+    fc -l 1 | \
+    awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
+    grep -v "./" | \
+    column -c3 -s " " -t | \
+    sort -nr | \
+    nl | \
+    head -n20
+}
 
-alias -- -='cd -'
-alias 1='cd -'
-alias 2='cd -2'
-alias 3='cd -3'
-alias 4='cd -4'
-alias 5='cd -5'
-alias 6='cd -6'
-alias 7='cd -7'
-alias 8='cd -8'
-alias 9='cd -9'
-
-# List directory contents
-alias ls='ls --color=auto'
-alias l='ls -lah'
-
-alias grep='grep --color=auto --exclude-dir=.git'
-
-alias watch='watch --color'
-
-mkcd() {
-  mkdir -p $@
-  cd $@
+make() {
+    if [ -e Makefile ] || [ -e makefile ]; then
+        bash -c "make -j$(nproc || echo 4) $*"
+    else
+        for i in *.c; do
+            file=${i//\.c/}
+            bash -c "make $file"
+        done
+    fi
 }
 
 ex() {
@@ -49,3 +40,4 @@ ex() {
     echo "$1 is not a valid file"
   fi
 }
+

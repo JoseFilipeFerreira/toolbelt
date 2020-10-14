@@ -1,0 +1,23 @@
+#!/bin/bash
+
+[[ $- != *i* ]] && return
+
+[[ -n "$DOTFILES" ]] || source "$HOME/.bash_profile"
+
+export HISTSIZE=""
+PROMPT_COMMAND='history -a;history -n'
+export HISTCONTROL='ignoredups'
+shopt -s histappend
+shopt -s histverify
+set -o noclobber
+
+bind "set completion-ignore-case On"
+bind "set show-all-if-unmodified on"
+
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+for f in "$DOTFILES/powertools/bash/"*.bash; do
+    #shellcheck disable=SC1090
+    source "$f"
+done
