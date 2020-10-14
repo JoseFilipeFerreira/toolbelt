@@ -1,18 +1,25 @@
 #!/bin/bash
 _curr_line(){
-    awk -F: 'BEGIN { d='"$(date +%u)"' ;h='"$(date +%H)"' } d == $1 && h >= $2 && h < $3 {print $0}' \
-        "$DOTFILES""/toolbox/.timetable"
+    awk \
+        -F: \
+        -v d="$(date +%u)" \
+        -v h="$(date +%H)" \
+        'd == $1 && h >= $2 && h < $3 {print $0}' \
+    "$DOTFILES""/toolbox/.timetable"
 }
 
 display(){
-    for h in {9..19}
+    for h in {8..19}
     do
         echo -n "$h""h|"
-        for d in {1..5}
-        do
-            awk -F: 'BEGIN { d='"$d"' ;h='"$h"' } d == $1 && h >= $2 && h < $3 {printf "%s-%s", $4, $5}' \
-                "$DOTFILES""/toolbox/.timetable"
-            echo -n "|"
+        for d in {1..5}; do
+            awk \
+                -F: \
+                -v d="$d" \
+                -v h="$h" \
+                '{ if(d == $1 && h >= $2 && h < $3){printf "%s-%s", $4, $5;} }' \
+            "$DOTFILES""/toolbox/.timetable"
+            echo -en "|"
         done
         echo ""
     done
