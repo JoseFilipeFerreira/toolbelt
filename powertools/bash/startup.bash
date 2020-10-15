@@ -5,7 +5,8 @@ if [ -n "$SSH_CLIENT" ]; then
     export TERM=xterm
 
     if [ -z "$TMUX" ] && command -v tmux &>/dev/null ; then
-        read -p 'Launch tmux? [Y/n]' -r
+        echo -n 'Launch tmux? [Y/n]'
+        read -r
         case $REPLY in
             "y"|"Y"|"")
                 exit() {
