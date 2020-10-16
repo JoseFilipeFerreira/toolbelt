@@ -202,7 +202,35 @@ void* update_thread(void* signalid){
     pthread_exit(NULL);
 }
 
-void insert_block(enum BAR_AREA bar_area, char* block_comand, size_t delay){
+void* update_continuous_thread(void* signalid){
+    size_t id = (size_t) signalid;
+    struct Block* block = get_block(id);
+
+    FILE *fp = popen(block->command ,"r");
+
+    if (fp == NULL) {
+        fputs("Failed to run command\n", stderr);
+        return NULL;
+    }
+
+    char line[1024];
+
+    while (fgets(line, sizeof(line), fp) != NULL) {
+        pthread_mutex_lock(&block->lock);
+
+        free(block->result);
+        block->result = strdup(line);
+        strtok(block->result, "\n");
+
+        pthread_mutex_unlock(&block->lock);
+
+        draw_bar();
+    }
+
+    pthread_exit(NULL);
+}
+
+void insert_block(enum BAR_AREA bar_area, char* block_comand, int delay){
     static size_t last_id_right = 34;
     static size_t last_id_other = 64;
 
@@ -220,7 +248,11 @@ void insert_block(enum BAR_AREA bar_area, char* block_comand, size_t delay){
 
     pthread_mutex_init(&block.lock, NULL);
 
-    update_block(&block);
+    
+    if (delay >= 0){
+        update_block(&block);
+        signal(new_id, update_block_and_draw_bar);
+    }
 
     insert(get_block_array(bar_area), &block);
 
@@ -233,7 +265,14 @@ void insert_block(enum BAR_AREA bar_area, char* block_comand, size_t delay){
        }
     }
 
-    signal(new_id, update_block_and_draw_bar);
+    if (delay < 0){
+        pthread_t thread;
+        int rc = pthread_create(&thread, NULL, update_continuous_thread, (void *)new_id);
+
+        if (rc){
+          printf("ERROR; return code from pthread_create() is %d\n", rc);
+       }
+    }
 }
 
 int main (int argc, char** argv) {
