@@ -33,7 +33,7 @@ case "$1" in
         _curr_line | cut -d: -f5
         ;;
     --curr-link)
-        echo "https://elearning.uminho.pt/webapps/collab-ultra/tool/collabultra?course_id=$(_curr_line | cut -d: -f6)"
+        echo "https://$(_curr_line | cut -d: -f6)"
         ;;
     --show|"")
         display | column -t -N " ,seg,ter,qua,qui,sex" -R 1 -s "|"
