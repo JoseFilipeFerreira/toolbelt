@@ -129,7 +129,7 @@ void update_block(struct Block* block) {
     FILE *fp = popen(block->command ,"r");
 
     if (fp == NULL) {
-        fputs("Failed to run command\n", stderr);
+        fprintf(stderr, "Failed to run command: %s\n", block->command);
         return;
     }
 
@@ -209,7 +209,7 @@ void* update_continuous_thread(void* signalid){
     FILE *fp = popen(block->command ,"r");
 
     if (fp == NULL) {
-        fputs("Failed to run command\n", stderr);
+        fprintf(stderr, "Failed to run command: %s\n", block->command);
         return NULL;
     }
 
@@ -251,6 +251,7 @@ void insert_block(enum BAR_AREA bar_area, char* block_comand, int delay){
     
     if (delay >= 0){
         update_block(&block);
+
         signal(new_id, update_block_and_draw_bar);
     }
 
@@ -287,7 +288,7 @@ int main (int argc, char** argv) {
     insert_block(right, "scripts/battery 0", 10);
     insert_block(right, "date '+\%d/%m  %H:%M   '", 1);
 
-    insert_block(left, "scripts/workspaces", 0);
+    insert_block(left, "scripts/workspaces", -1);
     insert_block(left, "uptime -p", 60);
 
     draw_bar();

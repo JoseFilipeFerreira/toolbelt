@@ -1,22 +1,35 @@
 #!/bin/python
-import subprocess
-import json
+from i3ipc import Connection, Event
+import sys
 
-out = subprocess.Popen(['i3-msg', '-t', 'get_workspaces'], 
-           stdout=subprocess.PIPE, 
-           stderr=subprocess.STDOUT)
-stdout,stderr = out.communicate()
+i3 = Connection()
 
-for workspace in json.loads(stdout):
-    name = workspace['name']
+def print_workspaces():
+    print('%{F-}', end='')
+    for workspace in i3.get_workspaces():
+        name = workspace.name
 
-    if workspace['urgent']:
-        print("%{B#E6900000} ", name, end="")
-    elif workspace['focused']:
-        print("%{B#E6285577} ", name, end="")
-    else:
-        print("%{B#E6222222} ", name, end="")
+        if workspace.urgent:
+            print('%{B#E6900000} ', name, end='')
+        elif workspace.focused:
+            print('%{B#E6285577} ', name, end='')
+        else:
+            print('%{B#E6222222} ', name, end='')
 
-    print("  %{B-} ", end="")
+        print('  %{B-} ', end='')
+    print()
 
-print()
+    sys.stdout.flush()
+
+def react_on_event(self, e):
+    print_workspaces()
+
+i3.on(Event.WORKSPACE_FOCUS, react_on_event)
+i3.on(Event.WORKSPACE_URGENT, react_on_event)
+i3.on(Event.WINDOW_MOVE, react_on_event)
+i3.on(Event.WINDOW_NEW, react_on_event)
+i3.on(Event.WINDOW_URGENT, react_on_event)
+
+print_workspaces()
+
+i3.main()
