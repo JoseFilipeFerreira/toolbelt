@@ -17,7 +17,6 @@ python
 rsync
 rust
 scrot
-sxiv
 termite
 tmux
 unzip
@@ -25,5 +24,5 @@ wget
 xclip
 youtube-dl
 zip
-zsh
+bash-completions
 )
