@@ -2,6 +2,16 @@
 set -e
 [[ ! -n "$DOTFILES" ]] && export DOTFILES=$(pwd)
 
+read -r -p "Type of install [(F)ULL | (h)eadless]: "
+case "$REPLY" in
+    FULL|F|"")
+        bash nail
+        ;;
+    headless|h)
+        bash nail --headless
+        ;;
+esac
+
 ###### Install standard workflow #####
 sh storeTools
 
@@ -15,4 +25,3 @@ do
     aura -S "$p"
 done
 
-sh nail --no-storeTools
