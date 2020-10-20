@@ -1,3 +1,4 @@
 # ignore executables
 thonkbar
 !thonkbar/
+.instalation_config
