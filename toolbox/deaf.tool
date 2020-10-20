@@ -17,8 +17,8 @@ case "$1" in
         PACTL=$(pactl list sinks |
             grep --after-context 10 "^[[:space:]]State: RUNNING")
 
-        [ -z "$PACTL" ] && PACTL=$(pactl list sinks |
-            grep --after-context 12 "^Sink #")
+        [[ ! "$PACTL" ]] && \
+            PACTL=$(pactl list sinks | grep --after-context 12 "^Sink #")
 
         VOLUME=$(echo "$PACTL" | grep -Eo "[0-9]+\%" | head -n1)
 

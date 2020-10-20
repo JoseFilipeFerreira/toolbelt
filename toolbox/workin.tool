@@ -8,7 +8,7 @@ AVAILABLE_WORKOUTS="$(find "$WORKOUTS" -type f -exec basename {} \;)"
 get_number(){
     while :; do
         read -rp "Insert $1: "
-        if [ -n "$REPLY" ] && [ "$REPLY" -eq "$REPLY" ] 2>/dev/null; then
+        if [[ "$REPLY" ]] && [ "$REPLY" -eq "$REPLY" ] 2>/dev/null; then
             NUMBER="$REPLY"
             break
         else
@@ -69,7 +69,7 @@ ask_workout_data(){
 
 select SELECTED in $AVAILABLE_WORKOUTS
 do
-    [ -z "$SELECTED" ] && echo "Invalid Workout" && break
+    [[ "$SELECTED" ]] || echo "Invalid Workout" && break
 
     ask_workout_data "$SELECTED"
 

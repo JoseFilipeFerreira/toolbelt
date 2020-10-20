@@ -19,7 +19,7 @@ while (( "$#" )); do
     esac
 done
 
-if [ "$clip" ]; then
+if [[ "$clip" ]]; then
     shotgun $selection - | xclip -t 'image/png' -selection clipboard
 else
     shotgun "$file" $selection

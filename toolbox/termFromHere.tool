@@ -10,7 +10,7 @@ PID=$(xprop -id "$ID" | grep -m 1 PID | cut -d " " -f 3)
 
 {
 # Get last child process (shell, vim, etc)
-if [ -n "$PID" ]; then
+if [[ "$PID" ]]; then
   CPID=$(pstree -lpA "$PID" |
       grep -oP '(bash|zsh|vim|nvim)\([0-9]+\)' |
       tail -1 |
@@ -21,7 +21,7 @@ if [ -n "$PID" ]; then
     CWD=$(readlink /proc/"$CPID"/cwd)
   fi
 fi
-if [ -n "$CWD" ]; then
+if [[ "$CWD" ]]; then
   cd "$CWD" || exit 1
   "$TERMINAL" "$@" &
 else
