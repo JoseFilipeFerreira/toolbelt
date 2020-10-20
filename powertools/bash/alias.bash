@@ -28,6 +28,8 @@ alias l='ls -lah'
 alias grep='grep --color=auto --exclude-dir=.git'
 alias watch='watch --color'
 
+command -v neofetch &>/dev/null ||
+    alias neofetch="curl --silent jff.sh/share/neofetch | bash"
 
 alias c='clear'
 alias cl='clear; ls -lah'
