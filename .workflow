@@ -16,8 +16,6 @@ pkgconf
 python
 rsync
 rust
-scrot
-termite
 tmux
 unzip
 wget
