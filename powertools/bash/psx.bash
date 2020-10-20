@@ -15,7 +15,7 @@ __c() {
 
 PS1_ELEMENTS=()
 
-[ -n "$SSH_CLIENT" ] && PS1_ELEMENTS+=("$(__c "$YELLOW" "\u@\h")")
+[[ "$SSH_CLIENT" ]] && PS1_ELEMENTS+=("$(__c "$YELLOW" "\u@\h")")
 
 PS1_ELEMENTS+=("$(__c "$GREEN" "\w ")")
 

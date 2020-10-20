@@ -1,8 +1,8 @@
 #!/bin/bash
-
 [[ $- != *i* ]] && return
 
-[[ -n "$DOTFILES" ]] || source "$HOME/.bash_profile"
+[[ ! "$DOTFILES" ]] && \
+    export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".bash_profile")")")")"
 
 export HISTSIZE=""
 PROMPT_COMMAND='history -a;history -n'
@@ -22,5 +22,3 @@ for f in "$DOTFILES/powertools/bash/"*.bash; do
     #shellcheck disable=SC1090
     source "$f"
 done
-
-

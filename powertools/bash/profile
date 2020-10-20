@@ -1,3 +1,4 @@
+#!/bin/bash
 export PATH=$HOME/.local/bin:$PATH
 
 #Default programs
@@ -32,7 +33,6 @@ export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
 export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
 
 # dotfiles
-export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".bash_profile")")")")"
 export WALLS="$XDG_DATA_HOME/wallpapers"
 export MUSIC="$XDG_DATA_HOME/music"
 export GAMES="$XDG_DATA_HOME/games"
@@ -42,8 +42,8 @@ export MIEI_NOTES="$HOME/Miei/Notes"
 # ssh
 export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-#shellcheck source=/home/mendess/.bashrc
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+#shellcheck source=/home/mightymime/.bashrc
+[[ -f ~/.bashrc ]] && . "$HOME/.bashrc"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
     bash "$DOTFILES"/nail
@@ -51,4 +51,19 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
     clear
+
+elif command -v tmux &> /dev/null && [[ ! "$TMUX" ]]; then
+    if [[ "$SSH_CLIENT" ]] && [[ ! "$NAIL" ]]; then
+        export TERM=xterm
+
+        echo -n 'Launch tmux? [Y/n]'
+        read -r
+        case $REPLY in
+            "y"|"Y"|"")
+                tmux -2 a &>/dev/null || tmux -2
+                exit
+                ;;
+        esac
+        unset REPLY
+    fi
 fi
