@@ -22,5 +22,4 @@ wget
 xclip
 youtube-dl
 zip
-bash-completions
 )
