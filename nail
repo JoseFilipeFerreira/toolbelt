@@ -27,10 +27,6 @@ make_makefile(){
 
 deploy_dotfiles(){
     while IFS= read -r l; do
-        orig="$DOTFILES/powertools/$(echo "$l" | cut -d, -f1)"
-        dest=$(echo "$l" | cut -d, -f2 | sed "s|~|$HOME|g")
-        mkdir -p "$(dirname "$dest")"
-
         IFS=',' read -ra VALUES <<< "$l"
         ARGS=("${VALUES[@]:2}")
 
@@ -40,6 +36,10 @@ deploy_dotfiles(){
                 continue
             fi
         fi
+
+        orig="$DOTFILES/powertools/$(echo "$l" | cut -d, -f1)"
+        dest=$(echo "$l" | cut -d, -f2 | sed "s|~|$HOME|g")
+        mkdir -p "$(dirname "$dest")"
 
         for ARG in "${ARGS[@]}"; do
             case "$ARG" in
