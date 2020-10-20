@@ -1,7 +1,7 @@
 Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
-bash/profile,$HOME/.bash_profile,link,headless
 bash/bashrc,$HOME/.bashrc,link,headless
 bash/inputrc,$HOME/.inputrc,link,headless
+bash/profile,$HOME/.bash_profile,link,headless
 dunstrc,$XDG_CONFIG_HOME/dunst/dunstrc,link
 ghci.conf,$HOME/.ghc/ghci.conf,link,headless
 htoprc,$XDG_CONFIG_HOME/htop/htoprc,link,headless
