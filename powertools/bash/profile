@@ -40,13 +40,13 @@ export MIEI="$HOME/Miei"
 export MIEI_NOTES="$HOME/Miei/Notes"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/rsa_id"
+export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
 #shellcheck source=/home/mightymime/.bashrc
-[[ -f ~/.bashrc ]] && . "$HOME/.bashrc"
+[[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    bash "$DOTFILES"/nail
+    bash "$DOTFILES/nail"
     toilet -f mono9 -F metal "Starting X"
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
