@@ -12,9 +12,14 @@ case "$1" in
         pactl set-sink-mute @DEFAULT_SINK@ toggle
         pkill -SIGRTMIN+2 thonkbar
         ;;
+    mic*)
+        pactl set-source-mute @DEFAULT_SOURCE@ toggle
+        pkill -SIGRTMIN+2 thonkbar
+        ;;
 
     --block)
-        PACTL=$(pactl list sinks |
+        PACTL=$(\
+            pactl list sinks |
             grep --after-context 10 "^[[:space:]]State: RUNNING")
 
         [[ ! "$PACTL" ]] && \
@@ -34,7 +39,7 @@ case "$1" in
         ;;
 
     *)
-        echo "USAGE: volume [+|-|mute|--block]"
+        echo "USAGE: volume [+|-|mute|mic|--block]"
         exit
         ;;
 esac

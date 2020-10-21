@@ -36,6 +36,9 @@ super + {Up, Down}
 XF86AudioMute
         deaf mute
 
+XF86AudioMicMute
+        deaf mic
+
 XF86Audio{Play,Stop}
         playerctl {play-pause,stop}
 
