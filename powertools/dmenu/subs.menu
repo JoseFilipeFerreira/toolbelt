@@ -1,0 +1,59 @@
+#!/bin/bash
+URLS="$XDG_CONFIG_HOME/newsboat/urls"
+
+CATS="$(grep -o -e '---.*---' "$URLS" | sed "s/---//g")"
+
+CAT="$(echo "$CATS" | dmenu -i -p "rss category")"
+[[ "$CAT" ]] || exit
+
+if [[ ! "${CATS[*]}" =~ ${CAT} ]]; then
+    case "$(echo -e "yes\nno" | dmenu -i -p "add $CAT as category")" in
+        yes)
+            echo -e "\n\"---$CAT---\"" >> "$URLS"
+            notify-send \
+                -u low \
+                -i "$DOTURLSS/assets/rss.png" \
+                -a "newsboat" \
+                "Added new category: \"$CAT\""
+            ;;
+        no|"")
+            exit
+            ;;
+    esac
+fi
+
+LINK="$(echo "clip" | dmenu -p "link")"
+case "$LINK" in
+    clip*)
+        LINK="$(xclip -sel clip -o)"
+        ;;
+esac
+
+[[ "$LINK" ]] || exit
+
+tags=("$CAT")
+case "$LINK" in
+    *youtube*|*youtu.be*)
+        ID="$(curl "$LINK" | grep channelId | head -1 | cut -d'"' -f4)"
+        LINK="https://www.youtube.com/feeds/videos.xml?channel_id=$ID"
+        tags+=(yt)
+        ;;
+esac
+
+if grep "$LINK" "$URLS" >/dev/null ; then
+    notify-send \
+        -u low \
+        -i "$DOTFILES/assets/rss.png" \
+        -a "newsboat" \
+        'Link already subscribed'
+    exit
+fi
+
+sed -i "s|\"---$CAT---\"|&\n$LINK ${tags[*]}|g" "$URLS"
+
+notify-send \
+    -u low \
+    -i "$DOTFILES/assets/rss.png" \
+    -a "newsboat" \
+    "Added new link to $CAT" \
+    "$LINK"
