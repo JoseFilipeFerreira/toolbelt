@@ -46,6 +46,17 @@ then
     echo -e "\033[35mDone!\033[0m"
 fi
 
+changeWall(){
+    if [ -n "$1" ]
+    then
+        file=$1
+    else
+        file=$(find "$WALLS" | shuf -n 1)
+    fi
+    feh --no-fehbg --bg-fill "$file"
+    echo "$file"
+}
+
 case "$1" in
     add)
         addWall "${@:2}"
@@ -59,7 +70,7 @@ case "$1" in
     select)
         sxiv -to "$WALLS" | xargs -r -n 1 changeWall
         ;;
-    "")
-        changeWall
+    *)
+        changeWall "${@:1}"
         ;;
 esac

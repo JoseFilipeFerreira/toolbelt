@@ -6,16 +6,15 @@ Colection of scripts to be used in the terminal or a keybind
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](powertools/thonkbar))
 * [calendar](toolbox/calendar.tool) calendar from a [CSV](toolbox/.timetable)
 * [cuffs](toolbox/cuffs.tools) screnshoot to clipboard
-* [dateTerm](toolbox/dateTerm.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](powertools/thonkbar))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [lock](toolbox/lock.tool) blured lockscreen
 * [nospace](toolbox/nospace.tool) correct filenames
 * [share](toolbox/share.tool) share files in my webserver
+* [termFromCal](toolbox/termFromCal.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
 * [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
 * [udm](toolbox/udm.tool) playlist manager
-* [wallpaper](toolbox/wallpaper.tool) wallpaper manager
-    * [changeWall](toolbox/changeWall.tool) change wallpaper (requires [feh](https://feh.finalrewind.org/)
+* [wall](toolbox/wall.tool) wallpaper manager
 
 ## 🪛 [Toolkit](toolkit) (dmenu scripts)
 Collection of scripts to be launched from a [menu](toolbox/menu.tool)
