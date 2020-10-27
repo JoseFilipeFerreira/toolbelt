@@ -1,8 +1,8 @@
 #!/bin/bash
-cd "$DOTFILES/powertools/dmenu" || exit 1
+SCRIPTS="$DOTFILES/toolkit"
 
-./"$( \
-    find . |
+"$SCRIPTS"/"$( \
+    find "$SCRIPTS" -type f -printf "%f\n" |
     grep '\.menu' |
     sed -e 's|./||g' -e 's/\.menu$//g' |
     sort |
