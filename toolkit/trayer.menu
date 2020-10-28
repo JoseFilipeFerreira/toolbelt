@@ -1,0 +1,14 @@
+#!/bin/bash
+if pgrep -x trayer >/dev/null; then
+    killall -q trayer nm-applet
+else
+    trayer \
+        --edge top \
+        --align right \
+        --height 18 \
+        --transparent true \
+        --alpha 77 \
+        --tint 000000B3 &
+
+    nm-applet &
+fi
