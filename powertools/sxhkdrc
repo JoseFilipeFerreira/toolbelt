@@ -6,14 +6,11 @@ super + {F1,F2,F3}
 super + {_,shift +} d
         {dmenu_IQ,menu}
 
-@Print
-        cuffs --select --clipboard
-
-super + @Print
-        cuffs --clipboard
+{super +,_} @Print
+        cuffs {_, --select} --clipboard
 
 super + {_,shift +,control +} Return
-        {$TERMINAL,termFromHere,dateTerm}
+        {$TERMINAL,termFromHere,termFromCal}
 
 super + control + l
         lock
@@ -67,7 +64,7 @@ super + shift + r
         i3-msg restart
 
 super + shift + e
-        i3-msg exec "i3-nagbar -t warning -m 'Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+        i3-msg exit
 
 
 ####### MOVE FOCUS #######
