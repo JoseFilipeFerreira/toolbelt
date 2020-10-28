@@ -31,6 +31,8 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
 export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
+export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 
 # dotfiles
 export WALLS="$XDG_DATA_HOME/wallpapers"
@@ -46,7 +48,6 @@ export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 [[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    bash "$DOTFILES/nail"
     toilet -f mono9 -F metal "Starting X"
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
