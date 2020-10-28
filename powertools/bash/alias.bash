@@ -20,7 +20,6 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
-alias mkcd='mkdir -p "$@" && cd "$@"'
 
 alias ls='ls --color=auto'
 alias l='ls -lah'
@@ -51,16 +50,6 @@ alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=al
 
 alias tmux='tmux -2'
 alias wget="wget --no-hsts"
-
-za() {
-    zathura $@ &
-    disown
-}
-
-png() {
-    sxiv $@ &
-    disown
-}
 
 alias starwars='telnet towel.blinkenlights.nl'
 

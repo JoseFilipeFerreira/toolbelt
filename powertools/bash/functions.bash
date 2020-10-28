@@ -1,3 +1,17 @@
+mkcd(){
+    mkdir -p "$@" && cd "$@"
+}
+
+za() {
+    zathura $@ &
+    disown
+}
+
+png() {
+    sxiv $@ &
+    disown
+}
+
 hist_stats() {
     fc -l 1 | \
     awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
