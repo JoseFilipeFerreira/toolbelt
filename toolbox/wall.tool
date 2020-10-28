@@ -68,7 +68,9 @@ case "$1" in
         changeWall "${@:2}"
         ;;
     select)
-        sxiv -to "$WALLS" | xargs -r -n 1 changeWall
+        FILE="$(sxiv -to "$WALLS")"
+        [[ "$FILE" ]] || exit
+        changeWall "$FILE"
         ;;
     *)
         changeWall "${@:1}"

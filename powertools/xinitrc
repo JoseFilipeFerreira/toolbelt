@@ -4,7 +4,7 @@ setxkbmap -layout gb -option caps:escape
 
 compton --config $DOTFILES/powertools/compton.conf -b
 dunst &
-changeWall &
+wall &
 sxhkd &
 thonkbar_daemon &
 
