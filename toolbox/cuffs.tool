@@ -14,6 +14,7 @@ while (( "$#" )); do
         shift
         ;;
       *)
+        file="$1"
         shift
         ;;
     esac

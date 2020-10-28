@@ -1,5 +1,8 @@
 #!/bin/bash
-scrot -o /tmp/screenshot.png
-convert /tmp/screenshot.png -blur 0x5 /tmp/screenshot.png
-i3lock -i /tmp/screenshot.png
-rm /tmp/screenshot.png
+tmpfile="$(mktemp --suffix=.png)"
+cuffs "$tmpfile"
+convert "$tmpfile" -scale 10% -scale 1000% "$tmpfile"
+i3lock \
+    --image="$tmpfile" \
+    --ignore-empty-password
+rm "$tmpfile"
