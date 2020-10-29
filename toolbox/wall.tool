@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-addWall() {
+_add_wall() {
     case "$1" in
         http*)
             if [ "$2" = "" ]; then
@@ -30,7 +30,7 @@ addWall() {
 
 }
 
-rmWall() {
+_rm_wall() {
     wall=$(sxiv -to "$WALLS")
     for w in $wall; do
         ssh jff.sh \
@@ -39,14 +39,7 @@ rmWall() {
     done
 }
 
-if [ ! -d "$WALLS" ]
-then
-    echo -e "\033[35mDowloading Wallpapers...\033[33m"
-    rsync -av kiwi:~/wallpapers/ "$WALLS"
-    echo -e "\033[35mDone!\033[0m"
-fi
-
-changeWall(){
+_change_wall(){
     if [ -n "$1" ]
     then
         file=$1
@@ -57,22 +50,29 @@ changeWall(){
     echo "$file"
 }
 
+if [ ! -d "$WALLS" ]
+then
+    echo -e "\033[35mDowloading Wallpapers...\033[33m"
+    rsync -av kiwi:~/wallpapers/ "$WALLS"
+    echo -e "\033[35mDone!\033[0m"
+fi
+
 case "$1" in
     add)
-        addWall "${@:2}"
+        _add_wall "${@:2}"
         ;;
     rm)
-        rmWall
+        _rm_wall
         ;;
     next)
-        changeWall "${@:2}"
+        _change_wall "${@:2}"
         ;;
     select)
         file="$(sxiv -to "$WALLS")"
         [[ "$file" ]] || exit
-        changeWall "$file"
+        _change_wall "$file"
         ;;
     *)
-        changeWall "${@:1}"
+        _change_wall "${@:1}"
         ;;
 esac

@@ -4,7 +4,7 @@
     export NAIL="nailing dotfiles" && \
     source "$DOTFILES/powertools/bash/profile"
 
-make_symlink(){
+_make_symlink(){
     if [ -h "$2" ] && ! [ -e "$2" ]
         then
             echo -e "\033[31mRemoving broken link: $(basename "$2")\033[0m"
@@ -17,7 +17,7 @@ make_symlink(){
     fi
 }
 
-make_makefile(){
+_make_makefile(){
     make --directory="$1" | grep -q "is up to date" \
         && return
 
@@ -26,7 +26,7 @@ make_makefile(){
     echo -e "\033[35mMake install:\033[33m $out_install \033[0m"
 }
 
-deploy_dotfiles(){
+_deploy_dotfiles(){
     while IFS= read -r l; do
         IFS=',' read -ra VALUES <<< "$l"
         ARGS=("${VALUES[@]:2}")
@@ -45,11 +45,11 @@ deploy_dotfiles(){
         for ARG in "${ARGS[@]}"; do
             case "$ARG" in
                 link)
-                    make_symlink "$orig" "$dest"
+                    _make_symlink "$orig" "$dest"
                     ;;
             
                 make)
-                    make_makefile "$orig" "$dest"
+                    _make_makefile "$orig" "$dest"
                     ;;
 
                 generated)
@@ -84,4 +84,4 @@ done
 
 printf "%s\n" "${FILTERS[@]}" | sort -u > "$DOTFILES/.instalation_config"
 
-deploy_dotfiles "powertools/.locations"
+_deploy_dotfiles "powertools/.locations"

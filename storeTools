@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cleanTools() {
+_clean_tools() {
     for tool in ~/.local/bin/*
     do
         if [ -h "$tool" ] && ! [ -e "$tool" ]; then
@@ -11,7 +11,7 @@ cleanTools() {
     return 1;
 }
 
-newTools() {
+_new_tools() {
     for tool in toolbox/*.tool; do
         [ -h ~/.local/bin/"$(basename "$tool" .tool)" ] || return 0
     done
@@ -21,8 +21,8 @@ newTools() {
 mkdir -p ~/.local/bin
 cd "$(dirname "$(realpath "$0")")" || return 0
 
-cleanTools
-newTools || exit 0
+_clean_tools
+_new_tools || exit 0
 
 echo -e "\033[35mStoring Tools...\033[0m"
 

@@ -1,8 +1,8 @@
 #!/bin/bash
-CACHE="$XDG_CACHE_HOME/dmenu"
-cache_file="$CACHE""/IQhist"
+cache="$XDG_CACHE_HOME/dmenu"
+cache_file="$cache""/IQhist"
 
-mkdir -p "$CACHE"
+mkdir -p "$cache"
 [ ! -f "$cache_file" ] && touch "$cache_file"
 
 all_cmd=$(dmenu_path)

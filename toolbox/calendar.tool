@@ -8,7 +8,7 @@ _curr_line(){
     "$DOTFILES""/toolbox/.timetable"
 }
 
-display(){
+_display(){
     for h in {8..19}
     do
         echo -n "$h""h|"
@@ -36,6 +36,6 @@ case "$1" in
         echo "https://$(_curr_line | cut -d: -f6)"
         ;;
     --show|"")
-        display | column -t -N " ,seg,ter,qua,qui,sex" -R 1 -s "|"
+        _display | column -t -N " ,seg,ter,qua,qui,sex" -R 1 -s "|"
         ;;
 esac
