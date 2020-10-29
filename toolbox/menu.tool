@@ -1,8 +1,8 @@
 #!/bin/bash
-SCRIPTS="$DOTFILES/toolkit"
+scripts="$DOTFILES/toolkit"
 
-"$SCRIPTS"/"$( \
-    find "$SCRIPTS" -type f -printf "%f\n" |
+"$scripts"/"$( \
+    find "$scripts" -type f -printf "%f\n" |
     grep '\.menu' |
     sed -e 's|./||g' -e 's/\.menu$//g' |
     sort |

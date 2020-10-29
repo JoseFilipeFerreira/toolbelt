@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-[[ ! -n "$DOTFILES" ]] && export DOTFILES=$(pwd)
+[[ "$DOTFILES" ]] || export DOTFILES=$(pwd)
 
 read -r -p "Type of install [(F)ULL | (h)eadless]: "
 case "$REPLY" in

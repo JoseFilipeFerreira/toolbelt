@@ -1,7 +1,8 @@
-LAYOUT=$(echo -e "dock\ndock(1080p)\nundock\nmirror" | dmenu -i -p "Monitor Layout")
-[ "$LAYOUT" = "" ] && exit 2 
+#!/bin/bash
+layout=$(echo -e "dock\ndock(1080p)\nundock\nmirror" | dmenu -i -p "Monitor Layout")
+[[ "$layout" ]] || exit 2 
 
-case "$LAYOUT" in
+case "$layout" in
         dock)
             xrandr --output DP-2-2 --auto && xrandr --output eDP-1 --off
             ;;
@@ -19,7 +20,7 @@ case "$LAYOUT" in
             ;;
 esac
 
-notify-send "$LAYOUT""ed"
+notify-send "$layout""ed"
 
 setxkbmap gb -option caps:esc
 

@@ -1,15 +1,15 @@
 #!/bin/bash
-WORKOUTS="$XDG_DATA_HOME/workin"
+workouts="$XDG_DATA_HOME/workin"
 
-mkdir -p "$WORKOUTS"
+mkdir -p "$workouts"
 
-AVAILABLE_WORKOUTS="$(find "$WORKOUTS" -type f -exec basename {} \;)"
+available_workouts="$(find "$workouts" -type f -exec basename {} \;)"
 
 get_number(){
     while :; do
         read -rp "Insert $1: "
         if [[ "$REPLY" ]] && [ "$REPLY" -eq "$REPLY" ] 2>/dev/null; then
-            NUMBER="$REPLY"
+            number="$REPLY"
             break
         else
             echo "Invalid number"
@@ -19,14 +19,14 @@ get_number(){
 
 get_time(){
     while :; do
-        read -rp "Insert $1 (dd/mm/yy hh:mm) [Curr|custom]: "
+        read -rp "Insert $1 [Curr|dd/mm/yy hh:mm]: "
 
         if [[ -z "$REPLY" || "$REPLY" == "Curr" ]]; then
             TIME="$(date +'%d/%m/%y %R')"
             break
         else
             if [[ "$REPLY" = "$(date -d "$REPLY" +'%d/%m/%y %R')" ]]; then 
-                TIME="$date"
+                TIME="$REPLY"
                 break
             else
                 echo "Invalid date format"
@@ -36,42 +36,42 @@ get_time(){
 }
 
 ask_workout_data(){
-    local FIELDS
-    IFS=','  read -ra FIELDS < <(sed 1q "$WORKOUTS/$SELECTED")
+    local fields
+    IFS=','  read -ra fields < <(sed 1q "$workouts/$selected")
 
-    local VALUES=()
-    for FIELD in "${FIELDS[@]}"; do
-        case "$FIELD" in
+    local values=()
+    for field in "${fields[@]}"; do
+        case "$field" in
             endtime)
-                get_time "$FIELD"
-                VALUES+=("$TIME")
+                get_time "$field"
+                values+=("$TIME")
                 ;;
             duration)
-                get_number "$FIELD (min)"
-                VALUES+=("$NUMBER")
+                get_number "$field (min)"
+                values+=("$number")
                 ;;
             distance|calories|count)
-                get_number "$FIELD"
-                VALUES+=("$NUMBER")
+                get_number "$field"
+                values+=("$number")
                 ;;
             *)
-                echo "Unknown field \"$FIELD\" in file: $WORKOUTS/$SELECTED"
+                echo "Unknown field \"$field\" in file: $workouts/$selected"
                 exit 1
                 ;;
         esac
     done
 
-    if [ -n "$VALUES" ]; then
-        printf -v joined '%s,' "${VALUES[@]}"
-        echo "${joined%,}" >> "$WORKOUTS/$SELECTED"
+    if (( ${#values[@]} )); then
+        printf -v joined '%s,' "${values[@]}"
+        echo "${joined%,}" >> "$workouts/$selected"
     fi
 }
 
-select SELECTED in $AVAILABLE_WORKOUTS
+select selected in $available_workouts
 do
-    [[ "$SELECTED" ]] || echo "Invalid Workout" && break
+    [[ "$selected" ]] || echo "Invalid Workout" && break
 
-    ask_workout_data "$SELECTED"
+    ask_workout_data "$selected"
 
     break
 done

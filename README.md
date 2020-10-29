@@ -15,6 +15,7 @@ Colection of scripts to be used in the terminal or a keybind
 * [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
 * [udm](toolbox/udm.tool) playlist manager
 * [wall](toolbox/wall.tool) wallpaper manager
+* [workin](toolbox/workin.tool) Workout manager
 
 ## 🪛 [Toolkit](toolkit) (dmenu scripts)
 Collection of scripts to be launched from a [menu](toolbox/menu.tool)

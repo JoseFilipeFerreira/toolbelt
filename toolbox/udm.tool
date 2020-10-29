@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-YDL_FLAGS=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'music/%(title)s.%(ext)s'")
+ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'music/%(title)s.%(ext)s'")
 
 _sync_music() {
     for i in "$@"; do
@@ -33,7 +33,7 @@ _add_music() {
             _add_music  "$(xclip -sel clip -o)"
         ;;
         http*youtube*)
-            ssh kiwi youtube-dl "${YDL_FLAGS[@]}" "'$1'"
+            ssh kiwi youtube-dl "${ydl_flags[@]}" "'$1'"
             ssh kiwi ~/.local/bin/nospace ~/music/*
         ;;
         http*)
@@ -53,18 +53,18 @@ _add_music() {
 }
 
 _discord_music() {
-    WEBSITE="http://jff.sh/music"
+    website="http://jff.sh/music"
     sleep 3
-    MUSIC_LINK=$(curl "$WEBSITE" | grep '<a' | cut -d"'" -f2 | shuf | nl)
-    N_LINES="$(echo "$MUSIC_LINK" | wc -l)"
+    music_link=$(curl "$website" | grep '<a' | cut -d"'" -f2 | shuf | nl)
+    n_lines="$(echo "$music_link" | wc -l)"
 
-    echo "$MUSIC_LINK" |
+    echo "$music_link" |
         while read -r link; do
             n="$(echo "$link" | awk '{print $1}')"
             l="$(echo "$link" | awk '{print $2}')"
-            xdotool type ".play <$WEBSITE/$(basename -- "$l")>"
+            xdotool type ".play <$website/$(basename -- "$l")>"
             xdotool key 'Return'
-            echo -en "\r\e[K$n/$N_LINES"
+            echo -en "\r\e[K$n/$n_lines"
             sleep 4
         done
     echo
@@ -81,6 +81,10 @@ case "$1" in
     play)
         _sync_music --no-exit --title="Syncing"
         mpv --shuffle --no-video "$MUSIC"
+        ;;
+    select)
+        file="$(find "$MUSIC"  -type f -printf "%f\n" | fzf )"
+        mpv "$MUSIC/$file"
         ;;
     discord)
         _discord_music "${@:2}"

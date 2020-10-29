@@ -68,9 +68,9 @@ case "$1" in
         changeWall "${@:2}"
         ;;
     select)
-        FILE="$(sxiv -to "$WALLS")"
-        [[ "$FILE" ]] || exit
-        changeWall "$FILE"
+        file="$(sxiv -to "$WALLS")"
+        [[ "$file" ]] || exit
+        changeWall "$file"
         ;;
     *)
         changeWall "${@:1}"

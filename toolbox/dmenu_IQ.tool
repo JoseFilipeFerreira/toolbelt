@@ -1,33 +1,33 @@
 #!/bin/bash
 CACHE="$XDG_CACHE_HOME/dmenu"
-CACHE_FILE="$CACHE""/IQhist"
+cache_file="$CACHE""/IQhist"
 
 mkdir -p "$CACHE"
-[ ! -f "$CACHE_FILE" ] && touch "$CACHE_FILE"
+[ ! -f "$cache_file" ] && touch "$cache_file"
 
-ALL_CMD=$(dmenu_path)
+all_cmd=$(dmenu_path)
 
-MOST_USED=$( \
-    sort -nr -k2 "$CACHE_FILE" |
+most_used=$( \
+    sort -nr -k2 "$cache_file" |
     cut -f1 |
-    grep -F -x -f <(echo -e "$ALL_CMD"))
+    grep -F -x -f <(echo -e "$all_cmd"))
 
-ALL_CMD=$(echo -e "$ALL_CMD" | grep -F -x -v -f <(echo -e "$MOST_USED"))
+all_cmd=$(echo -e "$all_cmd" | grep -F -x -v -f <(echo -e "$most_used"))
 
-cmd=$(echo -e "${MOST_USED}\n${ALL_CMD}" | dmenu -i)
+cmd=$(echo -e "${most_used}\n${all_cmd}" | dmenu -i)
 
 [ "$cmd" = "" ] && exit 2
 
-if ! grep -q "$cmd" "$CACHE_FILE";
+if ! grep -q "$cmd" "$cache_file";
 then
-    echo -e "$cmd\t1" >> "$CACHE_FILE"
+    echo -e "$cmd\t1" >> "$cache_file"
 else
-    TMP_CACHE="$(awk \
+    tmp_cache="$(awk \
         -v c="$cmd" \
         -F'\t' \
-        '$1 == c {print($1"\t"$2 + 1)} $1 != c {print}' "$CACHE_FILE")"
+        '$1 == c {print($1"\t"$2 + 1)} $1 != c {print}' "$cache_file")"
 
-    echo "$TMP_CACHE" > "$CACHE_FILE"
+    echo "$tmp_cache" > "$cache_file"
 fi
 
 echo -e "$cmd" | ${SHELL:-"/bin/sh"} &

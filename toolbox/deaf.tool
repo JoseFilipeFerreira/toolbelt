@@ -18,28 +18,28 @@ case "$1" in
         ;;
 
     --block)
-        PACTL=$(\
+        pactl=$(\
             pactl list sinks |
             grep --after-context 10 "^[[:space:]]State: RUNNING")
 
-        [[ ! "$PACTL" ]] && \
-            PACTL=$(pactl list sinks | grep --after-context 12 "^Sink #")
+        [[ ! "$pactl" ]] && \
+            pactl=$(pactl list sinks | grep --after-context 12 "^Sink #")
 
-        VOLUME=$(echo "$PACTL" | grep -Eo "[0-9]+\%" | head -n1)
+        volume=$(echo "$pactl" | grep -Eo "[0-9]+\%" | head -n1)
 
-        MUTE_STATUS=$(echo "$PACTL" | grep "Mute" | cut -d' ' -f2)
+        mute_status=$(echo "$pactl" | grep "Mute" | cut -d' ' -f2)
 
-        if [[ $MUTE_STATUS = yes ]]; then
+        if [[ $mute_status = yes ]]; then
             echo "MUTE"
             echo "MUTE"
         else
-            echo "$VOLUME"
-            echo "$VOLUME"
+            echo "$volume"
+            echo "$volume"
         fi
         ;;
 
     *)
-        echo "USAGE: volume [+|-|mute|mic|--block]"
+        echo "USAGE: deaf [+|-|mute|mic|--block]"
         exit
         ;;
 esac

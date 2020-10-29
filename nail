@@ -21,9 +21,9 @@ make_makefile(){
     make --directory="$1" | grep -q "is up to date" \
         && return
 
-    OUT_INSTALL="$(make install --directory="$1" | grep -v "directory")"
+    out_install="$(make install --directory="$1" | grep -v "directory")"
 
-    echo -e "\033[35mMake install:\033[33m $OUT_INSTALL \033[0m"
+    echo -e "\033[35mMake install:\033[33m $out_install \033[0m"
 }
 
 deploy_dotfiles(){

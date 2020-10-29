@@ -1,16 +1,16 @@
 #!/bin/bash
-N_STEP="9"
+n_step="9"
 
-STEP_PERCENT="$(echo 100/"$N_STEP" | bc)"
+step_percent="$(echo 100/"$n_step" | bc)"
 
 case "$1" in
     +)
-        brightnessctl set +"$STEP_PERCENT"%
+        brightnessctl set +"$step_percent"%
         pkill -SIGRTMIN+1 thonkbar
         ;;
 
     -)
-        brightnessctl --min-value=6 set "$STEP_PERCENT"-%
+        brightnessctl --min-value=6 set "$step_percent"-%
         pkill -SIGRTMIN+1 thonkbar
         ;;
 
@@ -20,14 +20,14 @@ case "$1" in
             grep -q "eDP-1" \
         || exit
 
-        CURR_PERCENT="$(brightnessctl -m info | grep -Po "[0-9]*(?=%)")"
+        curr_percent="$(brightnessctl -m info | grep -Po "[0-9]*(?=%)")"
 
-        CURR_STEP="$(echo "$CURR_PERCENT"/"$STEP_PERCENT" | bc)"
+        curr_step="$(echo "$curr_percent"/"$step_percent" | bc)"
 
-        echo "$CURR_STEP"
-        echo "$CURR_STEP"
+        echo "$curr_step"
+        echo "$curr_step"
 
-        case $(echo "$CURR_PERCENT/20" | bc) in
+        case $(echo "$curr_percent/20" | bc) in
             0) echo "#424020" ;;
 
             1) echo "#686538" ;;

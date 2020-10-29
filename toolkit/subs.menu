@@ -1,20 +1,20 @@
 #!/bin/bash
-URLS="$XDG_CONFIG_HOME/newsboat/urls"
+urls="$XDG_CONFIG_HOME/newsboat/urls"
 
-CATS="$(grep -o -e '---.*---' "$URLS" | sed "s/---//g")"
+cats="$(grep -o -e '---.*---' "$urls" | sed "s/---//g")"
 
-CAT="$(echo "$CATS" | dmenu -i -p "rss category")"
-[[ "$CAT" ]] || exit
+cat="$(echo "$cats" | dmenu -i -p "rss category")"
+[[ "$cat" ]] || exit
 
-if [[ ! "${CATS[*]}" =~ ${CAT} ]]; then
-    case "$(echo -e "yes\nno" | dmenu -i -p "add $CAT as category")" in
+if [[ ! "${cats[*]}" =~ ${cat} ]]; then
+    case "$(echo -e "yes\nno" | dmenu -i -p "add $cat as category")" in
         yes)
-            echo -e "\n\"---$CAT---\"" >> "$URLS"
+            echo -e "\n\"---$cat---\"" >> "$urls"
             notify-send \
                 -u low \
-                -i "$DOTURLSS/assets/rss.png" \
+                -i "$DOTFILES/assets/rss.png" \
                 -a "newsboat" \
-                "Added new category: \"$CAT\""
+                "Added new category: \"$cat\""
             ;;
         no|"")
             exit
@@ -22,25 +22,25 @@ if [[ ! "${CATS[*]}" =~ ${CAT} ]]; then
     esac
 fi
 
-LINK="$(echo "clip" | dmenu -p "link")"
-case "$LINK" in
+link="$(echo "clip" | dmenu -p "link")"
+case "$link" in
     clip*)
-        LINK="$(xclip -sel clip -o)"
+        link="$(xclip -sel clip -o)"
         ;;
 esac
 
-[[ "$LINK" ]] || exit
+[[ "$link" ]] || exit
 
-tags=("$CAT")
-case "$LINK" in
+tags=("$cat")
+case "$link" in
     *youtube*|*youtu.be*)
-        ID="$(curl "$LINK" | grep channelId | head -1 | cut -d'"' -f4)"
-        LINK="https://www.youtube.com/feeds/videos.xml?channel_id=$ID"
+        id="$(curl "$link" | grep channelId | head -1 | cut -d'"' -f4)"
+        link="https://www.youtube.com/feeds/videos.xml?channel_id=$id"
         tags+=(yt)
         ;;
 esac
 
-if grep "$LINK" "$URLS" >/dev/null ; then
+if grep "$link" "$urls" >/dev/null ; then
     notify-send \
         -u low \
         -i "$DOTFILES/assets/rss.png" \
@@ -49,11 +49,11 @@ if grep "$LINK" "$URLS" >/dev/null ; then
     exit
 fi
 
-sed -i "s|\"---$CAT---\"|&\n$LINK ${tags[*]}|g" "$URLS"
+sed -i "s|\"---$cat---\"|&\n$link ${tags[*]}|g" "$urls"
 
 notify-send \
     -u low \
     -i "$DOTFILES/assets/rss.png" \
     -a "newsboat" \
-    "Added new link to $CAT" \
-    "$LINK"
+    "Added new link to $cat" \
+    "$link"

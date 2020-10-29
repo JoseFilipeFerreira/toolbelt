@@ -1,5 +1,5 @@
 #!/bin/bash
-CACHE="$XDG_CACHE_HOME/fileshare"
+cache="$XDG_CACHE_HOME/fileshare"
 
 _upload(){
     rsync -av --info=progress2 "$1" kiwi:~/share
@@ -10,11 +10,11 @@ _upload(){
 
 if [ -d "$1" ]
 then
-    mkdir -p "$CACHE"
-    zip -r "$CACHE/$(basename "$1").zip" "$1"
-    FILE="$CACHE/$(basename "$1").zip"
-    _upload "$FILE"
-    rm "$FILE"
+    mkdir -p "$cache"
+    zip -r "$cache/$(basename "$1").zip" "$1"
+    file="$cache/$(basename "$1").zip"
+    _upload "$file"
+    rm "$file"
 else
     _upload "$1"
 fi
