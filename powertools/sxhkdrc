@@ -3,6 +3,9 @@
 super + {F1,F2,F3}
         {discord,$BROWSER,$BROWSER $(calendar --curr-link)}
 
+super + Home
+        meross-cli --toggle
+
 super + {_,shift +} d
         {dmenu_IQ,menu}
 
