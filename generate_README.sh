@@ -40,7 +40,7 @@ powertools(){
 
 install(){
     echo "## 🔗 Install"
-    echo "collection of installation scripts"
+    echo "Collection of installation scripts"
 
     generate_description .
 }

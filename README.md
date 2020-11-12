@@ -10,7 +10,7 @@ Colection of scripts to be used in the terminal or a keybind
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](powertools/thonkbar))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [lock](toolbox/lock.tool) blured lockscreen
-* [memes](toolbox/memes.tool) folder="$XDG_DATA_HOME/mightymemes"
+* [memes](toolbox/memes.tool) image picker using fzf
 * [menu](toolbox/menu.tool) dmenu menu launcher
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd)
 * [nospace](toolbox/nospace.tool) correct filenames
@@ -34,7 +34,7 @@ Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 Colection of static config files
 
 ## 🔗 Install
-collection of installation scripts
+Collection of installation scripts
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [generate_README](./generate_README.sh) autogenerate [README](README.md)
 * [hammer](./hammer) Install dotfiles and programs that are part of my [workflow](.workflow)
