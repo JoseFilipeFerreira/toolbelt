@@ -7,9 +7,15 @@ if [[ "$p" ]] && [[ -d "$MIEI_NOTES/$p" ]]; then
     notify-send \
         -i "$notImage" \
         -u low \
-        -a dateTerm "Subject: $p" "@$(calendar --curr-location)"
+        -a dateTerm \
+        "Subject: $p" \
+        "@$(calendar --curr-location)"
 else
     cd "$MIEI" || exit 1
-    notify-send -i "$notImage" -u low -a dateTerm "Not in class"
+    notify-send \
+        -i "$notImage" \
+        -u low \
+        -a dateTerm \
+        "Not in class"
 fi
 $TERMINAL
