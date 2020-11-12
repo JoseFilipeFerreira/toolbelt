@@ -1,4 +1,6 @@
 #!/bin/bash
+# create all symlinks for my [scripts](toolbox)
+
 
 _clean_tools() {
     for tool in ~/.local/bin/*

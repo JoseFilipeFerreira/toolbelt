@@ -1,4 +1,6 @@
 #!/bin/bash
+# control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd)
+
 _call_kiwi(){
     ssh kiwi 'echo "'"$1"'" > /tmp/meross.d'
     [[ ! "$2" ]] &&

@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
+
 from sys import argv
 from typing import List
 import re

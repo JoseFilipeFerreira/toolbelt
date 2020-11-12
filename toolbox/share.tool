@@ -1,4 +1,6 @@
 #!/bin/bash
+# share files in my webserver
+
 cache="$XDG_CACHE_HOME/fileshare"
 
 _upload(){

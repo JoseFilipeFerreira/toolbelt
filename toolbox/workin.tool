@@ -1,4 +1,6 @@
 #!/bin/bash
+# workout manager
+
 workouts="$XDG_DATA_HOME/workin"
 
 mkdir -p "$workouts"

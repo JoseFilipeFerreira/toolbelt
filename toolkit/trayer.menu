@@ -1,4 +1,6 @@
 #!/bin/bash
+# trayer launcher
+
 if pgrep -x trayer >/dev/null; then
     killall -q trayer nm-applet
 else

@@ -1,5 +1,7 @@
 #!/bin/bash
+# terminal in the current directory
 # depends: xorg-xdpyinfo xorg-xprop
+
 CWD=''
 
 # Get window ID

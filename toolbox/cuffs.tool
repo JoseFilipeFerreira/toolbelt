@@ -1,4 +1,5 @@
 #!/bin/bash
+# screenshot tool
 
 file=$(date +'%d%h%Y-%H:%m:%S.png')
 

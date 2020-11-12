@@ -1,5 +1,5 @@
 #!/bin/sh
-# Give dmenu list of all unicode characters to copy.
+# pick a emoji
 chosen=$(cat "$DOTFILES/toolkit/.emojis"  | dmenu -i -l 20)
 
 [ "$chosen" != "" ] || exit

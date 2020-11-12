@@ -1,4 +1,5 @@
 #!/bin/bash
+# playlist manager
 set -e
 ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'music/%(title)s.%(ext)s'")
 

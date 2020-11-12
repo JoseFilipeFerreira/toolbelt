@@ -1,4 +1,5 @@
 #!/bin/bash
+# weekly calendar from a [CSV](toolbox/.timetable)
 _curr_line(){
     awk \
         -F: \
