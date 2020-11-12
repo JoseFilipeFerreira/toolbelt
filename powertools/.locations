@@ -1,4 +1,6 @@
 Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
+picom.conf,$XDG_CONFIG_HOME/picom.conf,link
+gtk-3.0,$XDG_CONFIG_HOME/gtk-3.0,link
 bash/bashrc,$HOME/.bashrc,link,headless
 bash/inputrc,$HOME/.inputrc,link,headless
 bash/profile,$HOME/.bash_profile,link,headless
