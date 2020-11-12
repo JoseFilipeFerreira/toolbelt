@@ -22,3 +22,6 @@ for f in "$DOTFILES/powertools/bash/"*.bash; do
     #shellcheck disable=SC1090
     source "$f"
 done
+
+[[ -f "$DOTFILES/powertools/bash/$(hostname).local" ]] &&
+    . "$DOTFILES/powertools/bash/$(hostname).local"

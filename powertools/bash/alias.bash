@@ -20,7 +20,6 @@ alias 7='cd -7'
 alias 8='cd -8'
 alias 9='cd -9'
 
-
 alias ls='ls --color=auto'
 alias l='ls -lah'
 
@@ -38,10 +37,6 @@ alias stahp='poweroff'
 alias vim="nvim"
 alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
 alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
-
-alias tr="transmission-remote"
-alias tra="transmission-remote -a"
-alias trl="transmission-remote -l"
 
 alias py="python"
 alias ghc="stack ghc"
