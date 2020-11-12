@@ -36,7 +36,7 @@ Colection of static config files
 ## 🔗 Install
 collection of installation scripts
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
-* [generate_README](./generate_README.sh) autogenerate [README](REAME.md)
+* [generate_README](./generate_README.sh) autogenerate [README](README.md)
 * [hammer](./hammer) Install dotfiles and programs that are part of my [workflow](.workflow)
 * [nail](./nail) create symlinks for the dotfiles
 * [storeTools](./storeTools) create all symlinks for my [scripts](toolbox)

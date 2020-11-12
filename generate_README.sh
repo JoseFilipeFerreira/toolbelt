@@ -1,5 +1,5 @@
 #!/bin/bash
-# autogenerate [README](REAME.md)
+# autogenerate [README](README.md)
 
 generate_description(){
     find "$1" -maxdepth 1 -type f -not -path '*/\.*' |
