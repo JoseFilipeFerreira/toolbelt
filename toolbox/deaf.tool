@@ -1,4 +1,6 @@
 #!/bin/bash
+# volume changer (integrates with [thonkbar](powertools/thonkbar))
+
 case "$1" in
     +)
         pactl set-sink-volume @DEFAULT_SINK@ +5%

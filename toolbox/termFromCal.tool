@@ -1,4 +1,6 @@
 #!/bin/bash
+# contextual terminal based on [calendar](toolbox/calendar.tool)
+
 notImage="$DOTFILES/assets/miei.png"
 
 p=$(calendar --curr)

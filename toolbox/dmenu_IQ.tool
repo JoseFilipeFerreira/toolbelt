@@ -1,4 +1,6 @@
 #!/bin/bash
+# dmenu app launcher with history
+
 cache="$XDG_CACHE_HOME/dmenu"
 cache_file="$cache""/IQhist"
 

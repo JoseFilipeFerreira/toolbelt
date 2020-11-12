@@ -1,4 +1,6 @@
 #!/bin/bash
+# choose display settings
+
 layout=$(echo -e "dock\ndock(1080p)\nundock\nmirror" | dmenu -i -p "Monitor Layout")
 [[ "$layout" ]] || exit 2 
 

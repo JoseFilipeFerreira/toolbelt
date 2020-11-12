@@ -1,4 +1,6 @@
 #!/bin/bash
+# dmenu menu launcher
+
 scripts="$DOTFILES/toolkit"
 
 "$scripts"/"$( \

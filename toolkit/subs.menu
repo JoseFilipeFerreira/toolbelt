@@ -1,4 +1,6 @@
 #!/bin/bash
+# subscribe to a RSS feed with categories
+
 urls="$XDG_CONFIG_HOME/newsboat/urls"
 
 cats="$(grep -o -e '---.*---' "$urls" | sed "s/---//g")"

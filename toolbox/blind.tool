@@ -1,4 +1,6 @@
 #!/bin/bash
+# brightness changer (integrates with [thonkbar](powertools/thonkbar))
+
 n_step="9"
 
 step_percent="$(echo 100/"$n_step" | bc)"

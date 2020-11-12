@@ -1,4 +1,6 @@
 #!/bin/sh
+# simple TODO list
+
 file="$XDG_CACHE_HOME/dmenu/todo"
 touch "$file"
 height=$(wc -l "$file" | awk '{print $1}')

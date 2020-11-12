@@ -1,4 +1,6 @@
 #!/bin/bash
+# wallpaper manager
+
 set -e
 _add_wall() {
     case "$1" in

@@ -1,4 +1,5 @@
 #!/bin/sh
+# rename files in your text editor
 
 from="$(mktemp)"
 to="$(mktemp)"
