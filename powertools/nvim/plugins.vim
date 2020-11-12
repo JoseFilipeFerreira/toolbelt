@@ -30,7 +30,7 @@ Plug 'vim-python/python-syntax'
 Plug 'baskerville/vim-sxhkdrc'
 Plug 'plasticboy/vim-markdown'
 Plug 'sudar/vim-arduino-syntax'
-
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 
@@ -43,6 +43,11 @@ colorscheme gruvbox
 set background=dark
 let g:gruvbox_contrast_dark = 'hard'
 highlight Normal ctermbg=None
+
+" neoformat config
+map <leader>f :Neoformat<CR>
+let g:rustfmt_opt="--edition 2018"
+let g:shfmt_opt="-ci"
 
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>

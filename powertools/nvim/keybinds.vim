@@ -19,7 +19,7 @@ nnoremap <M-k> <C-w>K
 nnoremap <M-l> <C-w>L
 
 " toggle spelling
-map <leader>l :setlocal spell! spelllang=en_gb,pt_pt<CR>
+map <leader>l :setlocal spell! spelllang=pt_pt<CR>
 map <leader>L :setlocal spell! spelllang=en_gb<CR>
 " Open spelling suggestions
 nnoremap <A-Enter> z=
