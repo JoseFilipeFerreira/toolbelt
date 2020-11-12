@@ -3,10 +3,11 @@ _call_kiwi(){
     ssh kiwi 'echo "'"$1"'" > /tmp/meross.d'
     [[ ! "$2" ]] &&
         notify-send \
-            --urgency=low \
-            --icon="$DOTFILES/assets/meross.png" \
-            --expire-time=1500 \
-            "merrosd" \
+            -u low \
+            -i "$DOTFILES/assets/meross.png" \
+            -t 1500 \
+            -a "merrosd" \
+            "Attic" \
             "lights: $(ssh kiwi 'cat /tmp/merossstate.d')"
 }
 
