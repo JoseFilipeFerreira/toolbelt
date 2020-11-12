@@ -38,8 +38,9 @@ export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 export WALLS="$XDG_DATA_HOME/wallpapers"
 export MUSIC="$XDG_DATA_HOME/music"
 export GAMES="$XDG_DATA_HOME/games"
-export MIEI="$HOME/Miei"
-export MIEI_NOTES="$HOME/Miei/Notes"
+export MEMES="$XDG_DATA_HOME/mightymemes"
+export MIEI="$HOME/miei"
+export MIEI_NOTES="$HOME/miei/notes"
 
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
