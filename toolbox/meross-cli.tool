@@ -1,24 +1,16 @@
 #!/bin/bash
-# control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd)
+# control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
 
-_call_kiwi(){
-    ssh kiwi 'echo "'"$1"'" > /tmp/meross.d'
-    [[ ! "$2" ]] &&
+case "$1" in
+    --toggle|--on|--off)
+        status="$(ssh kiwi 'curl --silent localhost:4200/bulb/'"${1:2}"'')"
         notify-send \
             -u low \
             -i "$DOTFILES/assets/meross.png" \
             -t 1500 \
             -a "merrosd" \
             "Attic" \
-            "lights: $(ssh kiwi 'cat /tmp/merossstate.d')"
-}
-
-case "$1" in
-    --toggle|--on|--off)
-        _call_kiwi "${1:2}"
-        ;;
-    --close)
-        _call_kiwi "${1:2}" --no-cat
+            "lights: $status"
         ;;
     *)
         echo "USAGE: meross-cli --[on|off|toggle]"
