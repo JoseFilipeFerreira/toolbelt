@@ -1,0 +1,3 @@
+#!/bin/bash
+sh generate_README.sh >| README.md
+git add README.md
