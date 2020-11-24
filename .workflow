@@ -1,12 +1,9 @@
 #!/bin/bash
-export essentials=(
-clang
-cmake
+export essential_pacman=(
 curl
-gdb
+wget
 git
 htop
-imagemagick
 inetutils
 jq
 neofetch
@@ -15,11 +12,18 @@ openssh
 pkgconf
 python
 rsync
-rust
 tmux
 unzip
 wget
 xclip
 youtube-dl
 zip
+)
+
+export essential_repos=(
+https://github.com/jtexeira/tiny-aura
+)
+
+export full_repos=(
+https://github.com/JoseFilipeFerreira/thonkbar
 )

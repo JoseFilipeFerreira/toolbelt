@@ -1,8 +1,8 @@
 #!/bin/bash
-_acpi="$(acpi -b)"
+_acpi="$(acpi -b | grep -v "rate information unavailable")"
 
 [ -n "$1" ] && \
-    _acpi="$(echo "$_acpi" | grep "Battery $1")"
+    _acpi="$(echo "$_acpi" | sed -n "$(($1 + 1))p")"
 
 [ ! "$_acpi" ] && exit
 

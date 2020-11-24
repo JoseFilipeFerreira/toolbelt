@@ -4,7 +4,7 @@
 set -e
 [[ "$DOTFILES" ]] || export DOTFILES=$(pwd)
 
-theme(){
+_theme(){
     wget https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip
     unzip master.zip
     readonly themes_dir="$HOME"/.themes
@@ -13,11 +13,21 @@ theme(){
     rm -rf Aritim-Dark-master master.zip
 }
 
+_make_repo(){
+    mkdir -p ~/repos
+    name="$(basename "$1")"
+    echo -e "\033[35mInstalling $name...\033[33m"
+    git clone "$1" ~/repos/"$name"
+    make install -C ~/repos/"$name"
+    echo -e "\033[0m"
+}
+
 read -r -p "Type of install [(F)ULL | (h)eadless]: "
 case "$REPLY" in
     FULL|F|"")
         bash nail
-        theme
+        _theme
+        FULL="yes"
         ;;
     headless|h)
         bash nail --headless
@@ -28,12 +38,18 @@ esac
 sh storeTools
 
 source .workflow
-#packages
-yes | sudo pacman -S --needed  "${essentials[@]}"
 
-#aur packages
-for p in "${aurpackages[@]}"
+yes | sudo pacman -S --needed  "${essential_pacman[@]}"
+
+for repo in "${essential_repos[@]}"
 do
-    aura -S "$p"
+    _make_repo "$repo"
 done
 
+if [[ $FULL ]]
+then
+    for repo in "${full_repos[@]}"
+    do
+        _make_repo "$repo"
+    done
+fi
