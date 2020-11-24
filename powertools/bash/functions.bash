@@ -55,3 +55,7 @@ ex() {
   fi
 }
 
+explode(){
+    mv "$1"/* .
+    rmdir "$1"
+}
