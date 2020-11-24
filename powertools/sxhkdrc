@@ -96,7 +96,7 @@ super + alt + {h,j,k,l}
 ######### LAYOUT #########
 
 super + shift + space
-        i3-msg floating toggle
+        i3-msg 'floating toggle; sticky toggle'
 
 super + v
         i3-msg split toggle
@@ -105,4 +105,4 @@ super + f
         i3-msg fullscreen toggle
 
 super + e
-        i3-msg layout tabbed
+        i3-msg layout toggle tabbed splith
