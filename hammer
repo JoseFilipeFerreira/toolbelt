@@ -18,7 +18,8 @@ _make_repo(){
     name="$(basename "$1")"
     echo -e "\033[35mInstalling $name...\033[33m"
     git clone "$1" ~/repos/"$name"
-    make install -C ~/repos/"$name"
+    sudo make install -C ~/repos/"$name"
+    rm -rf ~/repos/"$name"
     echo -e "\033[0m"
 }
 

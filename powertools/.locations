@@ -16,7 +16,7 @@ picom.conf,$XDG_CONFIG_HOME/picom.conf,link
 pulse.conf,$XDG_CONFIG_HOME/pulse/daemon.conf,link
 sxhkdrc,$XDG_CONFIG_HOME/sxhkd/sxhkdrc,link
 termite.conf,$XDG_CONFIG_HOME/termite/config,link
-thonkscripts,$XDG_CONFIG_HOME/thonkbar/scripts,link
+thonkbar,$XDG_CONFIG_HOME/thonkbar,link
 vdirsyncer.conf,$XDG_CONFIG_HOME/vdirsyncer/config,link,headless
 xinitrc,$HOME/.xinitrc,link
 zathurarc,$XDG_CONFIG_HOME/zathura/zathurarc,link
