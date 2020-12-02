@@ -5,7 +5,7 @@ urls="$XDG_CONFIG_HOME/newsboat/urls"
 
 cats="$(grep -o -e '---.*---' "$urls" | sed "s/---//g")"
 
-cat="$(echo "$cats" | dmenu -i -p "rss category")"
+cat="$(echo "$cats" | dmenu -i -l 20 -p "rss category")"
 [[ "$cat" ]] || exit
 
 if [[ ! "${cats[*]}" =~ ${cat} ]]; then
@@ -24,7 +24,7 @@ if [[ ! "${cats[*]}" =~ ${cat} ]]; then
     esac
 fi
 
-link="$(echo "clip" | dmenu -p "link")"
+link="$(echo "clip" | dmenu -i -p "link")"
 case "$link" in
     clip*)
         link="$(xclip -sel clip -o)"
