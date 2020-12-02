@@ -1,7 +1,40 @@
 #!/bin/bash
-# wallpaper manager
+# wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu))
 
 set -e
+IMAGE_COLOR_FILTER='
+import sys
+import colorsys
+outputs = 0
+last_colors = []
+for line in sys.stdin:
+    line = line.strip()
+    og_line = str(line)
+    line = line.lstrip("#")
+
+    rgb = tuple(int(line[i:i+2], 16)/255 for i in (0, 2, 4))
+    hsv = colorsys.rgb_to_hsv(*rgb)
+    hsl = colorsys.rgb_to_hls(*rgb)
+
+    text_color = "#FFFFFF" if hsl[1] < 0.5 else "#000000"
+
+    if hsv[1] < 0.2 or hsv[2] < 0.3:
+        last_colors.append((og_line, text_color))
+    else:
+        outputs += 1
+        print(og_line, text_color)
+
+while len(last_colors) < 3:
+    last_colors.append(("#000000", "#FFFFFF"))
+
+if outputs < 3:
+    for i in last_colors[:(3 - outputs)]:
+        print(i)
+    print(
+        "Not enough colors picked, resorting to most common",
+        file=sys.stderr)
+'
+
 _add_wall() {
     case "$1" in
         http*)
@@ -46,10 +79,24 @@ _change_wall(){
     then
         file=$1
     else
-        file=$(find "$WALLS" | shuf -n 1)
+        file=$(find "$WALLS" -type f | shuf -n 1)
     fi
+
     feh --no-fehbg --bg-fill "$file"
+
+    echo "$(convert "$file" +dither -colors 10 histogram: |
+        grep -aoP '[0-9][0-9][0-9]+:.*$' |
+        grep -aoP '#[^ ].....' |
+        python3 -c "$IMAGE_COLOR_FILTER" |
+        head -3)"  >| /tmp/wall_colors
+
     echo "$file"
+    notify-send \
+        -u low \
+        -i "$DOTFILES/assets/image_placeholder.png" \
+        -a "wall" \
+        "Wallpaper changed" \
+        "$(basename "$file")"
 }
 
 if [ ! -d "$WALLS" ]
@@ -65,9 +112,6 @@ case "$1" in
         ;;
     rm)
         _rm_wall
-        ;;
-    next)
-        _change_wall "${@:2}"
         ;;
     select)
         file="$(sxiv -to "$WALLS")"

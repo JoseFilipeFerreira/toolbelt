@@ -12,13 +12,13 @@ Colection of scripts to be used in the terminal or a keybind
 * [lock](toolbox/lock.tool) blured lockscreen
 * [memes](toolbox/memes.tool) image picker using fzf
 * [menu](toolbox/menu.tool) dmenu menu launcher
-* [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd)
+* [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
 * [nospace](toolbox/nospace.tool) correct filenames
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromCal](toolbox/termFromCal.tool) contextual terminal based on [calendar](toolbox/calendar.tool)
 * [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
 * [udm](toolbox/udm.tool) playlist manager
-* [wall](toolbox/wall.tool) wallpaper manager
+* [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu))
 * [workin](toolbox/workin.tool) workout manager
 
 ## 🪛 [Toolkit](toolkit) (dmenu scripts)
