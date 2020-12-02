@@ -84,11 +84,11 @@ _change_wall(){
 
     feh --no-fehbg --bg-fill "$file"
 
-    echo "$(convert "$file" +dither -colors 10 histogram: |
+    convert "$file" +dither -colors 10 histogram: |
         grep -aoP '[0-9][0-9][0-9]+:.*$' |
         grep -aoP '#[^ ].....' |
         python3 -c "$IMAGE_COLOR_FILTER" |
-        head -3)"  >| /tmp/wall_colors
+        head -3 >| /tmp/wall_colors
 
     echo "$file"
     notify-send \
