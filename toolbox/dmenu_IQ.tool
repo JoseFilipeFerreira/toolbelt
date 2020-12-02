@@ -5,31 +5,29 @@ cache="$XDG_CACHE_HOME/dmenu"
 cache_file="$cache""/IQhist"
 
 mkdir -p "$cache"
-[ ! -f "$cache_file" ] && touch "$cache_file"
+touch "$cache_file"
 
 all_cmd=$(dmenu_path)
 
-most_used=$( \
-    sort -nr -k2 "$cache_file" |
-    cut -f1 |
-    grep -F -x -f <(echo -e "$all_cmd"))
+most_used=$(sort -nr -k2 "$cache_file" | cut -f1)
 
-all_cmd=$(echo -e "$all_cmd" | grep -F -x -v -f <(echo -e "$most_used"))
+never_used_cmd=$(echo -e "$all_cmd" | grep -F -x -v -f <(echo -e "$most_used"))
 
-cmd=$(echo -e "${most_used}\n${all_cmd}" | dmenu -i)
+cmd=$(echo -e "${most_used}\n${never_used_cmd}" | dmenu -l 20 -i)
 
-[ "$cmd" = "" ] && exit 2
+[[ "$cmd" ]] || exit 1
 
 if ! grep -q "$cmd" "$cache_file";
 then
     echo -e "$cmd\t1" >> "$cache_file"
 else
-    tmp_cache="$(awk \
-        -v c="$cmd" \
+    awk -v c="$cmd" \
         -F'\t' \
-        '$1 == c {print($1"\t"$2 + 1)} $1 != c {print}' "$cache_file")"
-
-    echo "$tmp_cache" > "$cache_file"
+        '$1 == c {print($1"\t"$2 + 1)} $1 != c {print}' \
+        "$cache_file" >| "$cache_file"
 fi
 
-echo -e "$cmd" | ${SHELL:-"/bin/sh"} &
+case $cmd in
+    *\; ) "$TERMINAL" -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";;
+    * ) ${cmd} ;;
+esac
