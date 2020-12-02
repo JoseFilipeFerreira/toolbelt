@@ -2,7 +2,7 @@
 # trayer launcher
 
 if pgrep -x trayer >/dev/null; then
-    killall -q trayer nm-applet
+    killall -q trayer nm-applet blueman-applet
 else
     trayer \
         --edge top \
@@ -13,4 +13,5 @@ else
         --tint 000000B3 &
 
     nm-applet &
+    blueman-applet &
 fi

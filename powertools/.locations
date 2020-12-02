@@ -4,7 +4,6 @@ bash/inputrc,$HOME/.inputrc,link,headless
 bash/profile,$HOME/.bash_profile,link,headless
 dunstrc,$XDG_CONFIG_HOME/dunst/dunstrc,link
 ghci.conf,$HOME/.ghc/ghci.conf,link,headless
-glava,$XDG_CONFIG_HOME/glava,link
 gtk-3.0,$XDG_CONFIG_HOME/gtk-3.0,link
 htoprc,$XDG_CONFIG_HOME/htop/htoprc,link,headless
 i3.conf,$XDG_CONFIG_HOME/i3/config,link

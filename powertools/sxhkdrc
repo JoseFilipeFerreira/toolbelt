@@ -1,4 +1,4 @@
-################################### PROGRAMS ###################################
+# PROGRAMS
 
 super + {F1,F2,F3}
         {discord,$BROWSER,$BROWSER $(calendar --curr-link)}
@@ -15,17 +15,19 @@ super + {_,shift +} d
 super + {_,shift +,control +} Return
         {$TERMINAL,termFromHere,termFromCal}
 
+super + w
+        wall
+
 super + control + l
         lock
 
-################################### MEDIA KEYS #################################
+control + alt + Tab
+        notify-send lel lol
 
-###### BRIGHTNESS ########
+# XF86 KEYS
 
 XF86MonBrightness{Up,Down}
         blind {+,-}
-
-######### MEDIA ###########
 
 XF86Audio{Raise,Lower}Volume
         deaf {+,-}
@@ -51,14 +53,12 @@ XF86Audio{Prev,Next}
 super + {Left,Right}
         playerctl {previous, next}
 
-######### MISC ###########
-
 XF86Tools
         cd $DOTFILES && $TERMINAL
 
-######################################## WM KEYBINDS ###########################
+# WM KEYBINDS
 
-######### MISC ###########
+## MISC
 
 super + shift + q
         i3-msg kill
@@ -70,7 +70,7 @@ super + shift + e
         i3-msg exit
 
 
-####### MOVE FOCUS #######
+## FOCUS
 
 super + {1-9, 0, Tab}
         i3-msg workspace {1-9,10,back_and_forth}
@@ -78,7 +78,7 @@ super + {1-9, 0, Tab}
 super + {h,j,k,l}
         i3-msg focus {left,down,up,right}
 
-##### MOVE CONTAINER #####
+## CONTAINER
 
 super + shift + {1-9,0}
         i3-msg move container to workspace {1-9,10}
@@ -86,14 +86,14 @@ super + shift + {1-9,0}
 super + shift + {h,j,k,l}
         i3-msg move {left,down,up,right}
 
-
-#### RESIZE CONTAINER ####
-
 super + alt + {h,j,k,l}
        i3-msg resize {shrink width,grow height,shrink height,grow width} 10 px or 10 ppt
 
 
-######### LAYOUT #########
+## CHANGE LAYOUT
+
+super + space
+        i3-msg 'floating toggle'
 
 super + shift + space
         i3-msg 'floating toggle; sticky toggle'

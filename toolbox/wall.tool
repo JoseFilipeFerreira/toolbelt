@@ -75,20 +75,15 @@ _rm_wall() {
 }
 
 _change_wall(){
-    if [ -n "$1" ]
-    then
-        file=$1
-    else
-        file=$(find "$WALLS" -type f | shuf -n 1)
-    fi
+    file=$1
 
     feh --no-fehbg --bg-fill "$file"
 
-    convert "$file" +dither -colors 10 histogram: |
+    echo "$(convert "$file" +dither -colors 10 histogram: |
         grep -aoP '[0-9][0-9][0-9]+:.*$' |
         grep -aoP '#[^ ].....' |
         python3 -c "$IMAGE_COLOR_FILTER" |
-        head -3 >| /tmp/wall_colors
+        head -3)"  >| /tmp/wall_colors
 
     echo "$file"
     notify-send \
@@ -116,6 +111,10 @@ case "$1" in
     select)
         file="$(sxiv -to "$WALLS")"
         [[ "$file" ]] || exit
+        _change_wall "$file"
+        ;;
+    "")
+        file=$(find "$WALLS" -type f | shuf -n 1)
         _change_wall "$file"
         ;;
     *)
