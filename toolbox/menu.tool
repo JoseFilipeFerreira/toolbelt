@@ -8,5 +8,5 @@ scripts="$DOTFILES/toolkit"
     grep '\.menu' |
     sed -e 's|./||g' -e 's/\.menu$//g' |
     sort |
-    dmenu -i -p "Pick a menu:")".menu &
+    dmenu -i -l 20 -p "Pick a menu:")".menu &
 diswon
