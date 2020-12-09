@@ -1,8 +1,18 @@
-if empty(glob('$XDG_DATA_HOME/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo $XDG_DATA_HOME/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+" Install vim-plug
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+"Auto-Install missing plugins
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync
+  \|   PlugClean
+  \|   PlugUpdate --sync
+  \|   PlugUpgrade
+  \|   q | source $MYVIMRC
+  \| endif
 
 call plug#begin()
 
@@ -22,6 +32,8 @@ Plug 'sbdchd/neoformat'
 
 Plug 'machakann/vim-highlightedyank'
 
+Plug 'junegunn/fzf'
+
 " Syntax highlighting
 Plug 'cespare/vim-toml'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -31,10 +43,35 @@ Plug 'baskerville/vim-sxhkdrc'
 Plug 'plasticboy/vim-markdown'
 Plug 'sudar/vim-arduino-syntax'
 Plug 'rust-lang/rust.vim'
+Plug 'JuliaEditorSupport/julia-vim'
 
 call plug#end()
 
 """ PLUGIN CONFIGS
+" FZF
+nmap <leader>p :FZF<CR>
+nmap <leader>P :FZF<CR>
+
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+" Make fzf match the vim colorscheme colors
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " vim-markdown config
 let g:vim_markdown_folding_disabled = 1
 
@@ -52,7 +89,6 @@ let g:shfmt_opt="-ci"
 " Nerdtree config
 map <F2> :NERDTreeToggle<CR>
 let NERDTreeDirArrows = 1
-
 let NERDTreeQuitOnOpen = 1
 
 "highlight yank

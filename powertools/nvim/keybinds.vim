@@ -1,7 +1,7 @@
 " copy paste in vim
 inoremap <C-v> <ESC>"+pa
 vnoremap <C-c> "+y
-vnoremap <C-x> "+d 
+vnoremap <C-x> "+d
 
 " I don't need help
 :nmap <F1> :echo<CR>
@@ -18,27 +18,26 @@ nnoremap <M-j> <C-w>J
 nnoremap <M-k> <C-w>K
 nnoremap <M-l> <C-w>L
 
-" toggle spelling
+" split resize
+nnoremap <M-K> <C-w>+
+nnoremap <M-J> <C-w>-
+nnoremap <M-H> <C-w><
+nnoremap <M-L> <C-w>>
+
+" spelling
 map <leader>l :setlocal spell! spelllang=pt_pt<CR>
 map <leader>L :setlocal spell! spelllang=en_gb<CR>
-" Open spelling suggestions
 nnoremap <A-Enter> z=
 
 " Ctrl+S to save
 map <C-S> :w<CR>
 imap <C-S> <Esc>:w<CR>a
 
-" Alt-Tab
-map <leader><Tab> :e #<CR>
-
 " clear search register
 nmap <leader><leader> :noh<CR>
 
 " Fix Y
 nnoremap Y y$
-
-" Jumps
-inoremap ,, <Esc>/<++><Enter>"_c4l
 
 " Fast replace
 nnoremap s :s//g<Left><Left>
