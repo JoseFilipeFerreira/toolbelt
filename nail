@@ -48,7 +48,7 @@ _deploy_dotfiles(){
                 link)
                     _make_symlink "$orig" "$dest"
                     ;;
-            
+
                 make)
                     _make_makefile "$orig" "$dest"
                     ;;
@@ -63,7 +63,7 @@ _deploy_dotfiles(){
             esac
         done
 
-    done < <(perl -pe 's/\$(\w+)/$ENV{$1}/g' "$DOTFILES/$1" | sed -e "s|$HOME|~|g")
+    done < <(perl -pe 's/\$(\w+)/$ENV{$1}/g' "$DOTFILES/powertools/.locations" | sed -e "s|$HOME|~|g")
 }
 
 git -C "$DOTFILES" pull
@@ -85,4 +85,4 @@ done
 
 printf "%s\n" "${FILTERS[@]}" | sort -u > "$DOTFILES/.instalation_config"
 
-_deploy_dotfiles "powertools/.locations"
+_deploy_dotfiles

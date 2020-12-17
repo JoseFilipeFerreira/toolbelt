@@ -1,7 +1,6 @@
 #!/bin/bash
 # create all symlinks for my [scripts](toolbox)
 
-
 _clean_tools() {
     for tool in ~/.local/bin/*
     do
@@ -37,4 +36,5 @@ do
     fi
 done
 chmod +x toolbox/*
+
 echo -e "\033[35mDone!\033[0m"

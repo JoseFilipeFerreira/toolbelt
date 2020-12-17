@@ -2,9 +2,12 @@
 # Install dotfiles and programs that are part of my [workflow](.workflow)
 
 set -e
+
+source .workflow
+
 [[ "$DOTFILES" ]] || export DOTFILES=$(pwd)
 
-_theme(){
+_global_dark_theme(){
     wget https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip
     unzip master.zip
     readonly themes_dir="$HOME"/.themes
@@ -23,34 +26,35 @@ _make_repo(){
     echo -e "\033[0m"
 }
 
-read -r -p "Type of install [(F)ULL | (h)eadless]: "
+read -r -p "Type of installation [(F)ULL | (h)eadless]: "
 case "$REPLY" in
     FULL|F|"")
         bash nail
-        _theme
         FULL="yes"
         ;;
     headless|h)
         bash nail --headless
         ;;
+    *)
+        echo "Invalid type of installation"
+        exit
+        ;;
 esac
 
-###### Install standard workflow #####
-sh storeTools
-
-source .workflow
+sh "$DOTFILES/storeTools"
 
 yes | sudo pacman -S --needed  "${essential_pacman[@]}"
 
-for repo in "${essential_repos[@]}"
-do
+for repo in "${essential_repos[@]}"; do
     _make_repo "$repo"
 done
 
-if [[ $FULL ]]
-then
-    for repo in "${full_repos[@]}"
-    do
+if [[ $FULL ]]; then
+    yes | sudo pacman -S --needed  "${full_pacman[@]}"
+
+    for repo in "${full_repos[@]}"; do
         _make_repo "$repo"
     done
+
+    _global_dark_theme
 fi
