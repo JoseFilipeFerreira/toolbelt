@@ -1,16 +1,16 @@
 #!/bin/bash
 # choose display settings
 
-layout=$(echo -e "dock\ndock(1080p)\nundock\nmirror" | dmenu -i -l 20 -p "Monitor Layout")
-[[ "$layout" ]] || exit 2 
+layout=$(echo -e "dock\ndock(1440p)\nundock\nmirror" | dmenu -i -l 20 -p "Monitor Layout")
+[[ "$layout" ]] || exit 2
 
 case "$layout" in
         dock)
             xrandr --output DP-2-2 --auto && xrandr --output eDP-1 --off
             ;;
 
-        dock\(1080p\))
-            xrandr --output DP-2-2 --mode 1920x1080 && xrandr --output eDP-1 --off
+        dock\(1440p\))
+            xrandr --output DP-2-2 --mode 2560x1440 && xrandr --output eDP-1 --off
             ;;
 
         undock)
