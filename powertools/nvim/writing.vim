@@ -3,19 +3,12 @@ autocmd Filetype tex call SetWritingOpts()
 function SetWritingOpts()
     set linebreak
     set textwidth=80
-    inoremap `A À
-    inoremap 'A Á
-    inoremap `E É
-    inoremap `a à
-    inoremap 'a á
-    inoremap `e é
-    inoremap `o ó
-    inoremap `u ú
 endfunction
 
 autocmd FileType tex call SetTexOpts()
 function SetTexOpts()
     command! Re !pdflatex --shell-escape %:p
+    map <leader>r :silent !pdflatex --shell-escape %:p<CR>
 
     inoremap ,tt \texttt{}<Space><++><Esc>T{i
     inoremap ,ve \verb!!<Space><++><Esc>T!i
