@@ -16,23 +16,27 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
 # ~/ clean-up
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
-export LESSHISTFILE="-"
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export STACK_ROOT="$XDG_DATA_HOME/stack"
-export PYLINTHOME="$XDG_CACHE_HOME/pylint"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
-export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export GOPATH="$XDG_DATA_HOME/go"
+export LESSHISTFILE="-"
 export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
 export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
-export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export PYLINTHOME="$XDG_CACHE_HOME/pylint"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export STACK_ROOT="$XDG_DATA_HOME/stack"
 export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
+export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 
 # dotfiles
 export WALLS="$XDG_DATA_HOME/wallpapers"

@@ -33,6 +33,21 @@ make() {
     fi
 }
 
+tidy() {
+    clang-tidy "$1" \
+        -checks="*",clang-analyzer"*",-clang-analyzer-cplusplus"*" \
+        -- -std=c++20 \
+        -Wall \
+        -Wextra \
+        -Wdouble-promotion \
+        -Werror=pedantic \
+        -Werror=vla \
+        -pedantic-errors \
+        -Wfatal-errors \
+        -flto \
+        -Iinclude
+}
+
 ex() {
   if [ -f "$1" ] ; then
     case "$1" in
