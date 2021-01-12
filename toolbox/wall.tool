@@ -2,6 +2,8 @@
 # wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu))
 
 set -e
+remote_location="/home/mightymime/media/wallpapers"
+
 IMAGE_COLOR_FILTER='
 import sys
 import colorsys
@@ -47,7 +49,7 @@ _add_wall() {
             fi
         ;;
         *)
-            cp -v "$1" "$WALLS" 
+            cp -v "$1" "$WALLS"
             file="$(basename "$1")"
         ;;
     esac
@@ -57,7 +59,7 @@ _add_wall() {
     res="$(convert "$file" -format '%[w]' info:)"
     if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
     then
-        rsync -av "$WALLS"/ kiwi:~/wallpapers
+        rsync -av "$WALLS"/ kiwi:"$remote_location"
     else
         rm "$file"
         echo -e "\033[31mImage too small\033[0m\nonly $res"
@@ -69,7 +71,7 @@ _rm_wall() {
     wall=$(sxiv -to "$WALLS")
     for w in $wall; do
         ssh jff.sh \
-            "find wallpapers/ -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
+            "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
         rm -v "$w"
     done
 }
@@ -97,18 +99,18 @@ _change_wall(){
 if [ ! -d "$WALLS" ]
 then
     echo -e "\033[35mDowloading Wallpapers...\033[33m"
-    rsync -av kiwi:~/wallpapers/ "$WALLS"
+    rsync -av kiwi:"$remote_location"/ "$WALLS"
     echo -e "\033[35mDone!\033[0m"
 fi
 
 case "$1" in
-    add)
+    --add|-a)
         _add_wall "${@:2}"
         ;;
-    rm)
+    --remove|-rm)
         _rm_wall
         ;;
-    select)
+    --select|-s)
         file="$(sxiv -to "$WALLS")"
         [[ "$file" ]] || exit
         _change_wall "$file"
