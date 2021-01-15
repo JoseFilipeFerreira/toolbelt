@@ -1,4 +1,5 @@
 #!/bin/bash
+# timer with message and alarm sound
 
 while (( "$#" )); do
     case $1 in
@@ -19,19 +20,21 @@ while (( "$#" )); do
     esac
 done
 
-week="$(echo "$input" | grep -Eo "[0-9]+w" | sed 's/[^0-9]*//g')"
-day="$(echo "$input" | grep -Eo "[0-9]+d" | sed 's/[^0-9]*//g')"
-hour="$(echo "$input" | grep -Eo "[0-9]+h" | sed 's/[^0-9]*//g')"
-min="$(echo "$input" | grep -Eo "[0-9]+m" | sed 's/[^0-9]*//g')"
-sec="$(echo "$input" | grep -Eo "[0-9]+s" | sed 's/[^0-9]*//g')"
+w="$(sed -En 's/.*([0-9]+)w.*/\1/p' <<<"$input")"
+d="$(sed -En 's/.*([0-9]+)d.*/\1/p' <<<"$input")"
+h="$(sed -En 's/.*([0-9]+)h.*/\1/p' <<<"$input")"
+m="$(sed -En 's/.*([0-9]+)m.*/\1/p' <<<"$input")"
+s="$(sed -En 's/.*([0-9]+)s.*/\1/p' <<<"$input")"
 
-[[ "$min" ]] && sec=$((sec + min * 60))
-[[ "$hour" ]] && sec=$((sec + hour * 60 * 60))
-[[ "$day" ]] && sec=$((sec + day * 60 * 60 * 24))
-[[ "$week" ]] && sec=$((sec + week * 60 * 60 * 24 * 7))
+s=$((s
+    + m * 60
+    + h * 60 * 60
+    + d * 60 * 60 * 24
+    + w * 60 * 60 * 24 * 7))
+[[ ! "$s" ]] && echo "Error: Invalid time" && exit
 
 {
-sleep "$sec"
+sleep "$s"
 
 notify-send \
     -u critical \
