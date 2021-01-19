@@ -1,7 +1,5 @@
 xrdb -merge ~/.config/X11/Xresources
 
-setxkbmap -layout gb -option caps:escape
-
 picom --experimental-backends --daemon
 dunst &
 wall &
