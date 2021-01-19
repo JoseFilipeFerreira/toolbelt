@@ -1,30 +1,42 @@
 #!/bin/bash
-# choose display settings
+# choose display setting
 
-layout=$(echo -e "dock\ndock(1440p)\nundock\nmirror" | dmenu -i -l 20 -p "Monitor Layout")
+_dock_monitor(){
+    last="$(xrandr | grep " connected" | cut -d" " -f1 | tail -n1)"
+    [[ "$last" = "eDP-1" ]] && notify-send "No monitors connected" && exit
+    echo "$last"
+}
+
+layout="$1"
+
+[[ "$layout" ]] || layout=$(echo -e "dock\ndock(1440p)\nundock\nmirror" |
+    dmenu -i -l 20 -p "Monitor Layout")
+
 [[ "$layout" ]] || exit 2
 
 case "$layout" in
         dock)
-            xrandr --output DP-2-2 --auto && xrandr --output eDP-1 --off
+            external="$(_dock_monitor)"
+            xrandr --output "$external" --auto --output eDP-1 --off
             ;;
 
         dock\(1440p\))
-            xrandr --output DP-2-2 --mode 2560x1440 && xrandr --output eDP-1 --off
+            external="$(_dock_monitor)"
+            xrandr --output "$external" --mode 2560x1440 --output eDP-1 --off
             ;;
 
         undock)
-	    xrandr --output eDP-1 --auto && xrandr --output DP-2-2 --off
+            external="$(_dock_monitor)"
+	    xrandr --output eDP-1 --auto --output "$external" --off
             ;;
 
         mirror)
-            xrandr --output HDMI2 --same-as eDP1
+            external="$(_dock_monitor)"
+            xrandr --output "$external" --auto --same-as eDP1
             ;;
 esac
 
-notify-send "$layout""ed"
-
-setxkbmap gb -option caps:esc
+notify-send "$layout""ed" "$external"
 
 thonkbar_daemon &
 
