@@ -1,11 +1,12 @@
 autocmd Filetype markdown call SetWritingOpts()
 autocmd Filetype tex call SetWritingOpts()
+autocmd FileType tex call SetTexOpts()
+
 function SetWritingOpts()
     set linebreak
     set textwidth=80
 endfunction
 
-autocmd FileType tex call SetTexOpts()
 function SetTexOpts()
     command! Re !pdflatex --shell-escape %:p
     map <leader>r :silent !pdflatex --shell-escape %:p<CR>
@@ -28,3 +29,9 @@ function SetTexOpts()
 
 endfunction
 
+" spelling
+map <leader>l :setlocal spell! spelllang=pt_pt<CR>
+map <leader>L :setlocal spell! spelllang=en_gb<CR>
+map <leader><F10> [s
+map <leader><F12> ]s
+nnoremap <A-Enter> z=

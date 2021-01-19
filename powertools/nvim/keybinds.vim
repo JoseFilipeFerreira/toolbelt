@@ -24,11 +24,6 @@ nnoremap <M-J> <C-w>-
 nnoremap <M-H> <C-w><
 nnoremap <M-L> <C-w>>
 
-" spelling
-map <leader>l :setlocal spell! spelllang=pt_pt<CR>
-map <leader>L :setlocal spell! spelllang=en_gb<CR>
-nnoremap <A-Enter> z=
-
 " Ctrl+S to save
 map <C-S> :w<CR>
 imap <C-S> <Esc>:w<CR>a
