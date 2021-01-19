@@ -74,3 +74,7 @@ explode(){
     mv "$1"/* .
     rmdir "$1"
 }
+
+gifify() {
+    convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"
+}
