@@ -2,8 +2,9 @@
 # create symlinks for the dotfiles
 [[ ! "$DOTFILES" ]] && \
     DOTFILES="$(dirname "$(readlink -f "$0")")" && \
-    export NAIL="nailing dotfiles" && \
-    source "$DOTFILES/powertools/bash/profile"
+    export NAIL="nailing dotfiles"
+
+. "$DOTFILES/powertools/bash/profile"
 
 _make_symlink(){
     if [ -h "$2" ] && ! [ -e "$2" ]
@@ -65,8 +66,6 @@ _deploy_dotfiles(){
 
     done < <(perl -pe 's/\$(\w+)/$ENV{$1}/g' "$DOTFILES/powertools/.locations" | sed -e "s|$HOME|~|g")
 }
-
-git -C "$DOTFILES" pull
 
 touch "$DOTFILES/.instalation_config"
 IFS=$'\n' read -d '' -r -a FILTERS < "$DOTFILES/.instalation_config"
