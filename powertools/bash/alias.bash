@@ -50,3 +50,5 @@ alias starwars='telnet towel.blinkenlights.nl'
 
 alias mi='oneko -tora -name Mi & disown'
 alias byemi='killall oneko'
+
+alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
