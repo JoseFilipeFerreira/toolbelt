@@ -1,10 +1,13 @@
 #!/bin/bash
 export essential_pacman=(
+base
+base-devel
 curl
 git
 htop
 inetutils
 jq
+make
 neofetch
 neovim
 openssh
@@ -22,6 +25,7 @@ less
 )
 
 export full_pacman=(
+brightnessctl
 discord
 dunst
 feh
@@ -36,6 +40,7 @@ network-manager-applet
 newsboat
 picom
 pulseaudio
+shotgun
 sxhkd
 termite
 ttf-dejavu
