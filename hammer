@@ -29,11 +29,9 @@ _make_repo(){
 read -r -p "Type of installation [(F)ULL | (h)eadless]: "
 case "$REPLY" in
     FULL|F|"")
-        bash nail
         FULL="yes"
         ;;
     headless|h)
-        bash nail --headless
         ;;
     *)
         echo "Invalid type of installation"
@@ -41,20 +39,25 @@ case "$REPLY" in
         ;;
 esac
 
-sh "$DOTFILES/storeTools"
 
-yes | sudo pacman -S --needed  "${essential_pacman[@]}"
+sudo pacman -S --needed  "${essential_pacman[@]}"
 
 for repo in "${essential_repos[@]}"; do
     _make_repo "$repo"
 done
 
 if [[ $FULL ]]; then
-    yes | sudo pacman -S --needed  "${full_pacman[@]}"
+    sudo pacman -S --needed  "${full_pacman[@]}"
 
     for repo in "${full_repos[@]}"; do
         _make_repo "$repo"
     done
 
     _global_dark_theme
+
+    bash nail
+else
+    bash nail --headless
 fi
+
+bash "$DOTFILES/storeTools"

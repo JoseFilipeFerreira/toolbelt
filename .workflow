@@ -7,11 +7,9 @@ git
 htop
 inetutils
 jq
-make
 neofetch
 neovim
 openssh
-pkgconf
 python
 rsync
 tmux
