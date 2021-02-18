@@ -19,3 +19,4 @@ vdirsyncer.conf,$XDG_CONFIG_HOME/vdirsyncer/config,link,headless
 xinitrc,$HOME/.xinitrc,link
 zathurarc,$XDG_CONFIG_HOME/zathura/zathurarc,link
 newsboat.conf,$XDG_CONFIG_HOME/newsboat/config,link
+mimeapps.list,$XDG_CONFIG_HOME/mimeapps.list,link
