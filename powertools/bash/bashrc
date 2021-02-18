@@ -25,3 +25,10 @@ done
 
 [[ -f "$DOTFILES/powertools/bash/$(hostname).local" ]] &&
     . "$DOTFILES/powertools/bash/$(hostname).local"
+
+color=$((($RANDOM) % 6 + 31))
+echo -en "\e["$color"m"
+shuf -n 1 "$DOTFILES/powertools/bash/quotes.txt" |
+    sed 's/\t/\n\t-/g' |
+    fold -w 80 -s
+echo -en "\e[0m"
