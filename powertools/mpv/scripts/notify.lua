@@ -26,11 +26,6 @@
 -- helper functions
 -------------------------------------------------------------------------------
 
-function print_debug(s)
-    print("DEBUG: " .. s) -- comment out for no debug info
-    return true
-end
-
 -- url-escape a string, per RFC 2396, Section 2
 function string.urlescape(str)
     local s, c = string.gsub(str, "([^A-Za-z0-9_.!~*'()/-])",
@@ -73,7 +68,6 @@ end
 function scaled_image(src, dst)
     local convert_cmd = ("convert -scale x64 -- %s %s"):format(
     string.shellescape(src), string.shellescape(dst))
-    print_debug("executing " .. convert_cmd)
     if os.execute(convert_cmd) then
         return true
     end
@@ -85,7 +79,6 @@ function extracted_image_from_audiofile (audiofile, imagedst)
     local ffmpeg_cmd = ("ffmpeg -loglevel error -hide_banner -vsync 2 -i %s %s > /dev/null"):format(
     string.shellescape(audiofile), string.shellescape(imagedst)
     )
-    print_debug("executing " .. ffmpeg_cmd)
     os.execute(ffmpeg_cmd)
     return true
 end
@@ -117,11 +110,6 @@ function notify_current_track()
     local artist = get_value(metadata, {"artist", "ARTIST"})
     local album  = get_value(metadata, {"album", "ALBUM"})
     local title  = get_value(metadata, {"title", "TITLE", "icy-title"})
-
-    print_debug("notify_current_track(): -> extracted metadata:")
-    print_debug("artist: " .. artist)
-    print_debug("album: " .. album)
-    print_debug("title: " .. title)
 
     -- absolute filename of currently playing audio file
     local path_to_file = mp.get_property_native("path")
@@ -159,8 +147,8 @@ function notify_current_track()
 
     body = string.shellescape(body_str)
 
-    local command = ("notify-send -a mpv %s -- %s %s"):format(params, summary, body)
-    print_debug("command: " .. command)
+    local command = ("notify-send -u low -a mpv %s -- %s %s"):format(params, summary, body)
+    print("executing command: " .. command)
     os.execute(command)
 end
 
@@ -169,7 +157,7 @@ function notify_metadata_updated(name, data)
 end
 
 function update_panel()
-    local update_panel = ("pkill -10 -x lemon")
+    local update_panel = ("pkill --signal 62 thonkbar")
     print("executing command: " .. update_panel)
     os.execute(update_panel)
 end
@@ -177,4 +165,4 @@ end
 -- insert main() here
 
 mp.register_event("file-loaded", update_panel)
--- mp.observe_property("metadata", nil, notify_metadata_updated)
+mp.observe_property("metadata", nil, notify_metadata_updated)
