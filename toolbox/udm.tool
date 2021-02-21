@@ -6,10 +6,16 @@ ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o 
 
 remote_location="/home/mightymime/media/music"
 
+mpvsocket="/tmp/mpvsocket"
+
+_update_bar(){
+    pkill --signal 62 thonkbar
+}
+
 _sync_music() {
     for i in "$@"; do
         case $i in
-            -t=*|--title=*)
+            --title=*)
                 TITLE="${i#*=}"
                 shift
                 ;;
@@ -86,34 +92,121 @@ _discord_music() {
     xdotool key 'Return'
 }
 
+
+_mpv_play(){
+    mpv --input-ipc-server="$mpvsocket" "$@"
+}
+
+_mpv_control(){
+    echo "$1" | socat - "$mpvsocket"
+}
+
+_mpv_do() {
+    _mpv_control '{ "command": '"$1"' }' |
+        if [[ "$2" ]]; then jq "${@:2}"; else cat; fi
+}
+
+_mpv_get() {
+    _mpv_do '["get_property", "'"$1"'"]' "${2:-.}" "${@:3}"
+}
+
+_media_control(){
+    if pgrep mpv &>/dev/null; then
+        _mpv_control "$1"
+    else
+        playerctl "$2"
+        _update_bar
+    fi
+}
+
+_echo_block(){
+    path="$(_mpv_get "path" --raw-output .data 2>/dev/null)"
+
+    [[ "$path" ]] || return
+
+    case $path in
+        http*)
+            path="$(_mpv_get "media-title" --raw-output .data)"
+            ;;
+        *)
+            path="$(basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g')"
+            ;;
+    esac
+
+    echo "$path"
+    echo "$path"
+
+    case "$(_mpv_get "pause" --raw-output .data)" in
+        true)  echo "#696969" ;;
+        false) echo "#00FF00" ;;
+    esac
+}
+
 [ -d "$MUSIC" ] || _sync_music --title="Dowloading"
 
 case "$1" in
-    --add|-a)
+    -a|--add)
+        # Add music to playlist
+        # Add -c to get link from clipboard
         _add_music "${@:2}"
         ;;
-    --play|-p)
+
+    -p|--play)
+        # Shuffle music from playlist
         _sync_music --no-exit --title="Syncing"
-        mpv --shuffle --no-video "$MUSIC"
+        _mpv_play --shuffle --no-video "$MUSIC"
         ;;
-    --select|-s)
-        file="$(find "$MUSIC"  -type f -printf "%f\n" | fzf )"
-        mpv --no-video "$MUSIC/$file"
+
+    -s|--select)
+        # Select music (uses fzf)
+        _sync_music --no-exit --title="Syncing"
+        file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
+        _mpv_play --no-video "$MUSIC/$file"
         ;;
-    --discord|-d)
+
+    --discord)
+        # Play playlist on discord
         _discord_music "${@:2}"
         ;;
-    --help|-h)
-        echo -e "NAME\n\tudm - playlist manager\n"
-        echo -e "DESCRIPTION"
-        echo -e "\t--add, -a"
-        echo -e "\t\tadd music to playlist"
-        echo -e "\t\tadd -c to get link from clipboard"
-        echo -e "\t--play, -p"
-        echo -e "\t\tshuffle music from playlist"
-        echo -e "\t--select, -s"
-        echo -e "\t\tselect music using fzf"
-        echo -e "\t--discord, -d"
-        echo -e "\t\tplay playlist on discord"
+
+    --stop)
+        # Stop music
+        _media_control 'quit' 'stop'
+        ;;
+    --play-pause)
+        # Toggle play-pause
+        _media_control 'cycle pause' 'play-pause'
+        ;;
+    --next)
+        # Next music
+        _media_control 'playlist-next' 'next'
+        ;;
+    --previous|--prev)
+        # Previous music
+        _media_control 'playlist-prev' 'previous'
+        ;;
+
+    --block)
+        # Block compatible with i3blocks
+        _echo_block
+        ;;
+
+    -h|--help)
+        # Send this help message
+        echo "NAME:"
+        echo "    udm - playlist manager"
+        echo
+        echo "USAGE:"
+        echo "    udm [OPTIONS]"
+        echo
+        echo "OPTIONS:"
+
+        awk '/^case/,/^esac/' "$0" |
+            grep -E "^\s*(#|-.*|;;)" |
+            sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
+        ;;
+    *)
+        _mpv_play "$@"
+        ;;
 
 esac
