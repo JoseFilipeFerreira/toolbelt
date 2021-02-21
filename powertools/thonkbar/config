@@ -8,3 +8,5 @@ date '+%d/%m  %H:%M   ', 1
 [left]
 scripts/workspaces, CONTINUOUS
 uptime -p, 60
+[center]
+udm --block, ONCE
