@@ -42,16 +42,16 @@ XF86AudioMicMute
         deaf mic
 
 XF86Audio{Play,Stop}
-        playerctl {play-pause,stop}
+        udm {--play-pause,--stop}
 
 super + {Prior,Next}
-        playerctl {play-pause,stop}
+        udm {--play-pause,--stop}
 
 XF86Audio{Prev,Next}
-        playerctl {previous, next}
+        udm {--previous, --next}
 
 super + {Left,Right}
-        playerctl {previous, next}
+        udm {--previous, --next}
 
 XF86Tools
         cd $DOTFILES && $TERMINAL
