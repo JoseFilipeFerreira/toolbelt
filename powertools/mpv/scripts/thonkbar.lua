@@ -1,7 +1,3 @@
-function notify_metadata_updated(name, data)
-    notify_current_track()
-end
-
 function update_panel()
     print("updating")
     os.execute("pkill --signal 62 thonkbar")
