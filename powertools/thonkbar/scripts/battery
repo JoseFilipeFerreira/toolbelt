@@ -21,8 +21,6 @@ case "$stat" in
 esac
 
 echo "$symbol" "$percent""%"
-echo "$symbol" "$percent""%"
-
 
 case $(echo "$percent"" / 20" | bc) in
   0) echo "#FF0000" ;;

@@ -27,7 +27,6 @@ case "$1" in
         curr_step="$(echo "$curr_percent"/"$step_percent" | bc)"
 
         echo "$curr_step"
-        echo "$curr_step"
 
         case $(echo "$curr_percent/20" | bc) in
             0) echo "#424020" ;;

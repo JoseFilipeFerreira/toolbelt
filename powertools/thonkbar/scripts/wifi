@@ -20,21 +20,18 @@ if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
             tail -1)" \
         'BEGIN{printf("%0.f", cur*100/max)}')"
 
+    echo "$quality%@$ssid"
+
     case $(echo "$quality"" / 20" | bc) in
-        0) color="#FF0000" ;;
+        0) echo "#FF0000" ;;
 
-        1) color="#FF8400" ;;
+        1) echo "#FF8400" ;;
 
-        2) color="#FFF700" ;;
+        2) echo "#FFF700" ;;
 
-        3) color="#AAFF00" ;;
+        3) echo "#AAFF00" ;;
 
-        *) color="#00FF00" ;;
+        *) echo "#00FF00" ;;
     esac
-    format="$quality%@$ssid"
-
-    echo "$format"
-    echo "$format"
-    echo "$color"
 fi
 

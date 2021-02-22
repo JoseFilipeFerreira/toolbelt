@@ -13,27 +13,13 @@ _update_bar(){
 }
 
 _sync_music() {
-    for i in "$@"; do
-        case $i in
-            --title=*)
-                TITLE="${i#*=}"
-                shift
-                ;;
-            --no-exit)
-                EXIT="no"
-                shift
-                ;;
-        esac
-    done
-
     if ssh -q kiwi exit
     then
-        echo -e "\e[35m$TITLE Music...\e[33m"
-        rsync -av kiwi:"$remote_location/" "$MUSIC"
+        echo -e "\e[35mSyncing Music...\e[33m"
+        rsync -av --delete kiwi:"$remote_location/" "$MUSIC"
         echo -e "\e[35mDone!\e[0m"
     else
         echo -e "\e[31mCouldn't connect to server"
-        [ "$EXIT" ] || exit
     fi
 }
 
@@ -65,7 +51,7 @@ _add_music() {
         ;;
     esac
     ssh kiwi ~/.local/bin/nospace "$remote_location"/*
-    _sync_music --no-exit --title="Syncing"
+    _sync_music
 }
 
 _discord_music() {
@@ -134,7 +120,8 @@ _echo_block(){
     esac
 
     echo "$path"
-    echo "$path"
+
+    echo "#FFFFFF"
 
     case "$(_mpv_get "pause" --raw-output .data)" in
         true)  echo "#696969" ;;
@@ -142,7 +129,6 @@ _echo_block(){
     esac
 }
 
-[ -d "$MUSIC" ] || _sync_music --title="Dowloading"
 
 case "$1" in
     -a|--add)
@@ -153,13 +139,14 @@ case "$1" in
 
     -p|--play)
         # Shuffle music from playlist
-        _sync_music --no-exit --title="Syncing"
+        _sync_music
+        [ -d "$MUSIC" ] || exit
         _mpv_play --shuffle --no-video "$MUSIC"
         ;;
 
     -s|--select)
         # Select music (uses fzf)
-        _sync_music --no-exit --title="Syncing"
+        _sync_music
         file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
         _mpv_play --no-video "$MUSIC/$file"
         ;;

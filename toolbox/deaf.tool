@@ -33,9 +33,7 @@ case "$1" in
 
         if [[ $mute_status = yes ]]; then
             echo "MUTE"
-            echo "MUTE"
         else
-            echo "$volume"
             echo "$volume"
         fi
         ;;
