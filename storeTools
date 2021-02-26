@@ -1,5 +1,5 @@
 #!/bin/bash
-# create all symlinks for my [scripts](toolbox)
+# deploy the [toolbox](toolbox)
 
 _clean_tools() {
     for tool in ~/.local/bin/*
