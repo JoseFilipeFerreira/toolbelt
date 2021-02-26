@@ -13,13 +13,20 @@ _update_bar(){
 }
 
 _sync_music() {
+    case $1 in
+        --exit)
+            exit_on_error="yes"
+            ;;
+    esac
+
     if ssh -q kiwi exit
     then
         echo -e "\e[35mSyncing Music...\e[33m"
         rsync -av --delete kiwi:"$remote_location/" "$MUSIC"
         echo -e "\e[35mDone!\e[0m"
     else
-        echo -e "\e[31mCouldn't connect to server"
+        echo -e "\e[31mCouldn't connect to server\e[0m"
+        [[ "$exit_on_error" ]] && exit || echo -n
     fi
 }
 
@@ -47,7 +54,7 @@ _add_music() {
             fi
         ;;
         *)
-            scp -v "$1" kiwi:"$MUSIC"
+            scp "$1" kiwi:"$remote_location"
         ;;
     esac
     ssh kiwi ~/.local/bin/nospace "$remote_location"/*
@@ -55,14 +62,15 @@ _add_music() {
 }
 
 _discord_music() {
+    prefix="."
+    [[ $1 ]] && prefix="$1"
+    echo "prefix: $prefix"
+
     website="http://jff.sh/music"
     music_link=$(curl "$website" | grep '<a' | cut -d"'" -f2 | shuf | nl)
     n_lines="$(echo "$music_link" | wc -l)"
 
     sleep 3
-
-    prefix="."
-    [[ $1 ]] && prefix="$1"
 
     echo "$music_link" |
         while read -r link; do
@@ -147,8 +155,17 @@ case "$1" in
     -s|--select)
         # Select music (uses fzf)
         _sync_music
+        [ -d "$MUSIC" ] || exit
         file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
         _mpv_play --no-video "$MUSIC/$file"
+        ;;
+    -rm|--remove)
+        # Delete music (uses fzf)
+        _sync_music --exit
+        file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
+
+        ssh kiwi rm -v "$remote_location/$file" | sed -e "s|'/|kiwi:'/|g"
+        rm -v "$MUSIC/$file"
         ;;
 
     --discord)
