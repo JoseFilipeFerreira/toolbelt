@@ -38,10 +38,10 @@ Colection of static config files
 ## 🔗 Install
 Collection of installation scripts
 * [generate_README](./generate_README.sh) autogenerate [README](README.md)
-* [generate_config](./generate_config.py) from sys import argv
+* [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Install dotfiles and programs that are part of my [workflow](.workflow)
-* [nail](./nail) create symlinks for the dotfiles
-* [storeTools](./storeTools) create all symlinks for my [scripts](toolbox)
+* [nail](./nail) deploy the dotfiles
+* [storeTools](./storeTools) deploy the [toolbox](toolbox)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
