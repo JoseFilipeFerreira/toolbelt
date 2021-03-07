@@ -9,8 +9,14 @@ super + Home
 super + {_,shift +} d
         {dmenu_IQ,menu}
 
-{super +,_} @Print
-        cuffs {_, --select} --clipboard
+@Print
+        cuffs
+
+super + @Print
+        cuffs --select --clipboard
+
+alt + @Print
+        cuffs --select --floating
 
 super + {_,shift +,control +} Return
         {$TERMINAL,termFromHere,termFromCal}

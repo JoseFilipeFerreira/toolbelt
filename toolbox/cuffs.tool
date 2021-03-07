@@ -9,55 +9,51 @@ type="image"
 
 while (( "$#" )); do
     case $1 in
-        --clipboard|-c)
+        -c|--clipboard)
+            # Print to clipboard
             clip="true"
             shift
             ;;
-        --video|-v)
-            type="video"
-            shift
-            ;;
-        --image|-i)
+        -i|--image)
+            # Take screenshot [default]
             type="image"
             shift
             ;;
-        --select|-s)
-            hack="$(hacksaw)"
-            shift
-            ;;
-        --delay|-d)
+        -d|--delay)
+            # Delay before taking print in seconds
             delay="$2"
             shift 2
             ;;
-        --time|-t)
+        -f|--floating)
+            # Display in floating sxiv
+            display="floating"
+            shift
+            ;;
+        -v|--video)
+            # Record video
+            type="video"
+            shift
+            ;;
+        -s|--select)
+            # Select area to print
+            hack="$(hacksaw)"
+            shift
+            ;;
+        -t|--time)
+            # Record time in seconds
             time="$2"
             shift 2
             ;;
-        ""|-h|--help)
+        -h|--help)
+            # Send this help message
             echo "USAGE:"
-            echo "    $script_name [FALGS] [OPTIONS] [FILE]"
-            echo
-            echo "FLAGS:"
-            echo -e "    -h, --help\tPrint help and exit"
+            echo "    $script_name [OPTIONS]"
             echo
             echo "OPTIONS:"
-            echo "    -c, --clipboard"
-            echo "        Print to clipboard"
-            echo
-            echo "    -s, --select"
-            echo "        Select area to print"
-            echo
-            echo "    -d, --delay <delay>"
-            echo "        Delay before taking print (seconds)"
-            echo
-            echo "    -i, --image"
-            echo "        Take screenshot [default]"
-            echo
-            echo "    -v, --video"
-            echo "        Record video"
-            echo
-            echo "    -t, --time <time>"
-            echo "        Record time (seconds)"
+
+            awk '/^while/,/^done/' "$0" |
+                grep -E "^\s*(#|-.*|;;)" |
+                sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
             exit
             ;;
         *)
@@ -72,34 +68,38 @@ done
     && echo "Options --clipboard and --video are incompatible" >&2 \
     && exit
 
+[[ "$clip" ]] && [[ "$display" == "floating" ]] \
+    && echo "Options --clipboard and --floating are incompatible" >&2 \
+    && exit
+
+[[ "$hack" ]] || hack="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')+0+0"
+
 [[ "$delay" ]] && sleep "$delay"
 
 case $type in
     image)
-        flags=()
-        [[ "$hack" ]] && flags+=( -g "$hack")
-
         if [[ "$clip" ]]; then
-            shotgun ${flags[@]} - | xclip -t 'image/png' -selection clipboard
+            shotgun -g "$hack" - | xclip -t 'image/png' -selection clipboard
         else
-            shotgun ${flags[@]} "$file.png"
+            shotgun -g "$hack" "$file.png"
         fi
+
+        case "$display" in
+            floating)
+                sxiv -g "$hack" -b "$file.png"
+                rm "$file.png"
+        esac
 
         ;;
     video)
         flags=(-framerate 25 -f x11grab)
 
         [[ "$time" ]] && flags+=( -t "$time" )
-        if [[ "$hack" ]]; then
-            size="$(echo "$hack" | cut -d+ -f 1)"
-            start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
-        else
-            size="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')"
-            start="0,0"
-        fi
+        size="$(echo "$hack" | cut -d+ -f 1)"
+        start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
 
         flags+=(-video_size "$size" -i :0.0+"$start")
 
-        ffmpeg ${flags[@]} "$file.mp4"
+        ffmpeg "${flags[@]}" "$file.mkv"
         ;;
 esac
