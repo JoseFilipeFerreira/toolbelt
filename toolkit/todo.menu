@@ -1,7 +1,8 @@
 #!/bin/sh
 # simple TODO list
-
-file="$XDG_CACHE_HOME/dmenu/todo"
+folder="$XDG_CACHE_HOME/dmenu"
+mkdir -p "$folder"
+file="$folder/todo"
 touch "$file"
 prompt="Add/delete a task: "
 
