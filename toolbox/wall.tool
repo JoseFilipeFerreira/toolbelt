@@ -1,42 +1,43 @@
 #!/bin/bash
-# wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu))
+# wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 
 set -e
 remote_location="/home/mightymime/media/wallpapers"
 
-IMAGE_COLOR_FILTER='
+BRIGHTNESS_FILTER='
 import sys
 import colorsys
-outputs = 0
-last_colors = []
+chosen_colours = []
+rejected_colors = []
 for line in sys.stdin:
     line = line.strip()
     og_line = str(line)
-    line = line.lstrip("#")
-
+    if line.startswith("#"):
+        line = line[1:]
     rgb = tuple(int(line[i:i+2], 16)/255 for i in (0, 2, 4))
-    hsv = colorsys.rgb_to_hsv(*rgb)
     hsl = colorsys.rgb_to_hls(*rgb)
+    hsv = colorsys.rgb_to_hsv(*rgb)
+    text = "#000000" if hsl[1] >= .49 else "#FFFFFF"
+    l = rejected_colors if hsv[1] < 0.2 or hsv[2] < 0.3 else chosen_colours
+    l.append([og_line, [*rgb], text])
 
-    text_color = "#FFFFFF" if hsl[1] < 0.5 else "#000000"
+def rgb_distance(c0, c1):
+    return sum([pow(c0[1][i] - c1[1][i], 2) for i in (0, 1, 2)])
 
-    if hsv[1] < 0.2 or hsv[2] < 0.3:
-        last_colors.append((og_line, text_color))
-    else:
-        outputs += 1
-        print(og_line, text_color)
+if len(chosen_colours) < 3:
+    chosen_colours += rejected_colors
 
-while len(last_colors) < 3:
-    last_colors.append(("#000000", "#FFFFFF"))
+first, contrast = chosen_colours[:2]
+max_distance = rgb_distance(first, contrast)
 
-if outputs < 3:
-    for i in last_colors[:(3 - outputs)]:
-        print(i)
-    print(
-        "Not enough colors picked, resorting to most common",
-        file=sys.stderr)
+for c in chosen_colours[2:]:
+    d = rgb_distance(first, c)
+    if d > max_distance:
+        max_distance, contrast = d, c
+second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
+
+for c, _, t in [first, second, contrast]: print(c, t)
 '
-
 _add_wall() {
     case "$1" in
         http*)
@@ -81,11 +82,19 @@ _change_wall(){
 
     feh --no-fehbg --bg-fill "$file"
 
-    echo "$(convert "$file" +dither -colors 10 histogram: |
-        grep -aoP '[0-9][0-9][0-9]+:.*$' |
-        grep -aoP '#[^ ].....' |
-        python3 -c "$IMAGE_COLOR_FILTER" |
-        head -3)"  >| /tmp/wall_colors
+    mapfile -t colors < <(
+        convert "$file" +dither -colors 10 histogram: |
+            sed -n '/comment={/,/^}/p' |
+            sed -E 's/comment=\{\s*|\}|^\s*//g' |
+            awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
+                 $0 !~ /[0-9]e\+[0-9]/ {print}' |
+            sort -nr |
+            grep -aoP '#[a-fA-F0-9]{6}' |
+            python3 -c "$BRIGHTNESS_FILTER" |
+            head -3
+    )
+
+    printf "%s\n" "${colors[@]}" >| /tmp/wall_colors
 
     echo "$file"
     notify-send \
@@ -100,7 +109,7 @@ if [ ! -d "$WALLS" ]
 then
     echo -e "\033[35mDowloading Wallpapers...\033[33m"
     rsync -av kiwi:"$remote_location"/ "$WALLS"
-    echo -e "\033[35mDone!\033[0m"
+    echo -e "\033[0m"
 fi
 
 case "$1" in
