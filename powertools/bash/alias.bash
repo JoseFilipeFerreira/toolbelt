@@ -1,7 +1,7 @@
 alias :r='source ~/.bashrc'
 alias :q='exit'
 
-alias sudo="sudo "
+alias sudo='sudo '
 
 alias ..='cd ..'
 alias ...='cd ../..'
