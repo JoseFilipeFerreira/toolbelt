@@ -1,5 +1,5 @@
 #!/bin/bash
-# volume changer (integrates with [thonkbar](powertools/thonkbar))
+# volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
 case "$1" in
     +)

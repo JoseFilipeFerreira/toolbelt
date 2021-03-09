@@ -1,5 +1,5 @@
 #!/bin/bash
-# playlist manager
+# playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
 set -e
 ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'media/music/%(title)s.%(ext)s'")
@@ -22,8 +22,8 @@ _sync_music() {
     if ssh -q kiwi exit
     then
         echo -e "\e[35mSyncing Music...\e[33m"
-        rsync -av --delete kiwi:"$remote_location/" "$MUSIC"
-        echo -e "\e[35mDone!\e[0m"
+        rsync -av kiwi:"$remote_location/" "${MUSIC:?Music location not set}"
+        echo -e "\e[0m"
     else
         echo -e "\e[31mCouldn't connect to server\e[0m"
         [[ "$exit_on_error" ]] && exit || echo -n
@@ -38,7 +38,7 @@ _add_music() {
             read -r
             case $REPLY in
                 "y"|"Y"|"")
-                    _add_music  ""
+                    _add_music  "$link"
                     ;;
             esac
             return
@@ -115,19 +115,15 @@ _media_control(){
 
 _echo_block(){
     path="$(_mpv_get "path" --raw-output .data 2>/dev/null)"
-
     [[ "$path" ]] || return
 
     case $path in
         http*)
-            path="$(_mpv_get "media-title" --raw-output .data)"
-            ;;
-        *)
-            path="$(basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g')"
+            path="$(_mpv_get "media-title" --raw-output .data 2>/dev/null)"
             ;;
     esac
 
-    echo "$path"
+    basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g'
 
     echo "#FFFFFF"
 
@@ -141,7 +137,8 @@ _echo_block(){
 case "$1" in
     -a|--add)
         # Add music to playlist
-        # Add -c to get link from clipboard
+        # -c, --clipboard
+        #     get link from clipboard
         _add_music "${@:2}"
         ;;
 
@@ -188,6 +185,18 @@ case "$1" in
     --previous|--prev)
         # Previous music
         _media_control 'playlist-prev' 'previous'
+        ;;
+
+    --back)
+        # Seek 30 seconds backwards
+        _media_control 'seek -30' 'position 30-'
+
+        ;;
+
+    --forward)
+        # Seek 30 seconds forward
+        _media_control 'seek 30' 'position 30+'
+
         ;;
 
     --block)
