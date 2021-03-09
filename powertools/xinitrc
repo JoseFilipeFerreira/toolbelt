@@ -2,6 +2,7 @@ xrdb -merge ~/.config/X11/Xresources
 
 picom --experimental-backends --daemon
 dunst &
+unclutter --timeout 1 --jitter 10 --ignore-scrolling --fork
 wall &
 sxhkd &
 thonkbar_daemon &
