@@ -26,7 +26,6 @@ Colection of scripts to be used in the terminal or a keybind
 Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [emoji](toolkit/emoji.menu) pick a emoji
-* [games](toolkit/games.menu) launch emulator games
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
 * [todo](toolkit/todo.menu) simple TODO list
 * [trayer](toolkit/trayer.menu) trayer launcher
