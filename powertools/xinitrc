@@ -1,6 +1,10 @@
 xrdb -merge ~/.config/X11/Xresources
 
-picom --experimental-backends --daemon
+case $(hostname) in
+    cake) ;;
+    *) picom --experimental-backends --daemon ;;
+esac
+
 dunst &
 unclutter --timeout 1 --jitter 10 --ignore-scrolling --fork
 wall &
