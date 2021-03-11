@@ -2,7 +2,8 @@
 # wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 
 set -e
-remote_location="/home/mightymime/media/wallpapers"
+remote_location="${WALLS:?Wallpaper location not set}"
+local_location="${WALLS:?Wallpaper location not set}"
 
 BRIGHTNESS_FILTER='
 import sys
@@ -38,6 +39,21 @@ second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
 
 for c, _, t in [first, second, contrast]: print(c, t)
 '
+_sync_walls() {
+    [[ "$(hostname)" == "kiwi" ]] && return 0
+
+    if ssh -q kiwi exit
+    then
+        echo -e "\e[35mSyncing Walls...\e[33m"
+        rsync -av kiwi:"$remote_location/" "$local_location"
+        echo -e "\e[0m"
+        return 0
+    else
+        echo -e "\e[31mCouldn't connect to server\e[0m"
+        return 1
+    fi
+}
+
 _add_wall() {
     case "$1" in
         http*)
@@ -60,7 +76,7 @@ _add_wall() {
     res="$(convert "$file" -format '%[w]' info:)"
     if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
     then
-        rsync -av "$WALLS"/ kiwi:"$remote_location"
+        rsync -av "$local_location"/ kiwi:"$remote_location"
     else
         rm "$file"
         echo -e "\033[31mImage too small\033[0m\nonly $res"
@@ -69,7 +85,7 @@ _add_wall() {
 }
 
 _rm_wall() {
-    wall=$(sxiv -to "$WALLS")
+    wall=$(sxiv -to "$local_location")
     for w in $wall; do
         ssh jff.sh \
             "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
@@ -105,29 +121,32 @@ _change_wall(){
         "$(basename "$file")"
 }
 
-if [ ! -d "$WALLS" ]
-then
-    echo -e "\033[35mDowloading Wallpapers...\033[33m"
-    rsync -av kiwi:"$remote_location"/ "$WALLS"
-    echo -e "\033[0m"
-fi
+[[ ! -d "$WALLS" ]] && [[ "$(hostname)" != "kiwi" ]] && _sync_walls
 
 case "$1" in
     --add|-a)
+        _sync_walls
         _add_wall "${@:2}"
         ;;
+
     --remove|-rm)
+        _sync_walls || exit
         _rm_wall
         ;;
+
     --select|-s)
+        _sync_walls
         file="$(sxiv -to "$WALLS")"
         [[ "$file" ]] || exit
         _change_wall "$file"
         ;;
+
     "")
+        _sync_walls
         file=$(find "$WALLS" -type f | shuf -n 1)
         _change_wall "$file"
         ;;
+
     *)
         _change_wall "${@:1}"
         ;;

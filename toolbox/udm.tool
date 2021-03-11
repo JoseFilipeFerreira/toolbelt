@@ -2,10 +2,10 @@
 # playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
 set -e
-ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'media/music/%(title)s.%(ext)s'")
+ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'.local/share/music/%(title)s.%(ext)s'")
 
-remote_location="/home/mightymime/media/music"
-
+remote_location="${MUSIC:?Music location not set}"
+local_location="${MUSIC:?Music location not set}"
 mpvsocket="/tmp/mpvsocket"
 
 _update_bar(){
@@ -13,20 +13,17 @@ _update_bar(){
 }
 
 _sync_music() {
-    case $1 in
-        --exit)
-            exit_on_error="yes"
-            ;;
-    esac
+    [[ "$(hostname)" == "kiwi" ]] && return 0
 
     if ssh -q kiwi exit
     then
         echo -e "\e[35mSyncing Music...\e[33m"
-        rsync -av kiwi:"$remote_location/" "${MUSIC:?Music location not set}"
+        rsync -av kiwi:"$remote_location/" "$local_location"
         echo -e "\e[0m"
+        return 0
     else
         echo -e "\e[31mCouldn't connect to server\e[0m"
-        [[ "$exit_on_error" ]] && exit || echo -n
+        return 1
     fi
 }
 
@@ -44,21 +41,21 @@ _add_music() {
             return
         ;;
         http*youtube*)
-            ssh kiwi youtube-dl "${ydl_flags[@]}" "'$1'"
+            youtube-dl "${ydl_flags[@]}" "'$1'"
         ;;
         http*)
             if [[ ! "$2" ]]; then
-                ssh kiwi wget "$1" -P "$remote_location"
+                wget "$1" -P "$local_location"
             else
-                ssh kiwi wget "$1" -O "$remote_location/$2"
+                wget "$1" -O "$local_location/$2"
             fi
         ;;
         *)
-            scp "$1" kiwi:"$remote_location"
+            cp "$1" "$local_location"
         ;;
     esac
-    ssh kiwi ~/.local/bin/nospace "$remote_location"/*
-    _sync_music
+    nospace "$local_location"/*
+    rsync -av "$local_location"/ kiwi:"$remote_location"
 }
 
 _discord_music() {
@@ -66,7 +63,7 @@ _discord_music() {
     [[ $1 ]] && prefix="$1"
     echo "prefix: $prefix"
 
-    website="http://jff.sh/music"
+    website="https://jff.sh/music"
     music_link=$(curl "$website" | grep '<a' | cut -d"'" -f2 | shuf | nl)
     n_lines="$(echo "$music_link" | wc -l)"
 
@@ -139,6 +136,7 @@ case "$1" in
         # Add music to playlist
         # -c, --clipboard
         #     get link from clipboard
+        _sync_music
         _add_music "${@:2}"
         ;;
 
@@ -158,7 +156,7 @@ case "$1" in
         ;;
     -rm|--remove)
         # Delete music (uses fzf)
-        _sync_music --exit
+        _sync_music || exit
         file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
 
         ssh kiwi rm -v "$remote_location/$file" | sed -e "s|'/|kiwi:'/|g"
@@ -190,13 +188,11 @@ case "$1" in
     --back)
         # Seek 30 seconds backwards
         _media_control 'seek -30' 'position 30-'
-
         ;;
 
     --forward)
         # Seek 30 seconds forward
         _media_control 'seek 30' 'position 30+'
-
         ;;
 
     --block)
