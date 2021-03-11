@@ -2,27 +2,36 @@
 export essential_pacman=(
 base
 base-devel
+bc
+clang
 curl
+ffmpeg
 git
 htop
+imagemagick
 inetutils
 jq
+less
+man-db
+man-pages
 neofetch
 neovim
+networkmanager
+nodejs
 openssh
 python
 rsync
 tmux
+transmission-cli
 unzip
-wget
 wget
 xclip
 youtube-dl
 zip
-less
 )
 
 export full_pacman=(
+acpi
 brightnessctl
 discord
 dunst
@@ -35,14 +44,18 @@ khal
 mpv
 network-manager-applet
 newsboat
+pavucontrol
 picom
 pulseaudio
 shotgun
+socat
 sxhkd
+sxiv
 termite
 ttf-dejavu
 vdirsyncer
 xorg
+xorg-xinit
 zathura
 zathura-pdf-poppler
 )

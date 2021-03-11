@@ -2,9 +2,9 @@
 # deploy the dotfiles
 
 [[ ! "$DOTFILES" ]] && \
-    DOTFILES="$(dirname "$(readlink -f "$0")")" && \
-    export NAIL="nailing dotfiles"
+    DOTFILES="$(dirname "$(readlink -f "$0")")"
 
+export NAIL="nailing dotfiles"
 . "$DOTFILES/powertools/bash/profile"
 
 _make_symlink(){
