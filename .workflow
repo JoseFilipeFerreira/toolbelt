@@ -32,7 +32,6 @@ hacksaw
 i3-gaps
 i3lock
 khal
-lemonbar-xft-git
 mpv
 network-manager-applet
 newsboat

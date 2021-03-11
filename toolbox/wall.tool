@@ -87,7 +87,7 @@ _add_wall() {
 _rm_wall() {
     wall=$(sxiv -to "$local_location")
     for w in $wall; do
-        ssh jff.sh \
+        ssh kiwi \
             "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
         rm -v "$w"
     done
@@ -121,7 +121,7 @@ _change_wall(){
         "$(basename "$file")"
 }
 
-[[ ! -d "$WALLS" ]] && [[ "$(hostname)" != "kiwi" ]] && _sync_walls
+[[ ! -d "$WALLS" ]] && _sync_walls
 
 case "$1" in
     --add|-a)

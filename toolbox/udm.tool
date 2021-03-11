@@ -4,8 +4,7 @@
 set -e
 ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'.local/share/music/%(title)s.%(ext)s'")
 
-remote_location="${MUSIC:?Music location not set}"
-local_location="${MUSIC:?Music location not set}"
+remote_location=".local/share/music"
 mpvsocket="/tmp/mpvsocket"
 
 _update_bar(){
@@ -13,6 +12,7 @@ _update_bar(){
 }
 
 _sync_music() {
+    local_location="${MUSIC:?Music location not set}"
     [[ "$(hostname)" == "kiwi" ]] && return 0
 
     if ssh -q kiwi exit
@@ -28,6 +28,7 @@ _sync_music() {
 }
 
 _add_music() {
+    local_location="${MUSIC:?Music location not set}"
     case "$1" in
         --clipboard|-c)
             link="$(xclip -sel clip -o)"
@@ -55,7 +56,8 @@ _add_music() {
         ;;
     esac
     nospace "$local_location"/*
-    rsync -av "$local_location"/ kiwi:"$remote_location"
+    [[ "$(hostname)" == "kiwi" ]] || \
+        rsync -av "$local_location"/ kiwi:"$remote_location"
 }
 
 _discord_music() {

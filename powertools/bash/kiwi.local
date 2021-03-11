@@ -6,11 +6,11 @@ alias trl="transmission-remote -l"
 
 add_movie(){
     mkdir -p ~/media/movies/"$1"
-    wget "$2" -O ~/Repos/iron_cake/movie_thumbs/"$1.${2##*.}"
-    for f in ~/Repos/iron_cake/movie_thumbs/*
+    wget "$2" -O ~/repos/iron_cake/movie_thumbs/"$1.${2##*.}"
+    for f in ~/repos/iron_cake/movie_thumbs/*
     do
         [[ $f == *.jpg ]] && continue
-        convert "$f" ~/Repos/iron_cake/movie_thumbs/"$(basename $f).jpg"
+        convert "$f" ~/repos/iron_cake/movie_thumbs/"$(basename $f).jpg"
     done
     mv ${@:3} ~/media/movies/"$1"
 }
