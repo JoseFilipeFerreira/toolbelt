@@ -59,8 +59,21 @@ XF86Audio{Prev,Next}
 super + {Left,Right}
         udm {--previous, --next}
 
+XF86Search
+        dmenu_IQ
+
 XF86Tools
-        cd $DOTFILES && $TERMINAL
+        launch_and_move 1 kodi
+
+XF86Mail
+        launch_and_move 4 discord
+
+XF86WWW
+        launch_and_move 3 $BROWSER
+
+XF86HomePage
+        meross-cli --toggle
+
 
 # WM KEYBINDS
 

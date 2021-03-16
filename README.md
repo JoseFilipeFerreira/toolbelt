@@ -10,6 +10,7 @@ Colection of scripts to be used in the terminal or a keybind
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
+* [launch_and_move](toolbox/launch_and_move.tool) move to a workspace and launch a program (if that program is not running)
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))

@@ -3,7 +3,12 @@
 
 case "$1" in
     --toggle|--on|--off)
-        status="$(ssh kiwi 'curl --silent localhost:4200/bulb/'"${1:2}"'')"
+        if [[ "$(hostname)" == "kiwi" ]]
+        then
+            status="$(curl --silent localhost:4200/bulb/"${1:2}")"
+        else
+            status="$(ssh kiwi 'curl --silent localhost:4200/bulb/'"${1:2}"'')"
+        fi
         notify-send \
             -u low \
             -i "$DOTFILES/assets/meross.png" \
