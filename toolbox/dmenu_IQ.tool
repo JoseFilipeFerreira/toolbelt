@@ -33,5 +33,5 @@ fi
 
 case $cmd in
     *\; ) "$TERMINAL" -e "$(printf "%s" "${cmd}" | cut -d';' -f1)";;
-    * ) ${cmd} ;;
+    * ) ${cmd} & disown ;;
 esac
