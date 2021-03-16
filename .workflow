@@ -6,6 +6,7 @@ bc
 clang
 curl
 ffmpeg
+fzf
 git
 htop
 imagemagick
