@@ -75,6 +75,16 @@ explode(){
     rmdir "$1"
 }
 
+ingest(){
+    mkdir -vp /tmp/ingest
+    mkdir -vp "$2"
+    sudo mount "$1" /tmp/ingest
+    rsync -av --info=progress2 /tmp/ingest/ "$2"
+    sudo umount /tmp/ingest
+    rmdir -v /tmp/ingest
+    find "$2" -type f -exec chmod 0644 {} +
+}
+
 gifify() {
     convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"
 }
