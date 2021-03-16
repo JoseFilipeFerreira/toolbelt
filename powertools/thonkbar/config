@@ -1,6 +1,10 @@
 [config]
-delimiter, |
-delimiter_color, #666666
+delimiter = "  |  "
+delimiter_color = "#666666"
+font = "xft:DejaVu Sans Mono:size=8"
+background_color = "#B3000000"
+underline_width = 2
+position = top
 
 [right]
 scripts/wifi, 5
