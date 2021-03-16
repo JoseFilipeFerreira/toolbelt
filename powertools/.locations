@@ -1,4 +1,5 @@
 Xresources,$XDG_CONFIG_HOME/X11/Xresources,link
+clang-format,$HOME/.clang-format,link,headless
 bash/bashrc,$HOME/.bashrc,link,headless
 bash/inputrc,$HOME/.inputrc,link,headless
 bash/profile,$HOME/.bash_profile,link,headless
