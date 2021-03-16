@@ -10,10 +10,10 @@ super + {_,shift +} d
         {dmenu_IQ,menu}
 
 @Print
-        cuffs
-
-super + @Print
         cuffs --select --clipboard
+
+control + @Print
+        cuffs --clipboard
 
 alt + @Print
         cuffs --select --floating
