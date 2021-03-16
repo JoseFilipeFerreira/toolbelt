@@ -9,6 +9,6 @@ dunst &
 unclutter --timeout 1 --jitter 10 --ignore-scrolling --fork
 wall &
 sxhkd &
-thonkbar_daemon &
+thonkbar &
 
 exec i3
