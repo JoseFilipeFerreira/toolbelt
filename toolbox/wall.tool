@@ -2,7 +2,8 @@
 # wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 
 set -e
-remote_location="${WALLS:?Wallpaper location not set}"
+remote="kiwi"
+remote_location=".local/share/wallpapers"
 local_location="${WALLS:?Wallpaper location not set}"
 
 BRIGHTNESS_FILTER='
@@ -40,12 +41,12 @@ second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
 for c, _, t in [first, second, contrast]: print(c, t)
 '
 _sync_walls() {
-    [[ "$(hostname)" == "kiwi" ]] && return 0
+    [[ "$(hostname)" == "$remote" ]] && return 0
 
-    if ssh -q kiwi exit
+    if ssh -q "$remote" exit
     then
         echo -e "\e[35mSyncing Walls...\e[33m"
-        rsync -av kiwi:"$remote_location/" "$local_location"
+        rsync --delete -av "$remote":"$remote_location/" "$local_location"
         echo -e "\e[0m"
         return 0
     else
@@ -76,7 +77,8 @@ _add_wall() {
     res="$(convert "$file" -format '%[w]' info:)"
     if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
     then
-        rsync -av "$local_location"/ kiwi:"$remote_location"
+        [[ "$(hostname)" == "$remote" ]] || \
+            rsync -av "$local_location"/ "$remote":"$remote_location"
     else
         rm "$file"
         echo -e "\033[31mImage too small\033[0m\nonly $res"
@@ -87,7 +89,7 @@ _add_wall() {
 _rm_wall() {
     wall=$(sxiv -to "$local_location")
     for w in $wall; do
-        ssh kiwi \
+        ssh "$remote" \
             "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
         rm -v "$w"
     done
@@ -124,27 +126,47 @@ _change_wall(){
 [[ ! -d "$WALLS" ]] && _sync_walls
 
 case "$1" in
-    --add|-a)
-        _sync_walls
+    -a|--add)
+        # Add wallpaper
+        # Suports links and files
+        _sync_walls || exit
         _add_wall "${@:2}"
         ;;
 
-    --remove|-rm)
+    -rm|--remove)
+        # Remove wallpaper using sxiv
         _sync_walls || exit
         _rm_wall
         ;;
 
-    --select|-s)
-        _sync_walls
+    -s|--select)
+        # Select wallpaper using sxiv
+        _sync_walls || :
         file="$(sxiv -to "$WALLS")"
         [[ "$file" ]] || exit
         _change_wall "$file"
         ;;
 
-    "")
-        _sync_walls
-        file=$(find "$WALLS" -type f | shuf -n 1)
+    --change|"")
+        # Change to random wallpaper [default]
+        _sync_walls || :
+        file=$(find "$local_location" -type f | shuf -n 1)
         _change_wall "$file"
+        ;;
+
+    -h|--help)
+        # Send this help message
+        echo "NAME:"
+        echo "    wall - wallpaper manager"
+        echo
+        echo "USAGE:"
+        echo "    wall [OPTIONS]|FILE"
+        echo
+        echo "OPTIONS:"
+
+        awk '/^case/,/^esac/' "$0" |
+            grep -E "^\s*(#|-.*|;;)" |
+            sed -E 's/\|\"\"//g;s/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
         ;;
 
     *)
