@@ -47,7 +47,7 @@ while (( "$#" )); do
         -h|--help)
             # Send this help message
             echo "USAGE:"
-            echo "    $script_name [OPTIONS]"
+            echo "    $script_name [OPTIONS] FILE"
             echo
             echo "OPTIONS:"
 
