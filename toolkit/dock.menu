@@ -38,6 +38,7 @@ esac
 
 notify-send "$layout""ed" "$external"
 
-thonkbar_daemon &
+killall --quiet thonkbar lemonbar
+thonkbar &
 
 wall
