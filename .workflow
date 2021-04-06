@@ -31,7 +31,7 @@ youtube-dl
 zip
 )
 
-export full_pacman=(
+export extra_pacman=(
 acpi
 brightnessctl
 discord
@@ -55,17 +55,21 @@ sxiv
 termite
 ttf-dejavu
 vdirsyncer
-xorg
+xorg-server
 xorg-xinit
 zathura
 zathura-pdf-poppler
 )
 
+export all_pacman=( "${essential_pacman[@]}" "${extra_pacman[@]}" )
+
 export essential_repos=(
 https://github.com/jtexeira/tiny-aura
 )
 
-export full_repos=(
+export extra_repos=(
 https://github.com/JoseFilipeFerreira/thonkbar
 https://github.com/mendess/dmenu
 )
+
+export all_repos=( "${essential_repos[@]}" "${extra_repos[@]}" )

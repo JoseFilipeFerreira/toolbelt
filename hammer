@@ -39,23 +39,23 @@ case "$REPLY" in
         ;;
 esac
 
-for repo in "${essential_repos[@]}"; do
-    _make_repo "$repo"
-done
-
 case "$type" in
     full)
+        sudo pacman -Suyy --needed  "${all_pacman[@]}"
         bash nail
-        sudo pacman -Suyy --needed  "${essential_pacman[@]}" "${full_pacman[@]}"
-
-        for repo in "${full_repos[@]}"; do
+        for repo in "${all_repos[@]}"; do
             _make_repo "$repo"
         done
 
         _global_dark_theme
         ;;
     headless)
-        bash nail --headless
         sudo pacman -Suyy --needed  "${essential_pacman[@]}"
+        bash nail --headless
+        for repo in "${essential_repos[@]}"; do
+            _make_repo "$repo"
+        done
         ;;
 esac
+
+bash storeTools
