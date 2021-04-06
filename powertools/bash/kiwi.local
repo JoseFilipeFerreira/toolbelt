@@ -1,16 +1,61 @@
 #!/bin/bash
-alias tr="transmission-remote"
-alias tra="transmission-remote -a"
-alias trl="transmission-remote -l"
 
+update_media(){
+    [ "$#" -ne 3 ] && echo "USAGE: update_media TYPE NAME FILE FILENAME" && return
 
-add_movie(){
-    mkdir -p ~/media/movies/"$1"
-    wget "$2" -O ~/repos/iron_cake/movie_thumbs/"$1.${2##*.}"
-    for f in ~/repos/iron_cake/movie_thumbs/*
-    do
-        [[ $f == *.jpg ]] && continue
-        convert "$f" ~/repos/iron_cake/movie_thumbs/"$(basename $f).jpg"
-    done
-    mv ${@:3} ~/media/movies/"$1"
+    [[ ! -d ~/media/"$1" ]] && echo "Category does not exist" && return
+    [[ ! -d ~/media/"$1"/"$2" ]] && echo "Media does not exist" && return
+
+    mv "$3" ~/media/"$1"/"$2"/"$4"
 }
+
+add_media(){
+    [ "$#" -ne 4 ] && echo "USAGE: add_media TYPE NAME THUMBNAIL FILES" && return
+
+    [[ ! -d ~/media/"$1" ]] && echo "Category does not exist" && return
+
+    wget "$3" -O ~/repos/iron_cake/thumb/"$1"/"$2.${2##*.}"
+
+    for f in ~/repos/iron_cake/thumb/"$1"/*; do
+        [[ $f == *.jpg ]] && continue
+        convert "$f" ~/repos/iron_cake/thumb/"$1"/"$(basename $f).jpg"
+    done
+
+    mv "$3" ~/media/"$1"/"$4"
+}
+
+_update_media_completion(){
+    case "${#COMP_WORDS[@]}" in
+        2) # TYPE
+            COMPREPLY=($(compgen -W "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "${COMP_WORDS[1]}"))
+            ;;
+        3) # NAME
+            COMPREPLY=($(compgen -W "$(find ~/media/"${COMP_WORDS[1]}" -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "${COMP_WORDS[2]}"))
+            ;;
+        4) # FILE
+            COMPREPLY=($(compgen -f -X -- $cur "${COMP_WORDS[3]}"))
+            ;;
+        5) # FILENAME
+            COMPREPLY=($(compgen -W "$(find ~/media/"${COMP_WORDS[1]}"/"${COMP_WORDS[2]}" -mindepth 1  -maxdepth 1  -type f -exec basename {} \;)" -- "${COMP_WORDS[4]}"))
+            ;;
+    esac
+}
+complete -F _update_media_completion update_media
+
+_add_media_completion(){
+    case "${#COMP_WORDS[@]}" in
+        2) # TYPE
+            COMPREPLY=($(compgen -W "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "${COMP_WORDS[1]}"))
+            ;;
+        3) # NAME
+            COMPREPLY=($(compgen -f -X -- $cur "${COMP_WORDS[2]}"))
+            ;;
+        4) # THUMBNAIL
+            COMPREPLY=("'$(xclip -selection clipboard -o)'")
+            ;;
+        5) # FILES
+            COMPREPLY=($(compgen -f -X -- $cur "${COMP_WORDS[4]}"))
+            ;;
+    esac
+}
+complete -F _add_media_completion add_media
