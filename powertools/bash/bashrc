@@ -1,9 +1,12 @@
 #!/bin/bash
-[[ $- != *i* ]] && return
+[[ $- != *i* ]] && return # Do nothing if not running interactively
+
+stty -ixon # Disable ctrl-s and ctrl-q
 
 [[ ! "$DOTFILES" ]] && \
     export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".bash_profile")")")")"
 
+# History settings
 export HISTSIZE=""
 PROMPT_COMMAND='history -a;history -n'
 export HISTCONTROL='ignoredups'
@@ -12,23 +15,11 @@ shopt -s histverify
 shopt -s checkwinsize
 set -o noclobber
 
-bind "set completion-ignore-case On"
-bind "set show-all-if-unmodified on"
+export GPG_TTY="$(tty)"
 
-GPG_TTY="$(tty)"
-export GPG_TTY
+# Source all global configs
+#shellcheck disable=SC1090
+for f in "$DOTFILES/powertools/bash/"*.bash; do . "$f"; done
 
-for f in "$DOTFILES/powertools/bash/"*.bash; do
-    #shellcheck disable=SC1090
-    source "$f"
-done
-
-[[ -f "$DOTFILES/powertools/bash/$(hostname).local" ]] &&
-    . "$DOTFILES/powertools/bash/$(hostname).local"
-
-color=$((($RANDOM) % 6 + 31))
-echo -en "\e["$color"m"
-shuf -n 1 "$DOTFILES/powertools/bash/quotes.txt" |
-    sed 's/\t/\n\t-/g' |
-    fold -w 80 -s
-echo -en "\e[0m"
+# Source local configs
+f="$DOTFILES/powertools/bash/$(hostname).local"; [ -f "$f" ] && . "$f"
