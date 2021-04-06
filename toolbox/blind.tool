@@ -1,5 +1,5 @@
 #!/bin/bash
-# brightness changer (integrates with [thonkbar](powertools/thonkbar))
+# brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
 n_step="9"
 
