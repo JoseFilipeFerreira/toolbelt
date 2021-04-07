@@ -41,7 +41,6 @@ Collection of installation scripts
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Install dotfiles and programs that are part of my [workflow](.workflow)
 * [nail](./nail) deploy the dotfiles
-* [storeTools](./storeTools) deploy the [toolbox](toolbox)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

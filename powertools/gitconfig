@@ -1,0 +1,7 @@
+[pull]
+	rebase = true
+[user]
+	name = JoseFilipeFerreira
+	email = jose.filipe.matos.ferreira@gmail.com
+[core]
+	hooksPath = .githooks/
