@@ -34,8 +34,10 @@ alias cl='clear; ls -lah'
 
 alias stahp='poweroff'
 
-alias vim="nvim"
-alias viminstall='vim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
+if command -v nvim &>/dev/null; then
+    alias vim="nvim"
+    alias viminstall='nvim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
+fi
 alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
 alias py="python"
@@ -44,7 +46,6 @@ alias ghci="stack ghci"
 alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
 alias tmux='tmux -2'
-alias wget="wget --no-hsts"
 
 alias starwars='telnet towel.blinkenlights.nl'
 
