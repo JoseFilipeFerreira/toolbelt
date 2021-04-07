@@ -4,15 +4,11 @@
 [[ ! "$DOTFILES" ]] && \
     DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-export NAIL="nailing dotfiles"
-. "$DOTFILES/powertools/bash/profile"
-
 _make_symlink(){
-    if [ -h "$2" ] && ! [ -e "$2" ]
-        then
-            echo -e "\033[31mRemoving broken link: $(basename "$2")\033[0m"
-            rm "$2"
-        fi
+    if [ -h "$2" ] && ! [ -e "$2" ]; then
+        echo -e "\033[31mRemoving broken link: $(basename "$2")\033[0m"
+        rm "$2"
+    fi
     if [ ! -h "$2" ]; then
         echo -en "\033[35mLinking\033[33m "
         ln -fvsn "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
@@ -65,7 +61,31 @@ _deploy_dotfiles(){
             esac
         done
 
-    done < <(perl -pe 's/\$(\w+)/$ENV{$1}/g' "$DOTFILES/powertools/.locations" | sed -e "s|$HOME|~|g")
+    done < "$DOTFILES/powertools/.locations"
+}
+
+_storeTools(){
+    echo -e "\033[35mStoring Tools...\033[0m"
+
+    mkdir -p ~/.local/bin
+
+    # Remove Broken Links
+    for tool in ~/.local/bin/*; do
+        if [ ! -e "$tool" ]; then
+            echo -e "\033[31m\t$(basename "$tool")\033[0m"
+            rm "$tool"
+        fi
+    done
+
+    # Create Links
+    for tool in "$DOTFILES"/toolbox/*.tool; do
+        tool_name=$(basename "$tool" .tool)
+        if [ ! -h ~/.local/bin/"$tool_name" ]; then
+            echo -e "\033[32m\t$tool_name\033[0m"
+            ln -s "$DOTFILES/$tool" ~/.local/bin/"$tool_name"
+        fi
+    done
+    chmod +x "$DOTFILES"/toolbox/*
 }
 
 touch "$DOTFILES/.instalation_config"
@@ -86,3 +106,4 @@ done
 printf "%s\n" "${FILTERS[@]}" | sort -u > "$DOTFILES/.instalation_config"
 
 _deploy_dotfiles
+_storeTools

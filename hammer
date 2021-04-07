@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install dotfiles and programs that are part of my [workflow](.workflow)
+# Deploy dotfiles and install programs that are part of my [workflow](.workflow)
 
 set -e
 
@@ -57,5 +57,3 @@ case "$type" in
         done
         ;;
 esac
-
-bash storeTools

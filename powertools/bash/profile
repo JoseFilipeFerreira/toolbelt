@@ -1,13 +1,14 @@
 #!/bin/bash
 export PATH=$HOME/.local/bin:$PATH
 
-#Default programs
+# Default programs
 export TERMINAL="termite"
 export BROWSER="firefox"
 export VISUAL="nvim"
 export EDITOR="nvim"
 
-export PAGER="less"
+# Global configs
+export PAGER="less -isg"
 export LESS_TERMCAP_mb=$'\e[1;35m'
 export LESS_TERMCAP_md=$'\e[1;36m'
 export LESS_TERMCAP_me=$'\e[0m'
@@ -22,13 +23,18 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+
+. $XDG_CONFIG_HOME/user-dirs.dirs
+
+mkdir -p "$XDG_CACHE_HOME/less"
+export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
-export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export GOPATH="$XDG_DATA_HOME/go"
-export LESSHISTFILE="-"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export MACHINE_STORAGE_PATH="$XDG_DATA_HOME/docker-machine"
 export MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
@@ -37,6 +43,8 @@ export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export STACK_ROOT="$XDG_DATA_HOME/stack"
 export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 # dotfiles
 export WALLS="$XDG_DATA_HOME/wallpapers"
