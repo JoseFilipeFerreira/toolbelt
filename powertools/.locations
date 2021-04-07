@@ -19,6 +19,7 @@ pulse.conf,~/.config/pulse/daemon.conf,link
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link
 termite.conf,~/.config/termite/config,link
 thonkbar,~/.config/thonkbar,link
+transmission-daemon.json,~/.config/transmission-daemon/settings.json,link
 user-dirs.dirs,~/.config/user-dirs.dirs,link
 vdirsyncer.conf,~/.config/vdirsyncer/config,link,headless
 wgetrc,~/.config/wgetrc,link
