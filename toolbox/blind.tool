@@ -7,11 +7,11 @@ step_percent="$(echo 100/"$n_step" | bc)"
 case "$1" in
     +)
         brightnessctl set +"$step_percent"%
-        pkill -SIGRTMIN+1 thonkbar
+        pkill --signal 36 thonkbar
         ;;
     -)
         brightnessctl --min-value=6 set "$step_percent"-%
-        pkill -SIGRTMIN+1 thonkbar
+        pkill --signal 36 thonkbar
         ;;
     --block)
         xrandr |

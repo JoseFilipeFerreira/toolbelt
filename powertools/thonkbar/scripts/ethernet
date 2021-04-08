@@ -1,0 +1,31 @@
+#!/bin/bash
+
+_grep_field(){
+    echo "$ecard_stats" | grep "$1" | cut -d: -f2 | xargs
+}
+
+ecard_stats="$(nmcli device show |
+    grep ethernet \
+        --before-context 1 \
+        --after-context 10)"
+
+if echo "$ecard_stats" | grep -q "(connected)"; then
+    name="$(_grep_field "GENERAL.CONNECTION")"
+
+    speed="$(cat "/sys/class/net/$(_grep_field "GENERAL.DEVICE")/speed" )"
+    [ "$speed" -lt "0" ] && exit
+
+    if [ "$speed" -ge "1000" ]; then
+        if (( speed % 1000 == 0 )); then
+            speed="$(echo "$speed/1000" | bc )"
+        else
+            speed="$(echo "scale=1; $speed/1000" | bc )"
+        fi
+
+        echo "$speed"Gbps@"$name"
+    else
+        echo "$speed"Mbps@"$name"
+    fi
+
+    echo "#FF0000"
+fi

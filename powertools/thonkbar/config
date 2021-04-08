@@ -7,6 +7,7 @@ underline_width = 2
 position = top
 
 [right]
+scripts/ethernet, 5
 scripts/wifi, 5
 blind --block, ONCE
 deaf --block, ONCE

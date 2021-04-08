@@ -4,19 +4,19 @@
 case "$1" in
     +)
         pactl set-sink-volume @DEFAULT_SINK@ +5%
-        pkill -SIGRTMIN+2 thonkbar
+        pkill --signal 37 thonkbar
         ;;
     -)
         pactl set-sink-volume @DEFAULT_SINK@ -5%
-        pkill -SIGRTMIN+2 thonkbar
+        pkill --signal 37 thonkbar
         ;;
     mute)
         pactl set-sink-mute @DEFAULT_SINK@ toggle
-        pkill -SIGRTMIN+2 thonkbar
+        pkill --signal 37 thonkbar
         ;;
     mic*)
         pactl set-source-mute @DEFAULT_SOURCE@ toggle
-        pkill -SIGRTMIN+2 thonkbar
+        pkill --signal 37 thonkbar
         ;;
 
     --block)
