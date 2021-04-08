@@ -9,3 +9,5 @@ set recolor-reverse-video "true"
 set recolor-keephue "true"
 
 map i recolor
+map b toggle_statusbar
+map <Space> navigate next
