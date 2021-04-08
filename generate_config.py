@@ -25,7 +25,7 @@ def dbg(s):
 def hostname():
     return (
         subprocess.run(['hostname'],
-                       capture_output=True).stdout.decode('utf-8').strip()
+                       capture_output=True).stdout.decode('utf-8').replace(".", "-").strip()
     )
 
 

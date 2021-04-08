@@ -5,8 +5,8 @@ Collection of scripts and dotfiles that follow me in all of my linux adventures
 Colection of scripts to be used in the terminal or a keybind
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [calendar](toolbox/calendar.tool) weekly calendar from a [CSV](toolbox/.timetable)
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
+* [calendar](toolbox/calendar.tool) weekly calendar from a [CSV](toolbox/.timetable)
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
@@ -37,8 +37,8 @@ Colection of static config files
 
 ## 🔗 Install
 Collection of installation scripts
-* [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [generate_README](./generate_README.sh) autogenerate [README](README.md)
+* [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow)
 * [nail](./nail) deploy the dotfiles
 

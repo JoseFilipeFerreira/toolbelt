@@ -6,11 +6,11 @@
 
 _make_symlink(){
     if [ -h "$2" ] && ! [ -e "$2" ]; then
-        echo -e "\033[31mRemoving broken link: $(basename "$2")\033[0m"
+        echo -e "\033[31mlink:\033[0m $(basename "$2")"
         rm "$2"
     fi
     if [ ! -h "$2" ]; then
-        echo -en "\033[35mLinking\033[33m "
+        echo -en "\033[32mlink:\033[0m "
         ln -fvsn "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
         echo -en "\033[0m"
     fi
@@ -31,8 +31,7 @@ _deploy_dotfiles(){
         ARGS=("${VALUES[@]:2}")
 
         if [ -n "$FILTERS" ]; then
-            if [ -z "$(comm -12 <(printf '%s\n' "${FILTERS[@]}" | sort) <(printf '%s\n' "${VALUES[@]}" | sort))" ]
-            then
+            if [ -z "$(comm -12 <(printf '%s\n' "${FILTERS[@]}" | sort) <(printf '%s\n' "${VALUES[@]}" | sort))" ]; then
                 continue
             fi
         fi
@@ -51,10 +50,11 @@ _deploy_dotfiles(){
                     _make_makefile "$orig" "$dest"
                     ;;
 
-                generated)
-                    echo -en "\033[35mGenerating\033[33m "
-                    python "$DOTFILES"/generate_config.py "$orig" "$dest"
-                    echo -en "\033[0m"
+                generate)
+                    if [ "$orig" -nt "$dest" ]; then
+                        echo -en "\033[32mgenerate:\033[0m "
+                        python "$DOTFILES"/generate_config.py "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
+                    fi
                     ;;
                 *)
                     ;;

@@ -11,7 +11,7 @@ i3.conf,~/.config/i3/config,link
 khal.conf,~/.config/khal/config,link,headless
 mimeapps.list,~/.config/mimeapps.list,link
 mpv,~/.config/mpv,link
-neofetch/config.conf,~/.config/neofetch/config.conf,generated,headless
+neofetch/config.conf,~/.config/neofetch/config.conf,generate,headless
 newsboat.conf,~/.config/newsboat/config,link
 nvim/init.vim,~/.config/nvim/init.vim,link,headless
 picom.conf,~/.config/picom.conf,link
