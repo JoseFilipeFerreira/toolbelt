@@ -18,8 +18,7 @@ notify(){
             -u normal \
             -i "$DOTFILES/assets/transmission.png" \
             -a "tr" \
-            "$1" \
-            "$2"
+            "$1" "$2"
 }
 
 case $1 in

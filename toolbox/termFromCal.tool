@@ -4,8 +4,8 @@
 notImage="$DOTFILES/assets/miei.png"
 
 p=$(calendar --curr)
-if [[ "$p" ]] && [[ -d "$MIEI_NOTES/$p" ]]; then
-    cd -P "$MIEI_NOTES/$p" || exit 1
+if [[ "$p" ]] && [[ -d "$HOME/docs/notes/$p" ]]; then
+    cd -P "$HOME/docs/notes/$p" || exit 1
     notify-send \
         -i "$notImage" \
         -u low \
@@ -13,7 +13,7 @@ if [[ "$p" ]] && [[ -d "$MIEI_NOTES/$p" ]]; then
         "Subject: $p" \
         "@$(calendar --curr-location)"
 else
-    cd "$MIEI" || exit 1
+    cd "$HOME/repos" || exit 1
     notify-send \
         -i "$notImage" \
         -u low \

@@ -57,3 +57,9 @@ case "$type" in
         done
         ;;
 esac
+
+mkdir -vp "$HOME/dl"
+mkdir -vp "$HOME/docs"
+mkdir -vp "$HOME/media/pics"
+mkdir -vp "$HOME/media/videos"
+mkdir -vp "$HOME/repos"

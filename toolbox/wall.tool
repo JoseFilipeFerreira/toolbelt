@@ -59,28 +59,26 @@ _add_wall() {
     case "$1" in
         http*)
             if [ "$2" = "" ]; then
-                wget "$1" -P "$WALLS"
+                wget "$1" -P "$local_location"
                 file="$(basename "$1")"
             else
-                wget "$1" -O "$WALLS/$2"
+                wget "$1" -O "$local_location/$2"
                 file="$2"
             fi
         ;;
         *)
-            cp -v "$1" "$WALLS"
+            cp -v "$1" "$local_location"
             file="$(basename "$1")"
         ;;
     esac
 
-    cd "$WALLS"
-
-    res="$(convert "$file" -format '%[w]' info:)"
+    res="$(convert "$local_location/$file" -format '%[w]' info:)"
     if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
     then
         [[ "$(hostname)" == "$remote" ]] || \
             rsync -av "$local_location"/ "$remote":"$remote_location"
     else
-        rm "$file"
+        rm "$local_location/$file"
         echo -e "\033[31mImage too small\033[0m\nonly $res"
     fi
 
@@ -123,7 +121,7 @@ _change_wall(){
         "$(basename "$file")"
 }
 
-[[ ! -d "$WALLS" ]] && _sync_walls
+[[ ! -d "$local_location" ]] && _sync_walls
 
 case "$1" in
     -a|--add)
@@ -142,7 +140,7 @@ case "$1" in
     -s|--select)
         # Select wallpaper using sxiv
         _sync_walls || :
-        file="$(sxiv -to "$WALLS")"
+        file="$(sxiv -to "$local_location")"
         [[ "$file" ]] || exit
         _change_wall "$file"
         ;;

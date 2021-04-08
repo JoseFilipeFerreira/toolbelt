@@ -24,7 +24,10 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-. $XDG_CONFIG_HOME/user-dirs.dirs
+. ~/.config/user-dirs.dirs
+
+export WALLS="$XDG_DATA_HOME/wallpapers"
+export MUSIC="$XDG_DATA_HOME/music"
 
 mkdir -p "$XDG_CACHE_HOME/less"
 export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
@@ -45,12 +48,6 @@ export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
-
-# dotfiles
-export WALLS="$XDG_DATA_HOME/wallpapers"
-export MUSIC="$XDG_DATA_HOME/music"
-export MIEI="$HOME/miei"
-export MIEI_NOTES="$HOME/miei/notes"
 
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"

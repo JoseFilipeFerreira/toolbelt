@@ -3,7 +3,6 @@
 
 i3-msg workspace "$1"
 
-if ! pgrep "$2" &>/dev/null
-then
-        "${@:2}"
+if ! pgrep "$2" &>/dev/null; then
+    "${@:2}"
 fi

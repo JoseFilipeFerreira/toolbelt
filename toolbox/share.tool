@@ -10,8 +10,7 @@ _upload(){
     echo "$url"
 }
 
-if [ -d "$1" ]
-then
+if [ -d "$1" ]; then
     mkdir -p "$cache"
     zip -r "$cache/$(basename "$1").zip" "$1"
     file="$cache/$(basename "$1").zip"

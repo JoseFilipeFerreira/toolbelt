@@ -2,17 +2,20 @@
 # playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
 set -e
-ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "'.local/share/music/%(title)s.%(ext)s'")
+ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o ".local/share/music/%(title)s.%(ext)s")
 
 remote_location=".local/share/music"
+local_location="$(xdg-user-dir MUSIC)"
+[[ ! "$local_location" ]] && echo "Music location not set" && exit
+
 mpvsocket="/tmp/mpvsocket"
+
 
 _update_bar(){
     pkill --signal 62 thonkbar
 }
 
 _sync_music() {
-    local_location="${MUSIC:?Music location not set}"
     [[ "$(hostname)" == "kiwi" ]] && return 0
 
     if ssh -q kiwi exit
@@ -28,7 +31,6 @@ _sync_music() {
 }
 
 _add_music() {
-    local_location="${MUSIC:?Music location not set}"
     case "$1" in
         --clipboard|-c)
             link="$(xclip -sel clip -o)"
@@ -42,7 +44,7 @@ _add_music() {
             return
         ;;
         http*youtube*)
-            youtube-dl "${ydl_flags[@]}" "'$1'"
+            youtube-dl "${ydl_flags[@]}" "$1"
         ;;
         http*)
             if [[ ! "$2" ]]; then
@@ -138,31 +140,29 @@ case "$1" in
         # Add music to playlist
         # -c, --clipboard
         #     get link from clipboard
-        _sync_music
+        _sync_music || exit
         _add_music "${@:2}"
         ;;
 
     -p|--play)
         # Shuffle music from playlist
-        _sync_music
-        [ -d "$MUSIC" ] || exit
-        _mpv_play --shuffle --no-video "$MUSIC"
+        _sync_music || [ -d "$local_location" ] || exit
+        _mpv_play --shuffle --no-video "$local_location"
         ;;
 
     -s|--select)
         # Select music (uses fzf)
-        _sync_music
-        [ -d "$MUSIC" ] || exit
-        file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
-        _mpv_play --no-video "$MUSIC/$file"
+        _sync_music || [ -d "$local_location" ] || exit
+        file="$(find "$local_location"  -type f -printf "%f\n" | sort | fzf )"
+        _mpv_play --no-video "$local_location/$file"
         ;;
     -rm|--remove)
         # Delete music (uses fzf)
         _sync_music || exit
-        file="$(find "$MUSIC"  -type f -printf "%f\n" | sort | fzf )"
+        file="$(find "$local_location"  -type f -printf "%f\n" | sort | fzf )"
 
         ssh kiwi rm -v "$remote_location/$file" | sed -e "s|'/|kiwi:'/|g"
-        rm -v "$MUSIC/$file"
+        rm -v "$local_location/$file"
         ;;
 
     --discord)

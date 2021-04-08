@@ -27,6 +27,7 @@ transmission-cli
 unzip
 wget
 xclip
+xdg-user-dirs
 youtube-dl
 zip
 )
