@@ -1,7 +1,7 @@
 #!/bin/bash
 # blured lockscreen
 
-tmpfile="$(mktemp --suffix=.png)"
+tmpfile="lock.png"
 cuffs "$tmpfile"
 convert "$tmpfile" -scale 10% -scale 1000% "$tmpfile"
 i3lock \
