@@ -9,14 +9,8 @@ super + Home
 super + {_,shift +} d
         {dmenu_IQ,menu}
 
-@Print
-        cuffs --select --clipboard
-
-control + @Print
-        cuffs --clipboard
-
-alt + @Print
-        cuffs --select --floating
+{_,control +, alt +} @Print
+        cuffs {--select --clipboard, --clipboard, --select --floating}
 
 super + {_,shift +,control +} Return
         {$TERMINAL,termFromHere,termFromCal}
@@ -38,56 +32,45 @@ XF86MonBrightness{Up,Down}
 XF86Audio{Raise,Lower}Volume
         deaf {+,-}
 
-super + {Up, Down}
-        deaf {+,-}
+XF86Audio{_,Mic}Mute
+        deaf {mute, mic}
 
-XF86AudioMute
-        deaf mute
-
-XF86AudioMicMute
-        deaf mic
-
-XF86Audio{Play,Stop}
-        udm {--play-pause,--stop}
-
-super + {Prior,Next}
-        udm {--play-pause,--stop}
-
-XF86Audio{Prev,Next}
-        udm {--previous, --next}
-
-super + {Left,Right}
-        udm {--previous, --next}
+XF86Audio{Play,Stop,Prev,Next}
+        udm {--play-pause,--stop,--previous, --next}
 
 XF86Search
         dmenu_IQ
 
-XF86Tools
-        launch_and_move 1 kodi
-
-XF86Mail
-        launch_and_move 4 discord
-
-XF86WWW
-        launch_and_move 3 $BROWSER
+XF86{Tools,WWW,Mail}
+        launch_and_move {1 kodi,3 $BROWSER,4 discord}
 
 XF86HomePage
         meross-cli --toggle
+
+## no XF86 keys
+
+super + {Up, Down}
+        deaf {+,-}
+
+super + {Prior,Next,Left,Right}
+        udm {--play-pause,--stop,--previous, --next}
+
+
+## control kiwi remotely
+
+super + control + {Up, Down}
+        ssh kiwi .local/bin/deaf {+,-}
+
+super + control + {Prior,Next,Left,Right}
+        ssh kiwi .local/bin/udm {--play-pause,--stop,--previous, --next}
 
 
 # WM KEYBINDS
 
 ## MISC
 
-super + shift + q
-        i3-msg kill
-
-super + shift + r
-        i3-msg restart
-
-super + shift + e
-        i3-msg exit
-
+super + shift + {q,r,e}
+        i3-msg {kill,restart,exit}
 
 ## FOCUS
 
@@ -107,7 +90,6 @@ super + shift + {h,j,k,l}
 
 super + alt + {h,j,k,l}
        i3-msg resize {shrink width,grow height,shrink height,grow width} 10 px or 10 ppt
-
 
 ## CHANGE LAYOUT
 
