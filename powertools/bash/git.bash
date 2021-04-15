@@ -13,6 +13,7 @@ gcl() {
 }
 alias g='git'
 alias gst='git status'
+alias gs='git status'
 alias gd='git diff'
 
 alias gb='git --no-pager branch -vv'
