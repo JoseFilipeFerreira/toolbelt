@@ -43,7 +43,7 @@ _add_music() {
             esac
             return
         ;;
-        http*youtube*)
+        http*yout*)
             youtube-dl "${ydl_flags[@]}" "$1"
         ;;
         http*)
