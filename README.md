@@ -1,12 +1,16 @@
 # Toolbelt
+
 Collection of scripts and dotfiles that follow me in all of my linux adventures
 
 ## 🧰 [Toolbox](toolbox)(scripts)
+
 Colection of scripts to be used in the terminal or a keybind
+
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
 * [calendar](toolbox/calendar.tool) weekly calendar from a [CSV](toolbox/.timetable)
+* [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
@@ -25,7 +29,9 @@ Colection of scripts to be used in the terminal or a keybind
 * [workin](toolbox/workin.tool) workout manager
 
 ## 🪛 [Toolkit](toolkit) (dmenu scripts)
+
 Collection of scripts to be launched from a [menu](toolbox/menu.tool)
+
 * [dock](toolkit/dock.menu) choose display setting
 * [emoji](toolkit/emoji.menu) pick a emoji
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
@@ -33,15 +39,19 @@ Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 * [trayer](toolkit/trayer.menu) trayer launcher
 
 ## 🪚 [Powertools](powertools) (.dotfiles)
+
 Colection of static config files
 
 ## 🔗 Install
+
 Collection of installation scripts
+
 * [generate_README](./generate_README.sh) autogenerate [README](README.md)
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow)
 * [nail](./nail) deploy the dotfiles
 
 ## License
+
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
