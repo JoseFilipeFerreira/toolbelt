@@ -65,8 +65,6 @@ _deploy_dotfiles(){
 }
 
 _storeTools(){
-    echo -e "\033[35mStoring Tools...\033[0m"
-
     mkdir -p ~/.local/bin
 
     # Remove Broken Links
@@ -82,7 +80,7 @@ _storeTools(){
         tool_name=$(basename "$tool" .tool)
         if [ ! -h ~/.local/bin/"$tool_name" ]; then
             echo -e "\033[32m\t$tool_name\033[0m"
-            ln -s "$DOTFILES/$tool" ~/.local/bin/"$tool_name"
+            ln -s "$tool" ~/.local/bin/"$tool_name"
         fi
     done
     chmod +x "$DOTFILES"/toolbox/*
