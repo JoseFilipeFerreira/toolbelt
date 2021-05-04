@@ -44,7 +44,6 @@ highlight Normal ctermbg=None
 
 " FZF config
 nmap <leader>p :FZF<CR>
-nmap <leader>P :FZF<CR>
 
 autocmd! FileType fzf
 autocmd  FileType fzf set laststatus=0 noshowmode noruler
