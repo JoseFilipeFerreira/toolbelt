@@ -76,6 +76,7 @@ explode(){
 }
 
 ingest(){
+    [ "$#" -ne 2 ] && echo "USAGE: ingest DRIVE FOLDERNAME" && return
     mkdir -vp /tmp/ingest
     mkdir -vp "$2"
     sudo mount "$1" /tmp/ingest
