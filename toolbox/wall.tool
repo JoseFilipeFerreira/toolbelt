@@ -72,14 +72,20 @@ _add_wall() {
         ;;
     esac
 
-    res="$(convert "$local_location/$file" -format '%[w]' info:)"
-    if [ "$(echo "$res" | awk '$0 >= 1920 {print("true")}')" = true ]
+    touch -m "$local_location/$file"
+
+    w="$(convert "$local_location/$file" -format '%[w]' info:)"
+    h="$(convert "$local_location/$file" -format '%[h]' info:)"
+
+    echo "$w"x"$h"
+
+    if [ "$(echo "$w" | awk '$0 >= 1920 {print("true")}')" = true ] && [ "$(echo "$h" | awk '$0 >= 1080 {print("true")}')" = true ]
     then
         [[ "$(hostname)" == "$remote" ]] || \
             rsync -av "$local_location"/ "$remote":"$remote_location"
     else
         rm "$local_location/$file"
-        echo -e "\033[31mImage too small\033[0m\nonly $res"
+        echo -e "\033[31mImage too small\033[0m"
     fi
 
 }
