@@ -16,37 +16,43 @@ generate_description(){
 
 intro(){
     echo "# Toolbelt"
+    echo
     echo "Collection of scripts and dotfiles that follow me in all of my linux adventures"
 }
 
 toolbox(){
     echo "## 🧰 [Toolbox](toolbox)(scripts)"
+    echo
     echo "Colection of scripts to be used in the terminal or a keybind"
-
+    echo
     generate_description "toolbox"
 }
 
 toolkit(){
     echo "## 🪛 [Toolkit](toolkit) (dmenu scripts)"
+    echo
     echo "Collection of scripts to be launched from a [menu](toolbox/menu.tool)"
-
+    echo
     generate_description "toolkit"
 }
 
 powertools(){
     echo "## 🪚 [Powertools](powertools) (.dotfiles)"
+    echo
     echo "Colection of static config files"
 }
 
 install(){
     echo "## 🔗 Install"
+    echo
     echo "Collection of installation scripts"
-
+    echo
     generate_description .
 }
 
 license(){
     echo "## License"
+    echo
     echo "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details"
 }
 
