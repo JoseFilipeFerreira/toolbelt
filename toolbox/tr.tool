@@ -14,6 +14,7 @@ transmission(){
 }
 
 notify(){
+    [ "$DISPLAY" ] &&
         notify-send \
             -u normal \
             -i "$DOTFILES/assets/transmission.png" \
