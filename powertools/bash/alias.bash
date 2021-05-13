@@ -25,6 +25,7 @@ alias l='ls -lah'
 
 alias grep='grep --color=auto --exclude-dir=.git'
 alias watch='watch --color'
+alias tree='tree -AC'
 
 command -v neofetch &>/dev/null ||
     alias neofetch="curl --silent jff.sh/share/neofetch | bash"

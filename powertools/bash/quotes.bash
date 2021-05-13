@@ -15,5 +15,5 @@ color=$((($RANDOM) % 6 + 31))
 echo -en "\e["$color"m"
 echo "${quotes[$RANDOM % ${#quotes[@]} ]}" |
     sed 's/ - /\n\t-/g' |
-    fold -w 80 -s
+    fold -w 120 -s
 echo -en "\e[0m"
