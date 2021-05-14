@@ -27,6 +27,10 @@ alias grep='grep --color=auto --exclude-dir=.git'
 alias watch='watch --color'
 alias tree='tree -AC'
 
+command -V bat &> /dev/null &&
+    alias bat='bat --theme=gruvbox-dark -p' &&
+    alias cat=bat
+
 command -v neofetch &>/dev/null ||
     alias neofetch="curl --silent jff.sh/share/neofetch | bash"
 
@@ -35,22 +39,28 @@ alias cl='clear; ls -lah'
 
 alias stahp='poweroff'
 
-if command -v nvim &>/dev/null; then
-    alias vim="nvim"
+command -v nvim &>/dev/null &&
+    alias vim="nvim" &&
     alias viminstall='nvim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
-fi
+
 alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
-alias py="python"
-alias ghc="stack ghc"
-alias ghci="stack ghci"
-alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
+command -V python &> /dev/null &&
+    alias py="python"
+
+command -V stack &>/dev/null &&
+    alias ghc="stack ghc" &&
+    alias ghci="stack ghci"
+
+command -V valgrind &>/dev/null &&
+    alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
 alias tmux='tmux -2'
 
 alias starwars='telnet towel.blinkenlights.nl'
 
-alias mi='oneko -tora -name Mi & disown'
-alias byemi='killall oneko'
+command -V oneko &&
+    alias mi='oneko -tora -name Mi & disown' &&
+    alias byemi='killall oneko'
 
 alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
