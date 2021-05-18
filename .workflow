@@ -2,6 +2,7 @@
 export essential_pacman=(
 base
 base-devel
+bat
 bc
 clang
 curl
@@ -34,6 +35,7 @@ zip
 
 export extra_pacman=(
 acpi
+alacritty
 brightnessctl
 discord
 dunst
@@ -53,7 +55,6 @@ shotgun
 socat
 sxhkd
 sxiv
-termite
 ttf-dejavu
 vdirsyncer
 xorg-server

@@ -2,7 +2,7 @@
 export PATH=$HOME/.local/bin:$PATH
 
 # Default programs
-export TERMINAL="termite"
+export TERMINAL="alacritty"
 export BROWSER="firefox"
 export VISUAL="nvim"
 export EDITOR="nvim"
@@ -48,6 +48,8 @@ export VAGRANT_ALIAS_FILE="$XDG_DATA_HOME/vagrant/aliases"
 export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"

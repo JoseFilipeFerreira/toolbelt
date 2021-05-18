@@ -5,6 +5,5 @@ sxhkd &
 picom --experimental-backends --daemon
 dunst &
 thonkbar &
-unclutter --timeout 1 --jitter 10 --ignore-scrolling --fork
 
 exec i3
