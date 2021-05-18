@@ -59,8 +59,11 @@ alias tmux='tmux -2'
 
 alias starwars='telnet towel.blinkenlights.nl'
 
-command -V oneko &&
+command -V oneko &> /dev/null &&
     alias mi='oneko -tora -name Mi & disown' &&
     alias byemi='killall oneko'
 
 alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
+
+# ~/ clean-up
+alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
