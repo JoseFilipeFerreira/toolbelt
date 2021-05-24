@@ -19,6 +19,8 @@ font:
   bold_style: Bold
   italic_style: Italic
   size: 12
+  offset:
+    y: -1
 
 colors:
   primary:
@@ -58,7 +60,7 @@ cursor:
     shape: Block
     blinking: Off
 
-  thickness: 0.1
+  thickness: 0.15
 
 mouse:
   hide_when_typing: true
