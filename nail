@@ -6,12 +6,28 @@
 
 _make_symlink(){
     if [ -h "$2" ] && ! [ -e "$2" ]; then
-        echo -e "\033[31mlink:\033[0m $(basename "$2")"
-        rm "$2"
+        case "$3" in
+            sudo)
+                echo -e "\033[31msudo link:\033[0m $(basename "$2")"
+                sudo rm "$2"
+                ;;
+            *)
+                echo -e "\033[31mlink:\033[0m $(basename "$2")"
+                rm "$2"
+                ;;
+        esac
     fi
     if [ ! -h "$2" ]; then
-        echo -en "\033[32mlink:\033[0m "
-        ln -fvsn "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
+        case "$3" in
+            sudo)
+                echo -en "\033[32msudo link:\033[0m "
+                sudo ln -fvsn "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
+                ;;
+            *)
+                echo -en "\033[32mlink:\033[0m "
+                ln -fvsn "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
+                ;;
+        esac
         echo -en "\033[0m"
     fi
 }
@@ -24,6 +40,22 @@ _make_makefile(){
 
     echo -e "\033[35mMake install:\033[33m $out_install \033[0m"
 }
+
+_make_generate(){
+    if [ "$1" -nt "$2" ]; then
+        case "$3" in
+            sudo)
+                echo -en "\033[32msudo generate:\033[0m "
+                sudo python "$DOTFILES"/generate_config.py "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
+                ;;
+            *)
+                echo -en "\033[32mgenerate:\033[0m "
+                python "$DOTFILES"/generate_config.py "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
+                ;;
+        esac
+    fi
+}
+
 
 _deploy_dotfiles(){
     while IFS= read -r l; do
@@ -40,10 +72,21 @@ _deploy_dotfiles(){
         dest=$(echo "$l" | cut -d, -f2 | sed "s|~|$HOME|g")
         mkdir -p "$(dirname "$dest")"
 
+
+        if [[ " ${ARGS[*]} " =~ " sudo " ]]; then
+            ARGS=("${ARGS[@]/sudo}")
+            mode="sudo"
+        fi
+
+        # delete empty ARGS fields
+        for i in "${!ARGS[@]}"; do
+            [[ "${ARGS[$i]}" ]] || unset 'ARGS[i]'
+        done
+
         for ARG in "${ARGS[@]}"; do
             case "$ARG" in
                 link)
-                    _make_symlink "$orig" "$dest"
+                    _make_symlink "$orig" "$dest" "$mode"
                     ;;
 
                 make)
@@ -51,10 +94,7 @@ _deploy_dotfiles(){
                     ;;
 
                 generate)
-                    if [ "$orig" -nt "$dest" ]; then
-                        echo -en "\033[32mgenerate:\033[0m "
-                        python "$DOTFILES"/generate_config.py "$orig" "$dest" | sed "s|$HOME|~|g;s|'||g"
-                    fi
+                    _make_generate "$orig" "$dest" "$mode"
                     ;;
                 *)
                     ;;
