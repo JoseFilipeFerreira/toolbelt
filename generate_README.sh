@@ -7,7 +7,7 @@ generate_description(){
         while read -r script
     do
         [ "$(sed -n '/^#!/p;q' "$script")" ] || continue
-        filename="$(basename -- $script)"
+        filename="$(basename -- "$script")"
         echo -n "* [${filename%.*}]($script) "
         sed -n 2p "$script" | sed 's/ *# *//g'
     done

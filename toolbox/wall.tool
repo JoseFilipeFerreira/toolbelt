@@ -46,7 +46,7 @@ _sync_walls() {
     if ssh -q "$remote" exit
     then
         echo -e "\e[35mSyncing Walls...\e[33m"
-        rsync --delete -av "$remote":"$remote_location/" "$local_location"
+        rsync --delete -av "$remote:$remote_location/" "$local_location"
         echo -e "\e[0m"
         return 0
     else
@@ -93,6 +93,7 @@ _add_wall() {
 _rm_wall() {
     wall=$(sxiv -to "$local_location")
     for w in $wall; do
+        #shellcheck disable=SC2029
         ssh "$remote" \
             "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
         rm -v "$w"

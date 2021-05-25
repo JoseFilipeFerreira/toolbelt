@@ -5,7 +5,8 @@ set -e
 
 source .workflow
 
-[[ "$DOTFILES" ]] || export DOTFILES="$(dirname "$(readlink -f "$0")")"
+[[ ! "$DOTFILES" ]] && \
+    DOTFILES="$(dirname "$(readlink -f "$0")")"
 
 _global_dark_theme(){
     wget https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip
