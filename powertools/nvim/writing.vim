@@ -13,24 +13,41 @@ function SetWritingOpts()
     inoremap ]E É
     inoremap ]I Í
     inoremap ]O Ó
+    inoremap ]U Ú
     inoremap ]a á
     inoremap ]e é
     inoremap ]i í
     inoremap ]o ó
+    inoremap ]u ú
+    inoremap ^A Â
+    inoremap ^E Ê
+    inoremap ^I Î
+    inoremap ^O Ô
+    inoremap ^U Û
+    inoremap ^a â
+    inoremap ^e ê
+    inoremap ^i î
+    inoremap ^o ô
+    inoremap ^u û
     inoremap }A À
     inoremap }E È
     inoremap }I Ì
     inoremap }O Ò
+    inoremap }U Ù
     inoremap }a à
     inoremap }e è
     inoremap }i ì
     inoremap }o ò
+    inoremap }u ù
     inoremap ~A Ã
+    inoremap ~N Ñ
     inoremap ~O Õ
     inoremap ~a ã
+    inoremap ~n ñ
     inoremap ~o õ
 
-    iabbrev  tambem também
+    iabbrev tambem também
+    iabbrev nao não
 
 endfunction
 
