@@ -39,11 +39,11 @@ alias cl='clear; ls -lah'
 
 alias stahp='poweroff'
 
+alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
+
 command -v nvim &>/dev/null &&
     alias vim="nvim" &&
     alias viminstall='nvim +:PlugClean +:PlugInstall +:PlugUpdate +:PlugUpgrade'
-
-alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
 command -V python &> /dev/null &&
     alias py="python"
@@ -55,15 +55,19 @@ command -V stack &>/dev/null &&
 command -V valgrind &>/dev/null &&
     alias grind="valgrind --leak-check=full --show-reachable=no --show-leak-kinds=all"
 
-alias tmux='tmux -2'
+command -V tmux &> /dev/null &&
+    alias tmux='tmux -2'
 
-alias starwars='telnet towel.blinkenlights.nl'
+command -V telnet &> /dev/null &&
+    alias starwars='telnet towel.blinkenlights.nl'
 
 command -V oneko &> /dev/null &&
     alias mi='oneko -tora -name Mi & disown' &&
     alias byemi='killall oneko'
 
-alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
+command -V awk &> /dev/null &&
+    alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
 
 # ~/ clean-up
-alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
+command -V yarn &> /dev/null &&
+    alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'

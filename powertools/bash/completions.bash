@@ -1,4 +1,7 @@
 #!/bin/bash
+command -V gh &>/dev/null &&
+    . <(gh completion -s bash)
+
 _ssh() {
     local opts
     # local prev
