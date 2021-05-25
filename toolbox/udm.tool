@@ -2,11 +2,12 @@
 # playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
 set -e
-ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o ".local/share/music/%(title)s.%(ext)s")
 
 remote_location=".local/share/music"
 local_location="$(xdg-user-dir MUSIC)"
 [[ ! "$local_location" ]] && echo "Music location not set" && exit
+
+ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "$local_location/%(title)s.%(ext)s")
 
 mpvsocket="/tmp/mpvsocket"
 
@@ -116,6 +117,7 @@ _media_control(){
 
 _echo_block(){
     path="$(_mpv_get "path" --raw-output .data 2>/dev/null)"
+    volume="$(_mpv_get "volume" --raw-output .data 2>/dev/null)"
     [[ "$path" ]] || return
 
     case $path in
@@ -124,7 +126,9 @@ _echo_block(){
             ;;
     esac
 
-    basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g'
+    path="$(basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g')"
+
+    echo "$path  [$volume%]"
 
     echo "#FFFFFF"
 
@@ -185,6 +189,16 @@ case "$1" in
     --previous|--prev)
         # Previous music
         _media_control 'playlist-prev' 'previous'
+        ;;
+
+    --volume-up)
+        # Increase player volume
+        _media_control 'add volume 2' 'volume 2+'
+        ;;
+
+    --volume-down)
+        # Decrease player volume
+        _media_control 'add volume -2' 'volume 2-'
         ;;
 
     --back)

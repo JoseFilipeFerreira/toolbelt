@@ -29,14 +29,29 @@ control + alt + Tab
 XF86MonBrightness{Up,Down}
         blind {+,-}
 
-XF86Audio{Raise,Lower}Volume
-        deaf {+,-}
+## control media
 
 XF86Audio{_,Mic}Mute
         deaf {mute, mic}
 
+XF86Audio{Raise,Lower}Volume
+        deaf {+,-}
+
 XF86Audio{Play,Stop,Prev,Next}
         udm {--play-pause,--stop,--previous, --next}
+
+super + {Prior,Next,Left,Right,Up,Down}
+        udm {--play-pause,--stop,--previous,--next,--volume-up,--volume-down}
+
+## control media on kiwi remotely
+
+control + XF86Audio{Raise,Lower}Volume
+        ssh kiwi .local/bin/deaf {+,-}
+
+super + control + {Prior,Next,Left,Right,Up,Down}
+        ssh kiwi .local/bin/udm {--play-pause,--stop,--previous,--next,--volume-up,--volume-down}
+
+## kiwi specific
 
 XF86Search
         dmenu_IQ
@@ -46,24 +61,6 @@ XF86{Tools,WWW,Mail}
 
 XF86HomePage
         meross-cli --toggle
-
-## no XF86 keys
-
-super + {Up, Down}
-        deaf {+,-}
-
-super + {Prior,Next,Left,Right}
-        udm {--play-pause,--stop,--previous, --next}
-
-
-## control kiwi remotely
-
-super + control + {Up, Down}
-        ssh kiwi .local/bin/deaf {+,-}
-
-super + control + {Prior,Next,Left,Right}
-        ssh kiwi .local/bin/udm {--play-pause,--stop,--previous, --next}
-
 
 # WM KEYBINDS
 

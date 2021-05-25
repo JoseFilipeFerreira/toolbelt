@@ -13,7 +13,7 @@ blind --block, ONCE
 deaf --block, ONCE
 scripts/battery 1, 10
 scripts/battery 0, 10
-date '+%d/%m  %H:%M   ', 1
+date '+%d/%m  %H:%M   ', 5
 
 [left]
 scripts/workspaces, CONTINUOUS
