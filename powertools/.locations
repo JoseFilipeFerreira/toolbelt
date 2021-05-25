@@ -1,4 +1,6 @@
-Xresources,~/.config/X11/Xresources,link
+X11/10-keyboard.conf,/etc/X11/xorg.conf.d/10-keyboard.conf,sudo,link
+X11/Xresources,~/.config/X11/Xresources,link
+X11/xinitrc,~/.xinitrc,link
 alacritty.yml,~/.config/alacritty/alacritty.yml,link
 bash/bashrc,~/.bashrc,link,headless
 bash/inputrc,~/.inputrc,link,headless
@@ -24,5 +26,4 @@ transmission-daemon.json,~/.config/transmission-daemon/settings.json,link
 user-dirs.dirs,~/.config/user-dirs.dirs,link
 vdirsyncer.conf,~/.config/vdirsyncer/config,link,headless
 wgetrc,~/.config/wgetrc,link
-xinitrc,~/.xinitrc,link
 zathurarc,~/.config/zathura/zathurarc,link
