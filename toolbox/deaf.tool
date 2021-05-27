@@ -19,7 +19,7 @@ case "$1" in
         pkill --signal 37 thonkbar
         ;;
 
-    --block)
+    --info|--block)
         pactl=$(\
             pactl list sinks |
             grep --after-context 10 "^[[:space:]]State: RUNNING")
@@ -39,7 +39,7 @@ case "$1" in
         ;;
 
     *)
-        echo "USAGE: deaf [+|-|mute|mic|--block]"
+        echo "USAGE: deaf [+|-|mute|mic|--block|--info]"
         exit
         ;;
 esac

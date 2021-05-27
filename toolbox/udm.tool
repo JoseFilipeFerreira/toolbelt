@@ -115,26 +115,34 @@ _media_control(){
     fi
 }
 
-_echo_block(){
+_echo_info(){
     path="$(_mpv_get "path" --raw-output .data 2>/dev/null)"
-    volume="$(_mpv_get "volume" --raw-output .data 2>/dev/null)"
-    [[ "$path" ]] || return
 
     case $path in
         http*)
             path="$(_mpv_get "media-title" --raw-output .data 2>/dev/null)"
             ;;
+        "")
+            return
+            ;;
     esac
 
-    path="$(basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g')"
+    basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g'
+}
 
-    echo "$path  [$volume%]"
+_echo_block(){
+    volume="$(_mpv_get "volume" --raw-output .data 2>/dev/null)"
+
+    path="$(_echo_info)"
+    [[ "$path" ]] || return
+
+    echo "$path [$volume%]"
 
     echo "#FFFFFF"
 
     case "$(_mpv_get "pause" --raw-output .data)" in
-        true)  echo "#696969" ;;
-        false) echo "#00FF00" ;;
+        true)  echo "#AAAAAA" ;;
+        false) echo "#00EE00" ;;
     esac
 }
 
@@ -193,12 +201,12 @@ case "$1" in
 
     --volume-up)
         # Increase player volume
-        _media_control 'add volume 2' 'volume 2+'
+        _media_control 'add volume 5' 'volume 5+'
         ;;
 
     --volume-down)
         # Decrease player volume
-        _media_control 'add volume -2' 'volume 2-'
+        _media_control 'add volume -5' 'volume 5-'
         ;;
 
     --back)
@@ -214,6 +222,11 @@ case "$1" in
     --block)
         # Block compatible with i3blocks
         _echo_block
+        ;;
+
+    --info)
+        #
+        _echo_info
         ;;
 
     -h|--help)
