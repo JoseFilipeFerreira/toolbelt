@@ -60,7 +60,7 @@ _make_generate(){
 _deploy_dotfiles(){
     while IFS= read -r l; do
         IFS=',' read -ra ARGS <<< "$l"
-        ARGS=("${VALUES[@]:2}")
+        ARGS=("${ARGS[@]:2}")
 
         if [ -n "$FILTERS" ]; then
             if [[ ! "$(comm -12 <(printf '%s\n' "${FILTERS[@]}" | sort) <(printf '%s\n' "${ARGS[@]}" | sort))" ]]; then
