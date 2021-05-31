@@ -1,6 +1,6 @@
 #!/bin/sh
 # simple TODO list
-folder="$XDG_CACHE_HOME/dmenu"
+folder="$XDG_DATA_HOME/dmenu"
 mkdir -p "$folder"
 file="$folder/todo"
 touch "$file"

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Extract anything
+# extract anything
 
 for f in "$@"; do
     if [ -f "$f" ]; then

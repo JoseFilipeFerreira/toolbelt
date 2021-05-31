@@ -1,10 +1,9 @@
 #!/bin/bash
 # dmenu app launcher with history
 
-cache="$XDG_CACHE_HOME/dmenu"
-cache_file="$cache""/IQhist"
-
+cache="$XDG_DATA_HOME/dmenu"
 mkdir -p "$cache"
+cache_file="$cache""/IQhist"
 touch "$cache_file"
 
 all_cmd=$(dmenu_path)

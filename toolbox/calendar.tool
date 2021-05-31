@@ -19,8 +19,7 @@ _next_line(){
             'd < $1 || ( d == $1 && h < $2) {print $0; exit}' \
             "$DOTFILES/toolbox/.timetable")"
 
-    if [[ ! $next_event ]]
-    then
+    if [[ ! $next_event ]]; then
         head -1 "$DOTFILES/toolbox/.timetable"
     else
         echo "$next_event"
@@ -28,8 +27,7 @@ _next_line(){
 }
 
 _display(){
-    for h in {8..19}
-    do
+    for h in {8..19}; do
         echo -n "$h""h|"
         for d in {1..5}; do
             awk \
@@ -40,35 +38,57 @@ _display(){
             "$DOTFILES""/toolbox/.timetable"
             echo -en "|"
         done
-        echo ""
+        echo
     done
 }
 
 case "$1" in
-    --test)
-        _next_line
-        ;;
-    --curr)
+    --current)
+        # get current event's name
         _curr_line | cut -d: -f4
         ;;
-    --curr-location)
+    --current-location)
+        # get current event's location
         _curr_line | cut -d: -f5
         ;;
-    --curr-link)
+    --current-link)
+        # get current event's link
         echo "https://$(_curr_line | cut -d: -f6)"
         ;;
     --next)
+        # get next event's name
         _next_line | cut -d: -f4
         ;;
     --next-location)
+        # get next event's location
         _next_line | cut -d: -f5
         ;;
     --next-link)
+        # get next event's link
         echo "https://$(_next_line | cut -d: -f6)"
         ;;
     --show|"")
+        # display weekly timetable [Default]
         _display | column -t -N " ,seg,ter,qua,qui,sex" -R 1 -s "|"
         ;;
-    *)
-        echo -e "calendar --[curr|next]\ncalendar --[curr|next]-[location|link]\ncalendar --show"
+    -h|--help)
+        # Send this help message
+        echo "NAME:"
+        echo "    calendar - weekly timetable manager"
+        echo
+        echo "USAGE:"
+        echo "    calendar OPTION"
+        echo
+        echo "OPTION:"
+
+        awk '/^case/,/^esac/' "$0" |
+            grep -E "^\s*(#|-.*|;;)" |
+            sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g;s/, ""//g'
+        echo
+        echo "FILES:"
+        echo "    \$DOTFILES/toolbox/.timetable"
+        echo "         CSV with weekly events that follow the following format:"
+        echo "         DAY:START:END:NAME:LOCATION:LINK"
+        ;;
+
 esac

@@ -8,13 +8,13 @@ Colection of scripts to be used in the terminal or a keybind
 
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [calendar](toolbox/calendar.tool) weekly calendar from a [CSV](toolbox/.timetable)
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
+* [calendar](toolbox/calendar.tool) weekly calendar from a [CSV](toolbox/.timetable)
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
-* [ex](toolbox/ex.tool) Extract anything
+* [ex](toolbox/ex.tool) extract anything
 * [launch_and_move](toolbox/launch_and_move.tool) move to a workspace and launch a program (if that program is not running)
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher
@@ -47,8 +47,8 @@ Colection of static config files
 
 Collection of installation scripts
 
-* [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [generate_README](./generate_README.sh) autogenerate [README](README.md)
+* [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow)
 * [nail](./nail) deploy the dotfiles
 
