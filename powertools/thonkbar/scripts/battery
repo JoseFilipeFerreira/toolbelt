@@ -22,7 +22,7 @@ esac
 
 echo "$symbol" "$percent""%"
 
-case $(echo "$percent"" / 20" | bc) in
+case "$(( percent / 20 ))" in
   0) echo "#FF0000" ;;
   1) echo "#FF8400" ;;
   2) echo "#FFF700" ;;

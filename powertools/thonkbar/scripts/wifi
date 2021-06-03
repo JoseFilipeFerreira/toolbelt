@@ -22,7 +22,7 @@ if _iwconfig="$( iwconfig "${iface}" 2>/dev/null )"; then
 
     echo "$quality%@$ssid"
 
-    case $(echo "$quality"" / 20" | bc) in
+    case "$(( quality / 20 ))" in
         0) echo "#FF0000" ;;
         1) echo "#FF8400" ;;
         2) echo "#FFF700" ;;

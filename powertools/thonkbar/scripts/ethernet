@@ -24,9 +24,9 @@ if echo "$ecard_stats" | grep -q "(connected)"; then
 
     if [ "$speed" -ge "1000" ]; then
         if (( speed % 1000 == 0 )); then
-            speed="$(echo "$speed/1000" | bc )"
+            speed="$(( speed / 1000 ))"
         else
-            speed="$(echo "scale=1; $speed/1000" | bc )"
+            speed="$(printf %.1f "$(( speed/1000 ))e-3" )"
         fi
 
         echo "$speed"Gbps@"$name"
