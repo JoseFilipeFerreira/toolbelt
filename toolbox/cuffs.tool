@@ -11,7 +11,7 @@ while (( "$#" )); do
     case $1 in
         -c|--clipboard)
             # Print to clipboard
-            clip="true"
+            display="clip"
             shift
             ;;
         -i|--image)
@@ -37,12 +37,18 @@ while (( "$#" )); do
         -s|--select)
             # Select area to print
             hack="$(hacksaw)"
+            hack_info="area"
             shift
             ;;
         -t|--time)
             # Record time in seconds
             time="$2"
             shift 2
+            ;;
+        --no-notify)
+            # do not send notification at the end
+            no_notify="true"
+            shift
             ;;
         -h|--help)
             # Send this help message
@@ -53,7 +59,9 @@ while (( "$#" )); do
 
             awk '/^while/,/^done/' "$0" |
                 grep -E "^\s*(#|-.*|;;)" |
-                sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
+                sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g' |
+                sed 's/ *$//g' |
+                sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'
             exit
             ;;
         *)
@@ -64,37 +72,37 @@ while (( "$#" )); do
     esac
 done
 
-[[ "$clip" ]] && [[ "$type" == "video" ]] \
-    && echo "Options --clipboard and --video are incompatible" >&2 \
-    && exit
-
-[[ "$clip" ]] && [[ "$display" == "floating" ]] \
-    && echo "Options --clipboard and --floating are incompatible" >&2 \
-    && exit
-
 [[ "$hack" ]] || hack="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')+0+0"
 
 [[ "$delay" ]] && sleep "$delay"
 
-case $type in
+[[ "$hack_info" ]] && content="of area"
+
+case "$type" in
     image)
-        if [[ "$clip" ]]; then
-            shotgun -g "$hack" - | xclip -t 'image/png' -selection clipboard
-        else
-            shotgun -g "$hack" "$file.png"
-        fi
+        header="Screenshot taken"
+
+        shotgun -g "$hack" "$file.png"
 
         case "$display" in
             floating)
                 sxiv -g "$hack" -b "$file.png"
                 rm "$file.png"
+                ;;
+            clip)
+                xclip -t 'image/png' -selection clipboard -i "$file.png"
+                rm "$file.png"
+                ;;
         esac
 
+        [[ "$display" ]] && content+=" to $display"
         ;;
     video)
+        header="Video taken"
+
         flags=(-framerate 25 -f x11grab)
 
-        [[ "$time" ]] && flags+=( -t "$time" )
+        [[ "$time" ]] && flags+=( -t "$time" ) && content+=" during ""$time""s"
         size="$(echo "$hack" | cut -d+ -f 1)"
         start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
 
@@ -103,3 +111,14 @@ case $type in
         ffmpeg "${flags[@]}" "$file.mkv"
         ;;
 esac
+
+[[ "$no_notify" ]] && exit
+
+[[ "$delay" ]] && content+=" with delay of ""$delay""s"
+
+notify-send \
+    -u low \
+    -i "$DOTFILES/assets/image_placeholder.png" \
+    -a "cuffs" \
+    "$header" \
+    "$content"
