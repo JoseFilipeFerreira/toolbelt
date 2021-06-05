@@ -3,7 +3,10 @@
 folder="$XDG_DATA_HOME/dmenu"
 mkdir -p "$folder"
 file="$folder/todo"
+old_file="$folder/todo_history"
 touch "$file"
+touch "$old_file"
+
 prompt="Add/delete a task: "
 
 cmd=$(LC_ALL=C sort "$file" | dmenu -l 20 -p "$prompt")
@@ -11,6 +14,7 @@ while [ -n "$cmd" ]; do
     if grep -q "^$cmd\$" "$file"; then
         grep -v "^$cmd\$" "$file" > "$file.$$"
         mv "$file.$$" "$file"
+        echo "$cmd" >> "$old_file"
     else
         echo "$cmd" >> "$file"
     fi
