@@ -22,7 +22,7 @@ _sync_music() {
     if ssh -q kiwi exit
     then
         echo -e "\e[35mSyncing Music...\e[33m"
-        rsync -av kiwi:"$remote_location/" "$local_location"
+        rsync -av --exclude ".config" kiwi:"$remote_location/" "$local_location"
         echo -e "\e[0m"
         return 0
     else
