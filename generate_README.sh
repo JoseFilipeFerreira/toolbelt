@@ -4,20 +4,12 @@
 generate_description(){
     find "$1" -maxdepth 1 -type f -not -path '*/\.*' |
         sort |
-        while read -r script
-    do
-        [ "$(sed -n '/^#!/p;q' "$script")" ] || continue
-        filename="$(basename -- "$script")"
-        echo -n "* [${filename%.*}]($script) "
-        sed -n 2p "$script" | sed 's/ *# *//g'
-    done
-
-}
-
-intro(){
-    echo "# Toolbelt"
-    echo
-    echo "Collection of scripts and dotfiles that follow me in all of my linux adventures"
+        while read -r script; do
+            [ "$(sed -n '/^#!/p;q' "$script")" ] || continue
+            filename="$(basename -- "$script")"
+            echo -n "* [${filename%.*}]($script) "
+            sed -n 2p "$script" | sed 's/ *# *//g'
+        done
 }
 
 toolbox(){
@@ -50,14 +42,16 @@ install(){
     generate_description .
 }
 
-license(){
-    echo "## License"
-    echo
-    echo "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details"
-}
+echo "# Toolbelt"
+echo
+echo "Collection of scripts and dotfiles that follow me in all of my linux adventures"
+echo
 
-
-for section in intro toolbox toolkit powertools install license; do
+for section in toolbox toolkit powertools install; do
     $section
     echo
 done
+
+echo "## License"
+echo
+echo "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details"
