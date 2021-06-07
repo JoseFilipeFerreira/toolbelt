@@ -2,7 +2,7 @@
 # extract anything
 
 for f in "$@"; do
-    if [ -f "$f" ]; then
+    if [ ! -f "$f" ]; then
         echo "$f is not a valid file"
         exit
     fi
