@@ -1,5 +1,5 @@
 #!/bin/bash
-# deploy the dotfiles
+# link dotfiles and scripts
 
 [[ ! "$DOTFILES" ]] && \
     DOTFILES="$(dirname "$(readlink -f "$0")")"
@@ -76,6 +76,8 @@ _deploy_dotfiles(){
         if [[ " ${ARGS[*]} " =~ " sudo " ]]; then
             ARGS=("${ARGS[@]/sudo}")
             mode="sudo"
+        else
+            unset mode
         fi
 
         # delete empty ARGS fields
