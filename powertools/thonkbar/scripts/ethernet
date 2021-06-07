@@ -15,12 +15,6 @@ if echo "$ecard_stats" | grep -q "(connected)"; then
     speed="$(cat "/sys/class/net/$(_grep_field "GENERAL.DEVICE")/speed" )"
     [ "$speed" -lt "0" ] && exit
 
-    if [ "$speed" -ge "10000" ]; then color="#00FF00"
-    elif [ "$speed" -ge "5000" ]; then color="#AAFF00"
-    elif [ "$speed" -ge "2500" ]; then color="#FFF700"
-    elif [ "$speed" -ge "1000" ]; then color="#FF8400"
-    else color="#FF0000"
-    fi
 
     if [ "$speed" -ge "1000" ]; then
         if (( speed % 1000 == 0 )); then
@@ -34,5 +28,15 @@ if echo "$ecard_stats" | grep -q "(connected)"; then
         echo "$speed"Mbps@"$name"
     fi
 
-    echo "$color"
+    if [ "$speed" -ge "10000" ]; then
+        echo "#00FF00"
+    elif [ "$speed" -ge "5000" ]; then
+        echo "#AAFF00"
+    elif [ "$speed" -ge "2500" ]; then
+        echo "#FFF700"
+    elif [ "$speed" -ge "1000" ]; then
+        echo "#FF8400"
+    else
+        echo"#FF0000"
+    fi
 fi
