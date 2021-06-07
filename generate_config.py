@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 
-from sys import argv
-from typing import List
+import os
 import re
 import subprocess
-import os
+from sys import argv
+from typing import List
 
 PERCENTS = re.compile(r'^%%', flags=re.M)
 SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
@@ -183,7 +183,7 @@ def parse_cases(s: str) -> (List[Case], str):
         while True:
             (case, s) = parse_case(s)
             cases += [case]
-    except ParseError as pe:
+    except ParseError as _:
         return (cases, s)
 
 
@@ -241,7 +241,8 @@ def parse(s: str) -> List[Part]:
 if len(argv) < 3:
     print(f'Usage: {os.path.basename(__file__)} template target')
 else:
-    print(f"'{argv[1]}' x-> '{argv[2]}'")
+    home=os.environ['HOME']
+    print(f'{argv[1].replace(home,"~")} -> {argv[2].replace(home,"~")}')
     try:
         with open(argv[1], 'r') as template:
             s = template.read()
