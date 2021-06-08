@@ -32,7 +32,7 @@ command -V bat &> /dev/null &&
     alias cat=bat
 
 command -v neofetch &>/dev/null ||
-    alias neofetch="curl --silent jff.sh/share/neofetch | bash"
+    alias neofetch="curl --silent https://jff.sh/share/neofetch | bash"
 
 alias c='clear'
 alias cl='clear; ls -lah'
