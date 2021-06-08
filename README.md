@@ -20,7 +20,7 @@ Colection of scripts to be used in the terminal or a keybind
 * [menu](toolbox/menu.tool) dmenu menu launcher
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
 * [nospace](toolbox/nospace.tool) correct filenames
-* [pixel](toolbox/pixel.tool) set -e
+* [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromCal](toolbox/termFromCal.tool) contextual terminal based on time (integrates with [calendar](toolbox/calendar.tool))
 * [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
