@@ -22,7 +22,29 @@ _za() {
     return
 }
 
+_gcl() {
+    local CWORD=${COMP_WORDS[COMP_CWORD]}
+    local IFS=$'\n'
+
+    local user="$(git config user.name)"
+    [[ "$CWORD" == */* ]] &&
+        user="$(echo "$CWORD" | cut -d/ -f1)"
+
+    repos="$(gh repo list "$user" \
+        --limit=100 \
+        --json nameWithOwner \
+        --jq=".[].nameWithOwner")"
+
+    [[ "$CWORD" == */* ]] ||
+        repos="$(echo "$repos" | sed "s/$user\///g")"
+
+    COMPREPLY=( $(compgen -W "$repos" -- "$CWORD") )
+}
+
+command -V gh &> /dev/null &&
+    complete -F _gcl gcl
 
 complete -d cd
 complete -F _ssh ssh
 complete -F _za za
+
