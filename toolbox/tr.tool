@@ -20,6 +20,7 @@ notify(){
             -i "$DOTFILES/assets/transmission.png" \
             -a "tr" \
             "$1" "$2"
+    echo "$1: $2"
 }
 
 case $1 in
