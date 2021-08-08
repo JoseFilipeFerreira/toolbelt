@@ -11,7 +11,6 @@ ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o 
 
 mpvsocket="/tmp/mpvsocket"
 
-
 _update_bar(){
     pkill --signal 62 thonkbar
 }
@@ -22,7 +21,7 @@ _sync_music() {
     if ssh -q kiwi exit
     then
         echo -e "\e[35mSyncing Music...\e[33m"
-        rsync -av --exclude ".config" kiwi:"$remote_location/" "$local_location"
+        rsync -av --delete --exclude ".config" kiwi:"$remote_location/" "$local_location"
         echo -e "\e[0m"
         return 0
     else
