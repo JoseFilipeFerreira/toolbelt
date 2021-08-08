@@ -32,7 +32,7 @@ case "$layout" in
 
         mirror)
             external="$(_dock_monitor)"
-            xrandr --output "$external" --auto --same-as eDP1
+            xrandr --output "$external" --auto --same-as eDP-1
             ;;
 esac
 
