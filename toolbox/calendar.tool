@@ -1,5 +1,5 @@
 #!/bin/bash
-# weekly calendar from a [CSV](toolbox/.timetable)
+# weekly calendar with current and next event search (more info with `calendar --help`)
 
 _curr_line(){
     awk \
