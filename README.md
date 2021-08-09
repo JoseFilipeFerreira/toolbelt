@@ -30,7 +30,7 @@ Colection of scripts to be used in the terminal or a keybind
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 * [workin](toolbox/workin.tool) workout manager
 
-## 🪛 [Toolkit](toolkit) (dmenu scripts)
+## :wrench: [Toolkit](toolkit) (dmenu scripts)
 
 Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 
@@ -40,11 +40,11 @@ Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 * [todo](toolkit/todo.menu) simple TODO list
 * [trayer](toolkit/trayer.menu) trayer launcher
 
-## 🪚 [Powertools](powertools) (.dotfiles)
+## :hammer: [Powertools](powertools) (.dotfiles)
 
 Colection of static config files
 
-## 🔗 Install
+## :link: Install
 
 Collection of installation scripts
 

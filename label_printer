@@ -21,7 +21,7 @@ toolbox(){
 }
 
 toolkit(){
-    echo "## 🪛 [Toolkit](toolkit) (dmenu scripts)"
+    echo "## :wrench: [Toolkit](toolkit) (dmenu scripts)"
     echo
     echo "Collection of scripts to be launched from a [menu](toolbox/menu.tool)"
     echo
@@ -29,13 +29,13 @@ toolkit(){
 }
 
 powertools(){
-    echo "## 🪚 [Powertools](powertools) (.dotfiles)"
+    echo "## :hammer: [Powertools](powertools) (.dotfiles)"
     echo
     echo "Colection of static config files"
 }
 
 install(){
-    echo "## 🔗 Install"
+    echo "## :link: Install"
     echo
     echo "Collection of installation scripts"
     echo
