@@ -48,7 +48,8 @@ _update_media_completion(){
             ;;
     esac
 }
-complete -o filenames -F _update_media_completion update_media
+alias umedia=update_media
+complete -o filenames -F _update_media_completion update_media umedia
 
 _add_media_completion(){
     local CWORD=${COMP_WORDS[COMP_CWORD]}
@@ -69,4 +70,6 @@ _add_media_completion(){
             ;;
     esac
 }
-complete -o filenames -F _add_media_completion add_media
+
+alias amedia=add_media
+complete -o filenames -F _add_media_completion add_media amedia
