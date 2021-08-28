@@ -8,8 +8,8 @@ Colection of scripts to be used in the terminal or a keybind
 
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
 * [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
+* [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
@@ -51,7 +51,7 @@ Collection of installation scripts
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow)
 * [label_printer](./label_printer) autogenerate [README](README.md)
-* [nail](./nail) symlink dotfiles and scripts
+* [nail](./nail) link dotfiles and scripts
 
 ## License
 

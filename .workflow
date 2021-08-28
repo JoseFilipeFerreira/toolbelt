@@ -59,6 +59,7 @@ ttf-dejavu
 vdirsyncer
 xorg-server
 xorg-xinit
+xorg-xrandr
 zathura
 zathura-pdf-poppler
 )
