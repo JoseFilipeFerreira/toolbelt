@@ -47,6 +47,9 @@ case "$type" in
         for repo in "${all_repos[@]}"; do
             _make_repo "$repo"
         done
+        for aur in "${all_aur[@]}"; do
+            aura -S "$aur"
+        done
 
         _global_dark_theme
         ;;
@@ -55,6 +58,9 @@ case "$type" in
         bash nail --headless
         for repo in "${essential_repos[@]}"; do
             _make_repo "$repo"
+        done
+        for aur in "${essential_aur[@]}"; do
+            aura -S "$aur"
         done
         ;;
 esac

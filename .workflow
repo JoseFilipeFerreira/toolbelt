@@ -22,7 +22,9 @@ networkmanager
 nodejs
 openssh
 python
+python-pip
 rsync
+shellcheck
 tmux
 transmission-cli
 unzip
@@ -57,6 +59,7 @@ sxhkd
 sxiv
 ttf-dejavu
 vdirsyncer
+wireless_tools
 xorg-server
 xorg-xinit
 xorg-xrandr
@@ -71,8 +74,17 @@ https://github.com/jtexeira/tiny-aura
 )
 
 export extra_repos=(
-https://github.com/JoseFilipeFerreira/thonkbar
 https://github.com/mendess/dmenu
 )
 
 export all_repos=( "${essential_repos[@]}" "${extra_repos[@]}" )
+
+export essential_aur=()
+
+export extra_aur=(
+lemonbar-xft-git
+thonkbar-git
+toilet
+)
+
+export all_aur=( "${essential_aur[@]}" "${extra_aur[@]}" )
