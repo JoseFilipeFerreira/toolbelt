@@ -1,5 +1,5 @@
 #!/bin/bash
-# link dotfiles and scripts
+# symlink dotfiles and scripts
 
 [[ ! "$DOTFILES" ]] && \
     DOTFILES="$(dirname "$(readlink -f "$0")")"

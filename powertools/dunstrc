@@ -38,9 +38,6 @@
     # to the font height and padding.
     notification_height = 1
 
-    # Draw a line of "separator_height" pixel height between two
-    # notifications.
-    # Set to 0 to disable.
     separator_height = 1
 
     # Padding between text and separator.
@@ -50,11 +47,8 @@
     horizontal_padding = 10
 
     # Defines width in pixels of frame around the notification window.
-    # Set to 0 to disable.
     frame_width = 0
-
-    # Defines color of the frame around the notification window.
-    frame_color = "#aaaaaa"
+    frame_color = "#000000"
 
     # Define a color for the separator.
     # possible values are:
@@ -62,16 +56,12 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = "#00000000"
+    separator_color = "frame"
 
     # Sort messages by urgency.
     sort = yes
 
-    # Don't remove messages, if the user is idle (no mouse or keyboard input)
-    # for longer than idle_threshold seconds.
-    # Set to 0 to disable.
-    # Transient notifications ignore this setting.
-    idle_threshold = 120
+    idle_threshold = 60
 
     ### Text ###
 
@@ -163,7 +153,7 @@
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = yes
+    startup_notification = no
 
     ### Legacy
 
