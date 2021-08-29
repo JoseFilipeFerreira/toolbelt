@@ -52,7 +52,7 @@ khal
 mpv
 network-manager-applet
 newsboat
-notify-send
+libnotify
 noto-fonts
 pavucontrol
 picom
@@ -63,14 +63,13 @@ socat
 sxhkd
 sxiv
 thunar
-toilet
 trayer
 ttf-dejavu
 ttf-font-awesome
 vdirsyncer
 wireless_tools
 xclip
-xev
+xorg-xev
 xorg-server
 xorg-xdpyinfo
 xorg-xinit
