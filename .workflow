@@ -9,6 +9,7 @@ curl
 ffmpeg
 fzf
 git
+github-cli
 htop
 imagemagick
 inetutils
