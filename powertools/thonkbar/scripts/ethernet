@@ -37,6 +37,6 @@ if echo "$ecard_stats" | grep -q "(connected)"; then
     elif [ "$speed" -ge "1000" ]; then
         echo "#FF8400"
     else
-        echo"#FF0000"
+        echo "#FF0000"
     fi
 fi
