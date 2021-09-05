@@ -16,19 +16,18 @@ autocmd VimEnter *
 
 " Plugins
 call plug#begin()
-
-" Theme
+"" Theme
 Plug 'morhetz/gruvbox'
 
-" File Browsing
+"" File Browsing
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf'
 
-" Syntax highlighting
+"" Syntax highlighting
 Plug 'machakann/vim-highlightedyank'
 Plug 'sheerun/vim-polyglot'
 
-"Formating and Errors
+"" Formating and Errors
 Plug 'tpope/vim-commentary'
 Plug 'sbdchd/neoformat'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -79,6 +78,21 @@ let NERDTreeQuitOnOpen = 1
 let g:highlightedyank_highlight_duration = 100
 
 " COC
+let g:coc_global_extensions = [
+    \ 'coc-clangd',
+    \ 'coc-css',
+    \ 'coc-cmake',
+    \ 'coc-html',
+    \ 'coc-json',
+    \ 'coc-markdownlint',
+    \ 'coc-python',
+    \ 'coc-glslx',
+    \ 'coc-sh',
+    \ 'coc-rls',
+    \ 'coc-toml',
+    \ 'coc-xml',
+    \ 'coc-yaml']
+
 "" Tab completion and navigation
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
