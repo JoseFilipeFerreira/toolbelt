@@ -1,29 +1,26 @@
 #!/bin/bash
 # Deploy dotfiles and install programs that are part of my [workflow](.workflow)
-
 set -e
 
 source .workflow
 
-[[ ! "$DOTFILES" ]] && \
-    DOTFILES="$(dirname "$(readlink -f "$0")")"
-
 _global_dark_theme(){
-    wget https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip
-    unzip master.zip
-    readonly themes_dir="$HOME"/.themes
-    mkdir -p "$themes_dir"
-    mv Aritim-Dark-master/GTK "$themes_dir"/ayu
-    rm -rf Aritim-Dark-master master.zip
+    echo -e "\033[32mInstalling global dark theme...\033[0m"
+    wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"
+    unzip -q /tmp/master.zip -d /tmp
+    mkdir -p "$HOME"/.themes
+    mv /tmp/Aritim-Dark-master/GTK "$HOME"/.themes/ayu
+    rm -r /tmp/{Aritim-Dark-master,master.zip}
 }
 
-_make_repo(){
-    name="$(basename "$1")"
-    echo -e "\033[35mInstalling $name...\033[33m"
-    git clone "$1" /tmp/"$name"
-    sudo make install -C /tmp/"$name"
-    rm -rf /tmp/"$name"
-    echo -e "\033[0m"
+_make_repos(){
+    for repo in "$@"; do
+        name="$(basename "$repo")"
+        echo -e "\033[32mInstalling $name...\033[0m"
+        git clone "$repo" /tmp/"$name"
+        sudo make install -C /tmp/"$name"
+        rm -rf /tmp/"$name"
+    done
 }
 
 read -r -p "Type of installation [(F)ULL | (h)eadless]: "
@@ -44,24 +41,15 @@ case "$type" in
     full)
         sudo pacman -Suyy --needed  "${all_pacman[@]}"
         bash nail
-        for repo in "${all_repos[@]}"; do
-            _make_repo "$repo"
-        done
-        for aur in "${all_aur[@]}"; do
-            aura -S "$aur"
-        done
-
+        _make_repos "${all_repos[@]}"
+        aura -S "${all_aur[@]}"
         _global_dark_theme
         ;;
     headless)
         sudo pacman -Suyy --needed  "${essential_pacman[@]}"
         bash nail --headless
-        for repo in "${essential_repos[@]}"; do
-            _make_repo "$repo"
-        done
-        for aur in "${essential_aur[@]}"; do
-            aura -S "$aur"
-        done
+        _make_repos "${essential_repos[@]}"
+        aura -S "${essential_aur[@]}"
         ;;
 esac
 
