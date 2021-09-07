@@ -1,13 +1,24 @@
 #!/bin/bash
 # playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
-
 set -e
 
 remote_location=".local/share/music"
-local_location="$(xdg-user-dir MUSIC)"
-[[ ! "$local_location" ]] && echo "Music location not set" && exit
 
-ydl_flags=(-f 'bestaudio' -x --add-metadata --no-playlist --audio-format mp3 -o "$local_location/%(title)s.%(ext)s")
+local_location="$(xdg-user-dir MUSIC)"
+[[ "$local_location" == "$HOME" ]] &&
+    echo -e "[error] xdg-user-dir MUSIC returned \$HOME\n[info] falling back to \$MUSIC" &&
+    local_location="$MUSIC"
+
+[[ ! "$local_location" ]] && echo "[error] \$MUSIC not set" && exit
+
+ydl_flags=(
+    --format 'bestaudio'
+    --extract-audio
+    --add-metadata
+    --no-playlist
+    --audio-format mp3
+    --embed-thumbnail
+    --output "$local_location/%(title)s.%(ext)s" )
 
 mpvsocket="/tmp/mpvsocket"
 
@@ -20,14 +31,14 @@ _sync_music() {
 
     if ssh -q kiwi exit
     then
-        echo -e "\e[35mSyncing Music...\e[33m"
+        echo -e "\e[32mSyncing Music...\e[0m"
         rsync -av --delete --exclude ".config" kiwi:"$remote_location/" "$local_location"
-        echo -e "\e[0m"
         return 0
     else
         echo -e "\e[31mCouldn't connect to server\e[0m"
         return 1
     fi
+    echo
 }
 
 _add_music() {
@@ -219,12 +230,12 @@ case "$1" in
         ;;
 
     --block)
-        # Block compatible with i3blocks
+        # Block compatible with thonkbar
         _echo_block
         ;;
 
     --info)
-        #
+        # Show info on current music
         _echo_info
         ;;
 
