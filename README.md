@@ -8,11 +8,12 @@ Colection of scripts to be used in the terminal or a keybind
 
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
 * [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
+* [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+* [dl_anime](toolbox/dl_anime.tool) TUI to download from [nyaa](https://nyaa.si) based on watching list from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [ex](toolbox/ex.tool) extract anything
 * [launch_and_move](toolbox/launch_and_move.tool) move to a workspace and launch a program (if that program is not running)
