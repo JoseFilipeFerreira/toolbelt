@@ -30,12 +30,12 @@ _make_repos(){
 _get_pkgs(){
     while IFS=',' read -r l; do
         IFS=',' read -ra args <<< "$l"
-        [[ ${args[*]:1} =~ $1 ]] &&
+        [[ " ${args[*]} " =~ " $1 " ]] &&
         {
             [[ ! "${*:2}" ]] ||
             [[ "$(comm -12 <(printf '%s\n' "${@:2}" | sort) <(printf '%s\n' "${args[@]}" | sort))" ]] ;
         } &&
-            echo -n "${args[0]} "
+            echo -n "${args[2]} "
     done < "$DOTFILES/.workflow.csv"
 }
 
