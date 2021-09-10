@@ -133,11 +133,8 @@ IFS=$'\n' read -d '' -r -a FILTERS < "$DOTFILES/.instalation_config"
 
 while (( "$#" )); do
     case $1 in
-        --*)
-            FILTERS+=("${1:2}")
-            shift
-            ;;
         *)
+            FILTERS+=("$1")
             shift
             ;;
     esac

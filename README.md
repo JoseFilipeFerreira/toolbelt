@@ -50,7 +50,7 @@ Colection of static config files
 Collection of installation scripts
 
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
-* [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow)
+* [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 * [label_printer](./label_printer) autogenerate [README](README.md)
 * [nail](./nail) symlink dotfiles and scripts
 

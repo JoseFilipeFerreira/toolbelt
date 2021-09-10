@@ -1,16 +1,19 @@
 #!/bin/bash
-# Deploy dotfiles and install programs that are part of my [workflow](.workflow)
-set -e
+# Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
+# set -e
 
-source .workflow
+[[ ! "$DOTFILES" ]] && \
+    DOTFILES="$(dirname "$(readlink -f "$0")")"
 
 _global_dark_theme(){
     echo -e "\033[32mInstalling global dark theme...\033[0m"
+    [[ -d "$HOME"/.themes/ayu ]] && echo -e "Already installed\n" && return
     wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"
     unzip -q /tmp/master.zip -d /tmp
     mkdir -p "$HOME"/.themes
     mv /tmp/Aritim-Dark-master/GTK "$HOME"/.themes/ayu
     rm -r /tmp/{Aritim-Dark-master,master.zip}
+    echo
 }
 
 _make_repos(){
@@ -20,16 +23,49 @@ _make_repos(){
         git clone "$repo" /tmp/"$name"
         sudo make install -C /tmp/"$name"
         rm -rf /tmp/"$name"
+        echo
     done
 }
 
-read -r -p "Type of installation [(F)ULL | (h)eadless]: "
+_get_pkgs(){
+    while IFS=',' read -r l; do
+        IFS=',' read -ra args <<< "$l"
+        [[ ${args[*]:1} =~ $1 ]] &&
+        {
+            [[ ! "${*:2}" ]] ||
+            [[ "$(comm -12 <(printf '%s\n' "${@:2}" | sort) <(printf '%s\n' "${args[@]}" | sort))" ]] ;
+        } &&
+            echo -n "${args[0]} "
+    done < "$DOTFILES/.workflow.csv"
+}
+
+_install_pkgs(){
+        sudo pacman -Suyy
+        sudo pacman -S --needed  $(_get_pkgs pacman "$@")
+        bash nail "$@"
+        _make_repos $(_get_pkgs repos "$@")
+        aura -S $(_get_pkgs aur "$@")
+        # pip install --upgrade pip $(_get_pkgs pip "$@")
+}
+
+_create_home(){
+    echo -e "\033[32mCreating home structure...\033[0m"
+    mkdir -vp "$HOME/dl"
+    mkdir -vp "$HOME/docs"
+    mkdir -vp "$HOME/media/pics"
+    mkdir -vp "$HOME/media/videos"
+    mkdir -vp "$HOME/repos"
+    echo
+}
+
+read -r -p "Type of installation [(F)ULL | (e)ssential]: "
 case "$REPLY" in
     FULL|F|"")
-        type="full"
+        _install_pkgs
+        _global_dark_theme
         ;;
-    headless|h)
-        type="headless"
+    essential|e)
+        _install_pkgs essential
         ;;
     *)
         echo "Invalid type of installation"
@@ -37,24 +73,4 @@ case "$REPLY" in
         ;;
 esac
 
-case "$type" in
-    full)
-        sudo pacman -Suyy --needed  "${all_pacman[@]}"
-        bash nail
-        _make_repos "${all_repos[@]}"
-        aura -S "${all_aur[@]}"
-        _global_dark_theme
-        ;;
-    headless)
-        sudo pacman -Suyy --needed  "${essential_pacman[@]}"
-        bash nail --headless
-        _make_repos "${essential_repos[@]}"
-        aura -S "${essential_aur[@]}"
-        ;;
-esac
-
-mkdir -vp "$HOME/dl"
-mkdir -vp "$HOME/docs"
-mkdir -vp "$HOME/media/pics"
-mkdir -vp "$HOME/media/videos"
-mkdir -vp "$HOME/repos"
+_create_home
