@@ -33,12 +33,13 @@ _sync_music() {
     then
         echo -e "\e[32mSyncing Music...\e[0m"
         rsync -av --delete --exclude ".config" kiwi:"$remote_location/" "$local_location"
+        echo
         return 0
     else
         echo -e "\e[31mCouldn't connect to server\e[0m"
+        echo
         return 1
     fi
-    echo
 }
 
 _add_music() {
