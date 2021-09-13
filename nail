@@ -28,17 +28,13 @@ _make_symlink(){
                 ln -fvsn "$1" "$2" | sed "s|$HOME|~|g;s|'||g"
                 ;;
         esac
-        echo -en "\033[0m"
     fi
 }
 
 _make_makefile(){
-    make --directory="$1" | grep -q "is up to date" \
-        && return
-
+    make --directory="$1" | grep -q "is up to date" && return
     out_install="$(make install --directory="$1" | grep -v "directory")"
-
-    echo -e "\033[35mMake install:\033[33m $out_install \033[0m"
+    echo -e "\033[32mmake install:\033[0m $out_install"
 }
 
 _make_generate(){
@@ -106,13 +102,13 @@ _deploy_dotfiles(){
     done < "$DOTFILES/powertools/.locations"
 }
 
-_storeTools(){
-    mkdir -p ~/.local/bin
+_store_tools(){
+    mkdir -vp ~/.local/bin
 
     # Remove Broken Links
     for tool in ~/.local/bin/*; do
         if [ ! -e "$tool" ]; then
-            echo -e "\033[31m\t$(basename "$tool")\033[0m"
+            echo -e "\033[31m$(basename "$tool")\033[0m"
             rm "$tool"
         fi
     done
@@ -121,7 +117,7 @@ _storeTools(){
     for tool in "$DOTFILES"/toolbox/*.tool; do
         tool_name=$(basename "$tool" .tool)
         if [ ! -h ~/.local/bin/"$tool_name" ]; then
-            echo -e "\033[32m\t$tool_name\033[0m"
+            echo -e "\033[32m$tool_name\033[0m"
             ln -s "$tool" ~/.local/bin/"$tool_name"
         fi
     done
@@ -143,4 +139,4 @@ done
 printf "%s\n" "${FILTERS[@]}" | sort -u > "$DOTFILES/.instalation_config"
 
 _deploy_dotfiles
-_storeTools
+_store_tools
