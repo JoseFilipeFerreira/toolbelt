@@ -1,6 +1,6 @@
 #!/bin/bash
 # Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
-# set -e
+set -e
 
 [[ ! "$DOTFILES" ]] && \
     DOTFILES="$(dirname "$(readlink -f "$0")")"
