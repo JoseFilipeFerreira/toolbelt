@@ -12,46 +12,24 @@ generate_description(){
         done
 }
 
-toolbox(){
-    echo "## 🧰 [Toolbox](toolbox)(scripts)"
-    echo
-    echo "Colection of scripts to be used in the terminal or a keybind"
-    echo
-    generate_description "toolbox"
-}
+echo \
+"# Toolbelt
+Collection of scripts and dotfiles that follow me on all of my linux adventures
 
-toolkit(){
-    echo "## :wrench: [Toolkit](toolkit) (dmenu scripts)"
-    echo
-    echo "Collection of scripts to be launched from a [menu](toolbox/menu.tool)"
-    echo
-    generate_description "toolkit"
-}
+## 🧰 [Toolbox](toolbox)(scripts)
+Colection of scripts to be used in the terminal or on a keybind
+$(generate_description "toolbox")
 
-powertools(){
-    echo "## :hammer: [Powertools](powertools) (.dotfiles)"
-    echo
-    echo "Colection of static config files"
-}
+## :wrench: [Toolkit](toolkit) (dmenu scripts)
+Collection of scripts to be launched from a [menu](toolbox/menu.tool)
+$(generate_description "toolkit")
 
-install(){
-    echo "## :link: Install"
-    echo
-    echo "Collection of installation scripts"
-    echo
-    generate_description .
-}
+## :hammer: [Powertools](powertools) (.dotfiles)
+Colection of static config files
 
-echo "# Toolbelt"
-echo
-echo "Collection of scripts and dotfiles that follow me in all of my linux adventures"
-echo
+## :link: Install
+Collection of installation scripts
+$(generate_description .)
 
-for section in toolbox toolkit powertools install; do
-    $section
-    echo
-done
-
-echo "## License"
-echo
-echo "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details"
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details"
