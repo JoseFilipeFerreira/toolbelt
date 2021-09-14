@@ -66,9 +66,8 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
     clear
-
 elif command -v tmux &> /dev/null && [[ ! "$TMUX" ]]; then
-    if [[ "$SSH_CLIENT" ]] && [[ ! "$NAIL" ]]; then
+    if [[ "$SSH_CLIENT" ]]; then
         export TERM=xterm
 
         echo -n 'Launch tmux? [Y/n]'
