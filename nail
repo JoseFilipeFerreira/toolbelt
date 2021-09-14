@@ -54,51 +54,44 @@ _make_generate(){
 
 
 _deploy_dotfiles(){
-    while IFS= read -r l; do
-        IFS=',' read -ra ARGS <<< "$l"
-        ARGS=("${ARGS[@]:2}")
+    while IFS= read -r line; do
+        IFS=',' read -ra linevec <<< "$line"
+        attrs=("${linevec[@]:2}")
 
-        if [ -n "$FILTERS" ]; then
-            if [[ ! "$(comm -12 <(printf '%s\n' "${FILTERS[@]}" | sort) <(printf '%s\n' "${ARGS[@]}" | sort))" ]]; then
-                continue
-            fi
-        fi
+        [[ -n "$FILTERS" ]] &&
+        [[ \
+            ! "$(comm -12 \
+            <(printf '%s\n' "${FILTERS[@]}" | sort) \
+            <(printf '%s\n' "${attrs[@]}" | sort))" \
+        ]] &&
+            continue
 
-        orig="$DOTFILES/powertools/$(echo "$l" | cut -d, -f1)"
-        dest=$(echo "$l" | cut -d, -f2 | sed "s|~|$HOME|g")
+        orig="$DOTFILES/powertools/${linevec[0]}"
+        dest="${linevec[1]//\~/$HOME}"
+
         mkdir -p "$(dirname "$dest")"
 
-
-        if [[ " ${ARGS[*]} " =~ " sudo " ]]; then
-            ARGS=("${ARGS[@]/sudo}")
+        if [[ " ${attrs[*]} " =~ " sudo " ]]; then
             mode="sudo"
         else
             unset mode
         fi
 
-        # delete empty ARGS fields
-        for i in "${!ARGS[@]}"; do
-            [[ "${ARGS[$i]}" ]] || unset 'ARGS[i]'
-        done
+        echo "${attrs[*]}"
 
-        for ARG in "${ARGS[@]}"; do
-            case "$ARG" in
+        for attr in "${attrs[@]}"; do
+            case "$attr" in
                 link)
                     _make_symlink "$orig" "$dest" "$mode"
                     ;;
-
                 make)
-                    _make_makefile "$orig" "$dest"
+                    _make_makefile "$orig" "$dest" "$mode"
                     ;;
-
                 generate)
                     _make_generate "$orig" "$dest" "$mode"
                     ;;
-                *)
-                    ;;
             esac
         done
-
     done < "$DOTFILES/powertools/.locations"
 }
 
@@ -124,19 +117,13 @@ _store_tools(){
     chmod +x "$DOTFILES"/toolbox/*
 }
 
-touch "$DOTFILES/.instalation_config"
-IFS=$'\n' read -d '' -r -a FILTERS < "$DOTFILES/.instalation_config"
+config="$DOTFILES/.instalation_config"
 
-while (( "$#" )); do
-    case $1 in
-        *)
-            FILTERS+=("$1")
-            shift
-            ;;
-    esac
-done
+touch "$config"
+IFS=$'\n' read -d '' -r -a FILTERS < "$config"
+FILTERS+=("$@")
 
-printf "%s\n" "${FILTERS[@]}" | sort -u > "$DOTFILES/.instalation_config"
+printf "%s\n" "${FILTERS[@]}" | sort -u >| "$config"
 
 _deploy_dotfiles
 _store_tools
