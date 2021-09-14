@@ -11,9 +11,14 @@ gcl() {
             ;;
     esac
 }
-alias g='git'
-alias gst='git status'
-alias gs='git status'
+
+g(){
+    if [ $# -lt 1 ]; then
+        git status --short --branch
+    else
+        git "$@"
+    fi
+}
 alias gd='git diff'
 
 alias gb='git --no-pager branch -vv'
