@@ -39,12 +39,23 @@ Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 ## :hammer: [Powertools](powertools) (.dotfiles)
 Colection of static config files
 
+## :iphone: [Handtools](handtools)
+Collection of scripts I keep on my phone
+This scripts are deployed using [Tasker](https://tasker.joaoapps.com/) and
+[Termux](https://github.com/termux/termux-app)
+* [change_lock](handtools/change_lock.tool) change phone wallpaper
+* [control_music](handtools/control_music.tool) control music on a remote device
+* [music_devices](handtools/music_devices.tool) choose a remote device to connect with history
+* [sync_kiwi](handtools/sync_kiwi.tool) sync phone data with remote
+* [toggle_light](handtools/toggle_light.tool) toggle lights
+
 ## :link: Install
 Collection of installation scripts
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 * [label_printer](./label_printer) autogenerate [README](README.md)
 * [nail](./nail) symlink dotfiles and scripts
+* [schedule](./schedule) run job scheduler for [Termux](https://github.com/termux/termux-app)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

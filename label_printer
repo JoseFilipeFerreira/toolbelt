@@ -27,6 +27,12 @@ $(generate_description "toolkit")
 ## :hammer: [Powertools](powertools) (.dotfiles)
 Colection of static config files
 
+## :iphone: [Handtools](handtools)
+Collection of scripts I keep on my phone
+This scripts are deployed using [Tasker](https://tasker.joaoapps.com/) and
+[Termux](https://github.com/termux/termux-app)
+$(generate_description "handtools")
+
 ## :link: Install
 Collection of installation scripts
 $(generate_description .)

@@ -7,12 +7,30 @@ set -e
 
 _global_dark_theme(){
     echo -e "\033[32mInstalling dark theme...\033[0m"
-    [[ -d "$HOME"/.themes/ayu ]] && echo -e "Already installed\n" && return
+    [[ -d "$HOME"/.themes/ayu ]] && echo "Already installed" && return
     wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"
     unzip -q /tmp/master.zip -d /tmp
     mkdir -p "$HOME"/.themes
     mv /tmp/Aritim-Dark-master/GTK "$HOME"/.themes/ayu
     rm -r /tmp/{Aritim-Dark-master,master.zip}
+}
+
+_generate_termux_theme(){
+    echo -e "\033[32mGenerating termux theme...\033[0m"
+    theme_file="$HOME"/.termux/colors.properties
+    [[ -e "$theme_file" ]] && echo "Already generated" && return
+    touch "$theme_file"
+    readarray -t colors < <(\
+        grep -E "[a-z]+:\s+'" "$DOTFILES/powertools/alacritty.yml" |
+        grep -Ev "(text|cursor)" |
+        grep -o '#[0-9a-z]*')
+
+    echo -e "foreground: ${colors[0]}\nbackground: ${colors[1]}" >> "$theme_file"
+
+    colors=( "${colors[@]:2}" )
+    for i in "${!colors[@]}"; do
+        echo "color$i: ${colors[i]}" >> "$theme_file"
+    done
 }
 
 _make_repos(){
@@ -32,39 +50,62 @@ _get_pkgs(){
         [[ " ${args[*]} " =~ " $pkg_mngr " ]] &&
         {
             [[ ! "${*:2}" ]] ||
-            [[ "$(comm -12 <(printf '%s\n' "${@:2}" | sort) <(printf '%s\n' "${args[@]}" | sort))" ]] ;
+            [[ "$(comm -12 \
+                <(printf '%s\n' "${@:2}" | sort) \
+                <(printf '%s\n' "${args[@]}" | sort))" \
+            ]] ;
         } &&
             echo -n "${args[2]} "
     done < "$DOTFILES/.workflow.csv"
 }
 
 _install_pkgs(){
-    sudo pacman -Suyy
-    sudo pacman -S --needed  $(_get_pkgs pacman "$@")
-    _make_repos $(_get_pkgs repos "$@")
-    aura -S $(_get_pkgs aur "$@")
-    echo -e "\033[32mLinking dotfiles and scripts...\033[0m"
-    bash nail "$@"
+    if command -V pacman &> /dev/null; then
+        sudo pacman -Suyy
+        sudo pacman -S --needed  $(_get_pkgs pacman "$@")
+        _make_repos $(_get_pkgs repos "$@")
+        aura -S $(_get_pkgs aur "$@")
+    elif command -V pkg &> /dev/null;then
+        pkg update && pkg upgrade
+        pkg install $(_get_pkgs pkg "$@")
+    else
+        echo "Package manager not suported"
+    fi
 }
 
-read -r -p "Type of installation [(F)ULL | (e)ssential]: "
+_setup_home(){
+    echo -e "\033[32mCreating home structure...\033[0m"
+    mkdir -vp "$HOME/dl"
+    mkdir -vp "$HOME/docs"
+    mkdir -vp "$HOME/media/pics"
+    mkdir -vp "$HOME/media/videos"
+    mkdir -vp "$HOME/repos"
+}
+
+read -r -p "Type of installation [(F)ULL | (e)ssential | (m)obile]: "
 case "$REPLY" in
     FULL|F|"")
         _install_pkgs
+        bash "$DOTFILES"/nail essential extra
         _global_dark_theme
+        _setup_home
         ;;
     essential|e)
         _install_pkgs essential
+        bash "$DOTFILES"/nail essential
+        _setup_home
+        ;;
+    mobile|m)
+        ! command -V termux-setup-storage &> /dev/null &&
+            echo "Not in a termux env" && exit
+        _install_pkgs
+        bash "$DOTFILES"/nail essential mobile
+        [ -d ~/storage ] ||
+            termux-setup-storage
+        termux-reload-settings
         ;;
     *)
         echo "Invalid type of installation"
         exit
         ;;
 esac
-
-echo -e "\033[32mCreating home structure...\033[0m"
-mkdir -vp "$HOME/dl"
-mkdir -vp "$HOME/docs"
-mkdir -vp "$HOME/media/pics"
-mkdir -vp "$HOME/media/videos"
-mkdir -vp "$HOME/repos"
