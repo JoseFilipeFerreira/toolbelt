@@ -25,7 +25,7 @@ _generate_termux_theme(){
         grep -Ev "(text|cursor)" |
         grep -o '#[0-9a-z]*')
 
-    echo -e "foreground: ${colors[0]}\nbackground: ${colors[1]}" >> "$theme_file"
+    echo -e "background: ${colors[0]}\nforeground: ${colors[1]}" >> "$theme_file"
 
     colors=( "${colors[@]:2}" )
     for i in "${!colors[@]}"; do
