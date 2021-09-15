@@ -40,9 +40,9 @@ Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 Colection of static config files
 
 ## :iphone: [Handtools](handtools)
-Collection of scripts I keep on my phone
-This scripts are deployed using [Tasker](https://tasker.joaoapps.com/) and
-[Termux](https://github.com/termux/termux-app)
+Collection of scripts I keep on my phone (used with
+[Tasker](https://tasker.joaoapps.com/) and
+[Termux](https://github.com/termux/termux-app))
 * [change_lock](handtools/change_lock.tool) change phone wallpaper
 * [control_music](handtools/control_music.tool) control music on a remote device
 * [music_devices](handtools/music_devices.tool) choose a remote device to connect with history

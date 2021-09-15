@@ -28,9 +28,9 @@ $(generate_description "toolkit")
 Colection of static config files
 
 ## :iphone: [Handtools](handtools)
-Collection of scripts I keep on my phone
-This scripts are deployed using [Tasker](https://tasker.joaoapps.com/) and
-[Termux](https://github.com/termux/termux-app)
+Collection of scripts I keep on my phone (used with
+[Tasker](https://tasker.joaoapps.com/) and
+[Termux](https://github.com/termux/termux-app))
 $(generate_description "handtools")
 
 ## :link: Install
