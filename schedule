@@ -1,5 +1,5 @@
 #!/bin/bash
-# run job scheduler for termux
+# run job scheduler for [Termux](https://github.com/termux/termux-app)
 
 [[ ! "$DOTFILES" ]] && \
     DOTFILES="$(dirname "$(readlink -f "$0")")"
