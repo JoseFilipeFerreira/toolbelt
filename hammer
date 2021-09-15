@@ -102,6 +102,7 @@ case "$REPLY" in
         bash "$DOTFILES"/nail essential mobile
         [ -d ~/storage ] ||
             termux-setup-storage
+        _generate_termux_theme
         termux-reload-settings
         ;;
     *)
