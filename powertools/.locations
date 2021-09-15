@@ -1,4 +1,4 @@
-X11/10-keyboard.conf,/etc/X11/xorg.conf.d/10-keyboard.conf,sudo,link
+X11/10-keyboard.conf,/etc/X11/xorg.conf.d/10-keyboard.conf,link,sudo
 X11/Xresources,~/.config/X11/Xresources,link
 X11/xinitrc,~/.xinitrc,link
 alacritty.yml,~/.config/alacritty/alacritty.yml,link
