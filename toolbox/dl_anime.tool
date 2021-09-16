@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 import sys
 
 ANIME_LOCATION = "/home/mightymime/media/anime"
-if os.path.isdir(ANIME_LOCATION):
+if not os.path.isdir(ANIME_LOCATION):
     print("Invalid anime location:", ANIME_LOCATION)
     sys.exit()
 
