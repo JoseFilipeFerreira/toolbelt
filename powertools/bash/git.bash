@@ -13,7 +13,7 @@ gcl() {
 }
 
 g(){
-    if [ $# -lt 1 ]; then
+    if [ $# -eq 0 ]; then
         git status --short --branch
     else
         git "$@"
