@@ -5,8 +5,8 @@ Collection of scripts and dotfiles that follow me on all of my linux adventures
 Colection of scripts to be used in the terminal or on a keybind
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
+* [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
