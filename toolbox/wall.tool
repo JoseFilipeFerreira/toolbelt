@@ -45,9 +45,8 @@ _sync_walls() {
 
     if ssh -q "$remote" exit
     then
-        echo -e "\e[35mSyncing Walls...\e[33m"
+        echo -e "\033[32mSyncing Walls...\033[0m"
         rsync --exclude '.config' --delete -av "$remote:$remote_location/" "$local_location"
-        echo -e "\e[0m"
         return 0
     else
         echo -e "\e[31mCouldn't connect to server\e[0m"
