@@ -1,42 +1,60 @@
 #!/bin/bash
 # choose display setting
 
-_dock_monitor(){
-    last="$(xrandr | grep " connected" | cut -d" " -f1 | tail -n1)"
-    [[ "$last" = "eDP-1" ]] && notify-send "No monitors connected" && exit
-    echo "$last"
+readarray -t connected_monitors < <(xrandr | grep " connected " | cut -d" " -f1)
+
+_internal_monitor(){
+    [[ "${#connected_monitors[@]}" -lt 1 ]] &&
+        notify-send "No monitors connected" &&
+        exit
+    echo "${connected_monitors[0]}"
 }
 
-layout="$1"
+_external_monitor(){
+    [[ "${#connected_monitors[@]}" -le 1 ]] &&
+        notify-send "No external monitors connected" &&
+        exit
+    echo "${connected_monitors[-1]}"
+}
 
-[[ "$layout" ]] || layout=$(echo -e "dock\ndock(1440p)\nundock\nmirror" |
-    dmenu -i -l 20 -p "Monitor Layout")
+layout="$( \
+    awk '/^case/,/^esac/' "$0" |
+        grep -E "^\s*[a-zA-Z0-9-]*)$" |
+        sed -E 's/[ \)]//g' |
+        dmenu -i -l 20 -p "Monitor Layout")"
 
-[[ "$layout" ]] || exit 2
+[[ "$layout" ]] || exit
 
 case "$layout" in
-        dock)
-            external="$(_dock_monitor)"
-            xrandr --output "$external" --auto --output eDP-1 --off
-            ;;
+    dock)
+        xrandr \
+            --output "$(_external_monitor)" --auto \
+            --output "$(_internal_monitor)" --off
+        ;;
 
-        dock\(1440p\))
-            external="$(_dock_monitor)"
-            xrandr --output "$external" --mode 2560x1440 --output eDP-1 --off
-            ;;
+    dock-1440p)
+        xrandr \
+            --output "$(_external_monitor)" --mode 2560x1440 \
+            --output "$(_internal_monitor)" --off
+        ;;
 
-        undock)
-            external="$(_dock_monitor)"
-	    xrandr --output eDP-1 --auto --output "$external" --off
-            ;;
+    undock)
+        xrandr \
+            --output "$(_internal_monitor)" --auto \
+            --output "$(_external_monitor)" --off
+        ;;
 
-        mirror)
-            external="$(_dock_monitor)"
-            xrandr --output "$external" --auto --same-as eDP-1
-            ;;
+    mirror)
+        xrandr \
+            --output "$(_external_monitor)" --auto \
+            --same-as "$(_internal_monitor)"
+        ;;
+    *)
+        echo "Invalid layout"
+        exit
 esac
 
-notify-send "$layout""ed" "$external"
+notify-send "$layout"
 
 killall --quiet thonkbar lemonbar
 thonkbar &
