@@ -1,16 +1,18 @@
 #!/bin/python
 # TUI to download from [nyaa](https://nyaa.si) based on watching list from [MAL](https://myanimelist.net)
-from json import loads
 import os
 import re
-from subprocess import Popen, PIPE, STDOUT
-from urllib.parse import urlencode
+import sys
 from dataclasses import dataclass
 from enum import Enum
+from json import loads
 from pathlib import Path
+from subprocess import PIPE, STDOUT, Popen
+from typing import List, Optional
+from urllib.parse import urlencode
+
 import requests
 from bs4 import BeautifulSoup
-import sys
 
 ANIME_LOCATION = "/home/mightymime/media/anime"
 if not os.path.isdir(ANIME_LOCATION):
@@ -50,7 +52,7 @@ class NyaaResult():
     leechers: int
     completed: int
 
-    def is_valid_result(self, episode: int, searched_title:str) -> bool:
+    def is_valid_result(self, episode: Optional[int], searched_title:str) -> bool:
         if not episode:
             return True
 
@@ -62,7 +64,8 @@ class NyaaResult():
         for b in matches:
             clean_title = clean_title.replace(b, "")
 
-        return str(episode) in clean_title
+        if re.search(f' {episode} ', self.title) or re.search(f'S[0-9]*E{episode}', self.title):
+            return True
 
     def queue_magnet_link(self):
         output, error = Popen(
@@ -101,7 +104,7 @@ class MalResult():
         if os.path.exists(path):
             return
 
-        print("Downloading image... " + path)
+        print_info("downloading image: " + path)
         url = "http://myanimelist.net" + self.url
         soup = BeautifulSoup(requests.get(url).content, "html.parser")
         image_url = soup.find("img", {"class", "ac"})["data-src"]
@@ -118,7 +121,7 @@ class MalResult():
 def get_mal(
     user: str,
     media: MediaType = MediaType.ANIME,
-    state: ListType = ListType.WATCHING) -> [MalResult]:
+    state: ListType = ListType.WATCHING) -> List[MalResult]:
 
     url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
     soup = BeautifulSoup(requests.get(url).content, "html.parser")
@@ -132,7 +135,7 @@ def get_mal(
 
     return res
 
-def get_nyaa(title: str) -> [NyaaResult]:
+def get_nyaa(title: str) -> List[NyaaResult]:
     getVars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
     url = f"https://nyaa.si/?{urlencode(getVars)}"
     soup = BeautifulSoup(requests.get(url).content, "html.parser")
@@ -169,7 +172,7 @@ def get_last_anime(anime_path: str) -> int:
         print_error(f"invalid filename: {dl_animes[0]}")
         return None
 
-def prompt_torrent(name: str, content: [NyaaResult]) -> NyaaResult:
+def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]:
     output, error = Popen(
         ["fzf", "--cycle", f"--header='search: {name}'"],
         stdout=PIPE,
