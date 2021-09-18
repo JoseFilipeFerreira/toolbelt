@@ -4,7 +4,7 @@
 stty -ixon # Disable ctrl-s and ctrl-q
 
 [[ ! "$DOTFILES" ]] && \
-    export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink ".bash_profile")")")")"
+    export DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink "$HOME/.bash_profile")")")")"
 
 # History settings
 export HISTSIZE=""
