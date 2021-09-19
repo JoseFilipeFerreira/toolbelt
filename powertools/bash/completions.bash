@@ -23,7 +23,8 @@ _gcl() {
     local CWORD=${COMP_WORDS[COMP_CWORD]}
     local IFS=$'\n'
 
-    local user="$(git config user.name)"
+    local user
+    user="$(git config user.name)"
     [[ "$CWORD" == */* ]] &&
         user="$(echo "$CWORD" | cut -d/ -f1)"
 
@@ -35,7 +36,7 @@ _gcl() {
     [[ "$CWORD" == */* ]] ||
         repos="$(echo "$repos" | sed "s/$user\///g")"
 
-    COMPREPLY=( $(compgen -W "$repos" -- "$CWORD") )
+    mapfile -t COMPREPLY < <(compgen -W "$repos" -- "$CWORD")
 }
 
 command -V gh &> /dev/null &&

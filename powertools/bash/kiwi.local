@@ -14,11 +14,11 @@ add_media(){
 
     [[ ! -d ~/media/"$1" ]] && echo "Category does not exist" && return
 
-    wget "$3" -O ~/repos/iron_cake/thumb/"$1"/"$2.${3##*.}"
+    wget "$3" -O ~/repos/iron_cake/thumb/"$1/$2.${3##*.}"
 
     for f in ~/repos/iron_cake/thumb/"$1"/*; do
         [[ $f == *.jpg ]] && continue
-        convert "$f" ~/repos/iron_cake/thumb/"$1"/"$(basename "$f").jpg"
+        convert "$f" ~/repos/iron_cake/thumb/"$1/$(basename "$f").jpg"
     done
 
     mkdir -vp ~/media/"$1"/"$2"
@@ -32,19 +32,25 @@ _update_media_completion(){
 
     case "${#COMP_WORDS[@]}" in
         2) # TYPE
-            COMPREPLY=(\
-                $(compgen -W "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "$CWORD"))
+            mapfile -t COMPREPLY < \
+                <(compgen -W \
+                    "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" \
+                    -- "$CWORD")
             ;;
         3) # NAME
-            COMPREPLY=(\
-                $(compgen -W "$(find ~/media/"${COMP_WORDS[1]}" -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "$CWORD"))
+            mapfile -t COMPREPLY < \
+                <(compgen -W \
+                    "$(find ~/media/"${COMP_WORDS[1]}" -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" \
+                    -- "$CWORD")
             ;;
         4) # FILE
-            COMPREPLY=($(compgen -f -X -- "$CWORD"))
+            mapfile -t COMPREPLY < <(compgen -f -X -- "$CWORD")
             ;;
         5) # FILENAME
-            COMPREPLY=(\
-                $(compgen -W "$(find ~/media/"${COMP_WORDS[1]}"/"${COMP_WORDS[2]}" -mindepth 1  -maxdepth 1  -type f -exec basename {} \;)" -- "$CWORD"))
+            mapfile -t COMPREPLY < \
+                <(compgen -W \
+                    "$(find ~/media/"${COMP_WORDS[1]}"/"${COMP_WORDS[2]}" -mindepth 1  -maxdepth 1  -type f -exec basename {} \;)" \
+                    -- "$CWORD")
             ;;
     esac
 }
@@ -56,17 +62,17 @@ _add_media_completion(){
     local IFS=$'\n'
     case "${#COMP_WORDS[@]}" in
         2) # TYPE
-            COMPREPLY=(\
-                $(compgen -W "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "$CWORD"))
+            mapfile -t COMPREPLY < \
+                <(compgen -W "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "$CWORD")
             ;;
         3) # NAME
-            COMPREPLY=($(compgen -f -X -- "$CWORD"))
+            mapfile -t COMPREPLY < <(compgen -f -X -- "$CWORD")
             ;;
         4) # THUMBNAIL
             COMPREPLY=()
             ;;
         5) # FILES
-            COMPREPLY=($(compgen -f -X -- "$CWORD"))
+            mapfile -t COMPREPLY < <(compgen -f -X -- "$CWORD")
             ;;
     esac
 }

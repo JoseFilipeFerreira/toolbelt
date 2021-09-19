@@ -4,7 +4,7 @@ gcl() {
             git clone "$1" "${@:2}"
             ;;
         */*)
-            git clone git@github.com:$1 "${@:2}"
+            git clone git@github.com:"$1" "${@:2}"
             ;;
         *)
             git clone git@github.com:"$(git config --global user.name)"/"$1" "${@:2}"

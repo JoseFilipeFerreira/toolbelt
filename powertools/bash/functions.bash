@@ -1,14 +1,15 @@
 mkcd(){
-    mkdir -p "$@" && cd "$@"
+    mkdir -p "$@"
+    cd "$@" || return
 }
 
 za() {
-    zathura $@ &
+    zathura "$@" &
     disown
 }
 
 png() {
-    sxiv $@ &
+    sxiv "$@" &
     disown
 }
 
