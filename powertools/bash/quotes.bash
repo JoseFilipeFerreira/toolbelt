@@ -12,7 +12,9 @@ quotes=(
 "Learn the rules like a pro, so you can break them like an artist - Pablo Picasso"
 )
 
-echo -en "\e[$((RANDOM % 6 + 31))m"
-echo "${quotes[$RANDOM % ${#quotes[@]}]// - /$'\n'$'\t'-}" |
-    fold -s -w $(( COLUMNS < 120 ? COLUMNS : 120 ))
-echo -en "\e[0m"
+if [[ ! "$SSH_CLIENT" ]]; then
+    echo -en "\e[$((RANDOM % 6 + 31))m"
+    echo "${quotes[$RANDOM % ${#quotes[@]}]// - /$'\n'$'\t'-}" |
+        fold -s -w $(( COLUMNS < 120 ? COLUMNS : 120 ))
+    echo -en "\e[0m"
+fi
