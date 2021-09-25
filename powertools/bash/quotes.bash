@@ -10,9 +10,10 @@ quotes=(
 "E o caminho disse aos passos: Não posso dar-vos o destino, mas vou para la convosco - João Aguiar Campos"
 "Talk is cheap. Show me the code. - Linus Torvalds"
 "Learn the rules like a pro, so you can break them like an artist - Pablo Picasso"
+"Eu não sou uma banana - Rui Rio"
 )
 
-if [[ ! "$SSH_CLIENT" ]]; then
+if [[ "$(pwd)" = "$HOME" ]]; then
     echo -en "\e[$((RANDOM % 6 + 31))m"
     echo "${quotes[$RANDOM % ${#quotes[@]}]// - /$'\n'$'\t'-}" |
         fold -s -w $(( COLUMNS < 120 ? COLUMNS : 120 ))

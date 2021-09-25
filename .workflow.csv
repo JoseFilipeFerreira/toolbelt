@@ -69,11 +69,10 @@ pacman,extra,ttf-font-awesome
 pacman,extra,vdirsyncer
 pacman,extra,wireless_tools
 pacman,extra,xclip
+pacman,extra,xdotool
 pacman,extra,xorg-server
-pacman,extra,xorg-xdpyinfo
 pacman,extra,xorg-xev
 pacman,extra,xorg-xinit
-pacman,extra,xorg-xprop
 pacman,extra,xorg-xrandr
 pacman,extra,zathura
 pacman,extra,zathura-pdf-poppler

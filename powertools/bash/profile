@@ -24,7 +24,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
-. ~/.config/user-dirs.dirs
+. "$HOME"/.config/user-dirs.dirs
 
 export WALLS="$XDG_DATA_HOME/wallpapers"
 export MUSIC="$XDG_DATA_HOME/music"
@@ -66,10 +66,9 @@ if [ "$(tty)" = "/dev/tty1" ]; then
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
     clear
-elif command -v tmux &> /dev/null && [[ ! "$TMUX" ]]; then
-    if [[ "$SSH_CLIENT" ]]; then
-        export TERM=xterm
-
+elif [[ "$SSH_CLIENT" ]]; then
+    export TERM=xterm
+    if command -v tmux &> /dev/null && [[ ! "$TMUX" ]] && [[ "$(pwd)" = "$HOME" ]]; then
         echo -n 'Launch tmux? [Y/n]'
         read -r
         case $REPLY in
