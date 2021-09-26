@@ -2,6 +2,7 @@
 BOLD_RED="\033[1;31m"
 GREEN="\033[32m"
 YELLOW="\033[33m"
+BLUE="\033[34m"
 
 __c() {
     local NO_COLOUR="\e[00m"
@@ -37,8 +38,12 @@ PS1=$(
     IFS=
     echo "${PS1_ELEMENTS[*]} "
 )
+export PS1
+
+PS2="$(__c "$BLUE" "| ")"
+export PS2
+
+PS4="$(__c "$BLUE" "\$(basename \$0):\$LINENO: ")"
+export PS4
 
 PROMPT_COMMAND='printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"'
-
-
-export PS1
