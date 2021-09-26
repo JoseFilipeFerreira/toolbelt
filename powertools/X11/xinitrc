@@ -5,5 +5,6 @@ sxhkd &
 picom --experimental-backends --daemon
 dunst &
 thonkbar &
+death &
 
 exec i3

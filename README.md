@@ -10,6 +10,7 @@ Colection of scripts to be used in the terminal or on a keybind
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+* [death](toolbox/death.tool) warn if all batteries are bellow a certain percent
 * [dl_anime](toolbox/dl_anime.tool) TUI to download from [nyaa](https://nyaa.si) based on watching list from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [ex](toolbox/ex.tool) extract anything

@@ -6,10 +6,10 @@ pixel="██"
 tmp_space="__"
 
 
-if [ "$#" -ne 6 ] && [ "$#" -ne 7 ]; then
-    echo "USAGE: pixel color1 color2 color3 color4 color5 color6 FILE"
-    exit
-fi
+# if [ "$#" -ne 6 ] && [ "$#" -ne 7 ]; then
+#     echo "USAGE: pixel color1 color2 color3 color4 color5 color6 FILE"
+#     exit
+# fi
 
 c1="\e[$((30 + $1))m"
 c2="\e[$((30 + $2))m"
@@ -24,21 +24,63 @@ file="output.ascii"
 reset_color="\e[0m"
 
 grid_vec=()
-clear
+
+while true; do
+    # print grid with escape codes
+    for grid in "${grid_vec[@]}"; do
+        if [[ "$grid" = "\n" ]]; then
+            echo
+        else
+            eval echo -en "$grid"
+        fi
+    done
+    echo
+    echo -e "$c1$pixel$c2$pixel$c3$pixel$c4$pixel$c5$pixel$c6$pixel$reset_color"
+    echo " 1 2 3 4 5 6"
+
+    read -n 1
+
+    case "$REPLY" in
+        [1-6])
+            echo "change color"
+            ;;
+        " ")
+            grid_vec+=( "$tmp_space" )
+            ;;
+        "")
+            grid_vec+=( "\n" )
+            ;;
+        x|X)
+            [[ "${#grid_vec[@]}" -gt 0 ]] &&
+                unset "grid_vec[-1]"
+            ;;
+        c|C)
+            read -p "Clear all(y/N)?" choice
+            case "$choice" in
+              y|Y ) grid_vec=();;
+            esac
+            ;;
+        $'\e'|s|S)
+            echo "save"
+            ;;
+        *)
+            echo "invalid key"
+    esac
+
+    # delete
+    # clear all
+    # save
+
+    # read
+    # echo "$REPLY"
+done
+
+exit
 select option in draw space enter delete change_color clear; do
     clear
     case "$option" in
         draw)
             grid_vec+=( "$pixel" )
-            ;;
-        space)
-            grid_vec+=( "$tmp_space" )
-            ;;
-        enter)
-            grid_vec+=( "\n" )
-            ;;
-        delete)
-            unset "grid_vec[-1]"
             ;;
         change_color)
             while :; do
@@ -54,22 +96,11 @@ select option in draw space enter delete change_color clear; do
             done
             clear
             ;;
-        clear)
-            grid_vec=()
             ;;
         *)
             echo "invalid option"
             ;;
     esac
-    # print grid with escape codes
-    for grid in "${grid_vec[@]}"; do
-        if [[ "$grid" = "\n" ]]; then
-            echo
-        else
-            eval echo -en "$grid"
-        fi
-    done
-    echo -e "\e[0m"
 done
 
 #print result to file
