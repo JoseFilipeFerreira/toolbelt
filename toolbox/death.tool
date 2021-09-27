@@ -9,7 +9,7 @@ _has_charge(){
     done < <(acpi -b | cut -d, -f2 | sed 's/[ %]//g')
 }
 
-warn_file="/tmp/.drain_warned"
+warn_file="/tmp/.death_warned"
 
 while :; do
     if _has_charge; then
@@ -22,9 +22,9 @@ while :; do
         notify-send \
             --urgency=critical \
             --icon="$DOTFILES"/assets/low_battery.png \
-            -a drain \
+            -a death \
             "low battery" \
-            "bellow $min_percent"
+            "bellow $min_percent%"
     fi
     sleep 1m
 done
