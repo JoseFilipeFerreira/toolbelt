@@ -26,6 +26,7 @@ Colection of scripts to be used in the terminal or on a keybind
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [tr](toolbox/tr.tool) transmission-remote wrapper
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+* [vimtemp](toolbox/vimtemp.tool) 
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 * [workin](toolbox/workin.tool) workout manager
 

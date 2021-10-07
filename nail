@@ -5,7 +5,7 @@
     DOTFILES="$(dirname "$(readlink -f "$0")")"
 
 _make_symlink(){
-    if [ -h "$2" ] && ! [ -e "$2" ]; then
+    if [ -h "$2" ] && [ ! -e "$2" ]; then
         case "$3" in
             sudo)
                 echo -e "\033[31msudo link:\033[0m $(basename "$2")"
@@ -100,8 +100,7 @@ _store_tools(){
 
     # Remove Broken Links
     for tool in "$dest"/*; do
-        [ -f "$tool" ] || continue
-        if [ ! -e "$tool" ]; then
+        if [ -h "$tool" ] && [ ! -e "$tool" ]; then
             echo -e "\033[31m$(basename "$tool")\033[0m"
             rm "$tool"
         fi
