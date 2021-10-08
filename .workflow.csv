@@ -33,6 +33,7 @@ pacman,essential,transmission-cli
 pacman,essential,tree
 pacman,essential,unrar
 pacman,essential,unzip
+pacman,essential,usbutils
 pacman,essential,wget
 pacman,essential,xdg-user-dirs
 pacman,essential,youtube-dl
@@ -44,6 +45,7 @@ pacman,extra,discord
 pacman,extra,dunst
 pacman,extra,feh
 pacman,extra,firefox
+pacman,extra,gimp
 pacman,extra,hacksaw
 pacman,extra,i3-gaps
 pacman,extra,i3lock
