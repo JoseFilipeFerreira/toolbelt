@@ -5,8 +5,8 @@ Collection of scripts and dotfiles that follow me on all of my linux adventures
 Colection of scripts to be used in the terminal or on a keybind
 * [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
+* [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
@@ -22,11 +22,11 @@ Colection of scripts to be used in the terminal or on a keybind
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromCal](toolbox/termFromCal.tool) contextual terminal based on time (integrates with [calendar](toolbox/calendar.tool))
-* [termFromHere](toolbox/termFromHere.tool) terminal in the current directory
+* [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [tr](toolbox/tr.tool) transmission-remote wrapper
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
-* [vimtemp](toolbox/vimtemp.tool) 
+* [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 * [workin](toolbox/workin.tool) workout manager
 
