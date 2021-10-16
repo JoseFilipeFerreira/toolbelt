@@ -55,6 +55,7 @@ pacman,extra,mpv
 pacman,extra,network-manager-applet
 pacman,extra,newsboat
 pacman,extra,noto-fonts
+pacman,extra,noto-fonts-cjk
 pacman,extra,noto-fonts-emoji
 pacman,extra,pavucontrol
 pacman,extra,picom
