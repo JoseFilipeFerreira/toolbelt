@@ -9,7 +9,7 @@ position = top
 [right]
 scripts/ethernet, 5
 scripts/wifi, 5
-blind --block, ONCE
+blind backlight --block, ONCE
 deaf --block, ONCE
 scripts/battery 1, 10
 scripts/battery 0, 10

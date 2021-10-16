@@ -3,7 +3,7 @@ Collection of scripts and dotfiles that follow me on all of my linux adventures
 
 ## 🧰 [Toolbox](toolbox)(scripts)
 Colection of scripts to be used in the terminal or on a keybind
-* [blind](toolbox/blind.tool) brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+* [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer

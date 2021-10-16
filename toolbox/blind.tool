@@ -1,29 +1,71 @@
 #!/bin/bash
-# brightness changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+# brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
-n_step="9"
-step_percent="$(( 100 / n_step ))"
+_usage(){
+
+    echo "NAME:"
+    echo "    blind - brightness manager"
+    echo
+    echo "USAGE:"
+    echo "    blind DEVICE OPTION"
+    echo
+    echo "DEVICE:"
+
+    readarray -t devices < <(\
+        awk '/^case/,/^esac/' "$0" |
+            grep -E '^    [a-z|]*)$' |
+            sed 's/)//g;s/ //g')
+
+    printf "    %s\n" "${devices[@]}"
+
+    echo
+    echo "OPTION:"
+
+    awk '/^    case/,/^    esac/' "$0" |
+        grep -E "^\s*(#|;;|[^*]\)|-.*\))" |
+        sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
+
+}
+
+_ctrl_bctl(){
+    max="$(brightnessctl "${@:2}" max)"
+
+    step="$(( max / 9 ))"
+    [[ "$step" = 0 ]] && step=1
+
+    case "$1" in
+        +)
+            # Increase brightness
+            set_value="+$step"
+            ;;
+        -)
+            # Decrease brightness
+            set_value="$step-"
+            ;;
+        --block)
+            # Block compatible with Thonkbar
+            curr="$(brightnessctl "${@:2}" get)"
+            echo "$(( curr / step ))"
+            exit
+            ;;
+        *)
+            _usage
+            exit
+            ;;
+    esac
+
+    brightnessctl "${@:2}" set "$set_value"
+    pkill --signal 36 thonkbar
+}
 
 case "$1" in
-    +)
-        brightnessctl set +"$step_percent"%
-        pkill --signal 36 thonkbar
+    keyboard)
+        _ctrl_bctl "$2" --device="*kbd*"
         ;;
-    -)
-        brightnessctl --min-value=6 set "$step_percent"-%
-        pkill --signal 36 thonkbar
-        ;;
-    --block)
-        xrandr |
-            awk '/ connected/ && /[[:digit:]]x[[:digit:]].*+/{print $1}' |
-            grep -q "eDP-1" \
-        || exit
-
-        curr_percent="$(brightnessctl -m info | grep -Po "[0-9]*(?=%)")"
-        echo "$(( curr_percent / step_percent ))"
+    backlight)
+        _ctrl_bctl "$2" --class="backlight" --min-value=6
         ;;
     *)
-        echo "USAGE: blind [+|-|--block]"
-        exit
+        _usage
         ;;
 esac

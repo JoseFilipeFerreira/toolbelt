@@ -27,7 +27,10 @@ control + alt + Tab
 # XF86 KEYS
 
 XF86MonBrightness{Up,Down}
-        blind {+,-}
+        blind backlight {+,-}
+
+XF86KbdBrightness{Up,Down}
+        blind keyboard {+,-}
 
 ## control media
 
