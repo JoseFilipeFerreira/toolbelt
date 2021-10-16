@@ -10,7 +10,7 @@ quotes=(
 "E o caminho disse aos passos: Não posso dar-vos o destino, mas vou para la convosco - João Aguiar Campos"
 "Talk is cheap. Show me the code. - Linus Torvalds"
 "Learn the rules like a pro, so you can break them like an artist - Pablo Picasso"
-"Eu não sou uma banana - Rui Rio"
+"Eu não sou uma banana - Rui Moreira"
 )
 
 if [[ "$(pwd)" = "$HOME" ]]; then
