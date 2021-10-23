@@ -5,7 +5,7 @@ Collection of scripts and dotfiles that follow me on all of my linux adventures
 Colection of scripts to be used in the terminal or on a keybind
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [calendar](toolbox/calendar.tool) weekly calendar with current and next event search (more info with `calendar --help`)
+* [calendar](toolbox/calendar.tool) notify of next event and open location if there is less than 60 seconds to go
 * [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
@@ -21,7 +21,6 @@ Colection of scripts to be used in the terminal or on a keybind
 * [nospace](toolbox/nospace.tool) correct filenames
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
 * [share](toolbox/share.tool) share files in my webserver
-* [termFromCal](toolbox/termFromCal.tool) contextual terminal based on time (integrates with [calendar](toolbox/calendar.tool))
 * [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [tr](toolbox/tr.tool) transmission-remote wrapper
