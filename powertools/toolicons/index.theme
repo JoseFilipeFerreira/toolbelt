@@ -1,7 +1,7 @@
 [Icon Theme]
 Name=toolicons
 Comment=Theme for toolbelt dotfiles
-Inherits=Adawait,default
+Inherits=Adwait
 
 Directories=8x8/apps,8x8/devices,8x8/emotes,8x8/mimetypes,8x8/status,16x16/apps,16x16/devices,16x16/emotes,16x16/mimetypes,16x16/status,32x32/apps,32x32/devices,32x32/emotes,32x32/mimetypes,32x32/status,64x64/apps,64x64/devices,64x64/emotes,64x64/mimetypes,64x64/status,128x128/apps,128x128/devices,128x128/emotes,128x128/mimetypes,128x128/status,256x256/apps,256x256/devices,256x256/emotes,256x256/mimetypes,256x256/status,512x512/apps,512x512/devices,512x512/emotes,512x512/mimetypes,512x512/status
 
