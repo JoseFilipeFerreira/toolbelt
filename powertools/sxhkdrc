@@ -1,7 +1,7 @@
 # PROGRAMS
 
-super + {F1,F2,F3}
-        {discord,$BROWSER,$BROWSER $(calendar --curr-link)}
+super + {F1,F2}
+        {discord,$BROWSER}
 
 super + Home
         meross-cli --toggle
@@ -12,8 +12,8 @@ super + {_,shift +} d
 {_,control +, alt +} @Print
         cuffs {--select --clipboard, --clipboard, --select --floating}
 
-super + {_,shift +,control +} Return
-        {$TERMINAL,termFromHere,termFromCal}
+super + {_, shift +} Return
+        {$TERMINAL,termFromHere}
 
 super + w
         wall
@@ -60,10 +60,18 @@ XF86Search
         dmenu_IQ
 
 XF86{Tools,WWW,Mail}
-        launch_and_move {1 kodi,3 $BROWSER,4 discord}
+        launch-and-move {1 kodi,3 $BROWSER,4 discord}
 
 XF86HomePage
         meross-cli --toggle
+
+# DUNST KEYBINDS
+
+control + {_, shift +} space
+        dunstctl {close,close-all}
+
+control + {_, shift +} grave
+        dunstctl {history-pop,context}
 
 # WM KEYBINDS
 
