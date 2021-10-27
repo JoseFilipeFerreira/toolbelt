@@ -37,6 +37,27 @@ _make_makefile(){
     echo -e "\033[32mmake install:\033[0m $out_install"
 }
 
+_make_install(){
+    script="$1/install.sh"
+    [[ -f "$script" ]] || return
+
+    if ! bash "$script" check; then
+        case "$2" in
+            sudo)
+                echo -e "\033[32msudo install:\033[0m $1" |
+                    sed "s|$HOME|~|g"
+                sudo bash "$script"
+                ;;
+            *)
+                echo -e "\033[32minstall:\033[0m $1" |
+                    sed "s|$HOME|~|g"
+                bash "$script"
+                ;;
+        esac
+
+    fi
+}
+
 _make_generate(){
     if [ "$1" -nt "$2" ]; then
         case "$3" in
@@ -71,22 +92,24 @@ _deploy_dotfiles(){
         dest="${linevec[1]//\~/$HOME}"
 
         mkdir -p "$(dirname "$dest")"
-        if [[ " ${attrs[*]} " =~ " sudo " ]]; then
-            mode="sudo"
-        else
-            unset mode
-        fi
 
+        unset mode
         for attr in "${attrs[@]}"; do
             case "$attr" in
                 link)
                     _make_symlink "$orig" "$dest" "$mode"
                     ;;
                 make)
-                    _make_makefile "$orig" "$dest" "$mode"
+                    _make_makefile "$orig"
+                    ;;
+                install)
+                    _make_install "$orig" "$mode"
                     ;;
                 generate)
                     _make_generate "$orig" "$dest" "$mode"
+                    ;;
+                sudo)
+                    mode=sudo
                     ;;
             esac
         done

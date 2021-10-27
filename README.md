@@ -3,10 +3,11 @@ Collection of scripts and dotfiles that follow me on all of my linux adventures
 
 ## 🧰 [Toolbox](toolbox)(scripts)
 Colection of scripts to be used in the terminal or on a keybind
+* [add-icons](toolbox/add-icons.tool) manage [toolicons](powertools/toolicons) icon theme
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event and open location if there is less than 60 seconds to go
-* [cal_sync](toolbox/cal_sync.tool) Sync calendar with vdirsyncer
+* [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
@@ -14,7 +15,7 @@ Colection of scripts to be used in the terminal or on a keybind
 * [dl_anime](toolbox/dl_anime.tool) TUI to download from [nyaa](https://nyaa.si) based on watching list from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [ex](toolbox/ex.tool) extract anything
-* [launch_and_move](toolbox/launch_and_move.tool) move to a workspace and launch a program (if that program is not running)
+* [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))

@@ -1,0 +1,11 @@
+gtk-can-change-accels = 1
+
+gtk-icon-theme-name = "toolicons"
+gtk-theme-name = "ayu"
+
+style "user-font"
+{
+        font_name="Cantarell 11"
+}
+widget_class "*" style "user-font"
+gtk-font-name = "Cantarell 11"

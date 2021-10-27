@@ -1,4 +1,4 @@
-X11/10-keyboard.conf,/etc/X11/xorg.conf.d/10-keyboard.conf,link,sudo,extra
+X11/10-keyboard.conf,/etc/X11/xorg.conf.d/10-keyboard.conf,sudo,link,extra
 X11/Xresources,~/.config/X11/Xresources,link,extra
 X11/xinitrc,~/.xinitrc,link,extra
 alacritty.yml,~/.config/alacritty/alacritty.yml,link,extra
@@ -9,6 +9,7 @@ clang-format,~/.clang-format,link,essential
 dunstrc,~/.config/dunst/dunstrc,link,extra
 ghci.conf,~/.ghc/ghci.conf,link,essential
 gitconfig,~/.gitconfig,link,essential
+gtk-2.0,~/.config/gtk-2.0,link,extra
 gtk-3.0,~/.config/gtk-3.0,link,extra
 i3.conf,~/.config/i3/config,link,extra
 khal.conf,~/.config/khal/config,link,essential
@@ -23,6 +24,8 @@ pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
 termux.properties,~/.termux/termux.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
+toolicons,/usr/share/icons/toolicons,install,extra
+toolsounds,/usr/share/sounds/toolsounds,sudo,link,extra
 transmission-daemon.json,~/.config/transmission-daemon/settings.json,link,essential
 user-dirs.dirs,~/.config/user-dirs.dirs,link,essential
 vdirsyncer.conf,~/.config/vdirsyncer/config,link,essential

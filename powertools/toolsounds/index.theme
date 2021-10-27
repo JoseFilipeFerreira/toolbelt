@@ -1,0 +1,10 @@
+[Sound Theme]
+Name=toolsounds
+Comment=Sound theme for toolbelt dotfiles
+Directories=notifications
+
+[notifications]
+OutputProfile=stereo
+
+# http://0pointer.de/public/sound-naming-spec.html
+# http://0pointer.de/public/sound-theme-spec.html
