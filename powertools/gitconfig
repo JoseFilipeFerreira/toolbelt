@@ -5,3 +5,5 @@
 	email = jose.filipe.matos.ferreira@gmail.com
 [core]
 	hooksPath = .githooks/
+[init]
+	defaultBranch = master
