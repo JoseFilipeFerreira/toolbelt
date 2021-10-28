@@ -153,8 +153,8 @@ printf "%s\n" "${FILTERS[@]}" | sort -u >| "$config"
     echo "run hammer for initial setup" &&
     exit
 
-_deploy_dotfiles
 _store_tools "$DOTFILES"/toolbox ~/.local/bin
+_deploy_dotfiles
 
 if [[ " ${FILTERS[*]} " =~ " mobile " ]]; then
     _store_tools "$DOTFILES"/handtools ~/.termux/tasker

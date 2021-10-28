@@ -3,5 +3,5 @@ if [ "$1" = check ]; then
     [ -d /usr/share/icons/toolicons ] && exit 0
     exit 1
 else
-    add-icons
+    ~/.local/bin/add-icons
 fi
