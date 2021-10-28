@@ -30,17 +30,6 @@ def print_info(s: str):
 def print_error(s: str):
     print(f"[error] {s}")
 
-class ListType(Enum):
-    WATCHING = 1
-    COMPLETED = 2
-    ONHOLD = 3
-    DROPPED = 4
-    PLAN2WATCH = 6
-
-class MediaType(Enum):
-    ANIME = "animelist"
-    MANGA = "mangalist"
-
 @dataclass
 class NyaaResult():
     title: str
@@ -76,23 +65,30 @@ class NyaaResult():
 
         return None if error else output
 
+class AiringStatus(Enum):
+    AIRING = 1
+    FINISHED_AIRING = 2
+    NOT_YET_AIRED = 3
+
 @dataclass
 class MalResult():
+    airing_status: AiringStatus
+    id: int
+    image_path: str
+    num_episodes: int
     num_watched_episodes: int
     title: str
-    num_episodes: int
-    id: int
     url: str
-    image_path: str
 
     def __init__(self, d):
+        self.id = d['id']
+        self.image_path = d['image_path']
+        self.num_episodes = d['num_episodes']
         self.num_watched_episodes = d['num_watched_episodes']
         self.title = d['title']
-        self.num_episodes = d['num_episodes']
-        self.id = d['id']
         self.url = d['url']
-        self.image_path = d['image_path']
-        self.clean_title = self.title.replace("!", "").replace(" ", "_").replace(".", "")
+        self.airing_status = AiringStatus(d['airing_status'])
+        self.clean_title = self.title.replace("!", "").replace(" ", "_").replace(".", "").replace(":", "")
         self.anime_path = ANIME_LOCATION + "/" + self.clean_title
 
     def mkdir(self):
@@ -117,6 +113,17 @@ class MalResult():
                 f.write(response.content)
         else:
             print_error("could not download image")
+
+class ListType(Enum):
+    WATCHING = 1
+    COMPLETED = 2
+    ONHOLD = 3
+    DROPPED = 4
+    PLAN2WATCH = 6
+
+class MediaType(Enum):
+    ANIME = "animelist"
+    MANGA = "mangalist"
 
 def get_mal(
     user: str,
@@ -191,12 +198,15 @@ def main():
     print_info("fetching users animes")
     animes = get_mal("nifernandes")
 
-    print()
     for anime in animes:
+        print ("\n>", anime.title)
+        if anime.airing_status == AiringStatus.NOT_YET_AIRED:
+            print_error("anime not yet aired")
+            continue
+
         anime.download_thumb()
         anime.mkdir()
 
-    for anime in animes:
         search_nyaa = anime.title
         last_anime = get_last_anime(anime.anime_path)
         next_anime = None if not last_anime else last_anime + 1
@@ -204,11 +214,11 @@ def main():
             search_nyaa += f" {next_anime:02}"
         search_nyaa += " 1080p"
 
-        print("\n>", search_nyaa)
+        print(">", search_nyaa)
 
-        if last_anime and last_anime >= anime.num_episodes:
-            print_info("anime already downloaded")
-            continue
+        # if last_anime and last_anime >= anime.num_episodes:
+        #     print_info("anime already downloaded")
+        #     continue
 
         results = get_nyaa(search_nyaa)
 
@@ -216,9 +226,9 @@ def main():
             print_error("no results found")
             continue
 
-        results = list(filter(
-            lambda x: x.is_valid_result(next_anime, anime.title),
-            results))
+        # results = list(filter(
+            # lambda x: x.is_valid_result(next_anime, anime.title),
+            # results))
 
         if not results:
             print_error("no valid results found")
