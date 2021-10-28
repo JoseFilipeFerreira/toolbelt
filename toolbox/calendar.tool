@@ -21,7 +21,7 @@ _print_seconds(){
     echo "in $secs secs"
 }
 
-tmp_sep="#"
+tmp_sep="^"
 
 event="$(\
     khal list \
