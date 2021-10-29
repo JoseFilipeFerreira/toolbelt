@@ -21,7 +21,7 @@ while :; do
 
         notify-send \
             --urgency=critical \
-            --icon="$DOTFILES"/assets/low_battery.png \
+            --icon="status/battery-low" \
             -a death \
             "low battery" \
             "bellow $min_percent%"

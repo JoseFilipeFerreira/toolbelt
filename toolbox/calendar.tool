@@ -8,7 +8,7 @@ _notify(){
     notify-send \
         -u "$priority" \
         -a "in $calendar" \
-        -i "$DOTFILES/assets/calendar.png" \
+        -i "apps/calendar" \
         "$1" \
         "$2"
 }

@@ -118,7 +118,7 @@ esac
 
 notify-send \
     -u low \
-    -i "$DOTFILES/assets/image_placeholder.png" \
+    -i "mimetypes/image-x-generic" \
     -a "cuffs" \
     "$header" \
     "$content"

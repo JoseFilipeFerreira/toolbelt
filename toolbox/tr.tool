@@ -17,7 +17,7 @@ notify(){
     [ "$DISPLAY" ] &&
         notify-send \
             -u normal \
-            -i "$DOTFILES/assets/transmission.png" \
+            -i "apps/transmission" \
             -a "tr" \
             "$1" "$2"
     echo "$1: $2"

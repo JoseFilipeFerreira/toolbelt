@@ -38,7 +38,7 @@ sleep "$s"
 
 notify-send \
     -u critical \
-    -i "$DOTFILES/assets/timer.png" \
+    -i "apps/timer" \
     -a "timer" \
     "Time is up: $input"\
     "$message"

@@ -90,7 +90,7 @@ done
 echo "[Icon Theme]
 Name=$(basename "$src_icons")
 Comment=Theme for toolbelt dotfiles
-Inherits=Adawait,default" >| "$tmp_index_file"
+Inherits=Adwaita" >| "$tmp_index_file"
 
 folders=()
 for res in "${resolutions[@]}" ; do

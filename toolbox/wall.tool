@@ -121,7 +121,7 @@ _change_wall(){
     echo "$file"
     notify-send \
         -u low \
-        -i "$DOTFILES/assets/image_placeholder.png" \
+        -i "mimetypes/image-x-generic" \
         -a "wall" \
         "Wallpaper changed" \
         "$(basename "$file")"

@@ -11,7 +11,7 @@ case "$1" in
         fi
         notify-send \
             -u low \
-            -i "$DOTFILES/assets/meross.png" \
+            -i "apps/meross" \
             -t 1500 \
             -a "merrosd" \
             "Attic" \
