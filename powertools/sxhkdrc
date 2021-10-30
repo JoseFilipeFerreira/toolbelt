@@ -70,8 +70,11 @@ XF86HomePage
 control + {_, shift +} space
         dunstctl {close,close-all}
 
-control + {_, shift +} grave
-        dunstctl {history-pop,context}
+control + {_, shift +} period
+        dunstctl {action 0, context}
+
+control + grave
+        dunstctl history-pop
 
 # WM KEYBINDS
 

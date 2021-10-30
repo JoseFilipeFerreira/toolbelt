@@ -1,8 +1,9 @@
 [global]
     ### Display ###
+
     follow = keyboard
 
-    width=300
+    width=(100,300)
     height=250
     offset=7x30
 
@@ -21,6 +22,8 @@
     separator_color = "auto"
 
     idle_threshold = 60
+
+    corner_radius = 5
 
     ### Text ###
 
@@ -51,9 +54,9 @@
 
     ### Mouse ###
 
-    mouse_left_click = context
+    mouse_left_click = do_action
     mouse_middle_click = close_current
-    mouse_right_click = do_action
+    mouse_right_click = context
 
 [discord]
     desktop_entry = "discord"
