@@ -20,8 +20,8 @@ while :; do
         touch "$warn_file"
 
         notify-send \
-            --urgency=critical \
-            --icon="status/battery-low" \
+            -u "critical" \
+            -i "status/battery-low" \
             -a death \
             "low battery" \
             "bellow $min_percent%"

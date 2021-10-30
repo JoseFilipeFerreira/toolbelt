@@ -1,18 +1,24 @@
 #!/bin/bash
 # choose display setting
 
+_notify(){
+    notify-send \
+        -a "dock" \
+        "$1" \
+        "$2"
+}
 readarray -t connected_monitors < <(xrandr | grep " connected " | cut -d" " -f1)
 
 _internal_monitor(){
     [[ "${#connected_monitors[@]}" -lt 1 ]] &&
-        notify-send "No monitors connected" &&
+        _notify "No monitors connected" &&
         exit
     echo "${connected_monitors[0]}"
 }
 
 _external_monitor(){
     [[ "${#connected_monitors[@]}" -le 1 ]] &&
-        notify-send "No external monitors connected" &&
+        _notify "No external monitors connected" &&
         exit
     echo "${connected_monitors[-1]}"
 }
@@ -54,7 +60,7 @@ case "$layout" in
         exit
 esac
 
-notify-send "$layout"
+_notify "$layout"
 
 killall --quiet thonkbar lemonbar
 thonkbar &

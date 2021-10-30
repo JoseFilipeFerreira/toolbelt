@@ -1,28 +1,20 @@
 #!/bin/bash
-# notify of next event and open location if there is less than 60 seconds to go
+# notify of next event (with action to open it)
 
 calendar="Meetings"
 priority="low"
 
+
 _notify(){
-    notify-send \
+    dunstify \
         -u "$priority" \
         -a "in $calendar" \
         -i "apps/calendar" \
-        "$1" \
-        "$2"
+        "$@"
 }
 
-_print_seconds(){
-    secs="$1"
-    [[ $secs -gt 86400 ]] && echo "in $(( secs / 86400)) days" && return
-    [[ $secs -gt 3600 ]] && echo "in $(( secs / 3600)) hours" && return
-    [[ $secs -gt 60 ]] && echo "in $(( secs / 60)) mins" && return
-    echo "in $secs secs"
-}
-
+# get next event
 tmp_sep="^"
-
 event="$(\
     khal list \
         -a "$calendar" \
@@ -30,27 +22,70 @@ event="$(\
         --day-format "" |
     head -n 1)"
 
-[[ ! "$event" ]] && _notify "Couldn't find events" "in $calendar" && exit
+[[ ! "$event" ]] &&
+    _notify "Couldn't find events" "in $calendar" &&
+    exit
 
 readarray -d"$tmp_sep" -t event_fields < <(echo "$event")
 
-name="${event_fields[1]}"
+start=${event_fields[0]}
+title="${event_fields[1]}"
 location="${event_fields[2]}"
-date_epoch="$(date --date="${event_fields[0]}" +%s)"
+
+# calculate time to event
+date_epoch="$(date --date="$start" +%s)"
 curr_time="$(date +%s)"
 time="$(( date_epoch - curr_time ))"
 
-[[ "$time" -lt 86400 ]] && priority="normal"
-[[ "$time" -lt 300 ]] && priority="critical"
+# print time to event and calulate urgency
+time_left="$(printf 'in %dd %02dh%02dm' $((time/86400)) $((time%86400/3600)) $((time%3600/60)))"
 
-_notify \
-    "$name" \
-    "<b>time:</b>\n${event_fields[0]} ($(_print_seconds "$time"))\n<b>location:</b>\n$location"
+[[ "$time" -lt 86400 ]] &&
+    priority="normal" &&
+    time_left="$(printf 'in %02dh%02dm' $((time/3600)) $((time%3600/60)))"
 
-[[ "$time" -gt 60 ]] && exit
+[[ "$time" -lt 3600 ]] &&
+    priority="critical" &&
+    time_left="$(printf 'in %02dm' $((time/60)))"
 
+body="<b>time:</b>\n$start ($time_left)\n"
+
+actions=()
 case "$location" in
     http*)
+        body+="<b>location:</b>\nas link"
+        actions+=( --action="open, $location")
+        ;;
+    *)
+        body+="<b>location:</b>\n$location"
+
+        readarray -t installed_apps < <(compgen -c)
+        if [[ " ${installed_apps[*]} " =~ " ${location} " ]]; then
+            actions+=( --action="launch, $location")
+        else
+            actions+=( --action="search, google")
+            [ "$(echo "$location" | wc -w)" -gt 1 ] &&
+                actions+=( --action="location, google maps")
+        fi
+        ;;
+esac
+
+
+action="$( _notify "$title" "$body" "${actions[@]}")"
+
+[ "$action" ] || exit
+
+case "$action" in
+    launch)
+        "$location" & disown
+        ;;
+    open)
         xdg-open "$location"
+        ;;
+    search)
+        xdg-open "https://www.google.com/search?q=${location// /\+}"
+        ;;
+    location)
+        xdg-open "https://www.google.com/maps/place/${location// /\+}"
         ;;
 esac

@@ -1,6 +1,14 @@
 #!/bin/bash
 # subscribe to a RSS feed with categories
 
+_notify(){
+    notify-send \
+        -u low \
+        -i "assets/rss" \
+        -a "newsboat" \
+        "$1" \
+        "$2"
+}
 urls="$XDG_CONFIG_HOME/newsboat/urls"
 
 cats="$(grep -o -e '---.*---' "$urls" | sed "s/---//g")"
@@ -12,11 +20,7 @@ if [[ ! "${cats[*]}" =~ ${cat} ]]; then
     case "$(echo -e "yes\nno" | dmenu -i -p "add $cat as category")" in
         yes)
             echo -e "\n\"---$cat---\"" >> "$urls"
-            notify-send \
-                -u low \
-                -i "$DOTFILES/assets/rss.png" \
-                -a "newsboat" \
-                "Added new category: \"$cat\""
+            _notify "Added new category: \"$cat\""
             ;;
         no|"")
             exit
@@ -43,19 +47,10 @@ case "$link" in
 esac
 
 if grep "$link" "$urls" >/dev/null ; then
-    notify-send \
-        -u low \
-        -i "$DOTFILES/assets/rss.png" \
-        -a "newsboat" \
-        'Link already subscribed'
+    _notify 'Link already subscribed'
     exit
 fi
 
 sed -i "s|\"---$cat---\"|&\n$link ${tags[*]}|g" "$urls"
 
-notify-send \
-    -u low \
-    -i "$DOTFILES/assets/rss.png" \
-    -a "newsboat" \
-    "Added new link to $cat" \
-    "$link"
+_notify "Added new link to $cat" "$link"

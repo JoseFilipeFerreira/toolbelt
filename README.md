@@ -6,7 +6,7 @@ Colection of scripts to be used in the terminal or on a keybind
 * [add-icons](toolbox/add-icons.tool) manage [toolicons](powertools/toolicons) icon theme
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
-* [calendar](toolbox/calendar.tool) notify of next event and open location if there is less than 60 seconds to go
+* [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
