@@ -1,5 +1,9 @@
 #!/bin/bash
 # Sync calendar with vdirsyncer
-vdirsyncer discover calendar
-vdirsyncer metasync --max-workers=1
+if [[ "$1" = "discover" ]]; then
+    vdirsyncer discover calendar
+    vdirsyncer discover contacts
+    vdirsyncer metasync
+fi
 vdirsyncer sync calendar
+vdirsyncer sync contacts
