@@ -24,6 +24,7 @@ pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
 termux.properties,~/.termux/termux.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
+todoman.py,~/.config/todoman/config.py,link,extra
 toolicons,/usr/share/icons/toolicons,install,extra
 toolsounds,/usr/share/sounds/toolsounds,sudo,link,extra
 transmission-daemon.json,~/.config/transmission-daemon/settings.json,link,essential

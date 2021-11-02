@@ -35,7 +35,7 @@ Collection of scripts to be launched from a [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [emoji](toolkit/emoji.menu) pick a emoji
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
-* [todo](toolkit/todo.menu) simple TODO list
+* [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](toolkit/trayer.menu) toggle trayer
 
 ## :hammer: [Powertools](powertools) (.dotfiles)

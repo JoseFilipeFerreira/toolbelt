@@ -1,25 +1,21 @@
 #!/bin/sh
-# simple TODO list
-folder="$XDG_DATA_HOME/dmenu"
-mkdir -p "$folder"
-file="$folder/todo"
-old_file="$folder/todo_history"
-touch "$file"
-touch "$old_file"
+# simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 
-prompt="Add/delete a task: "
+vdirsyncer sync calendar
 
-cmd=$(LC_ALL=C sort "$file" | dmenu -l 20 -p "$prompt")
-while [ -n "$cmd" ]; do
-    if grep -q "^$cmd\$" "$file"; then
-        grep -v "^$cmd\$" "$file" > "$file.$$"
-        mv "$file.$$" "$file"
-        echo "$cmd" >> "$old_file"
+while : ; do
+    events="$(todo --porcelain | jq -r '.[] | "\(.id) \(.summary)"' )"
+    cmd="$(echo "$events" | dmenu -l 20 -p "Add/delete a task:")"
+
+    [[ "$cmd" ]] || break
+
+    if [[ "$events" == *"$cmd"* ]]; then
+        event_id="$(echo "$cmd" | grep -Eo '^[0-9]*')"
+        todo done "$event_id"
     else
-        echo "$cmd" >> "$file"
+        todo new "$cmd"
     fi
 
-    cmd=$(LC_ALL=C sort "$file" | dmenu -l 20 -p "$prompt")
 done
 
-exit 0
+vdirsyncer sync calendar
