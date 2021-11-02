@@ -15,8 +15,8 @@ super + {_,shift +} d
 super + {_, shift +} Return
         {$TERMINAL,termFromHere}
 
-super + w
-        wall
+super + {w, c}
+        {wall, calendar}
 
 super + control + l
         lock
