@@ -57,12 +57,13 @@ case "$location" in
         actions+=( --action="open, $location")
         ;;
     *)
-        body+="<b>location:</b>\n$location"
 
         readarray -t installed_apps < <(compgen -c)
         if [[ " ${installed_apps[*]} " =~ " ${location} " ]]; then
+            body+="<b>app:</b>\n$location"
             actions+=( --action="launch, $location")
         else
+            body+="<b>location:</b>\n$location"
             actions+=( --action="search, google")
             [ "$(echo "$location" | wc -w)" -gt 1 ] &&
                 actions+=( --action="location, google maps")
