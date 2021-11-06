@@ -5,8 +5,8 @@
 
 src_icons="$DOTFILES"/powertools/toolicons
 dest_icons=/usr/share/icons/toolicons
-tmp_index_file="$src_icons/index.theme"
-index_file="$dest_icons/index.theme"
+tmp_index_file="$src_icons"/index.theme
+index_file="$dest_icons"/index.theme
 
 _get_width(){ echo "$1" | grep -Eo '^[0-9]*'; }
 _get_height(){ echo "$1" | grep -Eo '[0-9]*$'; }
@@ -36,6 +36,7 @@ mimetypes
 places
 status
 )
+
 
 # add image if valid
 if [ "$1" ] && [ "$2" ]; then
@@ -69,6 +70,17 @@ readarray -t icons < <(\
         -exec bash -c \
             'echo "$(basename $(dirname $1))/$(basename $1)"' shell {} \;)
 
+
+if [ "$1" == "check" ];then
+    for res in "${resolutions[@]}"; do
+        for icon in "${icons[@]}"; do
+            dest="$dest_icons/$res/$icon"
+            [[ -f "$dest_icons/$res/$icon" ]] || exit 1
+        done
+    done
+    exit 0
+fi
+
 # get only the contexts that are used
 readarray -t used_ctxs < <(\
     {
@@ -84,7 +96,6 @@ for res in "${resolutions[@]}"; do
         sudo mkdir -p "$dest_icons/$res/$ctx"
     done
 done
-
 
 # generate index.theme
 echo "[Icon Theme]
