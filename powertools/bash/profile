@@ -26,9 +26,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 
 . "$HOME"/.config/user-dirs.dirs
 
-export WALLS="$XDG_DATA_HOME/wallpapers"
-export MUSIC="$XDG_DATA_HOME/music"
-
 mkdir -p "$XDG_CACHE_HOME/less"
 export LESSKEY="$XDG_CONFIG_HOME/less/lesskey"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"

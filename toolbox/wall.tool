@@ -4,7 +4,7 @@
 set -e
 remote="kiwi"
 remote_location=".local/share/wallpapers"
-local_location="${WALLS:?Wallpaper location not set}"
+local_location="$HOME/.local/share/wallpapers"
 
 BRIGHTNESS_FILTER='
 import sys

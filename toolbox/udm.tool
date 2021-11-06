@@ -2,14 +2,11 @@
 # playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 set -e
 
+remote="kiwi"
 remote_location=".local/share/music"
+local_location="$HOME/.local/share/music"
 
-local_location="$(xdg-user-dir MUSIC)"
-[[ "$local_location" == "$HOME" ]] &&
-    echo -e "[error] xdg-user-dir MUSIC returned \$HOME\n[info] falling back to \$MUSIC" &&
-    local_location="$MUSIC"
-
-[[ ! "$local_location" ]] && echo "[error] \$MUSIC not set" && exit
+mkdir -p "$local_location"
 
 ydl_flags=(
     --format 'bestaudio'
@@ -27,12 +24,12 @@ _update_bar(){
 }
 
 _sync_music() {
-    [[ "$(hostname)" == "kiwi" ]] && return 0
+    [[ "$(hostname)" == "$remote" ]] && return 0
 
-    if ssh -q kiwi exit
+    if ssh -q "$remote" exit
     then
         echo -e "\e[32mSyncing Music...\e[0m"
-        rsync -av --delete --exclude ".config" kiwi:"$remote_location/" "$local_location"
+        rsync -av --delete --exclude ".config" "$remote":"$remote_location/" "$local_location"
         echo
         return 0
     else
@@ -70,8 +67,8 @@ _add_music() {
         ;;
     esac
     nospace "$local_location"/*
-    [[ "$(hostname)" == "kiwi" ]] || \
-        rsync -av "$local_location"/ kiwi:"$remote_location"
+    [[ "$(hostname)" == "$remote" ]] || \
+        rsync -av "$local_location"/ "$remote":"$remote_location"
 }
 
 _discord_music() {
@@ -184,7 +181,7 @@ case "$1" in
         _sync_music || exit
         file="$(find "$local_location"  -type f -printf "%f\n" | sort | fzf )"
 
-        ssh kiwi rm -v "$remote_location/$file" | sed -e "s|'/|kiwi:'/|g"
+        ssh "$remote" rm -v "$remote_location/$file" | sed -e "s|'/|$remote:'/|g"
         rm -v "$local_location/$file"
         ;;
 

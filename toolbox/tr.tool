@@ -1,15 +1,17 @@
 #!/bin/bash
 # transmission-remote wrapper
 
+remote="kiwi"
+
 transmission(){
-    if [[ "$(hostname)" == "kiwi" ]]
+    if [[ "$(hostname)" == "$remote" ]]
     then
         transmission-remote "$@"
-    elif nmap -T5 -sP kiwi 2> /dev/null | grep -q "Host is up"
+    elif nmap -T5 -sP "$remote" 2> /dev/null | grep -q "Host is up"
     then
-        transmission-remote kiwi "$@"
+        transmission-remote "$remote" "$@"
     else
-        ssh kiwi 'transmission-remote '"$*"
+        ssh "$remote" 'transmission-remote '"$*"
     fi
 }
 
