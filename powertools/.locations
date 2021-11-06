@@ -9,7 +9,7 @@ clang-format,~/.clang-format,link,essential
 dunstrc,~/.config/dunst/dunstrc,link,extra
 ghci.conf,~/.ghc/ghci.conf,link,essential
 gitconfig,~/.gitconfig,link,essential
-gtk-2.0,~/.config/gtk-2.0,link,extra
+gtk-2.0/gtkrc,~/.config/gtk-2.0/gtkrc,link,extra
 gtk-3.0,~/.config/gtk-3.0,link,extra
 i3.conf,~/.config/i3/config,link,extra
 khal.conf,~/.config/khal/config,link,essential
