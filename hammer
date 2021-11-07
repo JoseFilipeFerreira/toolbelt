@@ -7,11 +7,10 @@ set -e
 
 _global_dark_theme(){
     echo -e "\033[32mInstalling dark theme...\033[0m"
-    [[ -d "$HOME"/.themes/ayu ]] && echo "Already installed" && return
+    [[ -d /usr/share/icons/ayu ]] && echo "Already installed" && return
     wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"
     unzip -q /tmp/master.zip -d /tmp
-    mkdir -p "$HOME"/.themes
-    mv /tmp/Aritim-Dark-master/GTK "$HOME"/.themes/ayu
+    sudo mv /tmp/Aritim-Dark-master/GTK /usr/share/icons/ayu
     rm -r /tmp/{Aritim-Dark-master,master.zip}
 }
 
