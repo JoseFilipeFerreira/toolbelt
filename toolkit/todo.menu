@@ -1,7 +1,21 @@
-#!/bin/sh
+#!/bin/bash
 # simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 
-vdirsyncer sync calendar
+_sync(){
+    [[ "$failed_sync" ]] && return
+
+    if ! error="$(vdirsyncer sync calendar 2>&1 > /dev/null)"; then
+        failed_sync="true"
+        notify-send \
+            -a todo \
+            -u low \
+            -i apps/todo \
+            "Failed sync" \
+            "$(echo "$error" | grep "error" )"
+    fi
+}
+
+_sync
 
 while : ; do
     events="$(todo --porcelain | jq -r '.[] | "\(.id) \(.summary)"' )"
@@ -11,11 +25,11 @@ while : ; do
 
     if [[ "$events" == *"$cmd"* ]]; then
         event_id="$(echo "$cmd" | grep -Eo '^[0-9]*')"
-        todo done "$event_id"
+        todo "done" "$event_id"
     else
         todo new "$cmd"
     fi
 
 done
 
-vdirsyncer sync calendar
+_sync
