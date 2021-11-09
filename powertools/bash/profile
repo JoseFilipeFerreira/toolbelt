@@ -24,6 +24,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
+# shellcheck disable=SC1091
 . "$HOME"/.config/user-dirs.dirs
 
 mkdir -p "$XDG_CACHE_HOME/less"
@@ -56,7 +57,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
-#shellcheck source=/home/mightymime/.bashrc
+# shellcheck disable=SC1091
 [[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
 if [ "$(tty)" = "/dev/tty1" ]; then

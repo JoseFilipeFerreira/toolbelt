@@ -39,6 +39,7 @@ _gcl() {
     mapfile -t COMPREPLY < <(compgen -W "$repos" -- "$CWORD")
 }
 
+# shellcheck disable=SC1090
 command -V gh &> /dev/null &&
     . <(gh completion -s bash) &&
     complete -F _gcl gcl
