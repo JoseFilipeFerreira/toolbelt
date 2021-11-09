@@ -40,6 +40,7 @@ status
 
 # add image if valid
 if [ "$1" ] && [ "$2" ]; then
+    # shellcheck disable=SC2076
     if [[ ! " ${contexts[*]} " =~ " $1 " ]]; then
         echo "Invalid context $1"
         echo "Can only be: ${contexts[*]}"

@@ -70,6 +70,7 @@ for event in "${events[@]}"; do
         $'\n')
             ;;
         *)
+            # shellcheck disable=SC2076
             if [[ " ${installed_apps[*]} " =~ " ${location} " ]]; then
                 body+="<b>app:</b>\n$location"
                 actions+=( --action="launch, $location")

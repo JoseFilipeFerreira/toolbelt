@@ -46,6 +46,7 @@ _get_pkgs(){
     pkg_mngr="$1"
     while IFS=',' read -r l; do
         IFS=',' read -ra args <<< "$l"
+        # shellcheck disable=SC2076
         [[ " ${args[*]} " =~ " $pkg_mngr " ]] &&
         {
             [[ ! "${*:2}" ]] ||
@@ -61,12 +62,19 @@ _get_pkgs(){
 _install_pkgs(){
     if command -V pacman &> /dev/null; then
         sudo pacman -Suyy
-        sudo pacman -S --needed  $(_get_pkgs pacman "$@")
-        _make_repos $(_get_pkgs repos "$@")
-        aura -S $(_get_pkgs aur "$@")
+
+        readarray -t pkg_pacman < <(_get_pkgs pacman "$@")
+        sudo pacman -S --needed "${pkg_pacman[@]}"
+
+        readarray -t pkg_repos < <(_get_pkgs repos "$@")
+        _make_repos "${pkg_repos[@]}"
+
+        readarray -t pkg_aura < <(_get_pkgs aur "$@")
+        aura -S "${pkg_aura[@]}"
     elif command -V pkg &> /dev/null;then
         pkg update && pkg upgrade
-        pkg install $(_get_pkgs pkg "$@")
+        readarray -t pkg_pkg < <(_get_pkgs pkg "$@")
+        pkg install "${pkg_pkg[@]}"
     else
         echo "Package manager not suported"
     fi

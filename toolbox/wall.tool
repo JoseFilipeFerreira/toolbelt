@@ -92,7 +92,7 @@ _add_wall() {
 _rm_wall() {
     wall=$(sxiv -to "$local_location")
     for w in $wall; do
-        #shellcheck disable=SC2029
+        # shellcheck disable=SC2029
         ssh "$remote" \
             "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
         rm -v "$w"

@@ -29,7 +29,7 @@ _sync_music() {
     if ssh -q "$remote" exit
     then
         echo -e "\e[32mSyncing Music...\e[0m"
-        rsync -av --delete --exclude ".config" "$remote":"$remote_location/" "$local_location"
+        rsync -av --delete --exclude ".config" "$remote:$remote_location/" "$local_location"
         echo
         return 0
     else

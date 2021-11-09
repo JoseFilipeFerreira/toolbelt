@@ -44,7 +44,7 @@ while true; do
     [[ "${#grid_vec[@]}" -eq 0 ]] &&
         unset curr_color
 
-    read -n 1
+    read -r -n 1
 
     case "$REPLY" in
         # draw color
@@ -73,14 +73,14 @@ while true; do
             ;;
         # clear all
         c|C)
-            read -p "Clear all(y/N)?" choice
+            read -r -p "Clear all(y/N)?" choice
             case "$choice" in
               y|Y ) grid_vec=();;
             esac
             ;;
         # save and exit
         $'\e')
-            read -p "Save and Exit(y/N)?" choice
+            read -r -p "Save and Exit(y/N)?" choice
             case "$choice" in
               y|Y ) break;;
             esac

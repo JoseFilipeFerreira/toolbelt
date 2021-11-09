@@ -4,7 +4,7 @@
 min_percent=10
 
 _has_charge(){
-    while read percent; do
+    while read -r percent; do
         [[ "$percent" -gt "$min_percent" ]] && return 0
     done < <(acpi -b | cut -d, -f2 | sed 's/[ %]//g')
 }
