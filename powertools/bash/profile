@@ -57,7 +57,7 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 # ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
-# shellcheck disable=SC1091
+# shellcheck disable=SC1090,SC1091
 [[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
