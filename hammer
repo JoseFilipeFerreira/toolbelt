@@ -7,10 +7,11 @@ set -e
 
 _global_dark_theme(){
     echo -e "\033[32mInstalling dark theme...\033[0m"
-    [[ -d /usr/share/icons/ayu ]] && echo "Already installed" && return
+    [[ -d "$HOME"/.local/share/themes/ayu ]] && echo "Already installed" && return
     wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"
     unzip -q /tmp/master.zip -d /tmp
-    sudo mv /tmp/Aritim-Dark-master/GTK /usr/share/icons/ayu
+    mkdir -p "$HOME"/.local/share/themes
+    sudo mv /tmp/Aritim-Dark-master/GTK "$HOME"/.local/share/themes/ayu
     rm -r /tmp/{Aritim-Dark-master,master.zip}
 }
 
@@ -55,7 +56,7 @@ _get_pkgs(){
                 <(printf '%s\n' "${args[@]}" | sort))" \
             ]] ;
         } &&
-            echo -n "${args[2]} "
+            echo "${args[2]}"
     done < "$DOTFILES/.workflow.csv"
 }
 
