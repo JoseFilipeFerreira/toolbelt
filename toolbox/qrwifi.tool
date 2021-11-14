@@ -11,4 +11,7 @@ fi
 
 pass="$(nmcli -s connection show "$ssid" | grep psk: | grep -o '[^ ]*$')"
 
+ssid="$(echo "$ssid" | sed 's/ [0-9]\+$//')"
+
+echo "SSID: $ssid"
 qrencode -t ANSI256UTF8 "WIFI:S:$ssid;T:WPA;P:$pass"
