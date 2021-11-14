@@ -1,10 +1,12 @@
 #!/bin/python
+from sys import stdout
+
 from i3ipc import Connection, Event
-import sys
 
 i3 = Connection()
 
 def print_workspaces():
+    """print workspaces in lemonbar format"""
     print('%{F-}', end='')
     for workspace in i3.get_workspaces():
         name = workspace.name
@@ -19,9 +21,10 @@ def print_workspaces():
         print('  %{B-} ', end='')
     print()
 
-    sys.stdout.flush()
+    stdout.flush()
 
-def react_on_event(self, e):
+def react_on_event(self, event):
+    """function to handle events"""
     print_workspaces()
 
 i3.on(Event.WORKSPACE_FOCUS, react_on_event)

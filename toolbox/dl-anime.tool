@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from enum import Enum
 from json import loads
 from pathlib import Path
-from subprocess import PIPE, STDOUT, Popen
+from subprocess import PIPE, Popen
 from typing import List, Optional
 from urllib.parse import urlencode
 
@@ -24,14 +24,17 @@ if not os.path.isdir(THUMB_LOCATION):
     print("Invalid thumb location:", THUMB_LOCATION)
     sys.exit()
 
-def print_info(s: str):
-    print(f"[info] {s}")
+def print_info(string: str):
+    """print information"""
+    print(f"[info] {string}")
 
-def print_error(s: str):
-    print(f"[error] {s}")
+def print_error(string: str):
+    """print errors"""
+    print(f"[error] {string}")
 
 @dataclass
 class NyaaResult():
+    """Class for Nyaa result"""
     title: str
     id: str
     magnet: str
@@ -42,6 +45,7 @@ class NyaaResult():
     completed: int
 
     def is_valid_result(self, episode: Optional[int], searched_title:str) -> bool:
+        """check if self is valid result"""
         if not episode:
             return True
 
@@ -50,13 +54,16 @@ class NyaaResult():
 
         matches = re.findall(r'\[[0-9a-zA-Z]+\]', self.title)
         clean_title = self.title
-        for b in matches:
-            clean_title = clean_title.replace(b, "")
+        for match in matches:
+            clean_title = clean_title.replace(match, "")
 
         if re.search(f' {episode} ', self.title) or re.search(f'S[0-9]*E{episode}', self.title):
             return True
 
+        return False
+
     def queue_magnet_link(self):
+        """queue magnet link in transmission-remote"""
         output, error = Popen(
             ["transmission-remote", "--add", self.magnet],
             stdout=PIPE,
@@ -66,12 +73,14 @@ class NyaaResult():
         return None if error else output
 
 class AiringStatus(Enum):
+    """status in MAL"""
     AIRING = 1
     FINISHED_AIRING = 2
     NOT_YET_AIRED = 3
 
 @dataclass
 class MalResult():
+    """Class for MyAnimeList result"""
     airing_status: AiringStatus
     id: int
     image_path: str
@@ -88,13 +97,16 @@ class MalResult():
         self.title = d['title']
         self.url = d['url']
         self.airing_status = AiringStatus(d['airing_status'])
-        self.clean_title = self.title.replace("!", "").replace(" ", "_").replace(".", "").replace(":", "")
+        remove = ["!", ".", ":"]
+        self.clean_title = self.title.replace(" ", "_").translate({ord(x): '' for x in remove})
         self.anime_path = ANIME_LOCATION + "/" + self.clean_title
 
     def mkdir(self):
+        """create directory for anime"""
         Path(self.anime_path).mkdir(parents=True, exist_ok=True)
 
     def download_thumb(self):
+        """download image in url"""
         path = THUMB_LOCATION + "/" + self.clean_title + ".jpg"
 
         if os.path.exists(path):
@@ -109,12 +121,13 @@ class MalResult():
 
         response = requests.get(image_url)
         if response.status_code == 200:
-            with open(path, 'wb') as f:
-                f.write(response.content)
+            with open(path, 'wb') as file:
+                file.write(response.content)
         else:
             print_error("could not download image")
 
 class ListType(Enum):
+    """possible media status in MAL"""
     WATCHING = 1
     COMPLETED = 2
     ONHOLD = 3
@@ -122,6 +135,7 @@ class ListType(Enum):
     PLAN2WATCH = 6
 
 class MediaType(Enum):
+    """possible media types in MAL"""
     ANIME = "animelist"
     MANGA = "mangalist"
 
@@ -129,6 +143,7 @@ def get_mal(
     user: str,
     media: MediaType = MediaType.ANIME,
     state: ListType = ListType.WATCHING) -> List[MalResult]:
+    """get list of all media from user"""
 
     url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
     soup = BeautifulSoup(requests.get(url).content, "html.parser")
@@ -143,8 +158,9 @@ def get_mal(
     return res
 
 def get_nyaa(title: str) -> List[NyaaResult]:
-    getVars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
-    url = f"https://nyaa.si/?{urlencode(getVars)}"
+    """get nyaa's search result"""
+    get_vars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
+    url = f"https://nyaa.si/?{urlencode(get_vars)}"
     soup = BeautifulSoup(requests.get(url).content, "html.parser")
     table = soup.find('table')
     if not table:
@@ -167,6 +183,7 @@ def get_nyaa(title: str) -> List[NyaaResult]:
     return res
 
 def get_last_anime(anime_path: str) -> int:
+    """get number of last downloaded episode"""
     dl_animes = os.listdir(anime_path)
     dl_animes.sort(reverse=True)
 
@@ -175,11 +192,12 @@ def get_last_anime(anime_path: str) -> int:
 
     try:
         return int(re.search(r'E([0-9]+?)\.', dl_animes[0]).group(1))
-    except:
+    except ValueError:
         print_error(f"invalid filename: {dl_animes[0]}")
         return None
 
 def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]:
+    """prompt user to choose a torrent file"""
     output, error = Popen(
         ["fzf", "--cycle", f"--header='search: {name}'"],
         stdout=PIPE,
