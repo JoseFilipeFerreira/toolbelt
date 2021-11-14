@@ -18,4 +18,4 @@ jobs:
         sudo luarocks install lanes
     - name: Run Luacheck
       run: |
-        find . -type f -iname "*.lua"
+        locate "/*.lua"
