@@ -14,7 +14,8 @@ jobs:
     steps:
     - name: Install Requirements
       run: |
-        sudo apt-get install -y lua-check lua-lanes
+        sudo apt-get install -y lua-check luarocks
+        luarocks install lanes
     - name: Run Luacheck
       run: |
         readarray -t files < <(find . -type f -name "*.lua")
