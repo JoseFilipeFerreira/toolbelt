@@ -18,4 +18,5 @@ jobs:
         sudo luarocks install lanes
     - name: Run Luacheck
       run: |
-        luacheck . || ( [[ "$?" -gt 1 ]] && exit 1 )
+        readarray -t files < <(find . -type f -name "*.lua")
+        luacheck "${files[@]}" || ( [[ "$?" -gt 1 ]] && exit 1 )
