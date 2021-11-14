@@ -25,4 +25,4 @@ jobs:
     - name: Run Pylint
       run: |
         readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
-        pylint -j 0 "${files[@]}"
+        pylint --exit-zero -j 0 "${files[@]}"
