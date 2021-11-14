@@ -21,6 +21,7 @@ Colection of scripts to be used in the terminal or on a keybind
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
 * [nospace](toolbox/nospace.tool) correct filenames
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
+* [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound

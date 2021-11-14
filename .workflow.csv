@@ -62,6 +62,7 @@ pacman,extra,picom
 pacman,extra,playerctl
 pacman,extra,pulseaudio
 pacman,extra,python-i3ipc
+pacman,extra,qrencode
 pacman,extra,shotgun
 pacman,extra,socat
 pacman,extra,sxhkd
