@@ -19,9 +19,10 @@ jobs:
         python-version: 3.7
     - name: Install Requirements
       run: |
+        apt install pylint
         python -m pip install --upgrade pip
-        pip install pylint i3ipc
+        pip install i3ipc
     - name: Run Pylint
       run: |
         readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
-        python lint.py --threshold 2 "${files[@]}"
+        pylint "${files[@]}"
