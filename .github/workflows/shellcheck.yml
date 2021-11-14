@@ -12,9 +12,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - name: Install shellcheck
-      run: sudo apt-get install -y shellcheck
-    - name: Run shellcheck
-      run: |
-        readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/(bash|sh)' .)
-        shellcheck "${files[@]}"
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Run Shellcheck
+        uses: mendess/shell-linter@develop
