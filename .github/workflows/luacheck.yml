@@ -18,4 +18,4 @@ jobs:
         sudo luarocks install lanes
     - name: Run Luacheck
       run: |
-        echo "files: $(find . -type f -name '*.lua' -print)"
+        echo "files: $(find . -type f | grep -E '\.lua$')"
