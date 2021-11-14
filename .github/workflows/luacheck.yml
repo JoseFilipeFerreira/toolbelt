@@ -19,4 +19,4 @@ jobs:
     - name: Run Luacheck
       run: |
         readarray -t files < <(find . -type f -name "*.lua")
-        echo "${files[*]}"
+        echo "files: ${files[*]}"
