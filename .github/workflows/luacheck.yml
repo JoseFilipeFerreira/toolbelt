@@ -1,0 +1,21 @@
+name: Luacheck CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Requirements
+      run: |
+        sudo apt-get install -y lua-check lua-lanes
+    - name: Run Luacheck
+      run: |
+        readarray -t files < <(find . -type f -name "*.lua")
+        luacheck "${files[@]}" || { [[ "$?" -gt 1 ]] && exit 1 }
