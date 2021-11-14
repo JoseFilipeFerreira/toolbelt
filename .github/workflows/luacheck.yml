@@ -18,4 +18,4 @@ jobs:
         sudo luarocks install lanes
     - name: Run Luacheck
       run: |
-        echo "files: $(pwd)"
+        echo "files: $(find toolbelt)"
