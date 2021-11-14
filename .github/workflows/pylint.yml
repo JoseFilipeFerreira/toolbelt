@@ -1,0 +1,27 @@
+name: Pylint CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: Install Requirements
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint i3ipc
+    - name: Run Pylint
+      run: |
+        readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
+        python lint.py --threshold 2 "${files[@]}"
