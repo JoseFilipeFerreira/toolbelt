@@ -1,7 +1,7 @@
 #!/bin/bash
 # generate qrcode for the current wifi connection
 
-ssid="$(nmcli -g NAME connection show | grep -v bridge | head -n 1)"
+ssid="$(nmcli -g NAME,TYPE,DEVICE connection show | grep "wireless" | head -n 1)"
 
 if [[ "$(echo "$ssid" | cut -d: -f3)" ]]; then
     ssid="$(echo "$ssid" | cut -d: -f1)"
