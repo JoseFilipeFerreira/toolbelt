@@ -68,10 +68,10 @@ if [ "$(tty)" = "/dev/tty1" ]; then
 elif [[ "$SSH_CLIENT" ]]; then
     export TERM=xterm
     if command -v tmux &> /dev/null && [[ ! "$TMUX" ]] && [[ "$(pwd)" = "$HOME" ]]; then
-        echo -n 'Launch tmux? [Y/n]'
+        echo -n 'Launch tmux? [y/N]'
         read -r
         case $REPLY in
-            "y"|"Y"|"")
+            "y"|"Y")
                 tmux -2 a &>/dev/null || tmux -2
                 exit
                 ;;
