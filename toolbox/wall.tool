@@ -3,8 +3,7 @@
 
 set -e
 remote="kiwi"
-remote_location=".local/share/wallpapers"
-local_location="$HOME/.local/share/wallpapers"
+folder=".local/share/wallpapers"
 
 BRIGHTNESS_FILTER='
 import sys
@@ -46,7 +45,7 @@ _sync_walls() {
     if ssh -q "$remote" exit
     then
         echo -e "\033[32mSyncing Walls...\033[0m"
-        rsync --exclude '.config' --delete -av "$remote:$remote_location/" "$local_location"
+        rsync --exclude '.config' --delete -av "$remote:$folder/" "$HOME/$folder"
         return 0
     else
         echo -e "\e[31mCouldn't connect to server\e[0m"
@@ -54,47 +53,54 @@ _sync_walls() {
     fi
 }
 
-_add_wall() {
-    case "$1" in
-        http*)
-            if [ "$2" = "" ]; then
-                wget "$1" -P "$local_location"
-                file="$(basename "$1")"
-            else
-                wget "$1" -O "$local_location/$2"
-                file="$2"
-            fi
-        ;;
-        *)
-            cp -v "$1" "$local_location"
-            file="$(basename "$1")"
-        ;;
-    esac
+_check_res(){
+    file="$HOME/$folder/$1"
 
-    touch -m "$local_location/$file"
+    touch -m "$file"
 
-    w="$(convert "$local_location/$file" -format '%[w]' info:)"
-    h="$(convert "$local_location/$file" -format '%[h]' info:)"
+    w="$(convert "$file" -format '%[w]' info:)"
+    h="$(convert "$file" -format '%[h]' info:)"
 
     echo "$w"x"$h"
 
-    if [ "$(echo "$w" | awk '$0 >= 1920 {print("true")}')" = true ] && [ "$(echo "$h" | awk '$0 >= 1080 {print("true")}')" = true ]
-    then
-        [[ "$(hostname)" == "$remote" ]] || \
-            rsync -av "$local_location"/ "$remote":"$remote_location"
+    if [[ "$w" -ge 1920 ]] && [[ "$h" -ge 1080 ]]; then
+        return 0
     else
-        rm "$local_location/$file"
         echo -e "\033[31mImage too small\033[0m"
+        rm "$file"
+        return 1
     fi
+}
 
+_add_wall() {
+    case "$1" in
+        http*)
+            if [[ "$(hostname)" != "$remote" ]]; then
+                echo -e "\e[32mDownloading on $remote...\e[0m"
+                ssh "$remote" ~/.local/bin/wall --add "$@"
+            else
+                file="$(basename "$1")"
+                [[ "$2" ]] && file="$2"
+                wget "$1" -O "$HOME/$folder/$file"
+                _check_res "$file"
+            fi
+            ;;
+        *)
+            if [[ "$(hostname)" != "$remote" ]]; then
+                _check_res "$1" && scp "$1" "$remote":"$folder"
+            else
+                cp -v "$1" "$HOME/$folder"
+                _check_res "$1"
+            fi
+            ;;
+    esac
 }
 
 _rm_wall() {
-    wall=$(sxiv -to "$local_location")
-    for w in $wall; do
+    readarray -t wall < <(sxiv -to "$HOME/$folder")
+    for w in "${wall[@]}"; do
         # shellcheck disable=SC2029
-        ssh "$remote" \
-            "find $remote_location -type l,f -name '$(basename "$w")' | xargs rm -v" | sed "s/'/'jff.sh:/"
+        ssh "$remote" rm -v "$folder/$(basename "$w")" | sed "s/'/'jff.sh:/"
         rm -v "$w"
     done
 }
@@ -127,7 +133,7 @@ _change_wall(){
         "$(basename "$file")"
 }
 
-[[ ! -d "$local_location" ]] && _sync_walls
+[[ ! -d "$HOME/$folder" ]] && _sync_walls
 
 case "$1" in
     -a|--add)
@@ -135,6 +141,7 @@ case "$1" in
         # Suports links and files
         _sync_walls || exit
         _add_wall "${@:2}"
+        _sync_walls || exit
         ;;
 
     -rm|--remove)
@@ -146,7 +153,7 @@ case "$1" in
     -s|--select)
         # Select wallpaper using sxiv
         _sync_walls || :
-        file="$(sxiv -to "$local_location")"
+        file="$(sxiv -to "$HOME/$folder")"
         [[ "$file" ]] || exit
         _change_wall "$file"
         ;;
@@ -154,7 +161,7 @@ case "$1" in
     --change|"")
         # Change to random wallpaper [default]
         _sync_walls || :
-        file=$(find "$local_location" -type f | shuf -n 1)
+        file=$(find "$HOME/$folder" -type f | shuf -n 1)
         _change_wall "$file"
         ;;
 

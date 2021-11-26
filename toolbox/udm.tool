@@ -3,10 +3,9 @@
 set -e
 
 remote="kiwi"
-remote_location=".local/share/music"
-local_location="$HOME/.local/share/music"
+folder=".local/share/music"
 
-mkdir -p "$local_location"
+mkdir -p "$HOME/$folder"
 
 ydl_flags=(
     --format 'bestaudio'
@@ -15,7 +14,7 @@ ydl_flags=(
     --no-playlist
     --audio-format mp3
     --embed-thumbnail
-    --output "$local_location/%(title)s.%(ext)s" )
+    --output "$HOME/$folder/%(title)s.%(ext)s" )
 
 mpvsocket="/tmp/mpvsocket"
 
@@ -29,7 +28,7 @@ _sync_music() {
     if ssh -q "$remote" exit
     then
         echo -e "\e[32mSyncing Music...\e[0m"
-        rsync -av --delete --exclude ".config" "$remote:$remote_location/" "$local_location"
+        rsync -av --delete --exclude ".config" "$remote:$folder/" "$HOME/$folder"
         echo
         return 0
     else
@@ -47,28 +46,39 @@ _add_music() {
             read -r
             case $REPLY in
                 "y"|"Y"|"")
-                    _add_music  "$link"
+                    _add_music "$link"
                     ;;
             esac
             return
         ;;
-        http*yout*)
-            youtube-dl "${ydl_flags[@]}" "$1"
-        ;;
         http*)
-            if [[ ! "$2" ]]; then
-                wget "$1" -P "$local_location"
+            if [[ "$(hostname)" != "$remote" ]]; then
+                echo -e "\e[32mDownloading on $remote...\e[0m"
+                ssh "$remote" ~/.local/bin/udm --add "$@"
             else
-                wget "$1" -O "$local_location/$2"
+                case "$1" in
+                    *yout*)
+                        youtube-dl "${ydl_flags[@]}" "$1"
+                        ;;
+                    *)
+                        if [[ ! "$2" ]]; then
+                            wget "$1" -P "$HOME/$folder"
+                        else
+                            wget "$1" -O "$HOME/$folder/$2"
+                        fi
+                        ;;
+                esac
+                ~/.local/bin/nospace "$HOME/$folder"/*
             fi
         ;;
         *)
-            cp "$1" "$local_location"
+            if [[ "$(hostname)" != "$remote" ]]; then
+                scp "$1" "$remote":"$folder"
+            else
+                cp "$1" "$HOME/$folder"
+            fi
         ;;
     esac
-    nospace "$local_location"/*
-    [[ "$(hostname)" == "$remote" ]] || \
-        rsync -av "$local_location"/ "$remote":"$remote_location"
 }
 
 _discord_music() {
@@ -162,27 +172,28 @@ case "$1" in
         #     get link from clipboard
         _sync_music || exit
         _add_music "${@:2}"
+        _sync_music || exit
         ;;
 
     -p|--play)
         # Shuffle music from playlist
-        _sync_music || [ -d "$local_location" ] || exit
-        _mpv_play --shuffle --no-video "$local_location"
+        _sync_music || [ -d "$HOME/$folder" ] || exit
+        _mpv_play --shuffle --no-video "$HOME/$folder"
         ;;
 
     -s|--select)
         # Select music (uses fzf)
-        _sync_music || [ -d "$local_location" ] || exit
-        file="$(find "$local_location"  -type f -printf "%f\n" | sort | fzf )"
-        _mpv_play --no-video "$local_location/$file"
+        _sync_music || [ -d "$HOME/$folder" ] || exit
+        file="$(find "$HOME/$folder"  -type f -printf "%f\n" | sort | fzf )"
+        _mpv_play --no-video "$HOME/$folder/$file"
         ;;
     -rm|--remove)
         # Delete music (uses fzf)
         _sync_music || exit
-        file="$(find "$local_location"  -type f -printf "%f\n" | sort | fzf )"
+        file="$(find "$HOME/$folder"  -type f -printf "%f\n" | sort | fzf )"
 
-        ssh "$remote" rm -v "$remote_location/$file" | sed -e "s|'/|$remote:'/|g"
-        rm -v "$local_location/$file"
+        ssh "$remote" rm -v "$folder/$file" | sed -e "s|'/|$remote:'/|g"
+        rm -v "$HOME/$folder/$file"
         ;;
 
     --discord)
