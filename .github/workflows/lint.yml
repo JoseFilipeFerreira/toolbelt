@@ -48,5 +48,6 @@ jobs:
           sudo apt-get install -y shellcheck
       - name: run shellcheck
         run: |
+          rm -r .git
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/(bash|sh)' .)
           shellcheck "${files[@]}"
