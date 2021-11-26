@@ -1,0 +1,53 @@
+name: Lint
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+jobs:
+
+  luacheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: install requirements
+        run: |
+          sudo apt-get install -y lua-check luarocks
+          sudo luarocks install lanes
+      - name: run luacheck
+        run: |
+          luacheck . || ( [[ "$?" -le 1 ]] && true)
+
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: install requirements
+        run: |
+          sudo apt-get install -y pylint
+          python -m pip install --upgrade pip
+          pip install i3ipc
+      - name: run pylint
+        run: |
+          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
+          pylint --exit-zero -j 0 "${files[@]}"
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: install requirements
+        run : |
+          sudo apt-get install -y shellcheck
+      - name: run shellcheck
+        run: |
+          rm -r .git
+          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/(bash|sh)' .)
+          shellcheck "${files[@]}"
