@@ -11,6 +11,7 @@ fi
 
 pass="$(nmcli -s connection show "$ssid" | grep psk: | grep -o '[^ ]*$')"
 
+#shellcheck disable=SC2001
 ssid="$(echo "$ssid" | sed 's/ [0-9]\+$//')"
 
 echo "SSID: $ssid"

@@ -1,5 +1,7 @@
 #!/bin/sh
 # pick a emoji
+
+#shellcheck disable=SC2002
 chosen=$(cat "$DOTFILES/toolkit/.emojis"  | dmenu -i -l 20)
 
 [ "$chosen" != "" ] || exit
