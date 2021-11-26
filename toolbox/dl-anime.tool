@@ -140,9 +140,9 @@ class MediaType(Enum):
     MANGA = "mangalist"
 
 def get_mal(
-    user: str,
-    media: MediaType = MediaType.ANIME,
-    state: ListType = ListType.WATCHING) -> List[MalResult]:
+        user: str,
+        media: MediaType = MediaType.ANIME,
+        state: ListType = ListType.WATCHING) -> List[MalResult]:
     """get list of all media from user"""
 
     url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
@@ -172,14 +172,14 @@ def get_nyaa(title: str) -> List[NyaaResult]:
         line_vec = line.find_all('td')
         res.append(
             NyaaResult(
-                title = line_vec[1].find_all('a')[-1]['title'],
-                id = line_vec[1].find_all('a')[-1]['href'],
-                magnet = line_vec[2].find_all('a')[1]['href'],
-                size = line_vec[3].contents[0],
-                date = line_vec[4].contents[0],
-                seeders = line_vec[5].contents[0],
-                leechers = line_vec[6].contents[0],
-                completed = line_vec[7].contents[0]))
+                title=line_vec[1].find_all('a')[-1]['title'],
+                id=line_vec[1].find_all('a')[-1]['href'],
+                magnet=line_vec[2].find_all('a')[1]['href'],
+                size=line_vec[3].contents[0],
+                date=line_vec[4].contents[0],
+                seeders=line_vec[5].contents[0],
+                leechers=line_vec[6].contents[0],
+                completed=line_vec[7].contents[0]))
     return res
 
 def get_last_anime(anime_path: str) -> int:
@@ -217,7 +217,7 @@ def main():
     animes = get_mal("nifernandes")
 
     for anime in animes:
-        print ("\n>", anime.title)
+        print("\n>", anime.title)
         if anime.airing_status == AiringStatus.NOT_YET_AIRED:
             print_error("anime not yet aired")
             continue
