@@ -20,7 +20,7 @@ jobs:
           sudo luarocks install lanes
       - name: run luacheck
         run: |
-          luacheck . || ( [[ "$?" -le 1 ]] && true)
+          luacheck .
 
   pylint:
     runs-on: ubuntu-latest
