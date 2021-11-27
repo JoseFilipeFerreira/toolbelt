@@ -31,8 +31,8 @@ case $1 in
         res="$(transmission --add "$2" | grep -Eo '".*"' | sed 's/\"//g')"
         notify "Add torrent" "$res"
         ;;
-    -l|--list)
-        # List available torrents
+    -l|--list|"")
+        # List available torrents [default]
         transmission --list
         ;;
     -rm|--delete)
@@ -46,7 +46,6 @@ case $1 in
         [[ "$id" ]] || return 0
         res="$(transmission -t "$id" --remove | grep -Eo '".*"' | sed 's/\"//g')"
         notify "Delete torrent" "$res"
-
         ;;
 
     -h|--help)
@@ -57,7 +56,7 @@ case $1 in
         echo "OPTIONS:"
         awk '/^case/,/^esac/' "$0" |
             grep -E "^\s*(#|-.*|;;)" |
-            sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
+            sed -E 's/\|\"\"//g;s/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
         exit
         ;;
 esac
