@@ -1,5 +1,5 @@
 #!/bin/python
-# TUI to download from [nyaa](https://nyaa.si) based on watching list from [MAL](https://myanimelist.net)
+"""TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)"""
 import os
 import re
 import sys
@@ -36,10 +36,9 @@ def print_error(string: str):
 class NyaaResult():
     """Class for Nyaa result"""
     title: str
-    id: str
+    nyaa_id: str
     magnet: str
     size: str
-    date: str
     seeders: int
     leechers: int
     completed: int
@@ -81,8 +80,10 @@ class AiringStatus(Enum):
 @dataclass
 class MalResult():
     """Class for MyAnimeList result"""
+    # pylint: disable=too-many-instance-attributes
+
     airing_status: AiringStatus
-    id: int
+    mal_id: int
     image_path: str
     num_episodes: int
     num_watched_episodes: int
@@ -90,7 +91,7 @@ class MalResult():
     url: str
 
     def __init__(self, d):
-        self.id = d['id']
+        self.mal_id = d['id']
         self.image_path = d['image_path']
         self.num_episodes = d['num_episodes']
         self.num_watched_episodes = d['num_watched_episodes']
@@ -173,10 +174,9 @@ def get_nyaa(title: str) -> List[NyaaResult]:
         res.append(
             NyaaResult(
                 title = line_vec[1].find_all('a')[-1]['title'],
-                id = line_vec[1].find_all('a')[-1]['href'],
+                nyaa_id = line_vec[1].find_all('a')[-1]['href'],
                 magnet = line_vec[2].find_all('a')[1]['href'],
                 size = line_vec[3].contents[0],
-                date = line_vec[4].contents[0],
                 seeders = line_vec[5].contents[0],
                 leechers = line_vec[6].contents[0],
                 completed = line_vec[7].contents[0]))
@@ -213,6 +213,7 @@ def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]
     return None if not anime else anime[0]
 
 def main():
+    """entrypoint"""
     print_info("fetching users animes")
     animes = get_mal("nifernandes")
 
