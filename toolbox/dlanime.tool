@@ -141,9 +141,9 @@ class MediaType(Enum):
     MANGA = "mangalist"
 
 def get_mal(
-    user: str,
-    media: MediaType = MediaType.ANIME,
-    state: ListType = ListType.WATCHING) -> List[MalResult]:
+        user: str,
+        media: MediaType = MediaType.ANIME,
+        state: ListType = ListType.WATCHING) -> List[MalResult]:
     """get list of all media from user"""
 
     url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
@@ -218,7 +218,7 @@ def main():
     animes = get_mal("nifernandes")
 
     for anime in animes:
-        print ("\n>", anime.title)
+        print("\n>", anime.title)
         if anime.airing_status == AiringStatus.NOT_YET_AIRED:
             print_error("anime not yet aired")
             continue
