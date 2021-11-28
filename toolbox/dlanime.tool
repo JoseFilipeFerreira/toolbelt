@@ -43,7 +43,7 @@ class NyaaResult():
     leechers: int
     completed: int
 
-    def is_valid_result(self, episode: Optional[int], searched_title:str) -> bool:
+    def is_valid_result(self, episode: Optional[int], searched_title: str) -> bool:
         """check if self is valid result"""
         if not episode:
             return True
@@ -173,13 +173,13 @@ def get_nyaa(title: str) -> List[NyaaResult]:
         line_vec = line.find_all('td')
         res.append(
             NyaaResult(
-                title = line_vec[1].find_all('a')[-1]['title'],
-                nyaa_id = line_vec[1].find_all('a')[-1]['href'],
-                magnet = line_vec[2].find_all('a')[1]['href'],
-                size = line_vec[3].contents[0],
-                seeders = line_vec[5].contents[0],
-                leechers = line_vec[6].contents[0],
-                completed = line_vec[7].contents[0]))
+                title=line_vec[1].find_all('a')[-1]['title'],
+                nyaa_id=line_vec[1].find_all('a')[-1]['href'],
+                magnet=line_vec[2].find_all('a')[1]['href'],
+                size=line_vec[3].contents[0],
+                seeders=line_vec[5].contents[0],
+                leechers=line_vec[6].contents[0],
+                completed=line_vec[7].contents[0]))
     return res
 
 def get_last_anime(anime_path: str) -> int:
