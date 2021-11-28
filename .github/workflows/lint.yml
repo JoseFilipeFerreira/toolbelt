@@ -33,7 +33,7 @@ jobs:
         run: |
           sudo apt-get install -y pylint
           python -m pip install --upgrade pip
-          pip install i3ipc beautifulsoup4
+          pip install --user i3ipc beautifulsoup4
       - name: run pylint
         run: |
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
