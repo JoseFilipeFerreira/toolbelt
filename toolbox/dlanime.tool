@@ -43,7 +43,7 @@ class NyaaResult():
     leechers: int
     completed: int
 
-    def is_valid_result(self, episode: Optional[int], searched_title:str) -> bool:
+    def is_valid_result(self, episode: Optional[int], searched_title: str) -> bool:
         """check if self is valid result"""
         if not episode:
             return True
@@ -63,13 +63,14 @@ class NyaaResult():
 
     def queue_magnet_link(self):
         """queue magnet link in transmission-remote"""
-        output, error = Popen(
+        with Popen(
             ["transmission-remote", "--add", self.magnet],
             stdout=PIPE,
             encoding='utf-8'
-        ).communicate()
+        ) as proc:
+            output, error = proc.communicate()
 
-        return None if error else output
+            return None if error else output
 
 class AiringStatus(Enum):
     """status in MAL"""
@@ -90,14 +91,14 @@ class MalResult():
     title: str
     url: str
 
-    def __init__(self, d):
-        self.mal_id = d['id']
-        self.image_path = d['image_path']
-        self.num_episodes = d['num_episodes']
-        self.num_watched_episodes = d['num_watched_episodes']
-        self.title = d['title']
-        self.url = d['url']
-        self.airing_status = AiringStatus(d['airing_status'])
+    def __init__(self, dic):
+        self.mal_id = dic['id']
+        self.image_path = dic['image_path']
+        self.num_episodes = dic['num_episodes']
+        self.num_watched_episodes = dic['num_watched_episodes']
+        self.title = dic['title']
+        self.url = dic['url']
+        self.airing_status = AiringStatus(dic['airing_status'])
         remove = ["!", ".", ":"]
         self.clean_title = self.title.replace(" ", "_").translate({ord(x): '' for x in remove})
         self.anime_path = ANIME_LOCATION + "/" + self.clean_title
@@ -173,13 +174,13 @@ def get_nyaa(title: str) -> List[NyaaResult]:
         line_vec = line.find_all('td')
         res.append(
             NyaaResult(
-                title = line_vec[1].find_all('a')[-1]['title'],
-                nyaa_id = line_vec[1].find_all('a')[-1]['href'],
-                magnet = line_vec[2].find_all('a')[1]['href'],
-                size = line_vec[3].contents[0],
-                seeders = line_vec[5].contents[0],
-                leechers = line_vec[6].contents[0],
-                completed = line_vec[7].contents[0]))
+                title=line_vec[1].find_all('a')[-1]['title'],
+                nyaa_id=line_vec[1].find_all('a')[-1]['href'],
+                magnet=line_vec[2].find_all('a')[1]['href'],
+                size=line_vec[3].contents[0],
+                seeders=line_vec[5].contents[0],
+                leechers=line_vec[6].contents[0],
+                completed=line_vec[7].contents[0]))
     return res
 
 def get_last_anime(anime_path: str) -> int:
@@ -198,19 +199,20 @@ def get_last_anime(anime_path: str) -> int:
 
 def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]:
     """prompt user to choose a torrent file"""
-    output, error = Popen(
+    with Popen(
         ["fzf", "--cycle", f"--header='search: {name}'"],
         stdout=PIPE,
         stdin=PIPE,
         encoding="utf-8"
-    ).communicate("\n".join([x.title for x in content])+"\n")
+    ) as proc:
+        output, error = proc.communicate("\n".join([x.title for x in content])+"\n")
 
-    if error or not output:
-        return None
+        if error or not output:
+            return None
 
-    anime = list(filter(lambda x: x.title == output.strip(), content))
+        anime = list(filter(lambda x: x.title == output.strip(), content))
 
-    return None if not anime else anime[0]
+        return None if not anime else anime[0]
 
 def main():
     """entrypoint"""

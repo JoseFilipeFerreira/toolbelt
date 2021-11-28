@@ -4,12 +4,12 @@ from sys import stdout
 
 from i3ipc import Connection, Event
 
-i3 = Connection()
+I3WM = Connection()
 
 def print_workspaces():
     """print workspaces in lemonbar format"""
     print('%{F-}', end='')
-    for workspace in i3.get_workspaces():
+    for workspace in I3WM.get_workspaces():
         name = workspace.name
 
         if workspace.urgent:
@@ -28,12 +28,12 @@ def react_on_event(_, __):
     """function to handle events"""
     print_workspaces()
 
-i3.on(Event.WORKSPACE_FOCUS, react_on_event)
-i3.on(Event.WORKSPACE_URGENT, react_on_event)
-i3.on(Event.WINDOW_MOVE, react_on_event)
-i3.on(Event.WINDOW_NEW, react_on_event)
-i3.on(Event.WINDOW_URGENT, react_on_event)
+I3WM.on(Event.WORKSPACE_FOCUS, react_on_event)
+I3WM.on(Event.WORKSPACE_URGENT, react_on_event)
+I3WM.on(Event.WINDOW_MOVE, react_on_event)
+I3WM.on(Event.WINDOW_NEW, react_on_event)
+I3WM.on(Event.WINDOW_URGENT, react_on_event)
 
 print_workspaces()
 
-i3.main()
+I3WM.main()
