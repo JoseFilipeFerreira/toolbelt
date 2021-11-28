@@ -1,4 +1,5 @@
 #!/bin/python
+"""block to display i3 workspaces on thonkbar"""
 from sys import stdout
 
 from i3ipc import Connection, Event
@@ -23,7 +24,7 @@ def print_workspaces():
 
     stdout.flush()
 
-def react_on_event(self, event):
+def react_on_event(_, __):
     """function to handle events"""
     print_workspaces()
 

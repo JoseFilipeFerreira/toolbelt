@@ -8,7 +8,7 @@ generate_description(){
             [ "$(sed -n '/^#!/p;q' "$script")" ] || continue
             filename="$(basename -- "$script")"
             echo -n "* [${filename%.*}]($script) "
-            sed -n 2p "$script" | sed 's/ *# *//g'
+            sed -n 2p "$script" | sed 's/ *# *//g;s/ *""" *//g'
         done
 }
 

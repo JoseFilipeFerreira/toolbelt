@@ -12,7 +12,7 @@ Colection of scripts to be used in the terminal or on a keybind
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [death](toolbox/death.tool) warn if all batteries are bellow a certain percent
-* [dl-anime](toolbox/dl-anime.tool) TUI to download from [nyaa](https://nyaa.si) based on watching list from [MAL](https://myanimelist.net)
+* [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [ex](toolbox/ex.tool) extract anything
 * [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
