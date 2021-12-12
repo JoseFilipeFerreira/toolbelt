@@ -18,7 +18,7 @@ mpv,~/.config/mpv,link,extra
 neofetch/config.conf,~/.config/neofetch/config.conf,generate,essential
 newsboat.conf,~/.config/newsboat/config,link,essential
 npmrc,~/.config/npm/npmrc,link,essential
-nvim/init.vim,~/.config/nvim/init.vim,link,essential
+nvim,~/.config/nvim,link,essential
 picom.conf,~/.config/picom.conf,link,extra
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
