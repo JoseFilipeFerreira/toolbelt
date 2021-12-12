@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 local set = vim.opt
 
 set.completeopt = {'menu', 'menuone', 'noselect', 'preview'}
