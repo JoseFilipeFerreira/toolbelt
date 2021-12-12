@@ -2,6 +2,7 @@ local iabbrev = require('utils.misc').iabbrev
 local au = require('utils.au')
 local command = require('utils.command')
 
+-- luacheck: globals vim
 local set = vim.opt
 local expand = vim.fn.expand
 local fn = vim.fn

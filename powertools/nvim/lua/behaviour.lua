@@ -1,6 +1,5 @@
+-- luacheck: globals vim
 local set = vim.opt
-local expand = vim.fn.expand
-local mkdir = vim.fn.mkdir
 local au = require('utils.au')
 local command = require('utils.command')
 
