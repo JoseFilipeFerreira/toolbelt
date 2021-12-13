@@ -57,9 +57,8 @@ return require('packer').startup({function(use)
     }
     use 'sheerun/vim-polyglot'
 
-    -- Formating and Errors
+    -- Formating
     use 'tpope/vim-commentary'
-    use 'alvan/vim-closetag'
     use 'godlygeek/tabular'
 
     -- Language Server Protocol
