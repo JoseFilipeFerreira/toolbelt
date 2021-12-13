@@ -6,7 +6,7 @@ local expand = vim.fn.expand
 local append = vim.fn.append
 local cursor = vim.fn.cursor
 
-au.group('boilerplate', function(g)
+au.group('boilerplate', function(_)
     local function append_lines(...)
         for i, l in ipairs({...}) do
             local text
@@ -43,12 +43,22 @@ au.group('boilerplate', function(g)
             '#endif'
         )
     end
+    local boilerplate_source = function(name)
+        append_lines(
+            '#include "'..name..'.h"',
+            {''}
+        )
+    end
+
     au.FileType = {
         'c',
         run_checked(function()
             local ext = expand('%:e')
+            local file_basename = expand('%:t:r')
             if ext == 'h' or ext == 'hpp' then
                 boilerplate_header()
+            elseif file_basename ~= 'main' then
+                boilerplate_source(file_basename)
             else
                 append_lines(
                     '#include <stdio.h>',
@@ -65,8 +75,11 @@ au.group('boilerplate', function(g)
         'cpp',
         run_checked(function()
             local ext = expand('%:e')
+            local file_basename = expand('%:t:r')
             if ext == 'h' or ext == 'hpp' then
                 boilerplate_header()
+            elseif file_basename ~= 'main' then
+                boilerplate_source(file_basename)
             else
                 append_lines(
                     "#include <iostream>",
@@ -80,6 +93,7 @@ au.group('boilerplate', function(g)
             end
         end)
     }
+
     au.FileType = {
         'java',
         run_checked(
