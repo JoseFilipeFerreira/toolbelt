@@ -1,3 +1,4 @@
+-- luacheck: globals vim mapx
 vim.g.mapleader=' '
 
 local if_require_do = require('utils.misc').if_require_do
@@ -14,3 +15,4 @@ require("behaviour")
 require("keybinds")
 require("navigation")
 require("writing")
+require("boilerplate")

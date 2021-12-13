@@ -20,6 +20,7 @@ M.download = function(url, where)
     f:close()
 end
 
+-- luacheck: globals vim
 M.iabbrev = function(ab, full)
     vim.cmd('ia ' .. ab .. ' ' .. full)
 end
