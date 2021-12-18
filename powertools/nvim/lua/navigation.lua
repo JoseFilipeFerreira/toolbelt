@@ -24,7 +24,7 @@ nnoremap('Y', 'y$')
 nnoremap('<leader><Tab>', '<C-^>')
 
 -- jump to marker
-inoremap(',,', '<Esq>/<++><Enter>"_c4l')
+inoremap(',,', '<Esc>/<++><Enter>"_c4l')
 
 -- easier start and end
 nnoremap('H', '^')
