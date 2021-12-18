@@ -1,6 +1,7 @@
 -- Move this file to your neovim lua runtime path ie. ~/.config/nvim/lua/au.lua
 -- Stolen from: https://gist.github.com/numToStr/1ab83dd2e919de9235f9f774ef8076da
 
+-- luacheck: globals vim
 local cmd = vim.api.nvim_command
 
 local function autocmd(this, event, spec)
@@ -11,7 +12,7 @@ local function autocmd(this, event, spec)
         action = this.set(action)
     end
     local e = type(event) == 'table' and table.concat(event, ',') or event
-    local pattern = type(pattern) == 'table' and table.concat(pattern, ',') or pattern
+    pattern = type(pattern) == 'table' and table.concat(pattern, ',') or pattern
     cmd('autocmd ' .. e .. ' ' .. pattern .. ' ' .. action)
 end
 

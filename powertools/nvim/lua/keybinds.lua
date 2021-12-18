@@ -1,3 +1,4 @@
+-- luacheck: globals map mapx nmap imap inoremap vnoremap nnoremap
 local command = require('utils.command')
 
 -- copy paste in vim

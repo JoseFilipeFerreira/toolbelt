@@ -1,13 +1,13 @@
 local au = require('utils.au')
 local command = require('utils.command')
 
--- luacheck: globals vim
+-- luacheck: globals vim mapx inoremap nnoremap
 local set = vim.opt
 local expand = vim.fn.expand
 
 au.group('writing-opts', function(g)
     g.Filetype = {
-        {'markdown', 'tex'},
+        {'markdown', 'plaintex', 'tex'},
         function()
             set.linebreak = true
             set.textwidth = 80
@@ -60,7 +60,7 @@ au.group('writing-opts', function(g)
         end
     }
     g.Filetype = {
-        'tex',
+        {'tex', 'plaintex'},
         function()
             nnoremap('<leader>r', function()
                 local file = expand('%:p')

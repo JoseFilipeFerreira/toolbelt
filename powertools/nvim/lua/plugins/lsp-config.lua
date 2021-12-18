@@ -34,11 +34,6 @@ lsp.cmake.setup{
     capabilities = update_capabilities(protocol.make_client_capabilities())
 }
 
--- lsp.bashls.setup {
---     on_attach = on_attach(true),
---     capabilities = update_capabilities(protocol.make_client_capabilities())
--- }
-
 lsp.pyright.setup{
     on_attach = on_attach(true),
     capabilities = update_capabilities(protocol.make_client_capabilities())

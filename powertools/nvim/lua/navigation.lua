@@ -1,3 +1,5 @@
+-- luacheck: globals nnoremap inoremap
+--
 -- split navigations
 nnoremap('<C-J>', '<C-W><C-J>')
 nnoremap('<C-K>', '<C-W><C-K>')
