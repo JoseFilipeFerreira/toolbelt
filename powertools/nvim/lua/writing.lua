@@ -80,7 +80,14 @@ au.group('writing-opts', function(g)
             inoremap(',ssst', [[\subsubsection{}<Return><Return><++><Esc>2kt}a]])
             inoremap(',bit', [[\begin{itemize}<CR><CR>\end{itemize}<Return><++><Esc>kki<Tab>\item<Space>]])
             inoremap(',benum', [[\begin{enumerate}<CR><CR>\end{enumerate}<Return><++><Esc>kki<Tab>\item<Space>]])
-            inoremap(',bfi', [[\begin{figure}[h]<CR><CR>\end{figure}<Return><++><Esc>kki<Tab>\centering<CR><Tab>\includegraphics[width=\textwidth]{}<CR>\caption{<++>}<CR>\label{fig:<++>}<Esc>kk$i]])
+            inoremap(',bfi',
+[[\begin{figure}[h]
+
+\end{figure}
+<++><Esc>kki<Tab>\centering
+<Tab>\includegraphics[width=\textwidth]{}
+\caption{<++>}
+\label{fig:<++>}<Esc>kk$i]])
             inoremap(',beg', [[\begin{<++>}<Esc>yyp0fbcwend<Esc>O<Tab><++><Esc>k0<Esc>/<++><Enter>"_c4l]])
         end
     }
