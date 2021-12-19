@@ -1,8 +1,11 @@
 # Toolbelt
 Collection of scripts and dotfiles that follow me on all of my linux adventures
 
+## :hammer: [Powertools](powertools) (.dotfiles)
+Static config files
+
 ## 🧰 [Toolbox](toolbox)(scripts)
-Colection of scripts to be used in the terminal or on a keybind
+Scripts used in the terminal or on a keybind
 * [add-icons](toolbox/add-icons.tool) manage [toolicons](powertools/toolicons) icon theme
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
@@ -32,19 +35,15 @@ Colection of scripts to be used in the terminal or on a keybind
 * [workin](toolbox/workin.tool) workout manager
 
 ## :wrench: [Toolkit](toolkit) (dmenu scripts)
-Collection of scripts to be launched from a [menu](toolbox/menu.tool)
+Scripts launched from a [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [emoji](toolkit/emoji.menu) pick a emoji
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
 * [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](toolkit/trayer.menu) toggle trayer
 
-## :hammer: [Powertools](powertools) (.dotfiles)
-Colection of static config files
-
 ## :iphone: [Handtools](handtools)
-Collection of scripts I keep on my phone (used with
-[Tasker](https://tasker.joaoapps.com/) and
+Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
 * [change_lock](handtools/change_lock.tool) change phone wallpaper
 * [control_music](handtools/control_music.tool) control music on a remote device

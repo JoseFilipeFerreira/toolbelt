@@ -23,9 +23,11 @@ pacman,essential,neovim
 pacman,essential,networkmanager
 pacman,essential,openssh
 pacman,essential,p7zip
+pacman,essential,pyright
 pacman,essential,python
 pacman,essential,python-pip
 pacman,essential,rsync
+pacman,essential,rust-analyzer
 pacman,essential,shellcheck
 pacman,essential,tar
 pacman,essential,tmux
@@ -81,6 +83,7 @@ pacman,extra,xorg-xinit
 pacman,extra,xorg-xrandr
 pacman,extra,zathura
 pacman,extra,zathura-pdf-poppler
+pip,essential,cmake-language-server
 pkg,essential,clang
 pkg,essential,ffmpeg
 pkg,essential,git

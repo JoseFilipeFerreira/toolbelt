@@ -1,0 +1,41 @@
+-- luacheck: globals vim
+local set = vim.opt
+local au = require('utils.au')
+local command = require('utils.command')
+
+-- tabs
+set.tabstop = 4
+set.softtabstop = 4
+set.expandtab = true
+set.shiftwidth = 4
+set.smarttab = true
+
+-- scroll
+set.scrolloff=4
+
+-- opening files
+set.hidden = true
+set.splitbelow = true
+set.splitright = true
+
+-- make path recursive
+set.path='**'
+
+-- show line number
+set.number = true
+
+-- case insensitive search
+set.ignorecase = true
+set.smartcase = true
+
+-- clear trailing whitespaces
+au.group('bad-ws', function(g) g.BufWritePre = { '*', '%s/\\s\\+$//e' } end)
+
+-- undo file
+set.undodir = vim.fn.stdpath('cache')..'/vimundo'
+set.undofile = true
+
+command.W = 'w'
+command.Q ='q'
+command.WQ = 'wq'
+command.Wq = 'wq'
