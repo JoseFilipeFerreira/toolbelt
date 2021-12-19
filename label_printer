@@ -16,20 +16,19 @@ echo \
 "# Toolbelt
 Collection of scripts and dotfiles that follow me on all of my linux adventures
 
+## :hammer: [Powertools](powertools) (.dotfiles)
+Static config files
+
 ## 🧰 [Toolbox](toolbox)(scripts)
-Colection of scripts to be used in the terminal or on a keybind
+Scripts used in the terminal or on a keybind
 $(generate_description "toolbox")
 
 ## :wrench: [Toolkit](toolkit) (dmenu scripts)
-Collection of scripts to be launched from a [menu](toolbox/menu.tool)
+Scripts launched from my [menu](toolbox/menu.tool)
 $(generate_description "toolkit")
 
-## :hammer: [Powertools](powertools) (.dotfiles)
-Colection of static config files
-
 ## :iphone: [Handtools](handtools)
-Collection of scripts I keep on my phone (used with
-[Tasker](https://tasker.joaoapps.com/) and
+Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
 $(generate_description "handtools")
 
