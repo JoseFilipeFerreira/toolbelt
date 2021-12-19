@@ -13,11 +13,14 @@ quotes=(
 "Eu não sou uma banana - Rui Moreira"
 "Sometimes you feel like you're fucked, but when you say you are actually fucked, you are only like about 45% fucked - Nims Purja"
 "Lost time is never found again - Benjamin Franlin"
+"A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable - Leslie Lamport"
+"Everything you can imagine is real - Pablo Picasso"
+"I am enough of the artist to draw freely upon my imagination. Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world - Albert Einstein"
 )
 
 if [[ "$(pwd)" = "$HOME" ]]; then
     echo -en "\e[$((RANDOM % 6 + 31))m"
     echo "${quotes[$RANDOM % ${#quotes[@]}]// - /$'\n'$'\t'-}" |
-        fold -s -w $(( COLUMNS < 120 ? COLUMNS : 120 ))
+        fold -s -w $(( COLUMNS < 80 ? COLUMNS : 80 ))
     echo -en "\e[0m"
 fi

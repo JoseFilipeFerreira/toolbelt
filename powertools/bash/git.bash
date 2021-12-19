@@ -29,6 +29,7 @@ alias gcd='git checkout develop || git checkout dev'
 
 alias ga='git add'
 alias gc='git commit -v'
+alias gcwip='git commit -v -m "WIP"'
 
 alias gl='git pull'
 alias gp='git push'
