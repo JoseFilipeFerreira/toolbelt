@@ -11,6 +11,8 @@ quotes=(
 "Talk is cheap. Show me the code. - Linus Torvalds"
 "Learn the rules like a pro, so you can break them like an artist - Pablo Picasso"
 "Eu não sou uma banana - Rui Moreira"
+"Sometimes you feel like you're fucked, but when you say you are actually fucked, you are only like about 45% fucked - Nims Purja"
+"Lost time is never found again - Benjamin Franlin"
 )
 
 if [[ "$(pwd)" = "$HOME" ]]; then

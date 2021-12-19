@@ -35,7 +35,7 @@ Scripts used in the terminal or on a keybind
 * [workin](toolbox/workin.tool) workout manager
 
 ## :wrench: [Toolkit](toolkit) (dmenu scripts)
-Scripts launched from a [menu](toolbox/menu.tool)
+Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [emoji](toolkit/emoji.menu) pick a emoji
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
