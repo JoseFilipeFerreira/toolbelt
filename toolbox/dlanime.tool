@@ -189,10 +189,13 @@ def get_last_anime(anime_path: str) -> int:
     dl_animes.sort(reverse=True)
 
     if len(dl_animes) == 0:
-        return None
+        return 0
 
     try:
-        return int(re.search(r'E([0-9]+?)\.', dl_animes[0]).group(1))
+        grep = re.search(r'E([0-9]+?)\.', dl_animes[0])
+        if grep:
+            return int(grep.group(1))
+        raise ValueError
     except ValueError:
         print_error(f"invalid filename: {dl_animes[0]}")
         return None
@@ -230,16 +233,22 @@ def main():
 
         search_nyaa = anime.title
         last_anime = get_last_anime(anime.anime_path)
-        next_anime = None if not last_anime else last_anime + 1
-        if last_anime:
+        if last_anime == None:
+            continue
+        next_anime =  last_anime + 1
+        if last_anime > 0:
             search_nyaa += f" {next_anime:02}"
         search_nyaa += " 1080p"
 
-        print(">", search_nyaa)
 
-        # if last_anime and last_anime >= anime.num_episodes:
-        #     print_info("anime already downloaded")
-        #     continue
+        if last_anime:
+            print("> episode:", last_anime, "/", anime.num_episodes)
+
+        if last_anime and last_anime >= anime.num_episodes:
+            print_info("anime already downloaded")
+            continue
+
+        print(">", search_nyaa)
 
         results = get_nyaa(search_nyaa)
 
