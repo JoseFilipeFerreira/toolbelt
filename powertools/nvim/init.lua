@@ -11,6 +11,7 @@ if not mapx then
     return
 end
 
+require("appearance")
 require("behaviour")
 require("keybinds")
 require("navigation")

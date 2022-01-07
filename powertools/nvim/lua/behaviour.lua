@@ -35,6 +35,15 @@ au.group('bad-ws', function(g) g.BufWritePre = { '*', '%s/\\s\\+$//e' } end)
 set.undodir = vim.fn.stdpath('cache')..'/vimundo'
 set.undofile = true
 
+au.group('read-extra-file-types', function(g)
+    g.BufReadPre = {
+        '*.pdf',
+        function()
+            vim.cmd [[execute '!exec zathura "%" &' | :q!]]
+        end
+    }
+end)
+
 command.W = 'w'
 command.Q ='q'
 command.WQ = 'wq'
