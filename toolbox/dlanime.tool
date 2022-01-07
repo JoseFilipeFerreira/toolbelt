@@ -233,7 +233,7 @@ def main():
 
         search_nyaa = anime.title
         last_anime = get_last_anime(anime.anime_path)
-        if last_anime == None:
+        if last_anime is None:
             continue
         next_anime =  last_anime + 1
         if last_anime > 0:
