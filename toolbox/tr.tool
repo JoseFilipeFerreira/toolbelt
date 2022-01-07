@@ -43,7 +43,7 @@ case $1 in
             fzf --height="$(echo "$list" | wc -l)" --layout=reverse |
             awk '{print $1}' |
             grep -Eo "[0-9]*" )"
-        [[ "$id" ]] || return 0
+        [[ ! "$id" ]] && echo "No torrent specified" && exit
         res="$(transmission -t "$id" --remove | grep -Eo '".*"' | sed 's/\"//g')"
         notify "Delete torrent" "$res"
         ;;
