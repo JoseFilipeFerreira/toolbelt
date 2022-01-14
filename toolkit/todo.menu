@@ -18,13 +18,13 @@ _sync(){
 _sync
 
 while : ; do
-    events="$(todo --porcelain | jq -r '.[] | "\(.id) \(.summary)"' )"
+    events="$(todo --porcelain | jq -r '.[] | "\(.summary) (\(.id))" ' | sort)"
     cmd="$(echo "$events" | dmenu -l 20 -p "Add/delete a task:")"
 
     [[ "$cmd" ]] || break
 
     if [[ "$events" == *"$cmd"* ]]; then
-        event_id="$(echo "$cmd" | grep -Eo '^[0-9]*')"
+        event_id="$(echo "$cmd" | grep -Eo '\([0-9]*\)$' | sed 's/[()]//g')"
         todo "done" "$event_id"
     else
         todo new "$cmd"
