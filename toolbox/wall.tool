@@ -122,7 +122,8 @@ _change_wall(){
             head -3
     )
 
-    printf "%s\n" "${colors[@]}" >| /tmp/wall_colors
+    mkdir -p "/tmp/$USER"
+    printf "%s\n" "${colors[@]}" >| "/tmp/$USER/wall_colors"
 
     echo "$file"
     notify-send \
