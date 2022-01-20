@@ -1,6 +1,11 @@
 #!/bin/bash
 # transmission-remote wrapper
 
+# to setup for firefox:
+# 1. open about:config
+# 2. network.protocol-handler.expose.magnet = false
+# 3. open magnet link and select ~/.local/bin/tr as default magnet link
+
 remote="kiwi"
 
 transmission(){
@@ -25,11 +30,18 @@ notify(){
     echo "$1: $2"
 }
 
+_dl_torrent(){
+        res="$(transmission --add "$1" | grep -Eo '".*"' | sed 's/\"//g')"
+        notify "Add torrent" "$res"
+}
+
 case $1 in
+    magnet:*)
+        _dl_torrent "$1"
+        ;;
     -a|--add)
         # Add a torrent
-        res="$(transmission --add "$2" | grep -Eo '".*"' | sed 's/\"//g')"
-        notify "Add torrent" "$res"
+        _dl_torrent "$2"
         ;;
     -l|--list|"")
         # List available torrents [default]
