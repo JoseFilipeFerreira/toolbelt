@@ -54,6 +54,13 @@ explode(){
     rmdir "$1"
 }
 
+srsync(){
+    [[ "$#" -lt 3 ]] &&
+        echo "USAGE: srsync REMOTE REMOTE_DIR LOCAL_DIR" &&
+        return
+    sudo rsync -av -e "ssh $USER@$1 -i $HOME/.ssh/id_rsa" "$2" "$3" --progress
+}
+
 ingest(){
     [ "$#" -ne 2 ] && echo "USAGE: ingest DRIVE FOLDERNAME" && return
     mkdir -vp /tmp/ingest
