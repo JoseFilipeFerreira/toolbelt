@@ -16,7 +16,13 @@ quotes=(
 "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable - Leslie Lamport"
 "Everything you can imagine is real - Pablo Picasso"
 "I am enough of the artist to draw freely upon my imagination. Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world - Albert Einstein"
+"All men should strive to learn before they die, what they are running from, and to, and why - James Thurber"
+"A computer is like air conditioning, it becomes useless once you open Windows - Linus Torvalds"
+"The loudest thing in the room, by far, should be the occasional purring of the cat - Linus Torvalds"
+"Microsoft isn't evil, they just make really crappy operating systems - Linus Torvalds"
+"No problem is too big it can't be run away from - Linus Torvalds"
 )
+
 
 if [[ "$(pwd)" = "$HOME" ]]; then
     echo -en "\e[$((RANDOM % 6 + 31))m"

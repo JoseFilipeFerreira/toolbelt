@@ -38,6 +38,7 @@ Scripts used in the terminal or on a keybind
 Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [emoji](toolkit/emoji.menu) pick a emoji
+* [games](toolkit/games.menu) 
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
 * [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](toolkit/trayer.menu) toggle trayer
