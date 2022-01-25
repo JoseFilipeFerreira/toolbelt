@@ -244,7 +244,7 @@ def main():
         if last_anime:
             print("> episode:", last_anime, "/", anime.num_episodes)
 
-        if last_anime and last_anime >= anime.num_episodes:
+        if last_anime and anime.num_episodes > 0 and last_anime >= anime.num_episodes:
             print_info("anime already downloaded")
             continue
 
