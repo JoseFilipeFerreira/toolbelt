@@ -1,0 +1,13 @@
+#!/bin/bash
+# launch programs installed with [wine](https://www.winehq.org/)
+
+programs=(
+SketchUp
+)
+
+program="$(printf '%s\n' "${programs[@]}" | sort | dmenu -i -l 20 -p "launch program:")"
+
+path="$(find ~/.wine/drive_c | grep -E "Program Files.*/$program\.exe" | head -n 1)"
+
+cd "$(dirname "$path")"
+wine "$path"
