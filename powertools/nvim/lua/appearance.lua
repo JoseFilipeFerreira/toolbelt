@@ -1,6 +1,8 @@
 local au = require('utils.au')
 local set = vim.opt
 
+vim.opt.termguicolors = true
+
 -- THE RULER OF DISCIPLINE
 set.colorcolumn = '101'
 au.group('even-more-discipline', function(g)

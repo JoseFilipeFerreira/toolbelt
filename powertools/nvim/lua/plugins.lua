@@ -27,7 +27,8 @@ return require('packer').startup({function(use)
             vim.cmd([[colorscheme gruvbox]])
             vim.cmd([[set background=dark]])
             vim.cmd([[let g:gruvbox_contrast_dark = 'hard']])
-            vim.cmd([[highlight Normal ctermbg=None]])
+            vim.cmd([[highlight Normal guibg=none]])
+            vim.cmd([[highlight NonText guibg=none]])
         end
     }
 
@@ -56,6 +57,11 @@ return require('packer').startup({function(use)
         config = function() vim.g.highlightedyank_highlight_duration = 100 end
     }
     use 'sheerun/vim-polyglot'
+    use {
+        'folke/todo-comments.nvim',
+        requires = "nvim-lua/plenary.nvim",
+        config = function() require('plugins.todo-comments') end,
+    }
 
     -- Formating
     use 'tpope/vim-commentary'
