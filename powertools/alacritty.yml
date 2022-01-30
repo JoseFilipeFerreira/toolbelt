@@ -12,6 +12,8 @@ window:
   dynamic_padding: true
   decorations: none
 
+  opacity: 0.7
+
 # Font configuration
 font:
   family: DejaVu Sans Mono
@@ -52,8 +54,6 @@ colors:
     magenta: '#6666ea'
     cyan:    '#00ad9c'
     white:   '#f1efee'
-
-background_opacity: 0.7
 
 cursor:
   style:
