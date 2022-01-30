@@ -13,6 +13,20 @@ while (( "$#" )); do
             sound="true"
             shift
             ;;
+        -h|--help)
+            echo "USAGE:"
+            echo "    $(basename $0) [OPTIONS] TIME"
+            echo "OPTIONS:"
+            echo "    -m, --message"
+            echo "        Set the timer message"
+            echo
+            echo "    -s, --sound"
+            echo "        Turn on timer sound"
+            echo
+            echo "    -h, --help"
+            echo "        Send this help message"
+            exit
+            ;;
         *)
             input="$1"
             shift
@@ -20,29 +34,17 @@ while (( "$#" )); do
     esac
 done
 
-w="$(sed -En 's/.*([0-9]+)w.*/\1/p' <<<"$input")"
-d="$(sed -En 's/.*([0-9]+)d.*/\1/p' <<<"$input")"
-h="$(sed -En 's/.*([0-9]+)h.*/\1/p' <<<"$input")"
-m="$(sed -En 's/.*([0-9]+)m.*/\1/p' <<<"$input")"
-s="$(sed -En 's/.*([0-9]+)s.*/\1/p' <<<"$input")"
-
-s=$((s
-    + m * 60
-    + h * 60 * 60
-    + d * 60 * 60 * 24
-    + w * 60 * 60 * 24 * 7))
-[[ ! "$s" ]] && echo "Error: Invalid time" && exit
+[[ ! "$input" ]] && echo "Time not set" && exit
 
 {
-sleep "$s"
+    sleep "$input"
 
-notify-send \
-    -u critical \
-    -i "apps/timer" \
-    -a "timer" \
-    "Time is up: $input"\
-    "$message"
+    notify-send \
+        -u critical \
+        -i "apps/timer" \
+        -a "timer" \
+        "Time is up: $input"\
+        "$message"
 
-[[ $sound ]] && mpv --no-video "$DOTFILES/assets/timer.mp3" &>/dev/null
-
+    [[ $sound ]] && mpv --no-video "$DOTFILES/assets/timer.mp3" &>/dev/null
 } & disown
