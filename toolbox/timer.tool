@@ -15,7 +15,7 @@ while (( "$#" )); do
             ;;
         -h|--help)
             echo "USAGE:"
-            echo "    $(basename $0) [OPTIONS] TIME"
+            echo "    $(basename "$0") [OPTIONS] TIME"
             echo "OPTIONS:"
             echo "    -m, --message"
             echo "        Set the timer message"
