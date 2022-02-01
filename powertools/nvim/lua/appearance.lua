@@ -1,3 +1,4 @@
+-- luacheck: globals vim
 local au = require('utils.au')
 local set = vim.opt
 
