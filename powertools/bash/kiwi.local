@@ -27,30 +27,41 @@ add_media(){
 }
 
 _update_media_completion(){
-    local CWORD=${COMP_WORDS[COMP_CWORD]}
     local IFS=$'\n'
 
     case "${#COMP_WORDS[@]}" in
         2) # TYPE
             mapfile -t COMPREPLY < \
                 <(compgen -W \
-                    "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" \
-                    -- "$CWORD")
+                    "$(find ~/media \
+                        -mindepth 1 \
+                        -maxdepth 1 \
+                        -type d \
+                        -exec basename {} \; \
+                    )" -- "$2")
             ;;
         3) # NAME
             mapfile -t COMPREPLY < \
                 <(compgen -W \
-                    "$(find ~/media/"${COMP_WORDS[1]}" -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" \
-                    -- "$CWORD")
+                    "$(find ~/media/"${COMP_WORDS[1]}" \
+                        -mindepth 1 \
+                        -maxdepth 1 \
+                        -type d \
+                        -exec basename {} \; \
+                    )" -- "$2")
             ;;
         4) # FILE
-            mapfile -t COMPREPLY < <(compgen -f -X -- "$CWORD")
+            mapfile -t COMPREPLY < <(compgen -f -X -- "$2")
             ;;
         5) # FILENAME
             mapfile -t COMPREPLY < \
                 <(compgen -W \
-                    "$(find ~/media/"${COMP_WORDS[1]}"/"${COMP_WORDS[2]}" -mindepth 1  -maxdepth 1  -type f -exec basename {} \;)" \
-                    -- "$CWORD")
+                    "$(find ~/media/"${COMP_WORDS[1]}"/"${COMP_WORDS[2]}" \
+                        -mindepth 1 \
+                        -maxdepth 1 \
+                        -type f \
+                        -exec basename {} \; \
+                    )" -- "$2")
             ;;
     esac
 }
@@ -58,21 +69,27 @@ alias umedia=update_media
 complete -o filenames -F _update_media_completion update_media umedia
 
 _add_media_completion(){
-    local CWORD=${COMP_WORDS[COMP_CWORD]}
     local IFS=$'\n'
+
     case "${#COMP_WORDS[@]}" in
         2) # TYPE
             mapfile -t COMPREPLY < \
-                <(compgen -W "$(find ~/media -mindepth 1  -maxdepth 1  -type d -exec basename {} \;)" -- "$CWORD")
+                <(compgen -W "$( \
+                    find ~/media \
+                        -mindepth 1 \
+                        -maxdepth 1 \
+                        -type d \
+                        -exec basename {} \; \
+                    )" -- "$2")
             ;;
         3) # NAME
-            mapfile -t COMPREPLY < <(compgen -f -X -- "$CWORD")
+            mapfile -t COMPREPLY < <(compgen -f -X -- "$2")
             ;;
         4) # THUMBNAIL
             COMPREPLY=()
             ;;
         5) # FILES
-            mapfile -t COMPREPLY < <(compgen -f -X -- "$CWORD")
+            mapfile -t COMPREPLY < <(compgen -f -X -- "$2")
             ;;
     esac
 }

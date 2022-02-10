@@ -18,6 +18,7 @@ Scripts used in the terminal or on a keybind
 * [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with history
 * [ex](toolbox/ex.tool) extract anything
+* [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand
 * [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher

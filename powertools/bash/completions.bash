@@ -1,42 +1,37 @@
 #!/bin/bash
 _ssh() {
-    local opts
-    # local prev
-    local cur="${COMP_WORDS[COMP_CWORD]}"
-    #prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts=$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null |
-        grep -v '[?*]' |
-        cut -d ' ' -f 2-)
-    mapfile -t COMPREPLY < <(compgen -W "$opts" -- "$cur")
-    return 0
+    mapfile -t COMPREPLY < \
+        <(compgen -W \
+            "$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null |
+                grep -v '[?*]' |
+                cut -d ' ' -f 2- \
+            )" -- "$2")
 }
+complete -F _ssh ssh
 
 _za() {
-    local cur
-    cur="${COMP_WORDS[COMP_CWORD]}"
     mapfile -t COMPREPLY < \
-        <(compgen -o plusdirs -A file -- "$cur" | grep -P '(\.djvu|\.pdf)$')
-    return
+        <(compgen -o plusdirs -A file -- "$2" | grep -P '(\.djvu|\.pdf)$')
 }
+complete -F _za za
 
 _gcl() {
-    local CWORD=${COMP_WORDS[COMP_CWORD]}
     local IFS=$'\n'
 
     local user
     user="$(git config user.name)"
-    [[ "$CWORD" == */* ]] &&
-        user="$(echo "$CWORD" | cut -d/ -f1)"
+    [[ "$2" == */* ]] &&
+        user="$(echo "$2" | cut -d/ -f1)"
 
     repos="$(gh repo list "$user" \
         --limit=100 \
         --json nameWithOwner \
         --jq=".[].nameWithOwner")"
 
-    [[ "$CWORD" == */* ]] ||
+    [[ "$2" == */* ]] ||
         repos="$(echo "$repos" | sed "s/$user\///g")"
 
-    mapfile -t COMPREPLY < <(compgen -W "$repos" -- "$CWORD")
+    mapfile -t COMPREPLY < <(compgen -W "$repos" -- "$2")
 }
 
 # shellcheck disable=SC1090
@@ -44,7 +39,8 @@ command -V gh &> /dev/null &&
     . <(gh completion -s bash) &&
     complete -F _gcl gcl
 
-complete -d cd
-complete -F _ssh ssh
-complete -F _za za
+# shellcheck disable=SC1090
+command -V labib &> /dev/null &&
+    . <(labib --completion)
 
+complete -d cd
