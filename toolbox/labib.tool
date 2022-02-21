@@ -3,18 +3,20 @@
 
 case "$1" in
     --completion)
-        echo '_labib_completion(){'
-        echo '    [[ "$COMP_CWORD" -eq 1 ]] &&'
-        echo '        mapfile -t COMPREPLY < <(compgen -W \'
-        echo '            "$(find \'
-        echo '                -maxdepth 1 \'
-        echo '                -type f \'
-        echo '                -name "*.tex" \'
-        echo '                -exec basename {} .tex \; |'
-        echo '            sort -u)" \'
-        echo '            -- "${COMP_WORDS[COMP_CWORD]}")'
-        echo '}'
-        echo 'complete -F _labib_completion labib'
+        #shellcheck disable=SC1004,SC2016
+        echo '
+_labib_completion(){
+    [[ "$COMP_CWORD" -eq 1 ]] &&
+        mapfile -t COMPREPLY < <(compgen -W \
+            "$(find \
+                -maxdepth 1 \
+                -type f \
+                -name "*.tex" \
+                -exec basename {} .tex \; |
+            sort -u)" \
+            -- "${COMP_WORDS[COMP_CWORD]}")
+}
+complete -F _labib_completion labib'
 
         exit
         ;;
