@@ -16,11 +16,10 @@ window:
 
 # Font configuration
 font:
-  family: DejaVu Sans Mono
-  style: Book
-  bold_style: Bold
-  italic_style: Italic
-  size: 12
+  normal:
+    family: DejaVu Sans Mono
+
+  size: 10
   offset:
     y: -1
 
@@ -54,13 +53,6 @@ colors:
     magenta: '#6666ea'
     cyan:    '#00ad9c'
     white:   '#f1efee'
-
-cursor:
-  style:
-    shape: Block
-    blinking: Off
-
-  thickness: 0.15
 
 mouse:
   hide_when_typing: true
