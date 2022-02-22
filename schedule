@@ -1,8 +1,7 @@
 #!/bin/bash
 # run job scheduler for [Termux](https://github.com/termux/termux-app)
 
-[[ ! "$DOTFILES" ]] && \
-    DOTFILES="$(dirname "$(readlink -f "$0")")"
+[[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
 _termux_task_set(){
     echo -e "\033[35mSetting task:\033[33m $1 (every: $2 ms)\033[0m"

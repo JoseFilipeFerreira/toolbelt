@@ -2,18 +2,7 @@
 # Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 set -e
 
-[[ ! "$DOTFILES" ]] && \
-    DOTFILES="$(dirname "$(readlink -f "$0")")"
-
-_global_dark_theme(){
-    echo -e "\033[32mInstalling dark theme...\033[0m"
-    [[ -d "$HOME"/.local/share/themes/ayu ]] && echo "Already installed" && return
-    wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"
-    unzip -q /tmp/master.zip -d /tmp
-    mkdir -p "$HOME"/.local/share/themes
-    sudo mv /tmp/Aritim-Dark-master/GTK "$HOME"/.local/share/themes/ayu
-    rm -r /tmp/{Aritim-Dark-master,master.zip}
-}
+[[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
 _generate_termux_theme(){
     echo -e "\033[32mGenerating termux theme...\033[0m"
@@ -95,7 +84,6 @@ case "$REPLY" in
     FULL|F|"")
         _install_pkgs
         bash "$DOTFILES"/nail essential extra
-        _global_dark_theme
         _setup_home
         ;;
     essential|e)
@@ -105,11 +93,10 @@ case "$REPLY" in
         ;;
     mobile|m)
         ! command -V termux-setup-storage &> /dev/null &&
-            echo "Not in a termux env" && exit
-        _install_pkgs
+            echo "error: not in a termux env" && exit
+        _install_pkgs essential
         bash "$DOTFILES"/nail essential mobile
-        [ -d ~/storage ] ||
-            termux-setup-storage
+        [ -d ~/storage ] || termux-setup-storage
         _generate_termux_theme
         termux-reload-settings
         ;;

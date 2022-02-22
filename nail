@@ -1,8 +1,7 @@
 #!/bin/bash
 # symlink dotfiles and scripts
 
-[[ ! "$DOTFILES" ]] && \
-    DOTFILES="$(dirname "$(readlink -f "$0")")"
+[[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
 _make_symlink(){
     if [ -h "$2" ] && [ ! -e "$2" ]; then
@@ -149,7 +148,7 @@ FILTERS+=("$@")
 printf "%s\n" "${FILTERS[@]}" | sort -u >| "$config"
 
 [[ ${#FILTERS[@]} -eq 0 ]] &&
-    echo "No filters were provided" &&
+    echo "error: no filters were provided" &&
     echo "run hammer for initial setup" &&
     exit
 

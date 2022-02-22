@@ -2,6 +2,7 @@ X11/10-keyboard.conf,/etc/X11/xorg.conf.d/10-keyboard.conf,sudo,link,extra
 X11/Xresources,~/.config/X11/Xresources,link,extra
 X11/xinitrc,~/.xinitrc,link,extra
 alacritty.yml,~/.config/alacritty/alacritty.yml,link,extra
+ayu,,install,extra
 bash/bashrc,~/.bashrc,link,essential
 bash/inputrc,~/.inputrc,link,essential
 bash/profile,~/.bash_profile,link,essential
@@ -25,7 +26,7 @@ sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
 termux.properties,~/.termux/termux.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
 todoman.py,~/.config/todoman/config.py,link,extra
-toolicons,/usr/share/icons/toolicons,install,extra
+toolicons,,install,extra
 toolsounds,/usr/share/sounds/toolsounds,sudo,link,extra
 transmission-daemon.json,~/.config/transmission-daemon/settings.json,link,essential
 user-dirs.dirs,~/.config/user-dirs.dirs,link,essential
