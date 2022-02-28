@@ -159,7 +159,7 @@ def get_mal(
 
     return res
 
-def get_nyaa(title: str) -> List[NyaaResult]:
+def get_nyaa(title: str) -> Optional[List[NyaaResult]]:
     """get nyaa's search result"""
     get_vars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
     url = f"https://nyaa.si/?{urlencode(get_vars)}"
@@ -183,7 +183,7 @@ def get_nyaa(title: str) -> List[NyaaResult]:
                 completed=line_vec[7].contents[0]))
     return res
 
-def get_last_anime(anime_path: str) -> int:
+def get_last_anime(anime_path: str) -> Optional[int]:
     """get number of last downloaded episode"""
     dl_animes = os.listdir(anime_path)
     dl_animes.sort(reverse=True)
