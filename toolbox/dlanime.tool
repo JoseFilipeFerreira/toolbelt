@@ -12,7 +12,7 @@ from typing import List, Optional
 from urllib.parse import urlencode
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup # type: ignore
 
 ANIME_LOCATION = "/home/mightymime/media/anime"
 if not os.path.isdir(ANIME_LOCATION):
