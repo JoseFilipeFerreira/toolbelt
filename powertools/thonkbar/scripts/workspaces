@@ -2,7 +2,7 @@
 """block to display i3 workspaces on thonkbar"""
 from sys import stdout
 
-from i3ipc import Connection, Event
+from i3ipc import Connection, Event # type: ignore
 
 I3WM = Connection()
 

@@ -22,7 +22,7 @@ jobs:
         run: |
           luacheck .
 
-  pylint:
+  python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -36,10 +36,17 @@ jobs:
             beautifulsoup4
             requests
             pylint
+            mypy
       - name: run pylint
         run: |
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
           pylint -j 0 "${files[@]}"
+      - name: run mypy
+        run: |
+          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
+          for file in "${files[@]}"; do
+            mypy --install-types --non-interactive --color-output "$file"
+          done
 
   shellcheck:
     runs-on: ubuntu-latest
