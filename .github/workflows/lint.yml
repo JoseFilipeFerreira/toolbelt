@@ -42,7 +42,7 @@ jobs:
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
           pylint -j 0 "${files[@]}"
       - name: run mypy
-        run:
+        run: |
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
           for file in "${files[@]}"; do mypy "$file"
 
