@@ -23,7 +23,8 @@ nvim,~/.config/nvim,link,essential
 picom.conf,~/.config/picom.conf,link,extra
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
-termux.properties,~/.termux/termux.properties,link,mobile
+termux/termux.properties,~/.termux/termux.properties,link,mobile
+termux/colors.properties,~/.termux/colors.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
 todoman.py,~/.config/todoman/config.py,link,extra
 toolicons,,install,extra

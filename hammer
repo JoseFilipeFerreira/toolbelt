@@ -4,24 +4,6 @@ set -e
 
 [[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-_generate_termux_theme(){
-    echo -e "\033[32mGenerating termux theme...\033[0m"
-    theme_file="$HOME"/.termux/colors.properties
-    [[ -e "$theme_file" ]] && echo "Already generated" && return
-    touch "$theme_file"
-    readarray -t colors < <(\
-        grep -E "[a-z]+:\s+'" "$DOTFILES/powertools/alacritty.yml" |
-        grep -Ev "(text|cursor)" |
-        grep -o '#[0-9a-z]*')
-
-    echo -e "background: #151515\nforeground: ${colors[1]}" >> "$theme_file"
-
-    colors=( "${colors[@]:2}" )
-    for i in "${!colors[@]}"; do
-        echo "color$i: ${colors[i]}" >> "$theme_file"
-    done
-}
-
 _make_repos(){
     for repo in "$@"; do
         name="$(basename "$repo")"
@@ -97,7 +79,6 @@ case "$REPLY" in
         _install_pkgs essential
         bash "$DOTFILES"/nail essential mobile
         [ -d ~/storage ] || termux-setup-storage
-        _generate_termux_theme
         termux-reload-settings
         ;;
     *)
