@@ -17,7 +17,7 @@ window:
 # Font configuration
 font:
   normal:
-    family: DejaVu Sans Mono
+    family: DejaVuSansMono Nerd Font
 
   size: 10
   offset:

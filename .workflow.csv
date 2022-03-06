@@ -1,6 +1,7 @@
 aur,essential,toilet
 aur,extra,lemonbar-xft-git
 aur,extra,thonkbar-git
+aura,extra,nerd-fonts-dejavu-complete
 pacman,essential,base
 pacman,essential,base-devel
 pacman,essential,bat
@@ -71,7 +72,6 @@ pacman,extra,sxhkd
 pacman,extra,sxiv
 pacman,extra,thunar
 pacman,extra,trayer
-pacman,extra,ttf-dejavu
 pacman,extra,ttf-font-awesome
 pacman,extra,vdirsyncer
 pacman,extra,wireless_tools

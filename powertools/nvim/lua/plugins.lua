@@ -22,13 +22,21 @@ return require('packer').startup({function(use)
 
     -- Theme
     use {
-        'morhetz/gruvbox',
+        'ellisonleao/gruvbox.nvim',
         config = function()
             vim.cmd([[colorscheme gruvbox]])
-            vim.cmd([[set background=dark]])
-            vim.cmd([[let g:gruvbox_contrast_dark = 'hard']])
+            vim.opt.background = 'dark'
+            vim.g.gruvbox_contrast_dark = 'hard'
             vim.cmd([[highlight Normal guibg=none]])
             vim.cmd([[highlight NonText guibg=none]])
+        end
+    }
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        config = function()
+            vim.opt.showmode = false
+            require('plugins.lualine')
         end
     }
 

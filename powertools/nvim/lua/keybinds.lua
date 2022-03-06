@@ -29,7 +29,7 @@ inoremap('<F2>', ':NERDTreeToggle<CR>')
 -- telescope
 mapx.group({ silent = true }, function()
     nnoremap('<leader>p', function() require('telescope.builtin').find_files() end)
-    nnoremap('<leader>P', function() require('telescope.builtin').git_files() end)
     nnoremap('<leader>b', function() require('telescope.builtin').buffers() end)
+    nnoremap('<leader>f', function() require('telescope.builtin').live_grep() end)
     command.Rg = function() require('telescope.builtin').grep_string() end
 end)
