@@ -1,10 +1,11 @@
 #!/bin/bash
 # blured lockscreen
 
-tmpfile="lock.png"
-cuffs "$tmpfile"
-convert "$tmpfile" -scale 10% -scale 1000% "$tmpfile"
+mkdir -p "/tmp/$USER"
+file="/tmp/$USER/lock.png"
+
+cuffs "$file"
+convert "$file" -scale 10% -scale 1000% "$file"
 i3lock \
-    --image="$tmpfile" \
+    --image="$file" \
     --ignore-empty-password
-rm "$tmpfile"

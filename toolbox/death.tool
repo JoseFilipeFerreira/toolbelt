@@ -9,7 +9,8 @@ _has_charge(){
     done < <(acpi -b | cut -d, -f2 | sed 's/[ %]//g')
 }
 
-warn_file="/tmp/.death_warned"
+mkdir -p "/tmp/$USER"
+warn_file="/tmp/$USER/death_warned"
 
 while :; do
     if _has_charge; then
