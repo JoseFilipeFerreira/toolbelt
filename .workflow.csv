@@ -78,6 +78,7 @@ pacman,extra,wireless_tools
 pacman,extra,xclip
 pacman,extra,xdotool
 pacman,extra,xorg-server
+pacman,extra,xorg-xdpyinfo
 pacman,extra,xorg-xev
 pacman,extra,xorg-xinit
 pacman,extra,xorg-xrandr
