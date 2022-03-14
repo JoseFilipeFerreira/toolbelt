@@ -18,7 +18,6 @@ if hash exa &>/dev/null; then
     alias tree='exa -T'
 else
     alias ls='ls --color=auto'
-    alias tree='tree -AC'
 fi
 alias l='ls -lah'
 

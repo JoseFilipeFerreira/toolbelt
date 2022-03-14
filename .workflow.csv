@@ -34,7 +34,6 @@ pacman,essential,shellcheck
 pacman,essential,tar
 pacman,essential,tmux
 pacman,essential,transmission-cli
-pacman,essential,tree
 pacman,essential,unrar
 pacman,essential,unzip
 pacman,essential,usbutils
