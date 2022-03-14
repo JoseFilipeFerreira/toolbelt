@@ -13,6 +13,23 @@ png() {
     disown
 }
 
+which() {
+    local w
+    w="$(command -V "$1")"
+    case "$w" in
+        *'is a function'*)
+            echo "${w#*$'\n'}"
+            ;;
+        *'is aliased to'*)
+            w="${w#*\`}"
+            echo "${w%\'*}"
+            ;;
+        *)
+            echo "${w##* }"
+            ;;
+    esac
+}
+
 hist_stats() {
     fc -l 1 | \
     awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
@@ -56,7 +73,7 @@ explode(){
 
 srsync(){
     [[ "$#" -lt 3 ]] &&
-        echo "USAGE: srsync REMOTE REMOTE_DIR LOCAL_DIR" &&
+        echo "USAGE: srsync REMOTE :REMOTE_DIR LOCAL_DIR" &&
         return
     sudo rsync -av -e "ssh $USER@$1 -i $HOME/.ssh/id_rsa" "$2" "$3" --progress
 }
