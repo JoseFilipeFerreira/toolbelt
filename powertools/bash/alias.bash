@@ -14,7 +14,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
 if hash exa &>/dev/null; then
-    alias ls='exa -g --group-directories-first'
+    alias ls='exa -g'
     alias tree='exa -T'
 else
     alias ls='ls --color=auto'
