@@ -8,6 +8,7 @@ pacman,essential,bat
 pacman,essential,bc
 pacman,essential,clang
 pacman,essential,curl
+pacman,essential,exa
 pacman,essential,ffmpeg
 pacman,essential,fzf
 pacman,essential,git
