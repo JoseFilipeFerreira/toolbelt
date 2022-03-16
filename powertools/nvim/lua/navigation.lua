@@ -1,31 +1,33 @@
 -- luacheck: globals nnoremap inoremap
---
--- split navigations
-nnoremap('<C-J>', '<C-W><C-J>')
-nnoremap('<C-K>', '<C-W><C-K>')
-nnoremap('<C-L>', '<C-W><C-L>')
-nnoremap('<C-H>', '<C-W><C-H>')
 
-nnoremap('<M-h>', '<C-w>H')
-nnoremap('<M-j>', '<C-w>J')
-nnoremap('<M-k>', '<C-w>K')
-nnoremap('<M-l>', '<C-w>L')
+local mapx = require('mapx')
+
+-- split navigations
+mapx.nnoremap('<C-J>', '<C-W><C-J>')
+mapx.nnoremap('<C-K>', '<C-W><C-K>')
+mapx.nnoremap('<C-L>', '<C-W><C-L>')
+mapx.nnoremap('<C-H>', '<C-W><C-H>')
+
+mapx.nnoremap('<M-h>', '<C-w>H')
+mapx.nnoremap('<M-j>', '<C-w>J')
+mapx.nnoremap('<M-k>', '<C-w>K')
+mapx.nnoremap('<M-l>', '<C-w>L')
 
 -- split resize
-nnoremap('<M-K>', '<C-w>+')
-nnoremap('<M-J>', '<C-w>-')
-nnoremap('<M-H>', '<C-w><')
-nnoremap('<M-L>', '<C-w>>')
+mapx.nnoremap('<M-K>', '<C-w>+')
+mapx.nnoremap('<M-J>', '<C-w>-')
+mapx.nnoremap('<M-H>', '<C-w><')
+mapx.nnoremap('<M-L>', '<C-w>>')
 
 -- Fix Y
-nnoremap('Y', 'y$')
+mapx.nnoremap('Y', 'y$')
 
 -- alt tab
-nnoremap('<leader><Tab>', '<C-^>')
+mapx.nnoremap('<leader><Tab>', '<C-^>')
 
 -- jump to marker
-inoremap(',,', '<Esc>/<++><Enter>"_c4l')
+mapx.inoremap(',,', '<Esc>/<++><Enter>"_c4l')
 
 -- easier start and end
-nnoremap('H', '^')
-nnoremap('L', '$')
+mapx.nnoremap('H', '^')
+mapx.nnoremap('L', '$')

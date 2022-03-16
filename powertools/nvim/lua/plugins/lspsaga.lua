@@ -1,5 +1,6 @@
 -- luacheck: globals mapx nnoremap inoremap vnoremap
 local saga = require('lspsaga')
+local mapx = require('mapx')
 
 saga.init_lsp_saga {
     error_sign = '>>',
@@ -11,14 +12,14 @@ saga.init_lsp_saga {
 }
 
 mapx.group({ silent = true }, function()
-    nnoremap('K', require('lspsaga.hover').render_hover_doc)
-    inoremap('<C-j>', require('lspsaga.signaturehelp').signature_help)
-    nnoremap('gh', require('lspsaga.provider').lsp_finder)
-    nnoremap('<leader>c', require('lspsaga.rename').rename)
+    mapx.nnoremap('K', require('lspsaga.hover').render_hover_doc)
+    mapx.inoremap('<C-j>', require('lspsaga.signaturehelp').signature_help)
+    mapx.nnoremap('gh', require('lspsaga.provider').lsp_finder)
+    mapx.nnoremap('<leader>c', require('lspsaga.rename').rename)
     local diag = require('lspsaga.diagnostic')
-    nnoremap('<F10>', function() diag.navigate('prev')() end)
-    nnoremap('<F12>', function() diag.navigate('next')() end)
+    mapx.nnoremap('<F10>', function() diag.navigate('prev')() end)
+    mapx.nnoremap('<F12>', function() diag.navigate('next')() end)
     local codeaction = require('lspsaga.codeaction')
-    nnoremap('<A-Return>', codeaction.code_action)
-    vnoremap('<A-Return>', codeaction.range_code_action)
+    mapx.nnoremap('<A-Return>', codeaction.code_action)
+    mapx.vnoremap('<A-Return>', codeaction.range_code_action)
 end)
