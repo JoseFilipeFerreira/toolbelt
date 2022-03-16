@@ -35,12 +35,12 @@ _gcl() {
 }
 
 # shellcheck disable=SC1090
-command -V gh &> /dev/null &&
+hash gh &> /dev/null &&
     . <(gh completion -s bash) &&
     complete -F _gcl gcl
 
 # shellcheck disable=SC1090
-command -V labib &> /dev/null &&
+hash labib &> /dev/null &&
     . <(labib --completion)
 
 complete -d cd

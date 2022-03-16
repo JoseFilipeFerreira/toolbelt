@@ -32,7 +32,7 @@ _get_pkgs(){
 }
 
 _install_pkgs(){
-    if command -V pacman &> /dev/null; then
+    if hash pacman &> /dev/null; then
         sudo pacman -Suyy
 
         readarray -t pkg_pacman < <(_get_pkgs pacman "$@")
@@ -43,7 +43,7 @@ _install_pkgs(){
 
         readarray -t pkg_aura < <(_get_pkgs aur "$@")
         aura -S "${pkg_aura[@]}"
-    elif command -V pkg &> /dev/null;then
+    elif hash pkg &> /dev/null;then
         pkg update && pkg upgrade
         readarray -t pkg_pkg < <(_get_pkgs pkg "$@")
         pkg install "${pkg_pkg[@]}"
@@ -74,7 +74,7 @@ case "$REPLY" in
         _setup_home
         ;;
     mobile|m)
-        ! command -V termux-setup-storage &> /dev/null &&
+        ! hash termux-setup-storage &> /dev/null &&
             echo "error: not in a termux env" && exit
         _install_pkgs essential
         bash "$DOTFILES"/nail essential mobile
