@@ -1,31 +1,31 @@
 #!/bin/bash
-# dmenu app launcher with history
+# dmenu app launcher with app usage history
 
 cache="$XDG_DATA_HOME/dmenu"
 mkdir -p "$cache"
 cache_file="$cache""/IQhist"
 touch "$cache_file"
 
-all_cmd=$(dmenu_path)
+all=$(dmenu_path | grep -E '[[:alnum:]]')
 
-most_used=$(sort -nr -k2 "$cache_file" | cut -f1)
+used=$(cut -f2- "$cache_file")
 
-never_used_cmd=$(echo -e "$all_cmd" | grep -F -x -v -f <(echo -e "$most_used"))
+never_used=$(echo -e "$all" | grep -Fxvf <(echo -e "$used"))
 
 cmd=$(echo -e "${most_used}\n${never_used_cmd}" | dmenu -l 20 -i)
 
 [[ "$cmd" ]] || exit 1
 
-if ! grep -q "$cmd" "$cache_file";
-then
-    echo -e "$cmd\t1" >> "$cache_file"
+if ! grep -q "$cmd" "$cache_file"; then
+    echo -e "1\t$cmd" >> "$cache_file"
 else
     tmp_cache="$(mktemp)"
 
     awk -v c="$cmd" \
         -F'\t' \
-        '$1 == c {print($1"\t"$2 + 1)} $1 != c {print}' \
-        "$cache_file" > "$tmp_cache"
+        '$2 == c {print($1 + 1"\t"$2)} $2 != c {print}' \
+        "$cache_file" |
+    sort -nr > "$tmp_cache"
 
     mv "$tmp_cache" "$cache_file"
 fi
