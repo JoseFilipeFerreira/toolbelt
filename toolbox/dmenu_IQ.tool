@@ -10,9 +10,11 @@ all=$(dmenu_path | grep -E '[[:alnum:]]')
 
 used=$(cut -f2- "$cache_file")
 
-never_used=$(echo -e "$all" | grep -Fxvf <(echo -e "$used"))
+echo "${used[*]}"
 
-cmd=$(echo -e "${most_used}\n${never_used_cmd}" | dmenu -l 20 -i)
+not_used=$(echo -e "$all" | grep -Fxvf <(echo -e "$used"))
+
+cmd=$(echo -e "${used}\n${not_used}" | dmenu -l 20 -i)
 
 [[ "$cmd" ]] || exit 1
 
