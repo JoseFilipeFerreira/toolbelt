@@ -1,3 +1,2 @@
 #!/bin/bash
-bash label_printer >| README.md
-git add README.md
+bash label_printer

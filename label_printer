@@ -12,9 +12,29 @@ generate_description(){
         done
 }
 
+generate_blueprints(){
+    find "./blueprints" -maxdepth 1 -type f -not -path '*/\.*' |
+        sort |
+        while read -r script; do
+            title="$(head -n 1 "$script" | sed 's/ *# *//g')"
+            echo "* [$title]($script)"
+        done
+}
+
+
+echo \
+"# :blue_book: Blueprints
+
+Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repeat them
+
+## Index
+$(generate_blueprints)" >| blueprints/README.md
+git add blueprints/README.md
+
 echo \
 "# Toolbelt
-Collection of scripts and dotfiles that follow me on all of my linux adventures
+Collection of scripts, dotfiles and self-created guides that follow me on all
+of my linux adventures
 
 ## :hammer: [Powertools](powertools) (.dotfiles)
 Static config files
@@ -32,9 +52,14 @@ Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
 $(generate_description "handtools")
 
+
 ## :link: Install
-Collection of installation scripts
+Installation scripts I use to setup my dotfiles
 $(generate_description .)
 
+## :blue_book: [Blueprints](blueprints)
+Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repeat them
+
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details"
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details" >| README.md
+git add README.md
