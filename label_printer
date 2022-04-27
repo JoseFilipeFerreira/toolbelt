@@ -13,11 +13,12 @@ generate_description(){
 }
 
 generate_blueprints(){
-    find "./blueprints" -maxdepth 1 -type f -not -path '*/\.*' |
+    find "./blueprints" -maxdepth 1 -type f -not -name README.md |
         sort |
         while read -r script; do
             title="$(head -n 1 "$script" | sed 's/ *# *//g')"
-            echo "* [$title]($script)"
+            file="$(basename $script)"
+            echo "* [$title]($file)"
         done
 }
 
