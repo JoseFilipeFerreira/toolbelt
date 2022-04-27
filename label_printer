@@ -16,8 +16,8 @@ generate_blueprints(){
     find "./blueprints" -maxdepth 1 -type f -not -name README.md |
         sort |
         while read -r script; do
+            file="$(basename "$script")"
             title="$(head -n 1 "$script" | sed 's/ *# *//g')"
-            file="$(basename $script)"
             echo "* [$title]($file)"
         done
 }
