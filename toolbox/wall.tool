@@ -54,7 +54,7 @@ _sync_walls() {
 }
 
 _check_res(){
-    file="$HOME/$folder/$1"
+    file="$1"
 
     touch -m "$file"
 
@@ -82,7 +82,7 @@ _add_wall() {
                 file="$(basename "$1")"
                 [[ "$2" ]] && file="$2"
                 wget "$1" -O "$HOME/$folder/$file"
-                _check_res "$file"
+                _check_res "$HOME/$folder/$file"
             fi
             ;;
         *)
