@@ -1,12 +1,23 @@
 #!/bin/bash
 # screenshot tool
 
+# made by Mendess
+rename() {
+    rename="$(: | dmenu -p 'rename to' |
+        sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"
+    [[ -z "$rename" ]] && return 1
+    while [[ -e "${rename}${i}" ]]; do
+        ((i++))
+    done
+    rename="${rename}${i}.${1#*.}"
+    mv "$1" "$rename" && echo "$rename"
+}
+
 script_name="$(basename "$0")"
 
-file=$(date +'%d%h%Y-%Hh%mm%Ss')
+file="$(date +'screenshot_%d%h%Y-%Hh%mm%Ss')"
 
 type="image"
-
 while (( "$#" )); do
     case $1 in
         -c|--clipboard)
@@ -17,6 +28,11 @@ while (( "$#" )); do
         -i|--image)
             # Take screenshot [default]
             type="image"
+            shift
+            ;;
+        -k|--keep)
+            # Do not delete screenshot when finished
+            keep="true"
             shift
             ;;
         -d|--delay)
@@ -50,6 +66,11 @@ while (( "$#" )); do
             no_notify="true"
             shift
             ;;
+        --rename)
+            # Rename file at the end
+            rename="true"
+            shift
+            ;;
         -h|--help)
             # Send this help message
             echo "USAGE:"
@@ -80,25 +101,27 @@ done
 
 case "$type" in
     image)
-        header="Screenshot taken"
+        file="$file.png"
 
-        shotgun -g "$hack" "$file.png"
+        shotgun -g "$hack" "$file"
 
         case "$display" in
             floating)
-                sxiv -g "$hack" -b "$file.png"
-                rm "$file.png"
+                sxiv -p -g "$hack" -b "$file"
+                [[ "$keep" ]] || delete="true"
                 ;;
             clip)
-                xclip -t 'image/png' -selection clipboard -i "$file.png"
-                rm "$file.png"
+                xclip -t 'image/png' -selection clipboard -i "$file"
+                [[ "$keep" ]] || delete="true"
+                ;;
+            *)
                 ;;
         esac
 
         [[ "$display" ]] && content+=" to $display"
         ;;
     video)
-        header="Video taken"
+        file="$file.mkv"
 
         flags=(-framerate 25 -f x11grab)
 
@@ -108,17 +131,25 @@ case "$type" in
 
         flags+=(-video_size "$size" -i :0.0+"$start")
 
-        ffmpeg "${flags[@]}" "$file.mkv"
+        ffmpeg "${flags[@]}" "$file"
         ;;
 esac
 
-[[ "$no_notify" ]] && exit
+[[ "$rename" ]] && file="$(rename "$file" || echo "$file")"
 
-[[ "$delay" ]] && content+=" with delay of ""$delay""s"
+[[ "$no_notify" ]] || {
 
-notify-send \
-    -u low \
-    -i "mimetypes/image-x-generic" \
-    -a "cuffs" \
-    "$header" \
-    "$content"
+    [[ "$delay" ]] && content+=" with delay of ""$delay""s"
+
+    image="mimetypes/image-x-generic"
+    [[ -f "$file" ]] && [[ "$type" != "video" ]] && image="$PWD/$file"
+
+    notify-send \
+        -u low \
+        -i "$image" \
+        -a "$script_name" \
+        "$type taken" \
+        "$content"
+}
+
+[[ "$delete" ]] && rm "$file"
