@@ -47,6 +47,10 @@ while (( "$#" )); do
             ;;
         -v|--video)
             # Record video
+            #
+            # If script is executed through a keybind stop recording with
+            #     kill -SIGINT $(cat /tmp/$USER/ffmpeg_screenshot_pid)
+            # else stop recording with q or <C-c>
             type="video"
             shift
             ;;
@@ -80,7 +84,7 @@ while (( "$#" )); do
 
             awk '/^while/,/^done/' "$0" |
                 grep -E "^\s*(#|-.*|;;)" |
-                sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g' |
+                sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/#//g;s/;;//g' |
                 sed 's/ *$//g' |
                 sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'
             exit
@@ -97,52 +101,17 @@ done
 
 [[ "$delay" ]] && sleep "$delay"
 
-[[ "$hack_info" ]] && content="of area"
+[[ "$hack_info" ]] && content="of area "
 
-case "$type" in
-    image)
-        file="$file.png"
+notify() {
+    [[ "$no_notify" ]] && return
 
-        shotgun -g "$hack" "$file"
-
-        case "$display" in
-            floating)
-                sxiv -p -g "$hack" -b "$file"
-                [[ "$keep" ]] || delete="true"
-                ;;
-            clip)
-                xclip -t 'image/png' -selection clipboard -i "$file"
-                [[ "$keep" ]] || delete="true"
-                ;;
-            *)
-                ;;
-        esac
-
-        [[ "$display" ]] && content+=" to $display"
-        ;;
-    video)
-        file="$file.mkv"
-
-        flags=(-framerate 25 -f x11grab)
-
-        [[ "$time" ]] && flags+=( -t "$time" ) && content+=" during ""$time""s"
-        size="$(echo "$hack" | cut -d+ -f 1)"
-        start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
-
-        flags+=(-video_size "$size" -i :0.0+"$start")
-
-        ffmpeg "${flags[@]}" "$file"
-        ;;
-esac
-
-[[ "$rename" ]] && file="$(rename "$file" || echo "$file")"
-
-[[ "$no_notify" ]] || {
-
-    [[ "$delay" ]] && content+=" with delay of ""$delay""s"
+    [[ "$delay" ]] && content+="with delay of ${delay}s"
+    [[ "$display" ]] && content+="to $display "
+    [[ "$new_file" ]] && content+="renamed to $new_file "
 
     image="mimetypes/image-x-generic"
-    [[ -f "$file" ]] && [[ "$type" != "video" ]] && image="$PWD/$file"
+    [[ -f "$thumbnail" ]] && image="$thumbnail"
 
     notify-send \
         -u low \
@@ -152,4 +121,67 @@ esac
         "$content"
 }
 
-[[ "$delete" ]] && rm "$file"
+case "$type" in
+    image)
+        file="$file.png"
+
+        shotgun -g "$hack" "$file"
+
+        if [[ "$rename" ]] && new_file="$(rename "$file")"; then
+            file="$new_file"
+        else
+            rm "$file" && exit
+        fi
+
+        thumbnail="$PWD/$file"
+
+        notify
+        case "$display" in
+            floating)
+                sxiv -p -g "$hack" -b "$file"
+                [[ "$keep" ]] || rm "$file"
+                ;;
+            clip)
+                xclip -t 'image/png' -selection clipboard -i "$file"
+                [[ "$keep" ]] || rm "$file"
+                ;;
+            *)
+                ;;
+        esac
+        ;;
+    video)
+        file="$file.mkv"
+
+        flags=(-framerate 25 -f x11grab)
+
+        [[ "$time" ]] && flags+=( -t "$time" ) && content+="during ${time}s "
+        size="$(echo "$hack" | cut -d+ -f 1)"
+        start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
+
+        flags+=(-video_size "$size" -i :0.0+"$start")
+
+        if [[ -t 1 ]]; then
+            ffmpeg "${flags[@]}" "$file"
+        else
+            ffmpeg "${flags[@]}" "$file" &
+
+            pid_file="/tmp/$USER/ffmpeg_screenshot_pid"
+            mkdir -p "$(dirname "$pid_file")"
+
+            jobs -p > "$pid_file"
+            wait
+            rm "$pid_file"
+        fi
+
+        if [[ "$rename" ]] && new_file="$(rename "$file")"; then
+            file="$new_file"
+        fi
+
+        thumbnail="$(mktemp --suffix=.png)"
+
+        ffmpeg -y -loglevel error -hide_banner -vsync vfr -i "$file"  -frames:v 1 "$thumbnail" > /dev/null
+
+        notify
+        ;;
+esac
+
