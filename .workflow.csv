@@ -44,6 +44,7 @@ pacman,essential,zip
 pacman,extra,acpi
 pacman,extra,alacritty
 pacman,extra,brightnessctl
+pacman,extra,clipmenu
 pacman,extra,discord
 pacman,extra,dunst
 pacman,extra,feh
@@ -73,6 +74,7 @@ pacman,extra,sxiv
 pacman,extra,thunar
 pacman,extra,trayer
 pacman,extra,ttf-font-awesome
+pacman,extra,tumbler
 pacman,extra,vdirsyncer
 pacman,extra,wireless_tools
 pacman,extra,xclip

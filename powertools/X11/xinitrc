@@ -6,5 +6,6 @@ picom --experimental-backends --daemon
 dunst &
 thonkbar &
 death &
+clipmenud &
 
 exec i3
