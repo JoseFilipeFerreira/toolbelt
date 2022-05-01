@@ -128,7 +128,7 @@ _change_wall(){
     echo "$file"
     notify-send \
         -u low \
-        -i "mimetypes/image-x-generic" \
+        -i "$file" \
         -a "wall" \
         "Wallpaper changed" \
         "$(basename "$file")"
