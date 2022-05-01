@@ -15,7 +15,7 @@ rename() {
 
 script_name="$(basename "$0")"
 
-file="$(date +'screenshot_%d%h%Y-%Hh%mm%Ss')"
+file="$(date +'screenshot_%d%h%Y-%Hh%Mm%Ss')"
 
 type="image"
 while (( "$#" )); do
@@ -75,6 +75,12 @@ while (( "$#" )); do
             rename="true"
             shift
             ;;
+        --color-picker)
+            # get more common color in image
+            # copies value to selection
+            pick="true"
+            shift
+            ;;
         -h|--help)
             # Send this help message
             echo "USAGE:"
@@ -110,6 +116,19 @@ notify() {
     [[ "$display" ]] && content+="to $display "
     [[ "$new_file" ]] && content+="renamed to $new_file "
 
+    if [[ "$pick" ]]; then
+        color="$(convert "$thumbnail" \
+            -define histogram:unique-colors=true \
+            -format %c \
+            histogram:info:- |
+            sort -n |
+            sed '$!d' |
+            cut -d'#' -f2 |
+            cut -c1-6)"
+        echo -n "#$color" | xclip
+        content+="(#$color) "
+    fi
+
     image="mimetypes/image-x-generic"
     [[ -f "$thumbnail" ]] && image="$thumbnail"
 
@@ -127,10 +146,12 @@ case "$type" in
 
         shotgun -g "$hack" "$file"
 
-        if [[ "$rename" ]] && new_file="$(rename "$file")"; then
-            file="$new_file"
-        else
-            rm "$file" && exit
+        if [[ "$rename" ]]; then
+            if new_file="$(rename "$file")"; then
+                file="$new_file"
+            else
+                rm "$file" && exit
+            fi
         fi
 
         thumbnail="$PWD/$file"
@@ -173,8 +194,12 @@ case "$type" in
             rm "$pid_file"
         fi
 
-        if [[ "$rename" ]] && new_file="$(rename "$file")"; then
-            file="$new_file"
+        if [[ "$rename" ]]; then
+            if new_file="$(rename "$file")"; then
+                file="$new_file"
+            else
+                rm "$file" && exit
+            fi
         fi
 
         thumbnail="$(mktemp --suffix=.png)"
