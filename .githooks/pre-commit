@@ -1,2 +1,2 @@
 #!/bin/bash
-bash label_printer
+bash label-printer

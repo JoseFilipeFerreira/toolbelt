@@ -39,6 +39,8 @@ Scripts used in the terminal or on a keybind
 ## :wrench: [Toolkit](toolkit) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
+* [games](toolkit/games.menu) 
+* [nitro](toolkit/nitro.menu) pick from a list of emojis and gifs
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
 * [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](toolkit/trayer.menu) toggle trayer
@@ -58,7 +60,7 @@ Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 Installation scripts I use to setup my dotfiles
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
-* [label_printer](./label_printer) autogenerate [README](README.md)
+* [label-printer](./label-printer) autogenerate [README](README.md)
 * [link-check](./link-check) check the validity of relative and hard links in all the md files
 * [nail](./nail) symlink dotfiles and scripts
 * [schedule](./schedule) run job scheduler for [Termux](https://github.com/termux/termux-app)
