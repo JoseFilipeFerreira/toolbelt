@@ -18,7 +18,7 @@ super + {_, shift +} Return
 super + {w, c}
         {wall, calendar}
 
-super + v
+control + alt + v
         clipmenu
 
 super + control + l
