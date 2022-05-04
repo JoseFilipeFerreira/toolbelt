@@ -66,4 +66,4 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: run markdown-link-checker
-        run: bash link-check.sh
+        run: bash link-check
