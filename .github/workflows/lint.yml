@@ -61,10 +61,14 @@ jobs:
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/(bash|sh)' .)
           shellcheck "${files[@]}"
 
-  markdown-link-check:
+  mdcheckr:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: gaurav-nelson/github-action-markdown-link-check@v1
-        with:
-          use-verbose-mode: 'yes'
+      - uses: actions/checkout@v1
+      - name: install requirements
+        run: |
+          sudo add-apt-repository -y ppa:mike42/mdcheckr
+          sudo apt-get -y install mdcheckr
+      - name: run mdcheckr
+        run: |
+          find . -name '*.md' -print0 | xargs -0 mdcheckr
