@@ -67,7 +67,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: install requirements
         run: |
-          sudo apt-get install -y pandoc libxml
+          sudo apt-get install -y pandoc libxml2-utils
           curl https://raw.githubusercontent.com/mike42/mdcheckr/master/mdcheckr -o mdcheckr
           chmod +x mdcheckr
       - name: run mdcheckr
