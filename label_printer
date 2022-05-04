@@ -40,15 +40,15 @@ of my linux adventures
 ## :hammer: [Powertools](powertools) (.dotfiles)
 Static config files
 
-## 🧰 [Toolbox](./toolbox)(scripts)
+## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
 $(generate_description "toolbox")
 
-## :wrench: [Toolkit](./toolkit) (dmenu scripts)
+## :wrench: [Toolkit](toolkit) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
 $(generate_description "toolkit")
 
-## :iphone: [Handtools](./handtools)
+## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
 $(generate_description "handtools")
@@ -58,7 +58,7 @@ $(generate_description "handtools")
 Installation scripts I use to setup my dotfiles
 $(generate_description .)
 
-## :blue_book: [Blueprints](./blueprints)
+## :blue_book: [Blueprints](blueprints)
 Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repeat them
 
 ## License

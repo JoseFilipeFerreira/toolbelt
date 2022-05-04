@@ -61,15 +61,9 @@ jobs:
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/(bash|sh)' .)
           shellcheck "${files[@]}"
 
-  mdcheckr:
+  markdown-link-checker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: install requirements
-        run: |
-          sudo apt-get install -y pandoc libxml2-utils
-          curl https://raw.githubusercontent.com/mike42/mdcheckr/master/mdcheckr -o mdcheckr
-          chmod +x mdcheckr
-      - name: run mdcheckr
-        run: |
-          find . -name '*.md' -print0 | xargs -0 ./mdcheckr
+      - name: run markdown-link-checker
+        run: ./link-check.sh

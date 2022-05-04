@@ -5,7 +5,7 @@ of my linux adventures
 ## :hammer: [Powertools](powertools) (.dotfiles)
 Static config files
 
-## 🧰 [Toolbox](./toolbox)(scripts)
+## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
 * [add-icons](toolbox/add-icons.tool) manage [toolicons](powertools/toolicons) icon theme
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
@@ -36,7 +36,7 @@ Scripts used in the terminal or on a keybind
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 * [workin](toolbox/workin.tool) workout manager
 
-## :wrench: [Toolkit](./toolkit) (dmenu scripts)
+## :wrench: [Toolkit](toolkit) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
@@ -44,7 +44,7 @@ Scripts launched from my [menu](toolbox/menu.tool)
 * [trayer](toolkit/trayer.menu) toggle trayer
 * [wine](toolkit/wine.menu) launch programs installed with [wine](https://www.winehq.org/)
 
-## :iphone: [Handtools](./handtools)
+## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
 * [change_lock](handtools/change_lock.tool) change phone wallpaper
@@ -59,10 +59,11 @@ Installation scripts I use to setup my dotfiles
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 * [label_printer](./label_printer) autogenerate [README](README.md)
+* [link-check](./link-check.sh) check the validity of relative and hard links in all the md files
 * [nail](./nail) symlink dotfiles and scripts
 * [schedule](./schedule) run job scheduler for [Termux](https://github.com/termux/termux-app)
 
-## :blue_book: [Blueprints](./blueprints)
+## :blue_book: [Blueprints](blueprints)
 Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repeat them
 
 ## License
