@@ -2,7 +2,7 @@
 Collection of scripts, dotfiles and self-created guides that follow me on all
 of my linux adventures
 
-## :hammer: [Powertools](poools) (.dotfiles)
+## :hammer: [Powertools](powertools) (.dotfiles)
 Static config files
 
 ## 🧰 [Toolbox](toolbox)(scripts)
