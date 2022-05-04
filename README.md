@@ -2,7 +2,7 @@
 Collection of scripts, dotfiles and self-created guides that follow me on all
 of my linux adventures
 
-## :hammer: [Powertools](powertools) (.dotfiles)
+## :hammer: [Powertools](poools) (.dotfiles)
 Static config files
 
 ## 🧰 [Toolbox](toolbox)(scripts)
@@ -59,7 +59,7 @@ Installation scripts I use to setup my dotfiles
 * [generate_config](./generate_config.py) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 * [label_printer](./label_printer) autogenerate [README](README.md)
-* [link-check](./link-check.sh) check the validity of relative and hard links in all the md files
+* [link-check](./link-check) check the validity of relative and hard links in all the md files
 * [nail](./nail) symlink dotfiles and scripts
 * [schedule](./schedule) run job scheduler for [Termux](https://github.com/termux/termux-app)
 
