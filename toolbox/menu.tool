@@ -9,4 +9,4 @@ scripts="$DOTFILES/toolkit"
     sed -e 's|./||g' -e 's/\.menu$//g' |
     sort |
     dmenu -i -l 20 -p "Pick a menu:")".menu &
-diswon
+disown
