@@ -60,3 +60,10 @@ jobs:
           rm -r .git
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/(bash|sh)' .)
           shellcheck "${files[@]}"
+
+  markdown-link-checker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: run markdown-link-checker
+        run: bash link-check
