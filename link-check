@@ -11,17 +11,17 @@ while read -rd '' -r file; do
                 if [[ "$(curl -o /dev/null -Isw '%{http_code}\n' "$line_link")" == "200" ]]; then
                     echo -e "\033[32m[ OK ]\e[0m"
                 else
-                    echo -e "\033[31m[ ERROR ]\e[0m" && exit 1
+                    echo -e "\033[31m[ ERROR ]\e[0m" && exit 0
                 fi
                 ;;
             *)
                 if [[ -e "$(dirname "$file")/$line_link" ]]; then
                     echo -e "\033[32m[ OK ]\e[0m"
                 else
-                    echo -e "\033[31m[ ERROR ]\e[0m" && exit 1
+                    echo -e "\033[31m[ ERROR ]\e[0m" && exit 0
                 fi
                 ;;
         esac
     done
 done < <(find . -type f -name '*.md' -print0)
-exit 0
+exit 1
