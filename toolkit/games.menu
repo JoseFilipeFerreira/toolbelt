@@ -21,24 +21,34 @@ steam_libraries=(
 
 list_games(){
     for path in "${steam_libraries[@]}"; do
-        lib="$(dirname "$path" | sed -E 's|'"$HOME"'|~|g')"
         for acf in "$path/steamapps/"*.acf; do
             name="$(extract_key "name" < "$acf")"
             if ! echo "$name" | grep -Eq "(Proton|Redistributable|Linux)"; then
                 id="$(extract_key "appid" < "$acf")"
-                echo -e "${lib}\t${name}\t${id}"
+                echo -e "${name}\t${id}"
             fi
         done
     done
 }
 
-id="$(\
+line="$(\
     list_games |
+    sort |
     column -ts$'\t' |
-    dmenu -i -l 20 -p "Steam" |
-    grep -o '[0-9]*$')"
+    dmenu -i -l 20 -p "Steam")"
 
+[[ "$line" ]] || exit
 
-[[ "$id" ]] || exit
+name="$(echo "$line" | sed 's/[0-9]*\([^[:alnum:]]*\)$/\1/')"
+id="$(echo "$line" | grep -o '[0-9]*$')"
+
+icon='apps/steam'
+f=~/.local/share/Steam/appcache/librarycache/${id}_icon.jpg; [[ -f "$f" ]] && icon="$f"
+
+notify-send \
+    -a "Steam" \
+    -i "$icon" \
+    "Launching Game" \
+    "$name"
 
 steam -applaunch "$id"
