@@ -39,8 +39,7 @@ Scripts used in the terminal or on a keybind
 ## :wrench: [Toolkit](toolkit) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
-* [games](toolkit/games.menu) 
-* [nitro](toolkit/nitro.menu) pick from a list of emojis and gifs
+* [games](toolkit/games.menu) launch games from steam
 * [subs](toolkit/subs.menu) subscribe to a RSS feed with categories
 * [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](toolkit/trayer.menu) toggle trayer

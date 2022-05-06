@@ -1,0 +1,44 @@
+#!/bin/bash
+# launch games from steam
+
+extract_key() {
+  gawk -F'[[:space:]]' -v key="\"$1\"" '
+    BEGIN { FPAT = "\"([^\"]+)\""; }
+    $1 == key {
+      if (substr($2, 1, 1) == "\"") {
+        $2 = substr($2, 2, length($2) - 2)
+      }
+      print $2
+      exit(0)
+    }
+    END { exit(1); }
+  '
+}
+
+steam_libraries=(
+    ~/.local/share/Steam
+)
+
+list_games(){
+    for path in "${steam_libraries[@]}"; do
+        lib="$(dirname "$path" | sed -E 's|'"$HOME"'|~|g')"
+        for acf in "$path/steamapps/"*.acf; do
+            name="$(extract_key "name" < "$acf")"
+            if ! echo "$name" | grep -Eq "(Proton|Redistributable|Linux)"; then
+                id="$(extract_key "appid" < "$acf")"
+                echo -e "${lib}\t${name}\t${id}"
+            fi
+        done
+    done
+}
+
+id="$(\
+    list_games |
+    column -ts$'\t' |
+    dmenu -i -l 20 -p "Steam" |
+    grep -o '[0-9]*$')"
+
+
+[[ "$id" ]] || exit
+
+steam -applaunch "$id"
