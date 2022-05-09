@@ -5,7 +5,7 @@ calendar="Meetings"
 
 priority="normal"
 
-_notify(){
+notify(){
     dunstify \
         -u "$priority" \
         -a "in $calendar" \
@@ -13,7 +13,7 @@ _notify(){
         "$@"
 }
 
-_seconds_left(){
+seconds_left(){
     local epoch
     epoch="$(date --date="$1" +%s)"
     local now
@@ -21,8 +21,8 @@ _seconds_left(){
     echo "$(( epoch - now ))"
 }
 
-_print_time_left(){
-    time="$(_seconds_left "$1")"
+print_time_left(){
+    time="$(seconds_left "$1")"
 
     [[ "$time" -lt 3600 ]] &&
         printf 'in %02dm' $((time/60)) &&
@@ -44,7 +44,7 @@ readarray -t events < <(\
         --day-format "")
 
 [[ "${#events[@]}" -eq 0 ]] &&
-    _notify "Couldn't find events" &&
+    notify "Couldn't find events" &&
     exit
 
 for event in "${events[@]}"; do
@@ -56,10 +56,10 @@ for event in "${events[@]}"; do
     location="${event_fields[3]}"
 
     # check if event is already over
-    end_secs="$(_seconds_left "$end")"
+    end_secs="$(seconds_left "$end")"
     [ "$end_secs" -lt 0 ] && continue
 
-    body="<b>time:</b>\n$start ($(_print_time_left "$start"))\n"
+    body="<b>time:</b>\n$start ($(print_time_left "$start"))\n"
 
     actions=()
     case "$location" in
@@ -83,7 +83,7 @@ for event in "${events[@]}"; do
             ;;
     esac
 
-    action="$( _notify "$title" "$body" "${actions[@]}")"
+    action="$( notify "$title" "$body" "${actions[@]}")"
 
     [ "$action" ] || exit
 

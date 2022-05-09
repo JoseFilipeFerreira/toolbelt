@@ -26,7 +26,7 @@ pictures/MyCollections
 pictures/Reddit
 )
 
-_update_notification(){
+update_notification(){
     [[ "$1" ]] && notification_content+=("$1")
 
     printf -v var "%s\n" "${notification_content[@]}"
@@ -39,27 +39,27 @@ _update_notification(){
         --content "$var"
 }
 
-_update_notification "..."
+update_notification "..."
 
 notification_content=()
 for folder in "${folders[@]}"; do
     if [ -d ~/storage/"$folder" ]; then
-        _update_notification "$folder"
+        update_notification "$folder"
         rsync "${rsync_flags[@]}" --relative ~/storage/./"$folder" "$remote":phone/
     else
-        _update_notification "File not found: $folder"
+        update_notification "File not found: $folder"
     fi
 
 done
 
 rsync_delete_flags=( --exclude '.config' --progress -av --delete )
 
-_update_notification "media/music"
+update_notification "media/music"
 rsync "${rsync_delete_flags[@]}" "$remote":.local/share/music/ ~/storage/music
 termux-media-scan ~/storage/music
 
-_update_notification "wallpapers"
+update_notification "wallpapers"
 rsync "${rsync_delete_flags[@]}" "$remote":.local/share/wallpapers ~/.local/share
 
 notification_title+=" Done"
-_update_notification
+update_notification

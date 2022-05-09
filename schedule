@@ -3,7 +3,7 @@
 
 [[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-_termux_task_set(){
+termux_task_set(){
     echo -e "\033[35mSetting task:\033[33m $1 (every: $2 ms)\033[0m"
     termux-job-scheduler \
         --script "$DOTFILES/handtools/$1.tool" \
@@ -15,4 +15,4 @@ _termux_task_set(){
     echo "Not in termux env" && exit
 
 termux-job-scheduler --cancel-all
-_termux_task_set change_lock 900000
+termux_task_set change_lock 900000

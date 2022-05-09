@@ -3,11 +3,11 @@
 
 cache_file=~/.cache/music_device
 
-_all(){
+list_devices(){
         grep "^Host" ~/.ssh/config | sed 's/Host //g'
 }
 
-[ -f "$cache_file" ] || _all | head -1 >| "$cache_file"
+[ -f "$cache_file" ] || list_devices | head -1 >| "$cache_file"
 
 case "$1" in
     --last-used)
@@ -18,6 +18,6 @@ case "$1" in
         ;;
     --all)
         last="$(cat "$cache_file")"
-        echo -e "$last\n$(_all | grep -v "$last")" | paste -s -d, -
+        echo -e "$last\n$(list_devices | grep -v "$last")" | paste -s -d, -
         ;;
 esac

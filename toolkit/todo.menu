@@ -1,7 +1,7 @@
 #!/bin/bash
 # simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 
-_sync(){
+sync(){
     [[ "$failed_sync" ]] && return
 
     if ! error="$(vdirsyncer sync calendar 2>&1 > /dev/null)"; then
@@ -15,7 +15,7 @@ _sync(){
     fi
 }
 
-_sync
+sync
 
 while : ; do
     events="$(todo --porcelain | jq -r '.[] | "\(.summary) (\(.id))" ' | sort)"
@@ -32,4 +32,4 @@ while : ; do
 
 done
 
-_sync
+sync

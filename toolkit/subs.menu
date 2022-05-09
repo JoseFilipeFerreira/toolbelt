@@ -1,7 +1,7 @@
 #!/bin/bash
 # subscribe to a RSS feed with categories
 
-_notify(){
+notify(){
     notify-send \
         -u low \
         -i "assets/rss" \
@@ -20,7 +20,7 @@ if [[ ! "${cats[*]}" =~ ${cat} ]]; then
     case "$(echo -e "yes\nno" | dmenu -i -p "add $cat as category")" in
         yes)
             echo -e "\n\"---$cat---\"" >> "$urls"
-            _notify "Added new category: \"$cat\""
+            notify "Added new category: \"$cat\""
             ;;
         no|"")
             exit
@@ -47,10 +47,10 @@ case "$link" in
 esac
 
 if grep "$link" "$urls" >/dev/null ; then
-    _notify 'Link already subscribed'
+    notify 'Link already subscribed'
     exit
 fi
 
 sed -i "s|\"---$cat---\"|&\n$link ${tags[*]}|g" "$urls"
 
-_notify "Added new link to $cat" "$link"
+notify "Added new link to $cat" "$link"

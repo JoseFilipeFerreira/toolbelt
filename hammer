@@ -4,7 +4,7 @@ set -e
 
 [[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-_make_repos(){
+make_repos(){
     for repo in "$@"; do
         name="$(basename "$repo")"
         echo -e "\033[32mInstalling $name...\033[0m"
@@ -14,7 +14,7 @@ _make_repos(){
     done
 }
 
-_get_pkgs(){
+get_pkgs(){
     pkg_mngr="$1"
     while IFS=',' read -r l; do
         IFS=',' read -ra args <<< "$l"
@@ -31,28 +31,28 @@ _get_pkgs(){
     done < "$DOTFILES/.workflow.csv"
 }
 
-_install_pkgs(){
+install_pkgs(){
     if hash pacman &> /dev/null; then
         sudo pacman -Suyy
 
-        readarray -t pkg_pacman < <(_get_pkgs pacman "$@")
+        readarray -t pkg_pacman < <(get_pkgs pacman "$@")
         sudo pacman -S --needed "${pkg_pacman[@]}"
 
-        readarray -t pkg_repos < <(_get_pkgs repos "$@")
-        _make_repos "${pkg_repos[@]}"
+        readarray -t pkg_repos < <(get_pkgs repos "$@")
+        make_repos "${pkg_repos[@]}"
 
-        readarray -t pkg_aura < <(_get_pkgs aur "$@")
+        readarray -t pkg_aura < <(get_pkgs aur "$@")
         aura -S "${pkg_aura[@]}"
     elif hash pkg &> /dev/null;then
         pkg update && pkg upgrade
-        readarray -t pkg_pkg < <(_get_pkgs pkg "$@")
+        readarray -t pkg_pkg < <(get_pkgs pkg "$@")
         pkg install "${pkg_pkg[@]}"
     else
         echo "Package manager not suported"
     fi
 }
 
-_setup_home(){
+setup_home(){
     echo -e "\033[32mCreating home structure...\033[0m"
     mkdir -vp "$HOME/dl"
     mkdir -vp "$HOME/docs"
@@ -64,19 +64,19 @@ _setup_home(){
 read -r -p "Type of installation [(F)ULL | (e)ssential | (m)obile]: "
 case "$REPLY" in
     FULL|F|"")
-        _install_pkgs
+        install_pkgs
         bash "$DOTFILES"/nail essential extra
-        _setup_home
+        setup_home
         ;;
     essential|e)
-        _install_pkgs essential
+        install_pkgs essential
         bash "$DOTFILES"/nail essential
-        _setup_home
+        setup_home
         ;;
     mobile|m)
         ! hash termux-setup-storage &> /dev/null &&
             echo "error: not in a termux env" && exit
-        _install_pkgs essential
+        install_pkgs essential
         bash "$DOTFILES"/nail essential mobile
         [ -d ~/storage ] || termux-setup-storage
         termux-reload-settings

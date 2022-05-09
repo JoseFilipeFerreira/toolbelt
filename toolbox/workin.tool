@@ -7,7 +7,7 @@ mkdir -p "$workouts"
 
 available_workouts="$(find "$workouts" -type f -exec basename {} \;)"
 
-_get_number(){
+get_number(){
     while :; do
         read -rp "Insert $1: "
         if [[ "$REPLY" ]] && [ "$REPLY" -eq "$REPLY" ] 2>/dev/null; then
@@ -19,7 +19,7 @@ _get_number(){
     done
 }
 
-_get_time(){
+get_time(){
     while :; do
         read -rp "Insert $1 [Curr|dd/mm/yy hh:mm]: "
 
@@ -27,7 +27,7 @@ _get_time(){
             time="$(date +'%d/%m/%y %R')"
             break
         else
-            if [[ "$REPLY" = "$(date -d "$REPLY" +'%d/%m/%y %R')" ]]; then 
+            if [[ "$REPLY" = "$(date -d "$REPLY" +'%d/%m/%y %R')" ]]; then
                 time="$REPLY"
                 break
             else
@@ -37,7 +37,7 @@ _get_time(){
     done
 }
 
-_ask_workout_data(){
+ask_workout_data(){
     local fields
     IFS=','  read -ra fields < <(sed 1q "$workouts/$selected")
 
@@ -45,15 +45,15 @@ _ask_workout_data(){
     for field in "${fields[@]}"; do
         case "$field" in
             endtime)
-                _get_time "$field"
+                get_time "$field"
                 values+=("$time")
                 ;;
             duration)
-                _get_number "$field (min)"
+                get_number "$field (min)"
                 values+=("$number")
                 ;;
             distance|calories|count)
-                _get_number "$field"
+                get_number "$field"
                 values+=("$number")
                 ;;
             *)
@@ -73,7 +73,7 @@ select selected in $available_workouts
 do
     [[ "$selected" ]] || echo "Invalid Workout" && break
 
-    _ask_workout_data "$selected"
+    ask_workout_data "$selected"
 
     break
 done

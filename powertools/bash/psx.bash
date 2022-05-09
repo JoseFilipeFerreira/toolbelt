@@ -4,7 +4,7 @@ GREEN="\033[32m"
 YELLOW="\033[33m"
 BLUE="\033[34m"
 
-__c() {
+__c(){
     local NO_COLOUR="\e[00m"
     local PRINTING_OFF="\["
     local PRINTING_ON="\]"
@@ -12,7 +12,7 @@ __c() {
         "$PRINTING_OFF" "$1" "$PRINTING_ON" "$2" "$PRINTING_OFF" "$NO_COLOUR" "$PRINTING_ON"
 }
 
-__stopped_jobs_status() {
+__stopped_jobs_status(){
     case "$(jobs | grep -c 'Stopped')" in
         0)
             ;;

@@ -1,5 +1,5 @@
 #!/bin/bash
-_ssh() {
+_ssh(){
     mapfile -t COMPREPLY < \
         <(compgen -W \
             "$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null |
@@ -9,13 +9,13 @@ _ssh() {
 }
 complete -F _ssh ssh
 
-_za() {
+_za(){
     mapfile -t COMPREPLY < \
         <(compgen -o plusdirs -A file -- "$2" | grep -P '(\.djvu|\.pdf)$')
 }
 complete -F _za za
 
-_gcl() {
+_gcl(){
     local IFS=$'\n'
 
     local user

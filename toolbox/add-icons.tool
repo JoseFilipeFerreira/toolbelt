@@ -8,8 +8,8 @@ dest_icons=/usr/share/icons/toolicons
 tmp_index_file="$src_icons"/index.theme
 index_file="$dest_icons"/index.theme
 
-_get_width(){ echo "$1" | grep -Eo '^[0-9]*'; }
-_get_height(){ echo "$1" | grep -Eo '[0-9]*$'; }
+get_width(){ echo "$1" | grep -Eo '^[0-9]*'; }
+get_height(){ echo "$1" | grep -Eo '[0-9]*$'; }
 
 resolutions=(
 8x8
@@ -50,11 +50,11 @@ if [ "$1" ] && [ "$2" ]; then
     [ ! -f "$2" ] && echo "$2 is not a valid file" && exit
 
     img_res="$(identify -ping -format '%wx%h' "$2")"
-    w="$(_get_width "$img_res")"
-    h="$(_get_height "$img_res")"
+    w="$(get_width "$img_res")"
+    h="$(get_height "$img_res")"
 
-    max_height="$(_get_height "$max_res")"
-    max_width="$(_get_width "$max_res")"
+    max_height="$(get_height "$max_res")"
+    max_width="$(get_width "$max_res")"
 
     if [ "$w" -eq "$max_width" ] && [ "$h" -eq "$max_height" ]; then
         mkdir -p "$src_icons/$max_res"
@@ -119,7 +119,7 @@ for res in "${resolutions[@]}" ; do
         {
             echo
             echo ["$res/$ctx"]
-            echo "Size=$(_get_height "$res")"
+            echo "Size=$(get_height "$res")"
             echo "Type=Fixed"
         } >> "$tmp_index_file"
     done

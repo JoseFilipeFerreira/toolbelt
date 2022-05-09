@@ -3,17 +3,17 @@ mkcd(){
     cd "$@" || return
 }
 
-za() {
+za(){
     zathura "$@" &
     disown
 }
 
-png() {
+png(){
     sxiv "$@" &
     disown
 }
 
-which() {
+which(){
     local w
     w="$(command -V "$1")"
     case "$w" in
@@ -30,7 +30,7 @@ which() {
     esac
 }
 
-hist_stats() {
+hist_stats(){
     fc -l 1 | \
     awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | \
     grep -v "./" | \
@@ -40,7 +40,7 @@ hist_stats() {
     head -n20
 }
 
-make() {
+make(){
     if [ -e Makefile ] || [ -e makefile ]; then
         bash -c "make -j$(nproc || echo 4) $*"
     else
@@ -51,7 +51,7 @@ make() {
     fi
 }
 
-tidy() {
+tidy(){
     clang-tidy "$1" \
         -checks="*",clang-analyzer"*",-clang-analyzer-cplusplus"*" \
         -- -std=c++20 \
@@ -89,6 +89,6 @@ ingest(){
     find "$2" -type f -exec chmod 0644 {} +
 }
 
-gifify() {
+gifify(){
     convert -limit memory 64 -delay 50 -loop 0 -dispose previous "$@"
 }

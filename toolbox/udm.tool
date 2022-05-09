@@ -18,11 +18,11 @@ ydl_flags=(
 
 mpvsocket="/tmp/mpvsocket"
 
-_update_bar(){
+update_bar(){
     pkill --signal 62 thonkbar
 }
 
-_sync_music() {
+sync_music(){
     [[ "$(hostname)" == "$remote" ]] && return 0
 
     if ssh -q "$remote" exit
@@ -38,7 +38,7 @@ _sync_music() {
     fi
 }
 
-_add_music() {
+add_music(){
     case "$1" in
         --clipboard|-c)
             link="$(xclip -sel clip -o)"
@@ -46,7 +46,7 @@ _add_music() {
             read -r
             case $REPLY in
                 "y"|"Y"|"")
-                    _add_music "$link"
+                    add_music "$link"
                     ;;
             esac
             return
@@ -81,7 +81,7 @@ _add_music() {
     esac
 }
 
-_discord_music() {
+discord_music(){
     prefix="."
     [[ $1 ]] && prefix="$1"
     echo "prefix: $prefix"
@@ -107,38 +107,38 @@ _discord_music() {
 }
 
 
-_mpv_play(){
+mpv_play(){
     mpv --input-ipc-server="$mpvsocket" "$@"
 }
 
-_mpv_control(){
+mpv_control(){
     echo "$1" | socat - "$mpvsocket"
 }
 
-_mpv_do() {
-    _mpv_control '{ "command": '"$1"' }' |
+mpv_do(){
+    mpv_control '{ "command": '"$1"' }' |
         if [[ "$2" ]]; then jq "${@:2}"; else cat; fi
 }
 
-_mpv_get() {
-    _mpv_do '["get_property", "'"$1"'"]' "${2:-.}" "${@:3}"
+mpv_get(){
+    mpv_do '["get_property", "'"$1"'"]' "${2:-.}" "${@:3}"
 }
 
-_media_control(){
+media_control(){
     if pgrep mpv &>/dev/null; then
-        _mpv_control "$1"
+        mpv_control "$1"
     else
         playerctl "$2"
-        _update_bar
+        update_bar
     fi
 }
 
-_echo_info(){
-    path="$(_mpv_get "path" --raw-output .data 2>/dev/null)"
+echo_info(){
+    path="$(mpv_get "path" --raw-output .data 2>/dev/null)"
 
     case $path in
         http*)
-            path="$(_mpv_get "media-title" --raw-output .data 2>/dev/null)"
+            path="$(mpv_get "media-title" --raw-output .data 2>/dev/null)"
             ;;
         "")
             return
@@ -148,17 +148,17 @@ _echo_info(){
     basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g'
 }
 
-_echo_block(){
-    volume="$(_mpv_get "volume" --raw-output .data 2>/dev/null)"
+echo_block(){
+    volume="$(mpv_get "volume" --raw-output .data 2>/dev/null)"
 
-    path="$(_echo_info)"
+    path="$(echo_info)"
     [[ "$path" ]] || return
 
     echo "$path [$volume%]"
 
     echo "#FFFFFF"
 
-    case "$(_mpv_get "pause" --raw-output .data)" in
+    case "$(mpv_get "pause" --raw-output .data)" in
         true)  echo "#AAAAAA" ;;
         false) echo "#00EE00" ;;
     esac
@@ -170,26 +170,26 @@ case "$1" in
         # Add music to playlist
         # -c, --clipboard
         #     get link from clipboard
-        _sync_music || exit
-        _add_music "${@:2}"
-        _sync_music || exit
+        sync_music || exit
+        add_music "${@:2}"
+        sync_music || exit
         ;;
 
     -p|--play)
         # Shuffle music from playlist
-        _sync_music || [ -d "$HOME/$folder" ] || exit
-        _mpv_play --shuffle --no-video "$HOME/$folder"
+        sync_music || [ -d "$HOME/$folder" ] || exit
+        mpv_play --shuffle --no-video "$HOME/$folder"
         ;;
 
     -s|--select)
         # Select music (uses fzf)
-        _sync_music || [ -d "$HOME/$folder" ] || exit
+        sync_music || [ -d "$HOME/$folder" ] || exit
         file="$(find "$HOME/$folder"  -type f -printf "%f\n" | sort | fzf )"
-        _mpv_play --no-video "$HOME/$folder/$file"
+        mpv_play --no-video "$HOME/$folder/$file"
         ;;
     -rm|--remove)
         # Delete music (uses fzf)
-        _sync_music || exit
+        sync_music || exit
         file="$(find "$HOME/$folder"  -type f -printf "%f\n" | sort | fzf )"
 
         ssh "$remote" rm -v "$folder/$file" | sed -e "s|'/|$remote:'/|g"
@@ -198,54 +198,54 @@ case "$1" in
 
     --discord)
         # Play playlist on discord
-        _discord_music "${@:2}"
+        discord_music "${@:2}"
         ;;
 
     --stop)
         # Stop music
-        _media_control 'quit' 'stop'
+        media_control 'quit' 'stop'
         ;;
     --play-pause)
         # Toggle play-pause
-        _media_control 'cycle pause' 'play-pause'
+        media_control 'cycle pause' 'play-pause'
         ;;
     --next)
         # Next music
-        _media_control 'playlist-next' 'next'
+        media_control 'playlist-next' 'next'
         ;;
     --previous|--prev)
         # Previous music
-        _media_control 'playlist-prev' 'previous'
+        media_control 'playlist-prev' 'previous'
         ;;
 
     --volume-up)
         # Increase player volume
-        _media_control 'add volume 5' 'volume 5+'
+        media_control 'add volume 5' 'volume 5+'
         ;;
 
     --volume-down)
         # Decrease player volume
-        _media_control 'add volume -5' 'volume 5-'
+        media_control 'add volume -5' 'volume 5-'
         ;;
 
     --back)
         # Seek 30 seconds backwards
-        _media_control 'seek -30' 'position 30-'
+        media_control 'seek -30' 'position 30-'
         ;;
 
     --forward)
         # Seek 30 seconds forward
-        _media_control 'seek 30' 'position 30+'
+        media_control 'seek 30' 'position 30+'
         ;;
 
     --block)
         # Block compatible with thonkbar
-        _echo_block
+        echo_block
         ;;
 
     --info)
         # Show info on current music
-        _echo_info
+        echo_info
         ;;
 
     -h|--help)
@@ -263,7 +263,7 @@ case "$1" in
             sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
         ;;
     *)
-        _mpv_play "$@"
+        mpv_play "$@"
         ;;
 
 esac

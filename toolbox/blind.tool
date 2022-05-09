@@ -1,7 +1,7 @@
 #!/bin/bash
 # brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
-_usage(){
+usage(){
 
     echo "NAME:"
     echo "    blind - brightness manager"
@@ -27,7 +27,7 @@ _usage(){
 
 }
 
-_ctrl_bctl(){
+control_keybord_light(){
     max="$(brightnessctl "${@:2}" max)"
 
     step="$(( max / 9 ))"
@@ -49,7 +49,7 @@ _ctrl_bctl(){
             exit
             ;;
         *)
-            _usage
+            usage
             exit
             ;;
     esac
@@ -60,12 +60,12 @@ _ctrl_bctl(){
 
 case "$1" in
     keyboard)
-        _ctrl_bctl "$2" --device="*kbd*"
+        control_keybord_light "$2" --device="*kbd*"
         ;;
     backlight)
-        _ctrl_bctl "$2" --class="backlight" --min-value=6
+        control_keybord_light "$2" --class="backlight" --min-value=6
         ;;
     *)
-        _usage
+        usage
         ;;
 esac

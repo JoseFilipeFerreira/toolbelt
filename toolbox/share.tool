@@ -3,7 +3,7 @@
 
 cache="$XDG_CACHE_HOME/fileshare"
 
-_upload(){
+upload(){
     rsync -av --info=progress2 "$1" kiwi:~/share
     url="http://jff.sh/share/$(basename "$1")"
     echo "$url" | xclip -sel clip
@@ -14,8 +14,8 @@ if [ -d "$1" ]; then
     mkdir -p "$cache"
     zip -r "$cache/$(basename "$1").zip" "$1"
     file="$cache/$(basename "$1").zip"
-    _upload "$file"
+    upload "$file"
     rm "$file"
 else
-    _upload "$1"
+    upload "$1"
 fi

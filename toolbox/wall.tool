@@ -39,7 +39,7 @@ second = chosen_colours[1 if contrast != chosen_colours[1] else 2]
 
 for c, _, t in [first, second, contrast]: print(c, t)
 '
-_sync_walls() {
+sync_walls(){
     [[ "$(hostname)" == "$remote" ]] && return 0
 
     if ssh -q "$remote" exit
@@ -53,7 +53,7 @@ _sync_walls() {
     fi
 }
 
-_check_res(){
+check_res(){
     file="$1"
 
     touch -m "$file"
@@ -72,7 +72,7 @@ _check_res(){
     fi
 }
 
-_add_wall() {
+add_wall(){
     case "$1" in
         http*)
             if [[ "$(hostname)" != "$remote" ]]; then
@@ -82,21 +82,21 @@ _add_wall() {
                 file="$(basename "$1")"
                 [[ "$2" ]] && file="$2"
                 wget "$1" -O "$HOME/$folder/$file"
-                _check_res "$HOME/$folder/$file"
+                check_res "$HOME/$folder/$file"
             fi
             ;;
         *)
             if [[ "$(hostname)" != "$remote" ]]; then
-                _check_res "$1" && scp "$1" "$remote":"$folder"
+                check_res "$1" && scp "$1" "$remote":"$folder"
             else
                 cp -v "$1" "$HOME/$folder"
-                _check_res "$1"
+                check_res "$1"
             fi
             ;;
     esac
 }
 
-_rm_wall() {
+remove_wall(){
     readarray -t wall < <(sxiv -to "$HOME/$folder")
     for w in "${wall[@]}"; do
         # shellcheck disable=SC2029
@@ -105,7 +105,7 @@ _rm_wall() {
     done
 }
 
-_change_wall(){
+change_wall(){
     file=$1
 
     feh --no-fehbg --bg-fill "$file"
@@ -134,36 +134,36 @@ _change_wall(){
         "$(basename "$file")"
 }
 
-[[ ! -d "$HOME/$folder" ]] && _sync_walls
+[[ ! -d "$HOME/$folder" ]] && sync_walls
 
 case "$1" in
     -a|--add)
         # Add wallpaper
         # Suports links and files
-        _sync_walls || exit
-        _add_wall "${@:2}"
-        _sync_walls || exit
+        sync_walls || exit
+        add_wall "${@:2}"
+        sync_walls || exit
         ;;
 
     -rm|--remove)
         # Remove wallpaper using sxiv
-        _sync_walls || exit
-        _rm_wall
+        sync_walls || exit
+        remove_wall
         ;;
 
     -s|--select)
         # Select wallpaper using sxiv
-        _sync_walls || :
+        sync_walls || :
         file="$(sxiv -to "$HOME/$folder")"
         [[ "$file" ]] || exit
-        _change_wall "$file"
+        change_wall "$file"
         ;;
 
     --change|"")
         # Change to random wallpaper [default]
-        _sync_walls || :
+        sync_walls || :
         file=$(find "$HOME/$folder" -type f | shuf -n 1)
-        _change_wall "$file"
+        change_wall "$file"
         ;;
 
     -h|--help)
@@ -182,6 +182,6 @@ case "$1" in
         ;;
 
     *)
-        _change_wall "${@:1}"
+        change_wall "${@:1}"
         ;;
 esac

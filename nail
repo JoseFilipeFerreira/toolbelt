@@ -3,7 +3,7 @@
 
 [[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-_make_symlink(){
+make_symlink(){
     if [ -h "$2" ] && [ ! -e "$2" ]; then
         case "$3" in
             sudo)
@@ -30,13 +30,13 @@ _make_symlink(){
     fi
 }
 
-_make_makefile(){
+make_makefile(){
     make --directory="$1" | grep -q "is up to date" && return
     out_install="$(make install --directory="$1" | grep -v "directory")"
     echo -e "\033[32mmake install:\033[0m $out_install"
 }
 
-_make_install(){
+make_install(){
     script="$1/install.sh"
     [[ -f "$script" ]] || return
 
@@ -57,7 +57,7 @@ _make_install(){
     fi
 }
 
-_make_generate(){
+make_generate(){
     if [ "$1" -nt "$2" ]; then
         case "$3" in
             sudo)
@@ -75,7 +75,7 @@ _make_generate(){
 }
 
 
-_deploy_dotfiles(){
+deploy_dotfiles(){
     while IFS= read -r line; do
         IFS=',' read -ra linevec <<< "$line"
         attrs=("${linevec[@]:2}")
@@ -96,16 +96,16 @@ _deploy_dotfiles(){
         for attr in "${attrs[@]}"; do
             case "$attr" in
                 link)
-                    _make_symlink "$orig" "$dest" "$mode"
+                    make_symlink "$orig" "$dest" "$mode"
                     ;;
                 make)
-                    _make_makefile "$orig"
+                    make_makefile "$orig"
                     ;;
                 install)
-                    _make_install "$orig" "$mode"
+                    make_install "$orig" "$mode"
                     ;;
                 generate)
-                    _make_generate "$orig" "$dest" "$mode"
+                    make_generate "$orig" "$dest" "$mode"
                     ;;
                 sudo)
                     mode=sudo
@@ -115,7 +115,7 @@ _deploy_dotfiles(){
     done < "$DOTFILES/powertools/.locations"
 }
 
-_store_tools(){
+store_tools(){
     orig="$1"
     dest="$2"
     mkdir -vp "$dest"
@@ -152,10 +152,10 @@ printf "%s\n" "${FILTERS[@]}" | sort -u >| "$config"
     echo "run hammer for initial setup" &&
     exit
 
-_store_tools "$DOTFILES"/toolbox ~/.local/bin
-_deploy_dotfiles
+store_tools "$DOTFILES"/toolbox ~/.local/bin
+deploy_dotfiles
 
 if [[ " ${FILTERS[*]} " =~ " mobile " ]]; then
-    _store_tools "$DOTFILES"/handtools ~/.termux/tasker
+    store_tools "$DOTFILES"/handtools ~/.termux/tasker
     bash "$DOTFILES"/schedule
 fi

@@ -2,7 +2,7 @@
 # screenshot tool
 
 # made by Mendess
-rename() {
+rename(){
     rename="$(: | dmenu -p 'rename to' |
         sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"
     [[ -z "$rename" ]] && return 1
@@ -109,7 +109,7 @@ done
 
 [[ "$hack_info" ]] && content="of area "
 
-notify() {
+notify(){
     [[ "$no_notify" ]] && return
 
     [[ "$delay" ]] && content+="with delay of ${delay}s"

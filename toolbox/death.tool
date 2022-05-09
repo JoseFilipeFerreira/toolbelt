@@ -3,7 +3,7 @@
 
 min_percent=10
 
-_has_charge(){
+has_charge(){
     while read -r percent; do
         [[ "$percent" -gt "$min_percent" ]] && return 0
     done < <(acpi -b | cut -d, -f2 | sed 's/[ %]//g')
@@ -13,7 +13,7 @@ mkdir -p "/tmp/$USER"
 warn_file="/tmp/$USER/death_warned"
 
 while :; do
-    if _has_charge; then
+    if has_charge; then
         [ -f "$warn_file" ] && rm "$warn_file"
     else
         [ -f "$warn_file" ] && exit

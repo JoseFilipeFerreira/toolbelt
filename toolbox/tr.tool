@@ -30,18 +30,18 @@ notify(){
     echo "$1: $2"
 }
 
-_dl_torrent(){
+dl_torrent(){
         res="$(transmission --add "$1" | grep -Eo '".*"' | sed 's/\"//g')"
         notify "Add torrent" "$res"
 }
 
 case $1 in
     magnet:*)
-        _dl_torrent "$1"
+        dl_torrent "$1"
         ;;
     -a|--add)
         # Add a torrent
-        _dl_torrent "$2"
+        dl_torrent "$2"
         ;;
     -l|--list|"")
         # List available torrents [default]

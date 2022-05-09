@@ -1,4 +1,4 @@
-gcl() {
+gcl(){
     case "$1" in
         git@*|http://*|https://*)
             git clone "$1" "${@:2}"
