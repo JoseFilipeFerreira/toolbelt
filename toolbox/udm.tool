@@ -59,8 +59,10 @@ add_music(){
                 case "$1" in
                     *yout*)
                         if hash yt-dlp &> /dev/null; then
+                            echo "using yt-dlp"
                             yt-dlp "${ydl_flags[@]}" "$1"
                         elif hash youtube-dl &> /dev/null; then
+                            echo "using youtube-dl"
                             youtube-dl "${ydl_flags[@]}" "$1"
                         else
                             echo "No download tool installed"
