@@ -39,7 +39,7 @@ pacman,essential,unzip
 pacman,essential,usbutils
 pacman,essential,wget
 pacman,essential,xdg-user-dirs
-pacman,essential,youtube-dl
+pacman,essential,yt-dlp
 pacman,essential,zip
 pacman,extra,acpi
 pacman,extra,alacritty
