@@ -2,47 +2,44 @@
 # subscribe to a RSS feed with categories
 
 notify(){
-    notify-send \
-        -u low \
-        -i "assets/rss" \
-        -a "newsboat" \
-        "$1" \
-        "$2"
+    notify-send -u low -i "apps/rss" -a "newsboat" "$1" "$2"
 }
-urls="$XDG_CONFIG_HOME/newsboat/urls"
 
-cats="$(grep -o -e '---.*---' "$urls" | sed "s/---//g")"
+urls=~/.config/newsboat/urls
+mkdir -p "$(dirname "$urls")"
+touch "$urls"
 
-cat="$(echo "$cats" | dmenu -i -l 20 -p "rss category")"
-[[ "$cat" ]] || exit
+rss_bridge="https://jff.sh/rss-bridge"
 
-if [[ ! "${cats[*]}" =~ ${cat} ]]; then
-    case "$(echo -e "yes\nno" | dmenu -i -p "add $cat as category")" in
-        yes)
-            echo -e "\n\"---$cat---\"" >> "$urls"
-            notify "Added new category: \"$cat\""
-            ;;
-        no|"")
+type="$(echo -e "youtube\nlink" | dmenu -i -l 20 -p "choose type")"
+
+tags=()
+case "$type" in
+    youtube)
+        name="$(echo "clip" | dmenu -i -l 2 -p "Yt Channel Name:")"
+        [[ "$name" == "clip" ]] && name="$(xclip -sel clip -o)"
+        [[ "$name" ]] || exit
+        tags+=( "yt" )
+        link="$rss_bridge/?action=display&bridge=Youtube&context=By+custom+name&custom=$name"
+        if  curl "$link&format=Json" | jq .items[0].title | grep -q "Bridge returned error 404"; then
+            notify "Invalid Channel Name" "$name"
             exit
-            ;;
-    esac
-fi
-
-link="$(echo "clip" | dmenu -i -p "link")"
-case "$link" in
-    clip*)
-        link="$(xclip -sel clip -o)"
+        fi
+        link="$link&format=Mrss"
         ;;
-esac
+    link)
+        link="$(echo "clip" | dmenu -i -l 2 -p "Link:")"
+        [[ "$link" == "clip" ]] && link="$(xclip -sel clip -o)"
+        [[ "$link" ]] || exit
+        ;;
+    "")
+        notify "No type selected"
+        exit
+        ;;
 
-[[ "$link" ]] || exit
-
-tags=("$cat")
-case "$link" in
-    *youtube*|*youtu.be*)
-        id="$(curl "$link" | grep channelId | head -1 | cut -d'"' -f4)"
-        link="https://www.youtube.com/feeds/videos.xml?channel_id=$id"
-        tags+=(yt)
+    *)
+        notify "Invalid type"
+        exit
         ;;
 esac
 
@@ -51,6 +48,24 @@ if grep "$link" "$urls" >/dev/null ; then
     exit
 fi
 
-sed -i "s|\"---$cat---\"|&\n$link ${tags[*]}|g" "$urls"
+cats="$(grep -o -e '^---.*---$' "$urls" | sed "s/---//g")"
+cat="$(echo "$cats" | dmenu -i -l 20 -p "Choose category")"
+[[ "$cat" ]] || exit
+tags+=("$cat")
 
-notify "Added new link to $cat" "$link"
+if [[ ! "${cats[*]}" =~ ${cat} ]]; then
+    case "$(echo -e "yes\nno" | dmenu -i -l 2 -p "add $cat as category")" in
+        yes)
+            echo -e "---$cat---" >> "$urls"
+            notify "Added new category:" "$cat"
+            ;;
+        no|"")
+            exit
+            ;;
+    esac
+fi
+
+escaped_link="$(echo "$link" | sed 's/\&/\\\&/g;s/ /+/g')"
+sed -i "s|---$cat---|&\n$escaped_link ${tags[*]}|g" "$urls"
+
+notify "Added New Feed to $cat" "$link"
