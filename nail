@@ -156,6 +156,11 @@ store_tools "$DOTFILES"/toolbox ~/.local/bin
 deploy_dotfiles
 
 if [[ " ${FILTERS[*]} " =~ " mobile " ]]; then
-    store_tools "$DOTFILES"/handtools ~/.termux/tasker
+    mkdir -p ~/.termux/tasker
+    for tool in "$DOTFILES"/handtools/*.tool; do
+        tool_name=$(basename "$tool" .tool)
+        echo -e "\033[32m$tool_name\033[0m"
+        cp "$tool" ~/.termux/tasker/"$tool_name"
+    done
     bash "$DOTFILES"/schedule
 fi
