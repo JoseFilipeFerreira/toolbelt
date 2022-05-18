@@ -1,0 +1,94 @@
+#!/bin/bash
+git() {
+    notify 'opening from github' "$1" -u low
+    dl "$1" >"$TEMPFILE" || return
+    app=$(xdg-mime query default "$(xdg-mime query filetype "$TEMPFILE")")
+    if [[ "$app" = *vim.desktop ]]; then
+        $TERMINAL -e bash -c "$EDITOR '$TEMPFILE'"
+    else
+        xdg-open "$TEMPFILE"
+    fi
+}
+
+text() {
+    dl "$1" >"$TEMPFILE" && $TERMINAL -e bash -c "$EDITOR '$TEMPFILE'"
+}
+
+image() {
+    dl "$1" >"$TEMPFILE" || return
+    case "$(file "$TEMPFILE")" in
+        *Web/P* | *SVG*)
+            convert "$TEMPFILE" "$TEMPFILE.png" &&
+                rm -f "$TEMPFILE" &&
+                TEMPFILE="$TEMPFILE.png" ||
+                return
+            ;;
+    esac
+    w="$(convert "$TEMPFILE" -format '%[w]' info:)"
+    h="$(convert "$TEMPFILE" -format '%[h]' info:)"
+
+    if [[ "$h" -gt 1000 ]]; then
+        w=$(((w * 1000) / h))
+        h=1000
+    fi
+    if [[ "$w" -gt 1800 ]]; then
+        h=$(((h * 1800) / w))
+        w=1800
+    fi
+    sxiv -b -g "${w}x${h}" "$TEMPFILE"
+}
+
+gif() {
+    notify 'Playing in mpv' "$1" -u low
+    mpv --no-terminal --loop-file "$1"
+}
+
+pdf() {
+    [[ "$1" == *elearning* ]] && return 1
+    dl "$1" | zathura -
+}
+
+archive() {
+    dl "$1" >"$TEMPFILE" || return
+    $TERMINAL -e bash -c "
+    select open in $EDITOR extract mv; do
+        case \$open in
+            $EDITOR)
+                $EDITOR $TEMPFILE
+                ;;
+            mv | extract)
+                cd ~
+                read -r -e -p 'Where to extract? '
+                target=\"\${REPLY:-.}\"
+                if [ -e \"\$target\" ]; then
+                    if [ ! -d \"\$target\" ]; then
+                        target=\"\$(basename \"\$target\")\"
+                    fi
+                else
+                    mkdir -p \"\$target\" || exit
+                fi
+                [[ \"\$target\" == */ ]] || target=\"\$target/\"
+                mv -v '$TEMPFILE' \"\${target}$(basename "$1")\"
+                cd \"\$target\"
+                if [ \"\$open\" = extract ]; then
+                    ex '$(basename "$1")'
+                fi
+                break
+                ;;
+        esac
+    done
+    read -r -p 'Keep the shell? [Y/n] '
+    case \$REPLY in
+        n | N) exit ;;
+        *) exec bash -i ;;
+    esac"
+}
+
+video() {
+    notify 'Playing in mpv' "$1" -u low
+    udm --no-terminal "$1" & disown
+}
+
+clipboard() {
+    dl "$1" | xclip && notify 'Key coppied to clipboard' -u low
+}

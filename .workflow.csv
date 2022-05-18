@@ -2,6 +2,7 @@ aur,essential,toilet
 aur,extra,lemonbar-xft-git
 aur,extra,nerd-fonts-dejavu-complete
 aur,extra,thonkbar-git
+aur,extra,web-xdg-open-git
 pacman,essential,base
 pacman,essential,base-devel
 pacman,essential,bat
