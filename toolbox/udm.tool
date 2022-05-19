@@ -20,8 +20,11 @@ socket_folder="/tmp/$USER/udm"
 mkdir -p "$socket_folder"
 
 current_socket_numbers(){
-    pgrep -fa -u "$USER" 'mpv.*mpvsocket[0-9]*' |
-        sed -E 's/.*mpvsocket([0-9]+).*/\1/'
+    # shellcheck disable=SC2009
+    ps -fu "$LOGNAME" |
+        grep -v grep |
+        grep -oP 'mpvsocket([0-9])' |
+        sed -E 's/mpvsocket([0-9])/\1/' |
         sort -V |
         uniq
 }
@@ -112,6 +115,7 @@ add_music(){
 }
 
 mpv_play(){
+    udm --pause
     mpv --input-ipc-server="$(next_socket)" "$@"
 }
 
@@ -208,6 +212,14 @@ case "$1" in
     --stop)
         # Stop music
         media_control 'quit' 'stop'
+        ;;
+    --resume)
+        # Play media
+        media_control 'set pause no' 'play'
+        ;;
+    --pause)
+        # Pause media
+        media_control 'set pause yes' 'pause'
         ;;
     --play-pause)
         # Toggle play-pause
