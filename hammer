@@ -43,12 +43,17 @@ install_pkgs(){
 
         readarray -t pkg_aura < <(get_pkgs aur "$@")
         aura -S "${pkg_aura[@]}"
-    elif hash pkg &> /dev/null;then
+    fi
+
+    if hash pkg &> /dev/null;then
         pkg update && pkg upgrade
         readarray -t pkg_pkg < <(get_pkgs pkg "$@")
         pkg install "${pkg_pkg[@]}"
-    else
-        echo "Package manager not suported"
+    fi
+
+    if hash pip &> /dev/null; then
+        readarray -t pkg_pip < <(get_pkgs pip "$@")
+        pip install "${pkg_pkg[@]}"
     fi
 }
 
