@@ -131,7 +131,22 @@ mpv_get(){
 
 media_control(){
     if pgrep mpv &>/dev/null; then
-        mpv_control "$current_socket" "$1"
+        local socket
+        echo "$3"
+        if [[ "$3" =~ -[0-9]+ ]]; then
+            socket="$socket_folder/mpvsocket$(current_socket_numbers | tail "$3" | head -1)"
+        elif [[ "$3" =~ [0-9]+ ]]; then
+            if grep -q "$3" <(current_socket_numbers); then
+                socket="$socket_folder/mpvsocket$3"
+            else
+                echo "Invalid player id"
+                exit
+            fi
+        else
+            socket="$current_socket"
+        fi
+
+        mpv_control "$socket" "$1"
     else
         playerctl "$2"
         update_bar
@@ -211,48 +226,48 @@ case "$1" in
         rm -v "$HOME/$folder/$file"
         ;;
     --stop)
-        # Stop music
-        media_control 'quit' 'stop'
+        # Stop media
+        media_control 'quit' 'stop' "${@:2}"
         ;;
     --resume)
         # Play media
-        media_control 'set pause no' 'play'
+        media_control 'set pause no' 'play' "${@:2}"
         ;;
     --pause)
         # Pause media
-        media_control 'set pause yes' 'pause'
+        media_control 'set pause yes' 'pause' "${@:2}"
         ;;
     --play-pause)
         # Toggle play-pause
-        media_control 'cycle pause' 'play-pause'
+        media_control 'cycle pause' 'play-pause' "${@:2}"
         ;;
     --next)
         # Next music
-        media_control 'playlist-next' 'next'
+        media_control 'playlist-next' 'next' "${@:2}"
         ;;
     --previous|--prev)
         # Previous music
-        media_control 'playlist-prev' 'previous'
+        media_control 'playlist-prev' 'previous' "${@:2}"
         ;;
 
     --volume-up)
         # Increase player volume
-        media_control 'add volume 5' 'volume 5+'
+        media_control 'add volume 5' 'volume 5+' "${@:2}"
         ;;
 
     --volume-down)
         # Decrease player volume
-        media_control 'add volume -5' 'volume 5-'
+        media_control 'add volume -5' 'volume 5-' "${@:2}"
         ;;
 
     --back)
         # Seek 30 seconds backwards
-        media_control 'seek -30' 'position 30-'
+        media_control 'seek -30' 'position 30-' "${@:2}"
         ;;
 
     --forward)
         # Seek 30 seconds forward
-        media_control 'seek 30' 'position 30+'
+        media_control 'seek 30' 'position 30+' "${@:2}"
         ;;
 
     --block)

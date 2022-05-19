@@ -1,5 +1,4 @@
 local function update_panel()
-    print("updating")
     os.execute("pkill --signal 62 thonkbar")
 end
 
