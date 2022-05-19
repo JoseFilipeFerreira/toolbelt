@@ -29,7 +29,8 @@ current_socket_numbers(){
         uniq
 }
 
-current_socket="$socket_folder/mpvsocket$(current_socket_numbers | tail -1)"
+current_socket_number="$(current_socket_numbers | tail -1)"
+current_socket="$socket_folder/mpvsocket$current_socket_number"
 
 next_socket(){
     local curr
@@ -115,7 +116,7 @@ add_music(){
 }
 
 mpv_play(){
-    udm --pause
+    [[ "$current_socket_number" ]] && udm --pause
     mpv --input-ipc-server="$(next_socket)" "$@"
 }
 
