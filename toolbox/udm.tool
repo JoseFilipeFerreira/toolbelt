@@ -16,17 +16,39 @@ ydl_flags=(
     --embed-thumbnail
     --output "$HOME/$folder/%(title)s.%(ext)s" )
 
-mpvsocket="/tmp/mpvsocket"
+socket_folder="/tmp/$USER/udm"
+mkdir -p "$socket_folder"
+
+current_socket_numbers(){
+    ps -fu "$USER" |
+    grep -v "grep" |
+    grep -oP 'mpvsocket([0-9]+)' |
+    sed -E 's/mpvsocket([0-9]+)/\1/' |
+    sort -V |
+    uniq
+}
+
+current_socket="$socket_folder/mpvsocket$(current_socket_numbers | tail -1)"
+
+next_socket(){
+    local curr
+    curr="$(current_socket_numbers | tail -1)"
+    if [[ "$curr" ]]; then
+        echo "$socket_folder/mpvsocket$(( curr + 1 ))"
+    else
+        echo "$socket_folder/mpvsocket0"
+    fi
+}
 
 update_bar(){
-    pkill --signal 62 thonkbar
+    pgrep -x "thonkbar" > /dev/null &&
+        pkill --signal 62 thonkbar
 }
 
 sync_music(){
     [[ "$(hostname)" == "$remote" ]] && return 0
 
-    if ssh -q "$remote" exit
-    then
+    if ssh -q "$remote" exit; then
         echo -e "\e[32mSyncing Music...\e[0m"
         rsync -av --delete --exclude ".config" "$remote:$folder/" "$HOME/$folder"
         echo
@@ -41,6 +63,7 @@ sync_music(){
 add_music(){
     case "$1" in
         --clipboard|-c)
+            local link
             link="$(xclip -sel clip -o)"
             echo -n "add link ($link) [Y/n] "
             read -r
@@ -90,52 +113,22 @@ add_music(){
     esac
 }
 
-discord_music(){
-    prefix="."
-    [[ $1 ]] && prefix="$1"
-    echo "prefix: $prefix"
-
-    website="https://jff.sh/music"
-    music_link=$(curl "$website" | grep '<a' | cut -d"'" -f2 | shuf | nl)
-    n_lines="$(echo "$music_link" | wc -l)"
-
-    sleep 3
-
-    echo "$music_link" |
-        while read -r link; do
-            n="$(echo "$link" | awk '{print $1}')"
-            l="$(echo "$link" | awk '{print $2}')"
-            xdotool type "$prefix""play <$website/$(basename -- "$l")>"
-            xdotool key 'Return'
-            echo -en "\r\e[K$n/$n_lines"
-            sleep 4
-        done
-    echo
-    xdotool type "$prefix""shuffle"
-    xdotool key 'Return'
-}
-
-
 mpv_play(){
-    mpv --input-ipc-server="$mpvsocket" "$@"
+    mpv --input-ipc-server="$(next_socket)" "$@"
 }
 
 mpv_control(){
-    echo "$1" | socat - "$mpvsocket"
-}
-
-mpv_do(){
-    mpv_control '{ "command": '"$1"' }' |
-        if [[ "$2" ]]; then jq "${@:2}"; else cat; fi
+    echo "$2" | socat - "$1"
 }
 
 mpv_get(){
-    mpv_do '["get_property", "'"$1"'"]' "${2:-.}" "${@:3}"
+    mpv_control "$1" "{ \"command\": [\"get_property\", \"$2\"]}" |
+        jq --raw-output .data 2>/dev/null
 }
 
 media_control(){
     if pgrep mpv &>/dev/null; then
-        mpv_control "$1"
+        mpv_control "$current_socket" "$1"
     else
         playerctl "$2"
         update_bar
@@ -143,31 +136,41 @@ media_control(){
 }
 
 echo_info(){
-    path="$(mpv_get "path" --raw-output .data 2>/dev/null)"
+    local n_socket
+    for n_socket in $(current_socket_numbers); do
+        local socket
+        socket="$socket_folder/mpvsocket${n_socket}"
 
-    case $path in
-        http*)
-            path="$(mpv_get "media-title" --raw-output .data 2>/dev/null)"
-            ;;
-        "")
-            return
-            ;;
-    esac
+        path="$(mpv_get "$socket" "path")"
 
-    basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g'
+        case $path in
+            http*)
+                path="$(mpv_get "$socket" "media-title")"
+                ;;
+            "")
+                return
+                ;;
+        esac
+
+        name="$(basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g')"
+
+        echo "$n_socket: $name"
+    done
 }
 
 echo_block(){
-    volume="$(mpv_get "volume" --raw-output .data 2>/dev/null)"
+    local volume
+    volume="$(mpv_get "$current_socket" "volume")"
 
-    path="$(echo_info)"
+    local path
+    path="$(echo_info | tail -1)"
     [[ "$path" ]] || return
 
     echo "$path [$volume%]"
 
     echo "#FFFFFF"
 
-    case "$(mpv_get "pause" --raw-output .data)" in
+    case "$(mpv_get "$current_socket" "pause")" in
         true)  echo "#AAAAAA" ;;
         false) echo "#00EE00" ;;
     esac
@@ -204,12 +207,6 @@ case "$1" in
         ssh "$remote" rm -v "$folder/$file" | sed -e "s|'/|$remote:'/|g"
         rm -v "$HOME/$folder/$file"
         ;;
-
-    --discord)
-        # Play playlist on discord
-        discord_music "${@:2}"
-        ;;
-
     --stop)
         # Stop music
         media_control 'quit' 'stop'
