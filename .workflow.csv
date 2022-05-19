@@ -88,11 +88,15 @@ pacman,extra,xorg-xrandr
 pacman,extra,zathura
 pacman,extra,zathura-pdf-poppler
 pip,essential,cmake-language-server
+pkg,essential,bat
 pkg,essential,clang
+pkg,essential,exa
 pkg,essential,ffmpeg
+pkg,essential,fzf
 pkg,essential,git
 pkg,essential,htop
 pkg,essential,imagemagick
+pkg,essential,jq
 pkg,essential,make
 pkg,essential,man
 pkg,essential,neofetch
@@ -100,6 +104,7 @@ pkg,essential,neovim
 pkg,essential,openssh
 pkg,essential,python
 pkg,essential,rsync
+pkg,essential,shellcheck
 pkg,essential,termux-api
 pkg,essential,tmux
 pkg,essential,tree
