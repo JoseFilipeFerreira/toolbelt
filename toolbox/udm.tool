@@ -181,7 +181,7 @@ echo_block(){
     volume="$(mpv_get "$current_socket" "volume")"
 
     local path
-    path="$(echo_info | tail -1)"
+    path="$(echo_info | tail -1 | sed -E 's/^0: //g')"
     [[ "$path" ]] || return
 
     echo "$path [$volume%]"
