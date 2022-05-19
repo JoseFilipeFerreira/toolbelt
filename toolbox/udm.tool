@@ -20,12 +20,10 @@ socket_folder="/tmp/$USER/udm"
 mkdir -p "$socket_folder"
 
 current_socket_numbers(){
-    ps -fu "$USER" |
-    grep -v "grep" |
-    grep -oP 'mpvsocket([0-9]+)' |
-    sed -E 's/mpvsocket([0-9]+)/\1/' |
-    sort -V |
-    uniq
+    pgrep -fa -u "$USER" 'mpv.*mpvsocket[0-9]*' |
+        sed -E 's/.*mpvsocket([0-9]+).*/\1/'
+        sort -V |
+        uniq
 }
 
 current_socket="$socket_folder/mpvsocket$(current_socket_numbers | tail -1)"
