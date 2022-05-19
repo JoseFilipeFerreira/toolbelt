@@ -53,7 +53,7 @@ install_pkgs(){
 
     if hash pip &> /dev/null; then
         readarray -t pkg_pip < <(get_pkgs pip "$@")
-        pip install "${pkg_pkg[@]}"
+        pip install "${pkg_pip[@]}"
     fi
 }
 
