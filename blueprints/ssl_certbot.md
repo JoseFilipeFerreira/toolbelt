@@ -23,3 +23,9 @@ server {
 
 * now the file `/etc/nginx/sites-enabled/your-domain-name.com` has been updated
     to support SSL
+
+* add autorenewal of SSL certificate by edditing the `root` cronjob with
+    `crontab -e` and adding:
+```
+0 12 * * * /usr/bin/certbot --nginx renew --quiet
+```
