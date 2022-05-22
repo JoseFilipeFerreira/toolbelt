@@ -1,0 +1,4 @@
+#!/bin/bash
+case "$1" in
+    "d") while read file; do mv "$file" /tmp; done;;
+esac

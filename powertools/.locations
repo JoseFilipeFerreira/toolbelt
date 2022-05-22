@@ -35,3 +35,4 @@ vdirsyncer.conf,~/.config/vdirsyncer/config,link,essential
 wgetrc,~/.config/wgetrc,link,essential
 zathurarc,~/.config/zathura/zathurarc,link,extra
 wxorc,~/.config/wxorc,link,extra
+sxiv,~/.config/sxiv,link,extra
