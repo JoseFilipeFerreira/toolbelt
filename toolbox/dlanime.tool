@@ -19,7 +19,7 @@ if not os.path.isdir(ANIME_LOCATION):
     print("Invalid anime location:", ANIME_LOCATION)
     sys.exit()
 
-THUMB_LOCATION = "/mnt/media/thumb/anime"
+THUMB_LOCATION = "/home/mightymime/suitcase-storage/iron-cake/thumb"
 if not os.path.isdir(THUMB_LOCATION):
     print("Invalid thumb location:", THUMB_LOCATION)
     sys.exit()
