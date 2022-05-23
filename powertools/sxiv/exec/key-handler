@@ -1,4 +1,9 @@
 #!/bin/bash
 case "$1" in
-    "d") while read file; do mv "$file" /tmp; done;;
+    "d")
+        mkdir -p deleted
+        while read file; do
+            mv "$file" deleted
+        done
+        ;;
 esac
