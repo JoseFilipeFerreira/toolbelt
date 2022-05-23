@@ -4,6 +4,7 @@
 set -e
 remote="kiwi"
 folder=".local/share/wallpapers"
+color_cache=~/.cache/wall
 
 BRIGHTNESS_FILTER='
 import sys
@@ -54,12 +55,10 @@ sync_walls(){
 }
 
 check_res(){
-    file="$1"
+    touch -m "$1"
 
-    touch -m "$file"
-
-    w="$(convert "$file" -format '%[w]' info:)"
-    h="$(convert "$file" -format '%[h]' info:)"
+    w="$(convert "$1" -format '%[w]' info:)"
+    h="$(convert "$1" -format '%[h]' info:)"
 
     echo "$w"x"$h"
 
@@ -67,7 +66,7 @@ check_res(){
         return 0
     else
         echo -e "\033[31mImage too small\033[0m"
-        rm "$file"
+        rm "$1"
         return 1
     fi
 }
@@ -106,32 +105,41 @@ remove_wall(){
 }
 
 change_wall(){
-    file=$1
+    filename="$(basename "$1")"
 
-    feh --no-fehbg --bg-fill "$file"
+    feh --no-fehbg --bg-fill "$1"
 
-    mapfile -t colors < <(
-        convert "$file" +dither -colors 10 histogram: |
-            sed -n '/comment={/,/^}/p' |
-            sed -E 's/comment=\{\s*|\}|^\s*//g' |
-            awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
-                 $0 !~ /[0-9]e\+[0-9]/ {print}' |
-            sort -nr |
-            grep -aoP '#[a-fA-F0-9]{6}' |
-            python3 -c "$BRIGHTNESS_FILTER" |
-            head -3
-    )
+    if [[ "$2" == "--cache" ]] && [[ -f "$color_cache/$filename" ]]; then
+        cp "$color_cache/$filename" "/tmp/$USER/wall_colors"
+    else
+        mapfile -t colors < <(
+            convert "$1" +dither -colors 10 histogram: |
+                sed -n '/comment={/,/^}/p' |
+                sed -E 's/comment=\{\s*|\}|^\s*//g' |
+                awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
+                     $0 !~ /[0-9]e\+[0-9]/ {print}' |
+                sort -nr |
+                grep -aoP '#[a-fA-F0-9]{6}' |
+                python3 -c "$BRIGHTNESS_FILTER" |
+                head -3)
 
-    mkdir -p "/tmp/$USER"
-    printf "%s\n" "${colors[@]}" >| "/tmp/$USER/wall_colors"
+        mkdir -p "/tmp/$USER"
+        printf "%s\n" "${colors[@]}" >| "/tmp/$USER/wall_colors"
+
+        if [[ "$2" == "--cache" ]]; then
+            mkdir -p ~/.cache/wall
+            printf "%s\n" "${colors[@]}" >| "$color_cache/$filename"
+        fi
+    fi
+
 
     echo "$file"
     notify-send \
         -u low \
-        -i "$file" \
+        -i "$1" \
         -a "wall" \
         "Wallpaper changed" \
-        "$(basename "$file")"
+        "$filename"
 }
 
 [[ ! -d "$HOME/$folder" ]] && sync_walls
@@ -156,14 +164,14 @@ case "$1" in
         sync_walls || :
         file="$(sxiv -to "$HOME/$folder")"
         [[ "$file" ]] || exit
-        change_wall "$file"
+        change_wall "$file" --cache
         ;;
 
     --change|"")
         # Change to random wallpaper [default]
         sync_walls || :
         file=$(find "$HOME/$folder" -type f | shuf -n 1)
-        change_wall "$file"
+        change_wall "$file" --cache
         ;;
 
     -h|--help)
