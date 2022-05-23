@@ -17,12 +17,12 @@ rsync_flags=( --progress --recursive --perms --times --owner --group --devices -
 
 folders=(
 dcim/Camera
+dcim/MyAlbums
 dcim/Facebook
 movies/Instagram
 movies/Messenger
 pictures/Instagram
 pictures/Messenger
-pictures/MyCollections
 pictures/Reddit
 )
 
