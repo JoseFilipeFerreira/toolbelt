@@ -14,5 +14,5 @@ termux_task_set(){
 ! hash termux-job-scheduler &> /dev/null &&
     echo "Not in termux env" && exit
 
-termux-job-scheduler --cancel-all
-termux_task_set change_lock 900000
+# termux-job-scheduler --cancel-all
+# termux_task_set change_lock 900000
