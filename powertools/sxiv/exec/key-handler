@@ -2,13 +2,13 @@
 case "$1" in
     "d")
         mkdir -p deleted
-        while read file; do
+        while read -r file; do
             mv "$file" deleted
         done
         ;;
     1|2|3|4|5)
         mkdir -p "$1-star"
-        while read file; do
+        while read -r file; do
             mv "$file" "$1-star"
         done
         ;;
