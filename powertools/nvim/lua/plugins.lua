@@ -22,13 +22,12 @@ return require('packer').startup({function(use)
 
     -- Theme
     use {
-        'ellisonleao/gruvbox.nvim',
+        'rebelot/kanagawa.nvim',
         config = function()
-            vim.cmd([[colorscheme gruvbox]])
-            vim.opt.background = 'dark'
-            vim.g.gruvbox_contrast_dark = 'hard'
-            vim.cmd([[highlight Normal guibg=none]])
-            vim.cmd([[highlight NonText guibg=none]])
+            require('kanagawa').setup({
+                transparent = true
+            })
+            vim.cmd("colorscheme kanagawa")
         end
     }
     use {
