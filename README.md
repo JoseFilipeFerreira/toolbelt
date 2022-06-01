@@ -7,19 +7,18 @@ Static config files
 
 ## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
-* [add-icons](toolbox/add-icons.tool) manage [toolicons](powertools/toolicons) icon theme
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
-* [colorwall](toolbox/colorwall.tool) 
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [death](toolbox/death.tool) warn if all batteries are bellow a certain percent
 * [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with app usage history
 * [ex](toolbox/ex.tool) extract anything
+* [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand
 * [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
 * [lock](toolbox/lock.tool) blured lockscreen

@@ -1,14 +1,10 @@
 #!/bin/bash
 # compile LaTeX and BibTeX with a single commmand
 
-case "$1" in
-    --completion)
-        #shellcheck disable=SC1004,SC2016
-        echo '
 _labib_completion(){
     [[ "$COMP_CWORD" -eq 1 ]] &&
         mapfile -t COMPREPLY < <(compgen -W \
-            "$(find \
+            "$(find . \
                 -maxdepth 1 \
                 -type f \
                 -name "*.tex" \
@@ -16,8 +12,12 @@ _labib_completion(){
             sort -u)" \
             -- "${COMP_WORDS[COMP_CWORD]}")
 }
-complete -F _labib_completion labib'
 
+case "$1" in
+    --completion)
+        #shellcheck disable=SC1004,SC2016
+        declare -f _labib_completion
+        echo "complete -F _labib_completion labib"
         exit
         ;;
     *)
