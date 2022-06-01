@@ -43,4 +43,8 @@ hash gh &> /dev/null &&
 hash labib &> /dev/null &&
     . <(labib --completion)
 
+# shellcheck disable=SC1090
+hash icons &> /dev/null &&
+    . <(icons --completion)
+
 complete -d cd

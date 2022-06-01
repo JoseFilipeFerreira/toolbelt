@@ -1,2 +1,6 @@
 #!/bin/bash
-~/.local/bin/add-icons "$1"
+if [[ "$1" == check ]]; then
+    ~/.local/bin/icons --check
+else
+    ~/.local/bin/icons --generate
+fi
