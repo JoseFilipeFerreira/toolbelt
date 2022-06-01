@@ -43,10 +43,10 @@ echo "NAME
     $program_name - icon pack manager
 
 USAGE
-    $program_name [--add FILE CATEGORY] [--generate] [--check] [--completion]
+    $program_name [--add CATEGORY FILE] [--generate] [--check] [--completion]
 
 OPTIONS
-    --add FILE CATEGORY
+    --add CATEGORY FILE
         add an image to a given category to the repository
 
     --generate
@@ -75,7 +75,7 @@ _icons_completion(){
         mapfile -t COMPREPLY < \
             <(compgen -W "${_icons_contexts[*]}" -- "$2")
     elif [[ "${#COMP_WORDS[@]}" -gt 3 ]] && [[ "${COMP_WORDS[-3]}" == "--add" ]]; then
-        mapfile -t COMPREPLY < <(compgen -W -f -X -- "$2")
+        mapfile -t COMPREPLY < <(compgen -f -X -- "$2")
     else
         # shellcheck disable=SC2154
         mapfile -t COMPREPLY < \
@@ -87,8 +87,8 @@ while (( "$#" )); do
     case $1 in
         --add)
             ADD=true
-            FILE="$2"
-            CATEGORY="$3"
+            CATEGORY="$2"
+            FILE="$3"
             shift 2
             ;;
         --generate)

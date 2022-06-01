@@ -2,52 +2,39 @@
 # choose display setting
 
 notify(){
-    notify-send -a "dock" "$1" "$2"
+    notify-send -a "dock" -i "devices/computer" "$1" "$2"
 }
 
-readarray -t connected_monitors < <(xrandr | grep " connected " | cut -d" " -f1)
+readarray -t connected < <(xrandr | grep " connected " | cut -d" " -f1)
 
-internal_monitor(){
-    [[ "${#connected_monitors[@]}" -lt 1 ]] && notify "No monitors connected" && exit
-    echo "${connected_monitors[0]}"
-}
+[[ "${#connected[@]}" -lt 1 ]] && notify "No monitors connected" && exit
+internal="${connected[0]}"
 
-external_monitor(){
-    [[ "${#connected_monitors[@]}" -le 1 ]] && notify "No external monitors connected" && exit
-    echo "${connected_monitors[-1]}"
+external(){
+    [[ "${#connected[@]}" -le 1 ]] && notify "No external monitors connected" && exit
+    echo "${connected[-1]}"
 }
 
 layout="$( \
     awk '/^case/,/^esac/' "$0" |
-    grep -E "^\s*[a-zA-Z0-9-]*)$" |
-    sed -E 's/[ \)]//g' |
-    dmenu -i -l 20 -p "Monitor Layout")"
+        grep -E "^\s*[a-zA-Z0-9-]*)$" |
+        sed -E 's/[ \)]//g' |
+        dmenu -i -l 20 -p "Monitor Layout")"
 
 [[ "$layout" ]] || exit
 
 case "$layout" in
     dock)
-        xrandr \
-            --output "$(external_monitor)" --auto \
-            --output "$(internal_monitor)" --off
+        xrandr --output "$(external)" --auto --output "$internal" --off
         ;;
-
     dock-1440p)
-        xrandr \
-            --output "$(external_monitor)" --mode 2560x1440 \
-            --output "$(internal_monitor)" --off
+        xrandr --output "$(external)" --mode 2560x1440 --output "$internal" --off
         ;;
-
     undock)
-        xrandr \
-            --output "$(internal_monitor)" --auto \
-            --output "$(external_monitor)" --off
+        xrandr --output "$internal" --auto --output "$(external)" --off
         ;;
-
     mirror)
-        xrandr \
-            --output "$(external_monitor)" --auto \
-            --same-as "$(internal_monitor)"
+        xrandr --output "$(external)" --auto --same-as "$internal"
         ;;
     *)
         echo "Invalid layout"
