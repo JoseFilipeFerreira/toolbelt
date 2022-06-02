@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/bin/python
 # templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 
 import os
