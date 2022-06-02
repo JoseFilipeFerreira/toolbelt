@@ -57,7 +57,7 @@ Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 
 ## :link: Install
 Installation scripts I use to setup my dotfiles
-* [generate-config](./generate-config) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
+* [generate_config](./generate_config) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 * [label-printer](./label-printer) autogenerate [README](README.md)
 * [link-check](./link-check) check the validity of relative and hard links in all the md files
