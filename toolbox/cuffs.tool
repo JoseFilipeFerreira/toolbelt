@@ -81,6 +81,12 @@ while (( "$#" )); do
             pick="true"
             shift
             ;;
+        --qrcode)
+            # reads Qr code in image
+            # copies value to selection
+            qrcode="true"
+            shift
+            ;;
         -h|--help)
             # Send this help message
             echo "USAGE:"
@@ -127,6 +133,19 @@ notify(){
             cut -c1-6)"
         echo -n "#$color" | xclip
         content+="(#$color) "
+    fi
+
+    if [[ "$qrcode" ]]; then
+        if ! hash zbarimg; then
+            echo "error: zbarimg not installed"
+        else
+            if qr="$(zbarimg -q "$thumbnail")"; then
+                echo -n "$qr" | sed -E 's/QR-Code://g' | xclip
+                content+="$qr"
+            else
+                content+="failed to read QR Code"
+            fi
+        fi
     fi
 
     image="mimetypes/image-x-generic"
