@@ -11,8 +11,7 @@ scripts/ethernet, 5
 scripts/wifi, 5
 blind backlight --block, ONCE
 deaf --block, ONCE
-scripts/battery 1, 10
-scripts/battery 0, 10
+scripts/battery, 10
 date '+%d/%m  %H:%M   ', 5
 
 [left]

@@ -1,28 +1,26 @@
 #!/bin/bash
-_acpi="$(acpi -b | grep -v "rate information unavailable")"
 
-[ -n "$1" ] && \
-    _acpi="$(echo "$_acpi" | sed -n "$(($1 + 1))p")"
+readarray -t acpi < <(acpi -b | grep -v "rate information unavailable")
+[ ${#acpi[@]} -eq 0 ] && exit
 
-[ ! "$_acpi" ] && exit
+readarray -t charges < <(printf "%s\n" "${acpi[@]}" | cut -d',' -f2 | sed -E 's/[ %]//g')
 
-stat=$( \
-    echo "$_acpi" | \
-    cut -d ":" -f2 | \
-    cut -d "," -f 1 | \
-    sed -e 's/^[ \t]*//')
+max_charge="$(printf "%s\n" "${charges[@]}" | sort -nr | head -n1)"
 
-percent=$(echo "$_acpi" | sed '$!d;/%/{s/%.*//;s/.*\s//}')
+for i in "${!charges[@]}"; do
+    case "${acpi[i]}" in
+        *Full*)        symbol=''  ;;
+        *Charging*)    symbol='^' ;;
+        *Discharging*) symbol='' ;;
+    esac
+    charges["$i"]="$symbol${charges[i]}%"
+done
 
-case "$stat" in
-  Full)        symbol=''  ;;
-  Charging)    symbol='^' ;;
-  Discharging) symbol=''  ;;
-esac
+printf "%s" "${charges[0]}"
+printf "    %s" "${charges[@]:1}"
+echo ""
 
-echo "$symbol" "$percent""%"
-
-case "$(( percent / 20 ))" in
+case "$(( max_charge / 20 ))" in
   0) echo "#FF0000" ;;
   1) echo "#FF8400" ;;
   2) echo "#FFF700" ;;
