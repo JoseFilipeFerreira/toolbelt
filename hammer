@@ -34,13 +34,14 @@ get_pkgs(){
 install_pkgs(){
     if hash pacman &> /dev/null; then
         sudo pacman -Suyy
-
         readarray -t pkg_pacman < <(get_pkgs pacman "$@")
         sudo pacman -S --needed "${pkg_pacman[@]}"
 
         readarray -t pkg_repos < <(get_pkgs repos "$@")
         make_repos "${pkg_repos[@]}"
+    fi
 
+    if hash aura &> /dev/null; then
         readarray -t pkg_aura < <(get_pkgs aur "$@")
         aura -S "${pkg_aura[@]}"
     fi
