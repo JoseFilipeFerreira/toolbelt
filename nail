@@ -159,8 +159,11 @@ if [[ " ${FILTERS[*]} " =~ " mobile " ]]; then
     mkdir -p ~/.termux/tasker
     for tool in "$DOTFILES"/handtools/*.tool; do
         tool_name=$(basename "$tool" .tool)
-        echo -e "\033[32m$tool_name\033[0m"
-        cp "$tool" ~/.termux/tasker/"$tool_name"
+        tool_dest=~/.termux/tasker/"$tool_name"
+        if [[ "$tool" -nt "$tool_dest" ]]; then
+            echo -e "\033[32m$tool_name\033[0m"
+            cp "$tool" "$tool_dest"
+        fi
     done
     bash "$DOTFILES"/schedule
 fi
