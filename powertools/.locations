@@ -23,8 +23,10 @@ nvim,~/.config/nvim,link,essential
 picom.conf,~/.config/picom.conf,link,extra
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
-termux/termux.properties,~/.termux/termux.properties,link,mobile
+sxiv,~/.config/sxiv,link,extra
 termux/colors.properties,~/.termux/colors.properties,link,mobile
+termux/termux-url-opener,~/bin/termux-url-opener,link,mobile
+termux/termux.properties,~/.termux/termux.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
 todoman.py,~/.config/todoman/config.py,link,extra
 toolicons,,install,extra
@@ -33,6 +35,5 @@ transmission-daemon.json,~/.config/transmission-daemon/settings.json,link,essent
 user-dirs.dirs,~/.config/user-dirs.dirs,link,essential
 vdirsyncer.conf,~/.config/vdirsyncer/config,link,essential
 wgetrc,~/.config/wgetrc,link,essential
-zathurarc,~/.config/zathura/zathurarc,link,extra
 wxorc,~/.config/wxorc,link,extra
-sxiv,~/.config/sxiv,link,extra
+zathurarc,~/.config/zathura/zathurarc,link,extra
