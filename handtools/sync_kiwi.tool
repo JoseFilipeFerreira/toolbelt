@@ -33,9 +33,10 @@ update_notification(){
     echo "$var"
     termux-notification \
         --id "$notification_id" \
+        --icon cloud_sync \
         --alert-once \
         --title "$notification_title" \
-        --image-path ~/shortcuts/assets/kiwi.png \
+        --image-path ~/.toolbelt/powertools/toolicons/512x512/devices/computer-kiwi.png \
         --content "$var"
 }
 
