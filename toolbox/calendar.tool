@@ -6,7 +6,7 @@ calendar="Meetings"
 priority="normal"
 
 notify(){
-    dunstify \
+    notify-send \
         -u "$priority" \
         -a "in $calendar" \
         -i "apps/calendar" \
@@ -65,7 +65,7 @@ for event in "${events[@]}"; do
     case "$location" in
         http*)
             body+="<b>location:</b>\nas link"
-            actions+=( "--action=open, $location")
+            actions+=( "--action=open=$location")
             ;;
         $'\n')
             ;;
@@ -73,17 +73,20 @@ for event in "${events[@]}"; do
             # shellcheck disable=SC2076
             if [[ " ${installed_apps[*]} " =~ " ${location} " ]]; then
                 body+="<b>app:</b>\n$location"
-                actions+=( "--action=launch, $location")
+                actions+=( "--action=launch=$location")
             else
                 body+="<b>location:</b>\n$location"
-                actions+=( "--action=search, google")
+                actions+=( "--action=search=google")
                 [ "$(echo "$location" | wc -w)" -gt 1 ] &&
-                    actions+=( "--action=location, google maps")
+                    actions+=( "--action=location=google maps")
             fi
             ;;
     esac
 
     action="$( notify "$title" "$body" "${actions[@]}")"
+
+    printf "%s\n" "${actions[@]}"
+    echo "$action"
 
     [ "$action" ] || exit
 
