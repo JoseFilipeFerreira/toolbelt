@@ -24,7 +24,6 @@ Scripts used in the terminal or on a keybind
 * [lock](toolbox/lock.tool) blured lockscreen
 * [menu](toolbox/menu.tool) dmenu menu launcher
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
-* [newsboat-to-opml](toolbox/newsboat-to-opml.tool) convert newsboat feed to opml and filter categories
 * [nospace](toolbox/nospace.tool) correct filenames
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
 * [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
@@ -33,6 +32,7 @@ Scripts used in the terminal or on a keybind
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [tr](toolbox/tr.tool) transmission-remote wrapper
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+* [urls-to-opml](toolbox/urls-to-opml.tool) convert list of urls to opml and filter categories
 * [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 * [workin](toolbox/workin.tool) workout manager
