@@ -1,15 +1,17 @@
 #!/bin/python
 """TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)"""
-import os
-import re
-import sys
 from dataclasses import dataclass
 from enum import Enum
 from json import loads
 from pathlib import Path
+from qbittorrentapi import Client
 from subprocess import PIPE, Popen
 from typing import List, Optional
 from urllib.parse import urlencode
+import os
+import re
+import socket
+import sys
 
 import requests
 from bs4 import BeautifulSoup # type: ignore
@@ -30,7 +32,11 @@ def print_info(string: str):
 
 def print_error(string: str):
     """print errors"""
-    print(f"[error] {string}")
+    print(f"[\033[31merror\033[0m] {string}")
+
+def print_success(string: str):
+    """print information"""
+    print(f"[\033[32msuccess\033[0m] {string}")
 
 @dataclass
 class NyaaResult():
@@ -43,8 +49,19 @@ class NyaaResult():
     leechers: int
     completed: int
 
+    def quality_score(self):
+        priority_sources=["SubsPlease", "Erai-raws", "HorribleSubs"]
+        for i, source in enumerate(priority_sources):
+            if self.title.startswith(f"[{source}]"):
+                return len(priority_sources) - i
+        return -1
+
+    def __lt__(self, other):
+        return self.quality_score() < other.quality_score()
+
     def is_valid_result(self, episode: Optional[int], searched_title: str) -> bool:
         """check if self is valid result"""
+
         if not episode:
             return True
 
@@ -63,14 +80,18 @@ class NyaaResult():
 
     def queue_magnet_link(self):
         """queue magnet link in transmission-remote"""
-        with Popen(
-            ["transmission-remote", "--add", self.magnet],
-            stdout=PIPE,
-            encoding='utf-8'
-        ) as proc:
-            output, error = proc.communicate()
 
-            return None if error else output
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        client = Client(host=f'{ip}:8090')
+
+        out = client.torrents_add(urls=self.magnet, category="dlanime")
+
+        if out == "Fails.":
+            return None
+
+        return self.magnet
 
 class AiringStatus(Enum):
     """status in MAL"""
@@ -100,12 +121,14 @@ class MalResult():
         self.url = dic['url']
         self.airing_status = AiringStatus(dic['airing_status'])
         remove = ["!", ".", ":"]
-        self.clean_title = self.title.replace(" ", "_").translate({ord(x): '' for x in remove})
+        self.clean_title = self.title.translate({ord(x): '' for x in remove})
         self.anime_path = ANIME_LOCATION + "/" + self.clean_title
 
     def mkdir(self):
         """create directory for anime"""
-        Path(self.anime_path).mkdir(parents=True, exist_ok=True)
+        if not os.path.exists(self.anime_path):
+            Path(self.anime_path).mkdir(parents=True, exist_ok=True)
+            print_info(f"created folder:{self.anime_path}")
 
     def download_thumb(self):
         """download image in url"""
@@ -200,22 +223,32 @@ def get_last_anime(anime_path: str) -> Optional[int]:
         print_error(f"invalid filename: {dl_animes[0]}")
         return None
 
-def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]:
-    """prompt user to choose a torrent file"""
+def prompt_fzf(header: str, content: List[str]) -> Optional[str]:
     with Popen(
-        ["fzf", "--cycle", f"--header='search: {name}'"],
+        ["fzf", "--cycle", f"--header='{header}'"],
         stdout=PIPE,
         stdin=PIPE,
         encoding="utf-8"
     ) as proc:
-        output, error = proc.communicate("\n".join([x.title for x in content])+"\n")
+        output, error = proc.communicate("\n".join(content)+"\n")
 
-        if error or not output:
+        if error:
             return None
+        elif not output:
+            return None
+        else:
+            return output.strip()
 
-        anime = list(filter(lambda x: x.title == output.strip(), content))
+def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]:
+    """prompt user to choose a torrent file"""
+    out = prompt_fzf(f"search: {name}", [x.title for x in content])
 
-        return None if not anime else anime[0]
+    if not out:
+        return None
+
+    anime = list(filter(lambda x: x.title == out, content))
+
+    return None if not anime else anime[0]
 
 def main():
     """entrypoint"""
@@ -240,7 +273,6 @@ def main():
             search_nyaa += f" {next_anime:02}"
         search_nyaa += " 1080p"
 
-
         if last_anime:
             print("> episode:", last_anime, "/", anime.num_episodes)
 
@@ -256,23 +288,31 @@ def main():
             print_error("no results found")
             continue
 
-        # results = list(filter(
-            # lambda x: x.is_valid_result(next_anime, anime.title),
-            # results))
+        results = list(filter(
+            lambda x: x.is_valid_result(next_anime, anime.title),
+            results))
 
         if not results:
-            print_error("no valid results found")
+            print_error("all results were removed")
             continue
 
         print_info(f"{len(results)} results found")
 
-        anime = prompt_torrent(search_nyaa, results)
-        if not anime:
-            print_info("no magnet selected")
+        results.sort(reverse=True)
+
+        nyaa = None
+        if results[0].quality_score() > 0:
+            print_success(f"found {results[0].title}")
+            nyaa = results[0]
+        else:
+            nyaa = prompt_torrent(search_nyaa, results)
+
+        if not nyaa:
+            print_error("no magnet selected")
             continue
 
-        if anime.queue_magnet_link():
-            print_info("queued magnet link")
+        if nyaa.queue_magnet_link():
+            print_success("queued magnet link")
         else:
             print_error("failed to queue magnet link")
 

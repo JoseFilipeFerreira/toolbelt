@@ -54,9 +54,10 @@ _update_media_completion(){
             mapfile -t COMPREPLY < <(compgen -f -X -- "$2")
             ;;
         5) # FILENAME
+            echo
             mapfile -t COMPREPLY < \
                 <(compgen -W \
-                    "$(find /mnt/media/"${COMP_WORDS[1]}"/"${COMP_WORDS[2]}" \
+                "$(find "$(echo "/mnt/media/${COMP_WORDS[1]}/${COMP_WORDS[2]}" | sed -E 's/\\//g')" \
                         -mindepth 1 \
                         -maxdepth 1 \
                         -type f \
