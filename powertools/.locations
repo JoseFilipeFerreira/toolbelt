@@ -31,7 +31,6 @@ thonkbar,~/.config/thonkbar,link,extra
 todoman.py,~/.config/todoman/config.py,link,extra
 toolicons,,install,extra
 toolsounds,/usr/share/sounds/toolsounds,sudo,link,extra
-transmission-daemon.json,~/.config/transmission-daemon/settings.json,link,essential
 user-dirs.dirs,~/.config/user-dirs.dirs,link,essential
 vdirsyncer.conf,~/.config/vdirsyncer/config,link,essential
 wgetrc,~/.config/wgetrc,link,essential

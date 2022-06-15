@@ -26,11 +26,12 @@ Scripts used in the terminal or on a keybind
 * [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
 * [nospace](toolbox/nospace.tool) correct filenames
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
+* [qbt](toolbox/qbt.tool) add torrent to qbittorrent on remote
 * [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
-* [tr](toolbox/tr.tool) qbittorrent wrapper
+* [tr](toolbox/tr.tool) transmission-remote wrapper
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [urls-to-opml](toolbox/urls-to-opml.tool) convert list of urls to opml and filter categories
 * [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit
@@ -41,6 +42,7 @@ Scripts used in the terminal or on a keybind
 Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](toolkit/dock.menu) choose display setting
 * [games](toolkit/games.menu) launch games from steam
+* [nitro](toolkit/nitro.menu) pick from a list of emojis and gifs
 * [rss](toolkit/rss.menu) subscribe to a RSS feed with categories
 * [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](toolkit/trayer.menu) toggle trayer

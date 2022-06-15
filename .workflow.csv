@@ -87,6 +87,7 @@ pacman,extra,xorg-xrandr
 pacman,extra,zathura
 pacman,extra,zathura-pdf-poppler
 pip,essential,cmake-language-server
+pip,essential,qbittorrent-api
 pkg,essential,bat
 pkg,essential,clang
 pkg,essential,exa
