@@ -20,21 +20,25 @@ def notify(header, content):
 
 magnet = sys.argv[1]
 
-if socket.gethostname() == "kiwi":
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
-    ip = s.getsockname()[0]
-    client = Client(host=f'{ip}:8090')
 
-    print(client.torrents_add(urls=magnet))
+def main():
+    if socket.gethostname() == "kiwi":
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        client = Client(host=f'{ip}:8090')
 
-else:
-    with Popen(["ssh", "kiwi", "qbt", magnet], stdout=PIPE, stderr=PIPE) as proc:
-        stdout, stderr = proc.communicate()
+        print(client.torrents_add(urls=magnet))
 
-        if stdout == "Ok.":
-            notify("Added Torrent", "on kiwi")
-        else:
-            notify("Failed to Add Torrent", "on kiwi")
+    else:
+        with Popen(["ssh", "kiwi", "qbt", magnet], stdout=PIPE, stderr=PIPE) as proc:
+            stdout, stderr = proc.communicate()
 
+            if stdout == "Ok.":
+                notify("Added Torrent", "on kiwi")
+            else:
+                notify("Failed to Add Torrent", "on kiwi")
+
+if __name__ == '__main__':
+    main()
 # vim: set ft=python:
