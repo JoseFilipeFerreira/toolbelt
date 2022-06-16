@@ -50,6 +50,7 @@ class NyaaResult():
     completed: int
 
     def quality_score(self):
+        """Give a quality score to the Torrent"""
         priority_sources=["SubsPlease", "Erai-raws", "HorribleSubs"]
         for i, source in enumerate(priority_sources):
             if self.title.startswith(f"[{source}]"):
