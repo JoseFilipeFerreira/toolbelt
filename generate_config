@@ -17,9 +17,9 @@ ENDLINE = re.compile(r'\s*\n')
 IS_REGEX = re.compile(r'/([^/]*)/')
 
 
-def dbg(s):
-    print(f"DEBUG: '{s}'")
-    return s
+def dbg(string):
+    print(f"DEBUG: '{string}'")
+    return string
 
 
 def hostname():
@@ -103,30 +103,30 @@ def reflect_call(method_name: str) -> str:
     return method()
 
 
-def parse_whitespace(s: str) -> Tuple[Unit, str]:
-    return (UNIT, s.lstrip())
+def parse_whitespace(string: str) -> Tuple[Unit, str]:
+    return (UNIT, string.lstrip())
 
 
-def parse_endline(s: str) -> Tuple[Unit, str]:
-    match = ENDLINE.search(s)
+def parse_endline(string: str) -> Tuple[Unit, str]:
+    match = ENDLINE.search(string)
     if match and match.start() == 0:
-        return (UNIT, s[match.end():])
+        return (UNIT, string[match.end():])
     else:
-        raise ParseError(s, 'is not and end of line')
+        raise ParseError(string, 'is not and end of line')
 
 
-def parse_percents(original_s: str) -> Tuple[Unit, str]:
-    if PERCENTS.match(original_s):
-        return (UNIT, original_s[2:].lstrip())
-    raise ParseError(original_s, 'does not start with %%')
+def parse_percents(original_string: str) -> Tuple[Unit, str]:
+    if PERCENTS.match(original_string):
+        return (UNIT, original_string[2:].lstrip())
+    raise ParseError(original_string, 'does not start with %%')
 
 
-def skip_up_to(token, s: str, match_len=[]) -> Tuple[str, str]:
+def skip_up_to(token, string: str, match_len=[]) -> Tuple[str, str]:
     if isinstance(token, str):
-        index = s.find(token)
+        index = string.find(token)
         match_len.append(len(token))
     elif isinstance(token, re.Pattern):
-        match = token.search(s)
+        match = token.search(string)
         if match:
             index = match.start()
             match_len.append(match.end() - match.start())
@@ -134,19 +134,19 @@ def skip_up_to(token, s: str, match_len=[]) -> Tuple[str, str]:
             index = -1
 
     if index == -1:
-        raise ParseError(s, f"doesn't contain {token}")
+        raise ParseError(string, f"doesn't contain {token}")
     else:
-        return (s[:index], s[index:])
+        return (string[:index], string[index:])
 
 
-def skip_past(token, s: str) -> Tuple[str, str]:
+def skip_past(token, string: str) -> Tuple[str, str]:
     match_len = []
-    (b, a) = skip_up_to(token, s, match_len)
+    (b, a) = skip_up_to(token, string, match_len)
     return (b, a[match_len[0]:])
 
 
-def parse_switch(original_s: str) -> Tuple[Switch, str]:
-    (_, s) = parse_percents(original_s)
+def parse_switch(original_string: str) -> Tuple[Switch, str]:
+    (_, s) = parse_percents(original_string)
     match = SWITCH_REGEX.match(s)
     if match:
         full = match.group(1)
@@ -156,10 +156,10 @@ def parse_switch(original_s: str) -> Tuple[Switch, str]:
     raise ParseError(s, "is not a valid switch header")
 
 
-def parse_case(original_s: str) -> Tuple[Case, str]:
-    (_, s) = parse_percents(original_s)
+def parse_case(original_string: str) -> Tuple[Case, str]:
+    (_, s) = parse_percents(original_string)
     if DEFAULT_REGEX.match(s):
-        raise ParseError(original_s, 'is a default case')
+        raise ParseError(original_string, 'is a default case')
     match = CASE_REGEX.match(s)
     if match:
         full = match.group(1)
@@ -169,62 +169,62 @@ def parse_case(original_s: str) -> Tuple[Case, str]:
         (_, s) = parse_endline(s)
         return (Case(case, text), s)
     else:
-        raise ParseError(original_s, "is not a valid case header")
+        raise ParseError(original_string, "is not a valid case header")
 
 
-def parse_cases(s: str) -> Tuple[List[Case], str]:
+def parse_cases(string: str) -> Tuple[List[Case], str]:
     cases = []
     try:
         while True:
-            (case, s) = parse_case(s)
+            (case, string) = parse_case(string)
             cases += [case]
     except ParseError as _:
-        return (cases, s)
+        return (cases, string)
 
 
-def parse_default(original_s: str) -> Tuple[str, str]:
+def parse_default(original_string: str) -> Tuple[str, str]:
     try:
-        (_, s) = parse_percents(original_s)
+        (_, s) = parse_percents(original_string)
         match = DEFAULT_REGEX.match(s)
         if match:
             (default, s) = skip_past(CASE_END_REGEX, s[len(match.group(1)):])
             (_, s) = parse_endline(s)
             return (default, s)
         else:
-            raise ParseError(original_s)
+            raise ParseError(original_string)
     except ParseError as pe:
         return ("", pe.s)
 
 
-def parse_end_switch(original_s: str) -> Tuple[Unit, str]:
-    (_, s) = parse_percents(original_s)
+def parse_end_switch(original_string: str) -> Tuple[Unit, str]:
+    (_, s) = parse_percents(original_string)
     match = SWITCH_END_REGEX.match(s)
     if match:
         return (UNIT, s[len(match.group(1)):])
     else:
-        raise ParseError(original_s, 'is expected to be the end of a switch')
+        raise ParseError(original_string, 'is expected to be the end of a switch')
 
 
-def parse_switch_case(s: str) -> Tuple[SwitchCase, str]:
-    (switch, s) = parse_switch(s)
-    (cases, s) = parse_cases(s)
-    (default, s) = parse_default(s)
-    (_, s) = parse_end_switch(s)
-    return (SwitchCase(switch, cases, default), s)
+def parse_switch_case(string: str) -> Tuple[SwitchCase, str]:
+    (switch, string) = parse_switch(string)
+    (cases, string) = parse_cases(string)
+    (default, string) = parse_default(string)
+    (_, string) = parse_end_switch(string)
+    return (SwitchCase(switch, cases, default), string)
 
 
-def parse(s: str) -> List[Part]:
+def parse(string: str) -> List[Part]:
     parts = []
-    while len(s) > 0:
+    while len(string) > 0:
         try:
-            text, s = skip_up_to(PERCENTS, s)
+            text, string = skip_up_to(PERCENTS, string)
             parts.append(Text(text))
         except:
-            parts.append(Text(s))
+            parts.append(Text(string))
             break
 
         try:
-            sc, s = parse_switch_case(s)
+            sc, string = parse_switch_case(string)
             parts.append(sc)
         except ParseError as pe:
             if len(pe.s) != 0:
