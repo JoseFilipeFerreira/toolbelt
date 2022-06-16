@@ -231,17 +231,20 @@ def parse(string: str) -> List[Part]:
 
     return parts
 
+def main():
+    if len(argv) < 3:
+        print(f'Usage: {os.path.basename(__file__)} template target')
+    else:
+        home=os.environ['HOME']
+        print(f'{argv[1].replace(home,"~")} -> {argv[2].replace(home,"~")}')
+        try:
+            with open(argv[1], 'r') as template:
+                string = template.read()
+                with open(argv[2], 'w') as generated:
+                    for parsed in parse(string):
+                        parsed.write(generated)
+        except Exception as exception:
+            print(exception)
 
-if len(argv) < 3:
-    print(f'Usage: {os.path.basename(__file__)} template target')
-else:
-    home=os.environ['HOME']
-    print(f'{argv[1].replace(home,"~")} -> {argv[2].replace(home,"~")}')
-    try:
-        with open(argv[1], 'r') as template:
-            string = template.read()
-            with open(argv[2], 'w') as generated:
-                for parsed in parse(string):
-                    parsed.write(generated)
-    except Exception as exception:
-        print(exception)
+if __name__ == '__main__':
+    main()
