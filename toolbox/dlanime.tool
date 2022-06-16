@@ -4,7 +4,6 @@ from dataclasses import dataclass
 from enum import Enum
 from json import loads
 from pathlib import Path
-from qbittorrentapi import Client
 from subprocess import PIPE, Popen
 from typing import List, Optional
 from urllib.parse import urlencode
@@ -15,6 +14,7 @@ import sys
 
 import requests
 from bs4 import BeautifulSoup # type: ignore
+from qbittorrentapi import Client
 
 ANIME_LOCATION = "/mnt/media/anime"
 if not os.path.isdir(ANIME_LOCATION):
@@ -81,10 +81,10 @@ class NyaaResult():
     def queue_magnet_link(self):
         """queue magnet link in transmission-remote"""
 
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        client = Client(host=f'{ip}:8090')
+        soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        soc.connect(("8.8.8.8", 80))
+        local_ip = soc.getsockname()[0]
+        client = Client(host=f'{local_ip}:8090')
 
         out = client.torrents_add(urls=self.magnet, category="dlanime")
 
@@ -224,6 +224,7 @@ def get_last_anime(anime_path: str) -> Optional[int]:
         return None
 
 def prompt_fzf(header: str, content: List[str]) -> Optional[str]:
+    """prompt user with fzf"""
     with Popen(
         ["fzf", "--cycle", f"--header='{header}'"],
         stdout=PIPE,
@@ -234,10 +235,10 @@ def prompt_fzf(header: str, content: List[str]) -> Optional[str]:
 
         if error:
             return None
-        elif not output:
+        if not output:
             return None
-        else:
-            return output.strip()
+
+        return output.strip()
 
 def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]:
     """prompt user to choose a torrent file"""
