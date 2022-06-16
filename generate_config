@@ -3,9 +3,9 @@
 
 import os
 import re
-import subprocess
 from sys import argv
-from typing import List
+from typing import List, Optional, Tuple
+from socket import gethostname
 
 PERCENTS = re.compile(r'^%%', flags=re.M)
 SWITCH_REGEX = re.compile(r'^(switch on ([A-Za-z]\w*))')
@@ -23,10 +23,8 @@ def dbg(s):
 
 
 def hostname():
-    return (
-        subprocess.run(['hostname'],
-                       capture_output=True).stdout.decode('utf-8').replace(".", "-").strip()
-    )
+    """get hostname"""
+    return gethostname().replace(".","-").strip()
 
 
 class ParseError(Exception):
@@ -34,16 +32,13 @@ class ParseError(Exception):
         super().__init__(f'String "{s[:20]}..." {message}')
         self.s = s
 
-
 class Unit:
     pass
 
-
 UNIT = Unit()
 
-
 class Part:
-    def write(self, stream):
+    def write(self, _):
         raise NotImplementedError('Not overriden')
 
     def __str__(self):
@@ -79,7 +74,7 @@ class Case:
 
 
 class SwitchCase(Part):
-    def __init__(self, switch: Switch, cases: List[Case], default: str = None):
+    def __init__(self, switch: Switch, cases: List[Case], default: Optional[str] = None):
         self.switch = switch
         self.cases = cases
         self.default = default
@@ -108,11 +103,11 @@ def reflect_call(method_name: str) -> str:
     return method()
 
 
-def parse_whitespace(s: str) -> (Unit, str):
+def parse_whitespace(s: str) -> Tuple[Unit, str]:
     return (UNIT, s.lstrip())
 
 
-def parse_endline(s: str) -> (Unit, str):
+def parse_endline(s: str) -> Tuple[Unit, str]:
     match = ENDLINE.search(s)
     if match and match.start() == 0:
         return (UNIT, s[match.end():])
@@ -120,13 +115,13 @@ def parse_endline(s: str) -> (Unit, str):
         raise ParseError(s, 'is not and end of line')
 
 
-def parse_percents(original_s: str) -> (Unit, str):
+def parse_percents(original_s: str) -> Tuple[Unit, str]:
     if PERCENTS.match(original_s):
         return (UNIT, original_s[2:].lstrip())
     raise ParseError(original_s, 'does not start with %%')
 
 
-def skip_up_to(token, s: str, match_len=[]) -> (str, str):
+def skip_up_to(token, s: str, match_len=[]) -> Tuple[str, str]:
     if isinstance(token, str):
         index = s.find(token)
         match_len.append(len(token))
@@ -144,13 +139,13 @@ def skip_up_to(token, s: str, match_len=[]) -> (str, str):
         return (s[:index], s[index:])
 
 
-def skip_past(token, s: str) -> (str, str):
+def skip_past(token, s: str) -> Tuple[str, str]:
     match_len = []
     (b, a) = skip_up_to(token, s, match_len)
     return (b, a[match_len[0]:])
 
 
-def parse_switch(original_s: str) -> (Switch, str):
+def parse_switch(original_s: str) -> Tuple[Switch, str]:
     (_, s) = parse_percents(original_s)
     match = SWITCH_REGEX.match(s)
     if match:
@@ -161,7 +156,7 @@ def parse_switch(original_s: str) -> (Switch, str):
     raise ParseError(s, "is not a valid switch header")
 
 
-def parse_case(original_s: str) -> (Case, str):
+def parse_case(original_s: str) -> Tuple[Case, str]:
     (_, s) = parse_percents(original_s)
     if DEFAULT_REGEX.match(s):
         raise ParseError(original_s, 'is a default case')
@@ -177,7 +172,7 @@ def parse_case(original_s: str) -> (Case, str):
         raise ParseError(original_s, "is not a valid case header")
 
 
-def parse_cases(s: str) -> (List[Case], str):
+def parse_cases(s: str) -> Tuple[List[Case], str]:
     cases = []
     try:
         while True:
@@ -187,7 +182,7 @@ def parse_cases(s: str) -> (List[Case], str):
         return (cases, s)
 
 
-def parse_default(original_s: str) -> (str, str):
+def parse_default(original_s: str) -> Tuple[str, str]:
     try:
         (_, s) = parse_percents(original_s)
         match = DEFAULT_REGEX.match(s)
@@ -201,7 +196,7 @@ def parse_default(original_s: str) -> (str, str):
         return ("", pe.s)
 
 
-def parse_end_switch(original_s: str) -> (Unit, str):
+def parse_end_switch(original_s: str) -> Tuple[Unit, str]:
     (_, s) = parse_percents(original_s)
     match = SWITCH_END_REGEX.match(s)
     if match:
@@ -210,7 +205,7 @@ def parse_end_switch(original_s: str) -> (Unit, str):
         raise ParseError(original_s, 'is expected to be the end of a switch')
 
 
-def parse_switch_case(s: str) -> (SwitchCase, str):
+def parse_switch_case(s: str) -> Tuple[SwitchCase, str]:
     (switch, s) = parse_switch(s)
     (cases, s) = parse_cases(s)
     (default, s) = parse_default(s)
