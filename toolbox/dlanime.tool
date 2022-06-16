@@ -207,7 +207,7 @@ def get_nyaa(title: str) -> Optional[List[NyaaResult]]:
                 completed=line_vec[7].contents[0]))
     return res
 
-def get_last_anime(anime_path: str) -> Optional[int]:
+def get_last_episode(anime_path: str) -> Optional[int]:
     """get number of last downloaded episode"""
     dl_animes = os.listdir(anime_path)
     dl_animes.sort(reverse=True)
@@ -252,6 +252,47 @@ def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]
 
     return None if not anime else anime[0]
 
+def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
+    """get filtered results of Nyaa"""
+
+    search_nyaa = anime.title
+    last_episode = get_last_episode(anime.anime_path)
+    if last_episode is None:
+        return None
+    next_episode =  last_episode + 1
+    if last_episode > 0:
+        search_nyaa += f" {next_episode:02}"
+    search_nyaa += " 1080p"
+
+    if last_episode:
+        print("> episode:", last_episode, "/", anime.num_episodes)
+
+    if last_episode and anime.num_episodes > 0 and last_episode >= anime.num_episodes:
+        print_info("anime already downloaded")
+        return None
+
+    print(">", search_nyaa)
+
+    results = get_nyaa(search_nyaa)
+
+    if not results:
+        print_error("no results found")
+        return None
+
+    results = list(filter(
+        lambda x: x.is_valid_result(next_episode, anime.title),
+        results))
+
+    if not results:
+        print_error("all results were removed")
+        return None
+
+    print_info(f"{len(results)} results found")
+
+    results.sort(reverse=True)
+
+    return results
+
 def main():
     """entrypoint"""
     print_info("fetching users animes")
@@ -266,48 +307,17 @@ def main():
         anime.download_thumb()
         anime.mkdir()
 
-        search_nyaa = anime.title
-        last_anime = get_last_anime(anime.anime_path)
-        if last_anime is None:
-            continue
-        next_anime =  last_anime + 1
-        if last_anime > 0:
-            search_nyaa += f" {next_anime:02}"
-        search_nyaa += " 1080p"
 
-        if last_anime:
-            print("> episode:", last_anime, "/", anime.num_episodes)
-
-        if last_anime and anime.num_episodes > 0 and last_anime >= anime.num_episodes:
-            print_info("anime already downloaded")
-            continue
-
-        print(">", search_nyaa)
-
-        results = get_nyaa(search_nyaa)
-
+        results = get_results(anime)
         if not results:
-            print_error("no results found")
             continue
-
-        results = list(filter(
-            lambda x: x.is_valid_result(next_anime, anime.title),
-            results))
-
-        if not results:
-            print_error("all results were removed")
-            continue
-
-        print_info(f"{len(results)} results found")
-
-        results.sort(reverse=True)
 
         nyaa = None
         if results[0].quality_score() > 0:
             print_success(f"found {results[0].title}")
             nyaa = results[0]
         else:
-            nyaa = prompt_torrent(search_nyaa, results)
+            nyaa = prompt_torrent("pick torrent", results)
 
         if not nyaa:
             print_error("no magnet selected")
