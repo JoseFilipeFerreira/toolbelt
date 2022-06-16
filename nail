@@ -62,12 +62,12 @@ make_generate(){
         case "$3" in
             sudo)
                 echo -en "\033[32msudo generate:\033[0m "
-                sudo python "$DOTFILES"/generate-config "$1" "$2" |
+                sudo python "$DOTFILES"/generate_config "$1" "$2" |
                     sed "s|$HOME|~|g;s|'||g"
                 ;;
             *)
                 echo -en "\033[32mgenerate:\033[0m "
-                python "$DOTFILES"/generate-config "$1" "$2" |
+                python "$DOTFILES"/generate_config "$1" "$2" |
                     sed "s|$HOME|~|g;s|'||g"
                 ;;
         esac

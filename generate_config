@@ -1,5 +1,5 @@
 #!/bin/python
-# templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
+"""templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))"""
 
 import os
 import re
@@ -15,12 +15,6 @@ DEFAULT_REGEX = re.compile(r'^(default\s*{)')
 SWITCH_END_REGEX = re.compile(r'^(\s*end[ \t]*)')
 ENDLINE = re.compile(r'\s*\n')
 IS_REGEX = re.compile(r'/([^/]*)/')
-
-
-def dbg(string):
-    print(f"DEBUG: '{string}'")
-    return string
-
 
 def hostname():
     """get hostname"""
@@ -44,7 +38,6 @@ class Part:
     def __str__(self):
         raise NotImplementedError('Not overriden')
 
-
 class Text(Part):
     def __init__(self, text):
         self.text = text
@@ -55,14 +48,12 @@ class Text(Part):
     def __str__(self):
         return f'Text {{ text: "{self.text}" }}'
 
-
 class Switch:
     def __init__(self, on):
         self.on = on
 
     def __str__(self):
         return f'Switch {{ on: "{self.on}" }}'
-
 
 class Case:
     def __init__(self, case, content):
@@ -71,7 +62,6 @@ class Case:
 
     def __str__(self):
         return f'Case {{ case: "{self.case}", content: "{self.content}" }}'
-
 
 class SwitchCase(Part):
     def __init__(self, switch: Switch, cases: List[Case], default: Optional[str] = None):
@@ -93,7 +83,6 @@ class SwitchCase(Part):
         default = f'"{self.default}"' if self.default else "None"
         cases = ','.join(map(lambda x: x.__str__(), self.cases))
         return f'SwitchCase {{ switch: {self.switch}, cases: [{cases}], default: {default} }}'
-
 
 def reflect_call(method_name: str) -> str:
     possibles = globals().copy()
@@ -119,7 +108,6 @@ def parse_percents(original_string: str) -> Tuple[Unit, str]:
         return (UNIT, original_string[2:].lstrip())
     raise ParseError(original_string, 'does not start with %%')
 
-
 def skip_up_to(token, string: str, match_len=[]) -> Tuple[str, str]:
     index = -1
     if isinstance(token, str):
@@ -138,12 +126,10 @@ def skip_up_to(token, string: str, match_len=[]) -> Tuple[str, str]:
 
     return (string[:index], string[index:])
 
-
 def skip_past(token, string: str) -> Tuple[str, str]:
     match_len = []
     (before, after) = skip_up_to(token, string, match_len)
     return (before, after[match_len[0]:])
-
 
 def parse_switch(original_string: str) -> Tuple[Switch, str]:
     (_, string) = parse_percents(original_string)
@@ -154,7 +140,6 @@ def parse_switch(original_string: str) -> Tuple[Switch, str]:
         (_, string) = parse_endline(string[len(full):])
         return (Switch(on), string)
     raise ParseError(string, "is not a valid switch header")
-
 
 def parse_case(original_string: str) -> Tuple[Case, str]:
     (_, string) = parse_percents(original_string)
@@ -181,7 +166,6 @@ def parse_cases(string: str) -> Tuple[List[Case], str]:
     except ParseError as _:
         return (cases, string)
 
-
 def parse_default(original_string: str) -> Tuple[str, str]:
     try:
         (_, string) = parse_percents(original_string)
@@ -195,7 +179,6 @@ def parse_default(original_string: str) -> Tuple[str, str]:
     except ParseError as parse_error:
         return ("", parse_error.string)
 
-
 def parse_end_switch(original_string: str) -> Tuple[Unit, str]:
     (_, string) = parse_percents(original_string)
     match = SWITCH_END_REGEX.match(string)
@@ -204,14 +187,12 @@ def parse_end_switch(original_string: str) -> Tuple[Unit, str]:
         raise ParseError(original_string, 'is expected to be the end of a switch')
     return (UNIT, string[len(match.group(1)):])
 
-
 def parse_switch_case(string: str) -> Tuple[SwitchCase, str]:
     (switch, string) = parse_switch(string)
     (cases, string) = parse_cases(string)
     (default, string) = parse_default(string)
     (_, string) = parse_end_switch(string)
     return (SwitchCase(switch, cases, default), string)
-
 
 def parse(string: str) -> List[Part]:
     parts = []
