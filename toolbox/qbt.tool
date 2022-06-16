@@ -22,17 +22,18 @@ magnet = sys.argv[1]
 
 
 def main():
+    """main entry function"""
     if socket.gethostname() == "kiwi":
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        client = Client(host=f'{ip}:8090')
+        soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        soc.connect(("8.8.8.8", 80))
+        local_ip = soc.getsockname()[0]
+        client = Client(host=f'{local_ip}:8090')
 
         print(client.torrents_add(urls=magnet))
 
     else:
         with Popen(["ssh", "kiwi", "qbt", magnet], stdout=PIPE, stderr=PIPE) as proc:
-            stdout, stderr = proc.communicate()
+            stdout, _ = proc.communicate()
 
             if stdout == "Ok.":
                 notify("Added Torrent", "on kiwi")
