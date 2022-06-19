@@ -85,10 +85,10 @@ def main():
             stdout, _ = proc.communicate()
             stdout = stdout.decode("utf-8")
 
-            print(stdout)
-            if stdout == "Ok.":
+            print(stdout, end="")
+            if stdout.startswith("Ok."):
                 notify("Added Torrent", "on kiwi")
-            elif stdout == "Fails.":
+            elif stdout.startswith("Fails."):
                 notify("Failed to Add Torrent", "on kiwi")
 
 if __name__ == '__main__':
