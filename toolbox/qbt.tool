@@ -63,6 +63,8 @@ def print_torrents():
 
         print("{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}".format(i, cat, progress, up, down, ratio, status, name))
 
+def add_torrents(magnet: str):
+    print(connect().torrents_add(urls=magnet))
 
 def main():
     """main entry function"""
@@ -70,12 +72,12 @@ def main():
         if argv[1] in ["--list", "-l"]:
             print_torrents()
         elif argv[1] in ["--add", "-a"]:
-            connect().torrents_add(urls=argv[2])
+            add_torrents(argv[2])
         elif argv[1] in ["-rm", "--remove"]:
             print("Not implemented")
             exit()
         elif argv[1].startswith("magnet:"):
-            connect().torrents_add(urls=argv[1])
+            add_torrents(argv[1])
         else:
             print("USAGE: qbt [--list|--add]")
     else:
