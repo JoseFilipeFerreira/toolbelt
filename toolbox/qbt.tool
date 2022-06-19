@@ -79,14 +79,15 @@ def main():
         else:
             print("USAGE: qbt [--list|--add]")
     else:
-        with Popen(["ssh", "kiwi", "qbt"] + argv[1:], stdout=PIPE, stderr=PIPE) as proc:
+        with Popen(["ssh", "kiwi", ".local/bin/qbt"] + argv[1:], stdout=PIPE, stderr=PIPE) as proc:
             stdout, _ = proc.communicate()
-            print(stdout)
+            stdout = stdout.decode("utf-8")
 
-            # if stdout == "Ok.":
-            #     notify("Added Torrent", "on kiwi")
-            # else:
-            #     notify("Failed to Add Torrent", "on kiwi")
+            print(stdout)
+            if stdout == "Ok.":
+                notify("Added Torrent", "on kiwi")
+            elif stdout == "Fails.":
+                notify("Failed to Add Torrent", "on kiwi")
 
 if __name__ == '__main__':
     main()
