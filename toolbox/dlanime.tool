@@ -16,15 +16,20 @@ import requests
 from bs4 import BeautifulSoup # type: ignore
 from qbittorrentapi import Client
 
+def check_if_valid(dirname: str):
+    """check if a folder exists"""
+    if not os.path.isdir(dirname):
+        print_error(f"Location does not exist: {dirname}")
+        exit()
+
+DOWNLOAD_FOLDER = "/home/mightymime/dl/dlanime"
+check_if_valid(DOWNLOAD_FOLDER)
+
 ANIME_LOCATION = "/mnt/media/anime"
-if not os.path.isdir(ANIME_LOCATION):
-    print("Invalid anime location:", ANIME_LOCATION)
-    sys.exit()
+check_if_valid(ANIME_LOCATION)
 
 THUMB_LOCATION = "/home/mightymime/suitcase-storage/iron-cake/thumb"
-if not os.path.isdir(THUMB_LOCATION):
-    print("Invalid thumb location:", THUMB_LOCATION)
-    sys.exit()
+check_if_valid(THUMB_LOCATION)
 
 def print_info(string: str):
     """print information"""
@@ -63,18 +68,18 @@ class NyaaResult():
     def is_valid_result(self, episode: Optional[int], searched_title: str) -> bool:
         """check if self is valid result"""
 
-        if not episode:
-            return True
-
         if searched_title.lower() not in self.title.lower():
             return False
 
-        matches = re.findall(r'\[[0-9a-zA-Z]+\]', self.title)
+        if not episode:
+            return True
+
+        matches = re.findall(r'\[[ 0-9a-zA-Z]+\]', self.title)
         clean_title = self.title
         for match in matches:
             clean_title = clean_title.replace(match, "")
 
-        if re.search(f' {episode} ', self.title) or re.search(f'S[0-9]*E{episode}', self.title):
+        if re.search(f' {episode} ', clean_title) or re.search(f'S[0-9]+E{episode}', clean_title):
             return True
 
         return False
@@ -111,6 +116,8 @@ class MalResult():
     num_episodes: int
     num_watched_episodes: int
     title: str
+    clean_title: str
+    anime_path: str
     url: str
 
     def __init__(self, dic):
