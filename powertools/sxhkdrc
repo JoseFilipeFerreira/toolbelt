@@ -22,7 +22,7 @@ control + alt + v
         clipmenu
 
 super + control + l
-        lock
+        slock
 
 control + alt + Tab
         notify-send lel lol

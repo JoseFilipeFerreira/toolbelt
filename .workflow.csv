@@ -1,4 +1,3 @@
-aur,essential,toilet
 aur,extra,lemonbar-xft-git
 aur,extra,nerd-fonts-dejavu-complete
 aur,extra,thonkbar-git
@@ -111,3 +110,4 @@ pkg,essential,tree
 pkg,essential,wget
 repos,essential,https://github.com/jtexeira/tiny-aura
 repos,extra,https://github.com/mendess/dmenu
+repos,extra,https://github.com/JoseFilipeFerreira/slock
