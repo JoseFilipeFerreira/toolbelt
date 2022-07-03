@@ -20,6 +20,7 @@ def notify(header, content):
 
 def connect():
     """create socket that connects to qbittorrent"""
+    # pylint: disable=import-outside-toplevel
     from qbittorrentapi import Client
     soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     soc.connect(("8.8.8.8", 80))
@@ -29,8 +30,7 @@ def connect():
 def print_torrents():
     """print current torrents"""
     print(
-        "{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}"
-            .format("ID", "Category", "Done", "Up", "Down", "Ratio", "Status", "Name"))
+        f"{'ID':3} {'Category':9} {'Done':5} {'Up':7} {'Down':7} {'Ratio':6} {'Status':8} Name")
 
     for i, torrent in enumerate(connect().torrents_info()):
         # Category
@@ -64,9 +64,7 @@ def print_torrents():
         # Name
         name = torrent.name
 
-        print(
-            "{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}"
-                .format(i, cat, progress, upload, down, ratio, status, name))
+        print(f"{i:3} {cat:9} {progress:5} {upload:7} {down:7} {ratio:6} {status:8} {name}")
 
 def add_torrents(magnet: str):
     """Add torrents to dowload queue"""
