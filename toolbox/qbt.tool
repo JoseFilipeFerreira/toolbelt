@@ -10,7 +10,6 @@ import socket
 import sys
 from sys import argv
 from subprocess import Popen, PIPE
-from typing import List
 
 def notify(header, content):
     """Send notifications with notify-send"""
@@ -20,6 +19,7 @@ def notify(header, content):
         proc.communicate()
 
 def connect():
+    """create socket that connects to qbittorrent"""
     from qbittorrentapi import Client
     soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     soc.connect(("8.8.8.8", 80))
