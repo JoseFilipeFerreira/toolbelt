@@ -28,7 +28,7 @@ check_if_valid(DOWNLOAD_FOLDER)
 ANIME_LOCATION = "/mnt/media/anime"
 check_if_valid(ANIME_LOCATION)
 
-THUMB_LOCATION = "/home/mightymime/suitcase-storage/iron-cake/thumb"
+THUMB_LOCATION = "/home/mightymime/suitcase-storage/iron-cake/thumb/anime"
 check_if_valid(THUMB_LOCATION)
 
 def print_info(string: str):
@@ -79,7 +79,8 @@ class NyaaResult():
         for match in matches:
             clean_title = clean_title.replace(match, "")
 
-        if re.search(f' {episode} ', clean_title) or re.search(f'S[0-9]+E{episode}', clean_title):
+        episode_str = str(episode).rjust(2, '0')
+        if re.search(f' {episode_str} ', clean_title) or re.search(f'S[0-9]+E{episode_str}', clean_title):
             return True
 
         return False
@@ -128,8 +129,11 @@ class MalResult():
         self.title = dic['title']
         self.url = dic['url']
         self.airing_status = AiringStatus(dic['airing_status'])
+
         remove = ["!", ".", ":"]
         self.clean_title = self.title.translate({ord(x): '' for x in remove})
+        for char in ["☆"]:
+            self.clean_title = self.clean_title.replace(char, " ")
         self.anime_path = ANIME_LOCATION + "/" + self.clean_title
 
     def mkdir(self):
@@ -287,7 +291,7 @@ def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
         return None
 
     results = list(filter(
-        lambda x: x.is_valid_result(next_episode, anime.title),
+        lambda x: x.is_valid_result(next_episode, anime.clean_title),
         results))
 
     if not results:
