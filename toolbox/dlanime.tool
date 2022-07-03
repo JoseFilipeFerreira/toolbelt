@@ -20,7 +20,7 @@ def check_if_valid(dirname: str):
     """check if a folder exists"""
     if not os.path.isdir(dirname):
         print_error(f"Location does not exist: {dirname}")
-        exit()
+        sys.exit()
 
 DOWNLOAD_FOLDER = "/home/mightymime/dl/dlanime"
 check_if_valid(DOWNLOAD_FOLDER)
@@ -80,7 +80,11 @@ class NyaaResult():
             clean_title = clean_title.replace(match, "")
 
         episode_str = str(episode).rjust(2, '0')
-        if re.search(f' {episode_str} ', clean_title) or re.search(f'S[0-9]+E{episode_str}', clean_title):
+
+        if re.search(f' {episode_str} ', clean_title):
+            return True
+
+        if re.search(f'S[0-9]+E{episode_str}', clean_title):
             return True
 
         return False

@@ -7,6 +7,7 @@
 # 3. open magnet link and select ~/.local/bin/tr as default magnet link
 
 import socket
+import sys
 from sys import argv
 from subprocess import Popen, PIPE
 from typing import List
@@ -26,8 +27,10 @@ def connect():
     return Client(host=f'{local_ip}:8090')
 
 def print_torrents():
+    """print current torrents"""
     print(
-        "{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}".format("ID", "Category", "Done", "Up", "Down", "Ratio", "Status", "Name"))
+        "{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}"
+            .format("ID", "Category", "Done", "Up", "Down", "Ratio", "Status", "Name"))
 
     for i, torrent in enumerate(connect().torrents_info()):
         # Category
@@ -37,8 +40,8 @@ def print_torrents():
         progress = f"{round(torrent.progress * 100)}%"
         # ETA
         # Up
-        up = torrent.upspeed
-        up = up if up > 0 else "-"
+        upload = torrent.upspeed
+        upload = upload if upload > 0 else "-"
         # Down
         down = torrent.dlspeed
         down = down if down > 0 else "-"
@@ -61,9 +64,12 @@ def print_torrents():
         # Name
         name = torrent.name
 
-        print("{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}".format(i, cat, progress, up, down, ratio, status, name))
+        print(
+            "{:<3} {:<9} {:<5} {:<7} {:<7} {:<6} {:<8} {}"
+                .format(i, cat, progress, upload, down, ratio, status, name))
 
 def add_torrents(magnet: str):
+    """Add torrents to dowload queue"""
     print(connect().torrents_add(urls=magnet))
 
 def main():
@@ -75,7 +81,7 @@ def main():
             add_torrents(argv[2])
         elif argv[1] in ["-rm", "--remove"]:
             print("Not implemented")
-            exit()
+            sys.exit()
         elif argv[1].startswith("magnet:"):
             add_torrents(argv[1])
         else:
