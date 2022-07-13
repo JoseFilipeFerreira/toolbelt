@@ -13,10 +13,14 @@ from subprocess import Popen, PIPE
 
 def notify(header, content):
     """Send notifications with notify-send"""
-    with Popen(
-        ["notify-send", "-a", "qbt" ,"-i", "qbittorrent", header, content],
-            stdout=PIPE, stderr=PIPE) as proc:
-        proc.communicate()
+    try:
+        with Popen(
+            ["notify-send", "-a", "qbt" ,"-i", "qbittorrent", header, content],
+                stdout=PIPE, stderr=PIPE) as proc:
+            proc.communicate()
+    except OSError as _:
+        print(">", header)
+        print(content)
 
 def connect():
     """create socket that connects to qbittorrent"""
