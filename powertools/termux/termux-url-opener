@@ -1,14 +1,13 @@
 #!/bin/bash
 
-rss_bridge="https://jff.sh/rss-bridge"
-
 case "$1" in
     magnet:?*)
-            if ~/.local/bin/qbt -a "$1"; then
+            if python ~/.local/bin/qbt -a "$1"; then
                 termux-toast "queued torrent" & disown
             else
                 termux-toast "failed to queue torrent" & disown
             fi
+            ;;
 
     *)
         termux-toast "error: no case implemented" & disown
