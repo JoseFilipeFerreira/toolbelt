@@ -7,6 +7,7 @@ Static config files
 
 ## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
+* [autologin](toolbox/autologin.tool) setup auto login in TTY (made by [Mendess](https://github.com/mendess))
 * [blind](toolbox/blind.tool) brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
