@@ -3,19 +3,13 @@
 rss_bridge="https://jff.sh/rss-bridge"
 
 case "$1" in
-    *youtu*/c/*|*youtu*/user/*)
-        name="$(basename "$1")"
-        echo "youtube channel: $name"
-        link="$rss_bridge/?action=display&bridge=Youtube&context=By+custom+name&custom=$name"
-        if curl "$link&format=Json" | jq .items[0].title | grep -q "Bridge returned error 404"; then
-            echo "Invalid Channel Name: $name"
-        else
-            link="$link&format=Mrss"
+    magnet:?*)
+            if ~/.local/bin/qbt -a "$1"; then
+                termux-toast "queued torrent" & disown
+            else
+                termux-toast "failed to queue torrent" & disown
+            fi
 
-            termux-clipboard-set "$link"
-            termux-toast "copied to clipboard" & disown
-        fi
-        ;;
     *)
         termux-toast "error: no case implemented" & disown
         ;;
