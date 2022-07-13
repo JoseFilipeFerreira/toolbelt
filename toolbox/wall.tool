@@ -134,12 +134,7 @@ change_wall(){
 
 
     echo "$file"
-    notify-send \
-        -u low \
-        -i "$1" \
-        -a "wall" \
-        "Wallpaper changed" \
-        "$filename"
+    notify-send -u low -i "$1" -a "wall" "Wallpaper changed" "$filename"
 }
 
 [[ ! -d "$HOME/$folder" ]] && sync_walls

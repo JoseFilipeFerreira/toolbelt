@@ -28,7 +28,7 @@ games="$(
         done
     } | grep -Ev '(Proton|Redistributable|Linux)')"
 
-[[ ! "$games" ]] && notify-send -a "Steam" -i "apps/steam" "No games installed" && exit
+[[ ! "$games" ]] && notify-send -a "Steam" -i "steam" "No games installed" && exit
 
 line="$(echo "$games" | sort | column -ts$'\t' | dmenu -i -l 20 -p "Steam")"
 [[ "$line" ]] || exit
@@ -36,7 +36,7 @@ line="$(echo "$games" | sort | column -ts$'\t' | dmenu -i -l 20 -p "Steam")"
 id="$(echo "$line" | grep -o '[0-9]*$')"
 name="${name//$id/}"
 
-icon='apps/steam'
+icon='steam'
 f=~/.local/share/Steam/appcache/librarycache/${id}_logo.png; [[ -f "$f" ]] && icon="$f"
 notify-send -a "Steam" -i "$icon" "Launching Game" "$name"
 

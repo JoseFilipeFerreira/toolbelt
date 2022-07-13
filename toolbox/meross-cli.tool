@@ -9,13 +9,7 @@ case "$1" in
         else
             status="$(ssh kiwi 'curl --silent localhost:4200/bulb/'"${1:2}"'')"
         fi
-        notify-send \
-            -u low \
-            -i "apps/meross" \
-            -t 1500 \
-            -a "merrosd" \
-            "Attic" \
-            "lights: $status"
+        notify-send -u low -i "meross" -a "merrosd" "Attic" "lights: $status"
         ;;
     *)
         echo "USAGE: meross-cli --[on|off|toggle]"

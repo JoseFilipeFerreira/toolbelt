@@ -6,11 +6,7 @@ calendar="Meetings"
 priority="normal"
 
 notify(){
-    notify-send \
-        -u "$priority" \
-        -a "in $calendar" \
-        -i "apps/calendar" \
-        "$@"
+    notify-send -u "$priority" -a "in $calendar" -i "calendar" "$@"
 }
 
 seconds_left(){

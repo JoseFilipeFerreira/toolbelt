@@ -43,7 +43,8 @@
     icon_position = left
     max_icon_size = 32
 
-    icon_path = /usr/share/icons/toolicons/64x64
+    enable_recursive_icon_lookup = true
+    icon_theme = toolicons
 
     ### Misc/Advanced ###
 

@@ -20,12 +20,7 @@ while :; do
 
         touch "$warn_file"
 
-        notify-send \
-            -u "critical" \
-            -i "status/battery-low" \
-            -a death \
-            "low battery" \
-            "bellow $min_percent%"
+        notify-send -u "critical" -i "battery-low" -a death "low battery" "bellow $min_percent%"
     fi
     sleep 1m
 done

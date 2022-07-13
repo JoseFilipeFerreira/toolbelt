@@ -2,7 +2,7 @@
 # subscribe to a RSS feed with categories
 
 notify(){
-    notify-send -u low -i "apps/rss" -a "newsboat" "$1" "$2"
+    notify-send -u low -i "rss" -a "newsboat" "$1" "$2"
 }
 
 urls=~/.config/newsboat/urls

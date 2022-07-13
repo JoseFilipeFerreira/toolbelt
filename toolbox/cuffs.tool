@@ -148,15 +148,10 @@ notify(){
         fi
     fi
 
-    image="mimetypes/image-x-generic"
+    image="image-x-generic"
     [[ -f "$thumbnail" ]] && image="$thumbnail"
 
-    notify-send \
-        -u low \
-        -i "$image" \
-        -a "$script_name" \
-        "$type taken" \
-        "$content"
+    notify-send -u low -i "$image" -a "$script_name" "$type taken" "$content"
 }
 
 case "$type" in

@@ -14,7 +14,7 @@ from subprocess import Popen, PIPE
 def notify(header, content):
     """Send notifications with notify-send"""
     with Popen(
-        ["notify-send", "-a", "qbt" ,"-i", "apps/qbittorrent", header, content],
+        ["notify-send", "-a", "qbt" ,"-i", "qbittorrent", header, content],
             stdout=PIPE, stderr=PIPE) as proc:
         proc.communicate()
 

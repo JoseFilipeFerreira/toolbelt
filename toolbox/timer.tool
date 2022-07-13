@@ -39,12 +39,7 @@ done
 {
     sleep "$input"
 
-    notify-send \
-        -u critical \
-        -i "apps/timer" \
-        -a "timer" \
-        "Time is up: $input"\
-        "$message"
+    notify-send -u critical -i "timer" -a "timer" "Time is up: $input" "$message"
 
     [[ $sound ]] && mpv --no-video "$DOTFILES/assets/timer.mp3" &>/dev/null
 } & disown

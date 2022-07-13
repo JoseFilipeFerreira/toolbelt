@@ -2,7 +2,7 @@
 # choose display setting
 
 notify(){
-    notify-send -a "dock" -i "devices/computer" "$1" "$2"
+    notify-send -a "dock" -i "computer" "$1" "$2"
 }
 
 readarray -t connected < <(xrandr | grep " connected " | cut -d" " -f1)
