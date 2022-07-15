@@ -140,19 +140,16 @@ fill_cache(){
     total_cache="$(find "$color_cache" -type f | wc -l)"
     missing="$(( total - total_cache ))"
 
-    echo "$total_cache $total $missing"
-
     [[ "$missing" -le 0 ]] && return
 
     id="$(notify-send --print-id "Computing cache... ($i/$missing)")"
 
-    i=0
+    i=1
     for image in "$HOME/$folder"/*; do
 
         filename="$(basename "$image")"
 
         if [[ ! -f "$color_cache/$filename" ]]; then
-            echo "$image"
             notify-send \
                 -r "$id" \
                 -h int:value:"$(( i * 100 / missing ))" \
