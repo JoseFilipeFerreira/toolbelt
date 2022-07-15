@@ -104,12 +104,10 @@ remove_wall(){
     done
 }
 
-change_wall(){
+create_wall_colors(){
     filename="$(basename "$1")"
 
-    feh --no-fehbg --bg-fill "$1"
-
-    if [[ "$2" == "--cache" ]] && [[ -f "$color_cache/$filename" ]]; then
+    if [[ -f "$color_cache/$filename" ]]; then
         cp "$color_cache/$filename" "/tmp/$USER/wall_colors"
     else
         mapfile -t colors < <(
@@ -126,16 +124,56 @@ change_wall(){
         mkdir -p "/tmp/$USER"
         printf "%s\n" "${colors[@]}" >| "/tmp/$USER/wall_colors"
 
-        if [[ "$2" == "--cache" ]]; then
-            mkdir -p ~/.cache/wall
-            printf "%s\n" "${colors[@]}" >| "$color_cache/$filename"
-        fi
+        mkdir -p "$color_cache"
+        printf "%s\n" "${colors[@]}" >| "$color_cache/$filename"
     fi
-
-
-    echo "$file"
-    notify-send -u low -i "$1" -a "wall" "Wallpaper changed" "$filename"
 }
+
+fill_cache(){
+    for cache_file in "$color_cache"/*; do
+        if [[ ! -f "$HOME/$folder/$(basename "$cache_file")" ]]; then
+            rm "$cache_file"
+        fi
+    done
+
+    total="$(find "$HOME/$folder" -type f | wc -l)"
+    total_cache="$(find "$color_cache" -type f | wc -l)"
+    missing="$(( total - total_cache ))"
+
+    echo "$total_cache $total $missing"
+
+    [[ "$missing" -le 0 ]] && return
+
+    id="$(notify-send --print-id "Computing cache... ($i/$missing)")"
+
+    i=0
+    for image in "$HOME/$folder"/*; do
+
+        filename="$(basename "$image")"
+
+        if [[ ! -f "$color_cache/$filename" ]]; then
+            echo "$image"
+            notify-send \
+                -r "$id" \
+                -h int:value:"$(( i * 100 / missing ))" \
+                -i "$image" \
+                -a wall \
+                "Computing cache... ($i/$missing)" "$filename"
+            create_wall_colors "$image"
+            i="$(( i + 1 ))"
+        fi
+    done
+}
+
+change_wall(){
+    feh --no-fehbg --bg-fill "$1"
+
+    [[ "$2" == "--cache" ]] && create_wall_colors "$1"
+
+    echo "$1"
+    notify-send -u low -i "$1" -a "wall" "Wallpaper changed" "$(basename "$1")"
+}
+
 
 [[ ! -d "$HOME/$folder" ]] && sync_walls
 
@@ -167,6 +205,11 @@ case "$1" in
         sync_walls || :
         file=$(find "$HOME/$folder" -type f | shuf -n 1)
         change_wall "$file" --cache
+        ;;
+
+    --fill-cache)
+        # create color scheme cache
+        fill_cache
         ;;
 
     -h|--help)
