@@ -21,6 +21,7 @@ quotes=(
 "The loudest thing in the room, by far, should be the occasional purring of the cat - Linus Torvalds"
 "Microsoft isn't evil, they just make really crappy operating systems - Linus Torvalds"
 "No problem is too big it can't be run away from - Linus Torvalds"
+"Imagine a life where instead of looking for problems you look for solutions - Joshua Weissman"
 )
 
 
