@@ -3,6 +3,7 @@ xrdb -merge ~/.config/X11/Xresources
 wall &
 sxhkd &
 picom --experimental-backends --daemon
+thunar --daemon &
 dunst &
 thonkbar &
 death &
