@@ -65,6 +65,7 @@ Installation scripts I use to setup my dotfiles
 * [link-check](./link-check) check the validity of relative and hard links in all the md files
 * [nail](./nail) symlink dotfiles and scripts
 * [schedule](./schedule) run job scheduler for [Termux](https://github.com/termux/termux-app)
+* [setup-ssh-keys](./setup-ssh-keys) 
 
 ## :blue_book: [Blueprints](blueprints)
 Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repeat them

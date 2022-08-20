@@ -1,19 +1,8 @@
 #!/bin/bash
-_ssh(){
-    mapfile -t COMPREPLY < \
-        <(compgen -W \
-            "$(grep '^Host' ~/.ssh/config ~/.ssh/config.d/* 2>/dev/null |
-                grep -v '[?*]' |
-                cut -d ' ' -f 2- \
-            )" -- "$2")
-}
-complete -F _ssh ssh
 
-_za(){
-    mapfile -t COMPREPLY < \
-        <(compgen -o plusdirs -A file -- "$2" | grep -P '(\.djvu|\.pdf)$')
-}
-complete -F _za za
+# Use bash-completion, if available
+[[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
+    . /usr/share/bash-completion/bash_completion
 
 _gcl(){
     local IFS=$'\n'
@@ -46,5 +35,3 @@ hash labib &> /dev/null &&
 # shellcheck disable=SC1090
 hash icons &> /dev/null &&
     . <(icons --completion)
-
-complete -d cd

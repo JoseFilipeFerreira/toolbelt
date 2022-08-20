@@ -4,6 +4,7 @@ aur,extra,thonkbar-git
 aur,extra,web-xdg-open-git
 pacman,essential,base
 pacman,essential,base-devel
+pacman,essential,bash-completion
 pacman,essential,bat
 pacman,essential,bc
 pacman,essential,clang
@@ -108,5 +109,5 @@ pkg,essential,tmux
 pkg,essential,tree
 pkg,essential,wget
 repos,essential,https://github.com/jtexeira/tiny-aura
-repos,extra,https://github.com/mendess/dmenu
 repos,extra,https://github.com/JoseFilipeFerreira/slock
+repos,extra,https://github.com/mendess/dmenu
