@@ -1,0 +1,16 @@
+#!/bin/bash
+# pick from a list of emojis and gifs
+
+file=~/.local/share/dmenu/nitro
+mkdir -p "$(dirname "$file")"
+touch "$file"
+
+pick="$(awk 'NF{NF-=1};1' "$file" | sort | dmenu -i -l 20 -p "pick emoji:")"
+
+[[ "$pick" ]] || exit
+
+link="$(grep -E "^$pick" "$file" | awk '{print $(NF)}')"
+
+echo "$link" | xclip -sel clip
+
+notify-send -a "nitro" -i "apps/discord" "$pick" "to clipboard"
