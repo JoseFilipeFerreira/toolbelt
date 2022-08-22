@@ -5,7 +5,7 @@ The program `lsof` can be used to get a list of all the files opened by processe
 To search for a specific mount point use `grep`:
 
 ```bash
-lsfo | grep '/mnt/DISK'
+lsof | grep '/mnt/DISK'
 ```
 
 This can be usefull when trying to unmount a disk and it shows as busy.
