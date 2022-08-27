@@ -9,7 +9,7 @@ za(){
 }
 
 png(){
-    sxiv "$@" &
+    nsxiv "$@" &
     disown
 }
 

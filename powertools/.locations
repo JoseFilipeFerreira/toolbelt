@@ -23,7 +23,7 @@ nvim,~/.config/nvim,link,essential
 picom.conf,~/.config/picom.conf,link,extra
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
-sxiv,~/.config/sxiv,link,extra
+nsxiv,~/.config/nsxiv,link,extra
 termux/colors.properties,~/.termux/colors.properties,link,mobile
 termux/termux-url-opener,~/bin/termux-url-opener,link,mobile
 termux/termux.properties,~/.termux/termux.properties,link,mobile

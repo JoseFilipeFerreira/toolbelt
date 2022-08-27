@@ -1,2 +1,5 @@
-Sxiv.background: #181A1C
-Sxiv.foreground: #FFFFFF
+*.font: "DejaVu Sans Mono"
+
+Nsxiv.window.background: #181A1C
+Nsxiv.bar.background: #111111
+Nsxiv.window.foreground: #FFFFFF

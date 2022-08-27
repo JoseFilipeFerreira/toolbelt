@@ -41,7 +41,7 @@ while (( "$#" )); do
             shift 2
             ;;
         -f|--floating)
-            # Display in floating sxiv
+            # Display in floating sxiv/nsxiv
             display="floating"
             shift
             ;;
@@ -173,7 +173,13 @@ case "$type" in
         notify
         case "$display" in
             floating)
-                sxiv -p -g "$hack" -b "$file"
+                if hash sxiv &> /dev/null; then
+                    sxiv -p -g "$hack" -b "$file"
+                elif hash nsxiv &> /dev/null; then
+                    nsxiv -p -g "$hack" -b "$file"
+                else
+                    echo "sxiv/nsxiv not available"
+                fi
                 [[ "$keep" ]] || rm "$file"
                 ;;
             clip)

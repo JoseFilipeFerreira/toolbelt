@@ -96,7 +96,7 @@ add_wall(){
 }
 
 remove_wall(){
-    readarray -t wall < <(sxiv -to "$HOME/$folder")
+    readarray -t wall < <(nsxiv -to "$HOME/$folder")
     for w in "${wall[@]}"; do
         # shellcheck disable=SC2029
         ssh "$remote" rm -v "$folder/$(basename "$w")" | sed "s/'/'jff.sh:/"
@@ -184,15 +184,15 @@ case "$1" in
         ;;
 
     -rm|--remove)
-        # Remove wallpaper using sxiv
+        # Remove wallpaper using nsxiv
         sync_walls || exit
         remove_wall
         ;;
 
     -s|--select)
-        # Select wallpaper using sxiv
+        # Select wallpaper using nsxiv
         sync_walls || :
-        file="$(sxiv -to "$HOME/$folder")"
+        file="$(nsxiv -to "$HOME/$folder")"
         [[ "$file" ]] || exit
         change_wall "$file" --cache
         ;;

@@ -61,6 +61,9 @@ hash oneko &>/dev/null &&
 hash awk &>/dev/null &&
     alias raycaster='awk -f <(curl https://raw.githubusercontent.com/TheMozg/awk-raycaster/master/awkaster.awk)'
 
+hash nsxiv &>/dev/null &&
+    alias sxiv='nsxiv'
+
 # ~/ clean-up
 hash yarn &>/dev/null &&
     alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'

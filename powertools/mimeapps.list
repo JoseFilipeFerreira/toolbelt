@@ -1,9 +1,9 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura-pdf-poppler.desktop
-image/jpeg=sxiv.desktop
-image/jpg=sxiv.desktop
-image/png=sxiv.desktop
-image/webp=sxiv.desktop
+image/jpeg=nsxiv.desktop
+image/jpg=nsxiv.desktop
+image/png=nsxiv.desktop
+image/webp=nsxiv.desktop
 text/html=firefox.desktop
 text/plain=nvim.desktop
 text/x-c=nvim.desktop

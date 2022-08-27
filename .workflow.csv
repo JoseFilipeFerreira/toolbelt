@@ -2,12 +2,13 @@ aur,extra,lemonbar-xft-git
 aur,extra,nerd-fonts-dejavu-complete
 aur,extra,thonkbar-git
 aur,extra,web-xdg-open-git
-pacman,essential,base
+aura,extra,nsxiv
 pacman,essential,base-devel
 pacman,essential,bash-completion
 pacman,essential,bat
 pacman,essential,bc
 pacman,essential,clang
+pacman,essential,cmake
 pacman,essential,curl
 pacman,essential,exa
 pacman,essential,ffmpeg
@@ -69,8 +70,8 @@ pacman,extra,qrencode
 pacman,extra,shotgun
 pacman,extra,socat
 pacman,extra,sxhkd
-pacman,extra,sxiv
 pacman,extra,thunar
+pacman,extra,todoman
 pacman,extra,trayer
 pacman,extra,ttf-font-awesome
 pacman,extra,tumbler
