@@ -17,7 +17,10 @@ for i in "${!charges[@]}"; do
 done
 
 printf "%s" "${charges[0]}"
-printf "    %s" "${charges[@]:1}"
+
+[[ "${#charges[@]}" -gt 1 ]] &&
+    printf "    %s" "${charges[@]:1}"
+
 echo ""
 
 case "$(( max_charge / 20 ))" in
