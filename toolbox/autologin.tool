@@ -38,6 +38,7 @@ case "$1" in
         ;;
 
     full)
+         # shellcheck disable=SC2016
         service='
 [Service]
 ExecStart=
@@ -46,6 +47,7 @@ Type=simple'
         enable
         ;;
     username)
+         # shellcheck disable=SC2016
         service='
 [Service]
 ExecStart=
@@ -54,7 +56,7 @@ ExecStart=-/usr/bin/agetty --skip-login --login-options '"$user"' --noclear %I $
         ;;
 
     *)
-        echo 'please pick either `full`, `username` or reset'
+        echo "please pick either full, username or reset"
         exit 1
         ;;
 esac

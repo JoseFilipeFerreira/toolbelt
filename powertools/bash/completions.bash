@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Use bash-completion, if available
+# shellcheck disable=SC1091
 [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && \
     . /usr/share/bash-completion/bash_completion
 
