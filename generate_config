@@ -49,11 +49,11 @@ class Text(Part):
         return f'Text {{ text: "{self.text}" }}'
 
 class Switch:
-    def __init__(self, on):
-        self.on = on
+    def __init__(self, case_on):
+        self.case_on = case_on
 
     def __str__(self):
-        return f'Switch {{ on: "{self.on}" }}'
+        return f'Switch {{ on: "{self.case_on}" }}'
 
 class Case:
     def __init__(self, case, content):
@@ -70,7 +70,7 @@ class SwitchCase(Part):
         self.default = default
 
     def write(self, stream):
-        value = reflect_call(self.switch.on)
+        value = reflect_call(self.switch.case_on)
         for cases in self.cases:
             match = IS_REGEX.match(cases.case)
             if (match and re.match(match.group(1), value)) or value == cases.case:
@@ -136,9 +136,9 @@ def parse_switch(original_string: str) -> Tuple[Switch, str]:
     match = SWITCH_REGEX.match(string)
     if match:
         full = match.group(1)
-        on = match.group(2)
+        case_on = match.group(2)
         (_, string) = parse_endline(string[len(full):])
-        return (Switch(on), string)
+        return (Switch(case_on), string)
     raise ParseError(string, "is not a valid switch header")
 
 def parse_case(original_string: str) -> Tuple[Case, str]:
@@ -220,9 +220,9 @@ def main():
         home=os.environ['HOME']
         print(f'{argv[1].replace(home,"~")} -> {argv[2].replace(home,"~")}')
         try:
-            with open(argv[1], 'r') as template:
+            with open(argv[1], 'r', encoding="utf-8") as template:
                 string = template.read()
-                with open(argv[2], 'w') as generated:
+                with open(argv[2], 'w', encoding="utf-8") as generated:
                     for parsed in parse(string):
                         parsed.write(generated)
         except Exception as exception:
