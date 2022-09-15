@@ -13,7 +13,7 @@ profile_colors=(
 
 readarray -t options < <(sed 's/ /\n/g' "$options_file")
 
-while inotifywait -e modify "$profile_file" &> /dev/null; do
+print_profile(){
     profile="$(cat "$profile_file")"
 
     for i in "${!options[@]}"; do
@@ -23,4 +23,9 @@ while inotifywait -e modify "$profile_file" &> /dev/null; do
     done
 
     echo "%{F${profile_colors[index]}} $profile %{F-}"
+}
+
+print_profile
+while inotifywait -e modify "$profile_file" &> /dev/null; do
+    print_profile
 done
