@@ -16,6 +16,7 @@ date '+%d/%m  %H:%M   ', 5
 
 [left]
 scripts/workspaces, CONTINUOUS
+scripts/platform_profile, CONTINUOUS
 uptime -p, 60
 
 [center]

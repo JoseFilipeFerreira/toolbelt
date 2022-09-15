@@ -44,7 +44,7 @@ next_socket(){
 
 update_bar(){
     pgrep -x "thonkbar" > /dev/null &&
-        pkill --signal 62 thonkbar
+        pkill --signal 61 thonkbar
 }
 
 sync_music(){

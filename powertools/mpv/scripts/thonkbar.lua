@@ -1,5 +1,5 @@
 local function update_panel()
-    os.execute("pkill --signal 62 thonkbar")
+    os.execute("pkill --signal 61 thonkbar")
 end
 
 -- luacheck: globals mp

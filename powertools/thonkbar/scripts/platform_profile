@@ -1,0 +1,26 @@
+#!/bin/bash
+
+profile_file="/sys/firmware/acpi/platform_profile"
+options_file="/sys/firmware/acpi/platform_profile_choices"
+
+profile_colors=(
+    "#5ab738" # low
+    "#d5911a" # balanced
+    "#f22c40" # performance
+)
+
+[[ -f  "$profile_file" ]] || exit
+
+readarray -t options < <(sed 's/ /\n/g' "$options_file")
+
+while inotifywait -e modify "$profile_file" &> /dev/null; do
+    profile="$(cat "$profile_file")"
+
+    for i in "${!options[@]}"; do
+        if [[ "${options[$i]}" = "$profile" ]]; then
+            index="$i";
+        fi
+    done
+
+    echo "%{F${profile_colors[index]}} $profile %{F-}"
+done
