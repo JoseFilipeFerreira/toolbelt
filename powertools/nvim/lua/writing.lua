@@ -89,4 +89,4 @@ end)
 
 mapx.nnoremap('<leader>l', ':setlocal spell! spelllang=pt_pt<CR>')
 mapx.nnoremap('<leader>L', ':setlocal spell! spelllang=en_gb<CR>')
-mapx.nnoremap('<A-l>', 'z=')
+-- use z= mapx.nnoremap('<A-l>', 'z=')
