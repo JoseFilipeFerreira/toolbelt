@@ -1,7 +1,7 @@
 #!/bin/bash
 case "$1" in
     check)
-        [[ -d "$HOME"/.local/share/themes/ayu ]]
+        [[ ! -d "$HOME"/.local/share/themes/ayu ]]
         ;;
     *)
         wget -P /tmp "https://github.com/Mrcuve0/Aritim-Dark/archive/master.zip"

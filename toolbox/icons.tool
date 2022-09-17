@@ -155,12 +155,13 @@ if [[ "$ADD" ]]; then
     cp -v "$FILE" "$src_icons/$max_res/$CATEGORY"
 fi
 
+# get all icons
+readarray -t icons < <(\
+    find "$src_icons/$max_res" -mindepth 2 -type f \
+        -exec bash -c \
+            'echo "$(basename $(dirname $1))/$(basename $1)"' shell {} \;)
+
 if [[ "$GENERATE" ]]; then
-    # get all icons
-    readarray -t icons < <(\
-        find "$src_icons/$max_res" -mindepth 2 -type f \
-            -exec bash -c \
-                'echo "$(basename $(dirname $1))/$(basename $1)"' shell {} \;)
 
     # get used contexts
     readarray -t used_ctxs < <(\
@@ -213,7 +214,10 @@ if [[ "$GENERATE" ]]; then
             orig="$src_icons/$max_res/$icon"
             dest="$dest_icons/$res/$icon"
             [[ -f "$dest" ]] && continue
-            sudo convert "$orig" -resize "$res" "$dest"
+            echo "create $res/$icon"
+            sudo convert \
+                -colorspace RGB \
+                "$orig" -resize "$res" "$dest"
         done
     done
 fi
@@ -221,7 +225,6 @@ fi
 if [[ "$CHECK" ]];then
     for res in "${resolutions[@]}"; do
         for icon in "${icons[@]}"; do
-            dest="$dest_icons/$res/$icon"
             [[ -f "$dest_icons/$res/$icon" ]] || exit 0
         done
     done
