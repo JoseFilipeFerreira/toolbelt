@@ -40,7 +40,7 @@ make_install(){
     script="$1/install.sh"
     [[ -f "$script" ]] || return
 
-    if ! bash "$script" check; then
+    if bash "$script" check; then
         case "$2" in
             sudo)
                 echo -e "\033[32msudo install:\033[0m $1" |
