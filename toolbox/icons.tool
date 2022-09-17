@@ -222,9 +222,9 @@ if [[ "$CHECK" ]];then
     for res in "${resolutions[@]}"; do
         for icon in "${icons[@]}"; do
             dest="$dest_icons/$res/$icon"
-            [[ -f "$dest_icons/$res/$icon" ]] || exit 1
+            [[ -f "$dest_icons/$res/$icon" ]] || exit 0
         done
     done
-    exit 0
+    exit 1
 fi
 
