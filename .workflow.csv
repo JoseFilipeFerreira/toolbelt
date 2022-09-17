@@ -68,12 +68,15 @@ pacman,extra,pulseaudio
 pacman,extra,python-i3ipc
 pacman,extra,qrencode
 pacman,extra,shotgun
+pacman,extra,simple-scan
 pacman,extra,socat
 pacman,extra,sxhkd
 pacman,extra,thunar
 pacman,extra,todoman
 pacman,extra,trayer
+pacman,extra,ttf-dejavu
 pacman,extra,ttf-font-awesome
+pacman,extra,ttf-liberation
 pacman,extra,tumbler
 pacman,extra,vdirsyncer
 pacman,extra,wireless_tools
