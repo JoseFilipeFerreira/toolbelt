@@ -76,7 +76,7 @@ add_wall(){
         http*)
             if [[ "$(hostname)" != "$remote" ]]; then
                 echo -e "\e[32mDownloading on $remote...\e[0m"
-                ssh "$remote" ~/.local/bin/wall --add "$@"
+                ssh "$remote" .local/bin/wall --add "$@"
             else
                 file="$(basename "$1")"
                 [[ "$2" ]] && file="$2"

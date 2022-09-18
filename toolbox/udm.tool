@@ -79,7 +79,7 @@ add_music(){
         http*)
             if [[ "$(hostname)" != "$remote" ]]; then
                 echo -e "\e[32mDownloading on $remote...\e[0m"
-                ssh "$remote" ~/.local/bin/udm --add "$@"
+                ssh "$remote" .local/bin/udm --add "$@"
             else
                 case "$1" in
                     *yout*)
