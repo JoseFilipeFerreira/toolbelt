@@ -16,14 +16,15 @@ i3.conf,~/.config/i3/config,link,extra
 khal.conf,~/.config/khal/config,link,essential
 mimeapps.list,~/.config/mimeapps.list,link,extra
 mpv,~/.config/mpv,link,extra
+neofetch/ascii,~/.config/neofetch/ascii,link,essential
 neofetch/config.conf,~/.config/neofetch/config.conf,generate,essential
 newsboat.conf,~/.config/newsboat/config,link,essential
 npmrc,~/.config/npm/npmrc,link,essential
+nsxiv,~/.config/nsxiv,link,extra
 nvim,~/.config/nvim,link,essential
 picom.conf,~/.config/picom.conf,link,extra
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
-nsxiv,~/.config/nsxiv,link,extra
 termux/colors.properties,~/.termux/colors.properties,link,mobile
 termux/termux-url-opener,~/bin/termux-url-opener,link,mobile
 termux/termux.properties,~/.termux/termux.properties,link,mobile
