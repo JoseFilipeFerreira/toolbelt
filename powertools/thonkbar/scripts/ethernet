@@ -7,14 +7,15 @@ _grep_field(){
 ecard_stats="$(nmcli device show |
     grep ethernet \
         --before-context 1 \
-        --after-context 10)"
+        --after-context 10 \
+        -m 1)"
 
 if echo "$ecard_stats" | grep -q "(connected)"; then
     name="$(_grep_field "GENERAL.CONNECTION")"
 
     speed="$(cat "/sys/class/net/$(_grep_field "GENERAL.DEVICE")/speed" )"
-    [ "$speed" -lt "0" ] && exit
 
+    [ "$speed" -lt "0" ] && exit
 
     if [ "$speed" -ge "1000" ]; then
         if (( speed % 1000 == 0 )); then
