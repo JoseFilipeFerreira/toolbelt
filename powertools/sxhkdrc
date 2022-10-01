@@ -62,8 +62,8 @@ super + control + {Prior,Next,Left,Right,Up,Down}
 XF86Search
         dmenu_IQ
 
-XF86{Tools,WWW,Mail}
-        launch-and-move {1 kodi,3 $BROWSER,4 discord}
+XF86{WWW,Mail}
+        launch-and-move {3 $BROWSER,4 discord}
 
 XF86HomePage
         meross-cli --toggle
