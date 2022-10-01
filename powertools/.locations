@@ -21,7 +21,8 @@ neofetch/config.conf,~/.config/neofetch/config.conf,generate,essential
 newsboat.conf,~/.config/newsboat/config,link,essential
 npmrc,~/.config/npm/npmrc,link,essential
 nsxiv,~/.config/nsxiv,link,extra
-nvim,~/.config/nvim,link,essential
+nvim/init.lua,~/.config/nvim/init.lua,link,essential
+nvim/lua,~/.config/nvim/lua,link,essential
 picom.conf,~/.config/picom.conf,link,extra
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
