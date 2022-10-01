@@ -20,21 +20,11 @@ case "$1" in
         ;;
 
     --info|--block)
-        pactl=$(\
-            pactl list sinks |
-            grep --after-context 10 "^[[:space:]]State: RUNNING")
-
-        [[ ! "$pactl" ]] && \
-            pactl=$(pactl list sinks | grep --after-context 12 "^Sink #")
-
-        volume=$(echo "$pactl" | grep -Eo "[0-9]+\%" | head -n1)
-
-        mute_status=$(echo "$pactl" | grep "Mute" | cut -d' ' -f2)
-
-        if [[ $mute_status = yes ]]; then
+        mute_status="$(pactl get-sink-mute @DEFAULT_SINK@)"
+        if [[ "$mute_status" =~ yes$ ]]; then
             echo "MUTE"
         else
-            echo "$volume"
+            pactl get-sink-volume @DEFAULT_SINK@ | grep -Eo "[0-9]+%" | head -n1
         fi
         ;;
 
