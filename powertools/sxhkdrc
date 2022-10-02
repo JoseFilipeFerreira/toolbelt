@@ -16,16 +16,13 @@ super + {_, shift +} Return
         {$TERMINAL,termFromHere}
 
 super + {w, c}
-        {wall, calendar}
+        {wall --rng, calendar}
 
 control + alt + v
         clipmenu
 
 super + control + l
         slock
-
-control + alt + Tab
-        notify-send lel lol
 
 # XF86 KEYS
 

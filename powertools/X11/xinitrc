@@ -1,6 +1,6 @@
 xrdb -merge ~/.config/X11/Xresources
 
-wall &
+wall --rng &
 sxhkd &
 picom --experimental-backends --daemon
 thunar --daemon &

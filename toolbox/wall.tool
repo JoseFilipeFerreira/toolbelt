@@ -4,7 +4,7 @@
 set -e
 remote="kiwi"
 folder=".local/share/wallpapers"
-color_cache=~/.cache/wall
+color_cache=~/.cache/wall/colors
 
 BRIGHTNESS_FILTER='
 import sys
@@ -43,8 +43,7 @@ for c, _, t in [first, second, contrast]: print(c, t)
 sync_walls(){
     [[ "$(hostname)" == "$remote" ]] && return 0
 
-    if ssh -q "$remote" exit
-    then
+    if ssh -q "$remote" exit; then
         echo -e "\033[32mSyncing Walls...\033[0m"
         rsync --exclude '.config' --delete -av "$remote:$folder/" "$HOME/$folder"
         return 0
@@ -60,51 +59,17 @@ check_res(){
     w="$(convert "$1" -format '%[w]' info:)"
     h="$(convert "$1" -format '%[h]' info:)"
 
-    echo "$w"x"$h"
+    echo "resolution: ${w}x${h}"
 
     if [[ "$w" -ge 1920 ]] && [[ "$h" -ge 1080 ]]; then
         return 0
     else
         echo -e "\033[31mImage too small\033[0m"
-        rm "$1"
         return 1
     fi
 }
 
-add_wall(){
-    case "$1" in
-        http*)
-            if [[ "$(hostname)" != "$remote" ]]; then
-                echo -e "\e[32mDownloading on $remote...\e[0m"
-                ssh "$remote" .local/bin/wall --add "$@"
-            else
-                file="$(basename "$1")"
-                [[ "$2" ]] && file="$2"
-                wget "$1" -O "$HOME/$folder/$file"
-                check_res "$HOME/$folder/$file"
-            fi
-            ;;
-        *)
-            if [[ "$(hostname)" != "$remote" ]]; then
-                check_res "$1" && scp "$1" "$remote":"$folder"
-            else
-                cp -v "$1" "$HOME/$folder"
-                check_res "$1"
-            fi
-            ;;
-    esac
-}
-
-remove_wall(){
-    readarray -t wall < <(nsxiv -to "$HOME/$folder")
-    for w in "${wall[@]}"; do
-        # shellcheck disable=SC2029
-        ssh "$remote" rm -v "$folder/$(basename "$w")" | sed "s/'/'jff.sh:/"
-        rm -v "$w"
-    done
-}
-
-create_wall_colors(){
+get_wall_colors(){
     filename="$(basename "$1")"
 
     if [[ -f "$color_cache/$filename" ]]; then
@@ -129,7 +94,141 @@ create_wall_colors(){
     fi
 }
 
-fill_cache(){
+while (( "$#" )); do
+    case "$1" in
+        --sync)
+            # Sync Wallpapers with remote
+            SYNC="true"
+            shift
+            ;;
+        -a|--add)
+            # Add wallpaper
+            # Suports links and files
+            SYNC="true"
+            ADD="true"
+            ADD_CHOICE="$2"
+            if [[ "$3" ]] && [[ ! "$3" = -* ]]; then
+                ADD_RENAME="$3"
+                shift 3
+            else
+                shift 2
+            fi
+            ;;
+
+        -rm|--remove)
+            # Remove wallpaper using nsxiv
+            SYNC="true"
+            REMOVE="true"
+            shift
+            ;;
+
+        -s|--select)
+            # Select wallpaper using nsxiv
+            SYNC="true"
+            SELECT="true"
+            shift
+            ;;
+
+        --rng)
+            # Change to random wallpaper
+            RNG="true"
+            shift
+            ;;
+
+        --fill-cache)
+            # create color scheme cache
+            SYNC="true"
+            FILL_CACHE="true"
+            shift
+            ;;
+
+        -h|--help)
+            # Send this help message
+            echo "NAME:"
+            echo "    wall - wallpaper manager"
+            echo
+            echo "USAGE:"
+            echo "    wall [OPTIONS]|FILE"
+            echo
+            echo "OPTIONS:"
+
+            awk '/^    case/,/^    esac/' "$0" |
+                grep -E "^\s*(#|-.*|;;)" |
+                sed -E 's/\|\"\"//g;s/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g' |
+                sed -e :a -e '/^\n*$/{$d;N;};/\n$/ba'
+
+            shift
+            ;;
+
+        *)
+            NEW_WALL="$1"
+            shift
+            ;;
+    esac
+done
+
+if [[ ! -d "$HOME/$folder" ]] || [[ "$SYNC" ]]; then
+    sync_walls || exit
+fi
+
+
+if [[ "$ADD" ]]; then
+    case "$ADD_CHOICE" in
+        http*)
+            if [[ "$(hostname)" != "$remote" ]]; then
+                echo -e "\e[32mDownloading on $remote...\e[0m"
+                ssh "$remote" .local/bin/wall --add "$ADD_CHOICE" "$ADD_RENAME"
+            else
+                file="$(basename "$ADD_CHOICE")"
+                [[ "$ADD_RENAME" ]] && file="$ADD_RENAME"
+                destination="$HOME/$folder/$file"
+                wget "$ADD_CHOICE" -O "$destination"
+                check_res "$destination" || rm "$destination"
+            fi
+            ;;
+        *)
+            [[ ! -f "$ADD_CHOICE" ]] && echo "file does not exist" && exit
+            if [[ "$(hostname)" != "$remote" ]]; then
+                check_res "$ADD_CHOICE" && scp "$ADD_CHOICE" "$remote":"$folder/$ADD_RENAME"
+            else
+                check_res "$ADD_CHOICE" && cp -v "$ADD_CHOICE" "$HOME/$folder/$ADD_RENAME"
+            fi
+            ;;
+    esac
+    sync_walls
+fi
+
+if [[ "$REMOVE" ]];then
+    readarray -t wall < <(nsxiv -to "$HOME/$folder")
+    for w in "${wall[@]}"; do
+        # shellcheck disable=SC2029
+        ssh "$remote" rm -v "$folder/$(basename "$w")" | sed "s/'/'jff.sh:/"
+        rm -v "$w"
+    done
+fi
+
+if [[ "$SELECT" ]]; then
+    [[ -d "$HOME/$folder" ]] || exit
+    NEW_WALL="$(nsxiv -to "$HOME/$folder")"
+    [[ "$NEW_WALL" ]] || exit
+fi
+
+if [[ "$RNG" ]]; then
+    [[ -d "$HOME/$folder" ]] || exit
+    NEW_WALL=$(find "$HOME/$folder" -type f | shuf -n 1)
+    [[ "$NEW_WALL" ]] || exit
+fi
+
+if [[ "$NEW_WALL" ]]; then
+    feh --no-fehbg --bg-fill "$NEW_WALL"
+
+    [[ -f "$NEW_WALL" ]] && get_wall_colors "$NEW_WALL"
+
+    echo "$NEW_WALL"
+    notify-send -u low -i "$NEW_WALL" -a "wall" "Wallpaper changed" "$(basename "$NEW_WALL")"
+fi
+
+if [[ "$FILL_CACHE" ]]; then
     for cache_file in "$color_cache"/*; do
         if [[ ! -f "$HOME/$folder/$(basename "$cache_file")" ]]; then
             rm "$cache_file"
@@ -156,75 +255,8 @@ fill_cache(){
                 -i "$image" \
                 -a wall \
                 "Computing cache... ($i/$missing)" "$filename"
-            create_wall_colors "$image"
+            get_wall_colors "$image"
             i="$(( i + 1 ))"
         fi
     done
-}
-
-change_wall(){
-    feh --no-fehbg --bg-fill "$1"
-
-    [[ "$2" == "--cache" ]] && create_wall_colors "$1"
-
-    echo "$1"
-    notify-send -u low -i "$1" -a "wall" "Wallpaper changed" "$(basename "$1")"
-}
-
-
-[[ ! -d "$HOME/$folder" ]] && sync_walls
-
-case "$1" in
-    -a|--add)
-        # Add wallpaper
-        # Suports links and files
-        sync_walls || exit
-        add_wall "${@:2}"
-        sync_walls || exit
-        ;;
-
-    -rm|--remove)
-        # Remove wallpaper using nsxiv
-        sync_walls || exit
-        remove_wall
-        ;;
-
-    -s|--select)
-        # Select wallpaper using nsxiv
-        sync_walls || :
-        file="$(nsxiv -to "$HOME/$folder")"
-        [[ "$file" ]] || exit
-        change_wall "$file" --cache
-        ;;
-
-    --change|"")
-        # Change to random wallpaper [default]
-        sync_walls || :
-        file=$(find "$HOME/$folder" -type f | shuf -n 1)
-        change_wall "$file" --cache
-        ;;
-
-    --fill-cache)
-        # create color scheme cache
-        fill_cache
-        ;;
-
-    -h|--help)
-        # Send this help message
-        echo "NAME:"
-        echo "    wall - wallpaper manager"
-        echo
-        echo "USAGE:"
-        echo "    wall [OPTIONS]|FILE"
-        echo
-        echo "OPTIONS:"
-
-        awk '/^case/,/^esac/' "$0" |
-            grep -E "^\s*(#|-.*|;;)" |
-            sed -E 's/\|\"\"//g;s/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
-        ;;
-
-    *)
-        change_wall "${@:1}"
-        ;;
-esac
+fi
