@@ -229,6 +229,8 @@ if [[ "$NEW_WALL" ]]; then
 fi
 
 if [[ "$FILL_CACHE" ]]; then
+    mkdir -p "$color_cache"
+    touch "$color_cache/filler"
     for cache_file in "$color_cache"/*; do
         if [[ ! -f "$HOME/$folder/$(basename "$cache_file")" ]]; then
             rm "$cache_file"
