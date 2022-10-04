@@ -55,7 +55,7 @@ control_keybord_light(){
     esac
 
     brightnessctl "${@:2}" set "$set_value"
-    pkill --signal 36 thonkbar
+    pkill --signal 37 thonkbar
 }
 
 case "$1" in

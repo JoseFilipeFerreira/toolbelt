@@ -1,0 +1,12 @@
+#!/bin/bash
+
+readarray -t devices_uuid < <(bluetoothctl devices Connected | cut -d' ' -f2)
+
+for uuid in "${devices_uuid[@]}"; do
+    bluetoothctl info "$uuid" |
+        grep -E0 "^\s+Alias:" |
+        cut -d':' -f2 |
+        xargs echo -n
+done
+
+echo -e "\n#0083FC"
