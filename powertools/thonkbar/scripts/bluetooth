@@ -9,4 +9,4 @@ for uuid in "${devices_uuid[@]}"; do
         xargs echo -n
 done
 
-echo -e "\n#0083FC"
+[[ "${#devices_uuid[@]}" -gt 0 ]] && echo -e "\n#0083FC"
