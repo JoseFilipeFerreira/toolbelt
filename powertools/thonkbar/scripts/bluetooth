@@ -1,12 +1,24 @@
 #!/bin/bash
 
-readarray -t devices_uuid < <(bluetoothctl devices Connected | cut -d' ' -f2)
+print_block(){
+    readarray -t devices_uuid < <(bluetoothctl devices Connected | cut -d' ' -f2)
 
-for uuid in "${devices_uuid[@]}"; do
-    bluetoothctl info "$uuid" |
-        grep -E0 "^\s+Alias:" |
-        cut -d':' -f2 |
-        xargs echo -n
-done
 
-[[ "${#devices_uuid[@]}" -gt 0 ]] && echo -e "\n#0083FC"
+    if [[ "${#devices_uuid[@]}" -gt 0 ]]; then
+        echo -n "%{F#0083FC}"
+        for uuid in "${devices_uuid[@]}"; do
+            bluetoothctl info "$uuid" |
+                grep -E0 "^\s+Alias:" |
+                cut -d':' -f2 |
+                xargs echo -n
+        done
+        echo "%{F-}"
+    else
+        echo
+    fi
+}
+
+print_block
+# while read -r; do
+    # print_block
+# done <  <(bluetoothctl | grep -E --line-buffered "CHG|NEW|DEL")

@@ -8,8 +8,8 @@ position = top
 
 [right]
 scripts/bluetooth, 5
-scripts/ethernet, 5
-scripts/wifi, 5
+scripts/ethernet, CONTINUOUS
+scripts/wifi, CONTINUOUS
 blind backlight --block, ONCE
 deaf --subscribe, CONTINUOUS
 scripts/battery, 10
