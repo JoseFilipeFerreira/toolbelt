@@ -1,0 +1,90 @@
+#!/bin/bash
+
+print_block(){
+    readarray -t connections < <(nmcli --terse connection show --active)
+
+    [[ "${#connections[@]}" -eq 0 ]] && echo && return
+
+    main_connection="${connections[0]}"
+    for connection in "${connections[@]}"; do
+        type="$(echo "$connection" | cut -d':' -f3)"
+        case "$type" in
+            *ethernet*)
+                main_connection="$connection"
+                ;;
+        esac
+    done
+
+    name="$(echo "$main_connection" | cut -d':' -f1)"
+    type="$(echo "$main_connection" | cut -d':' -f3)"
+    device="$(echo "$main_connection" | cut -d':' -f4)"
+
+    case "$type" in
+        *ethernet*)
+            speed="$(cat "/sys/class/net/${device}/speed" )"
+
+            [ "$speed" -lt "0" ] && echo && return
+
+            unit="Mbps"
+            if [ "$speed" -ge "1000" ]; then
+                if (( speed % 1000 == 0 )); then
+                    speed="$(( speed / 1000 ))"
+                else
+                    speed="$(printf %.1f "$(( speed/1000 ))e-3" )"
+                fi
+
+                unit="Gbps"
+            fi
+
+            color="#FF0000"
+            if [ "$speed" -ge "10000" ]; then
+                color="#00FF00"
+            elif [ "$speed" -ge "5000" ]; then
+                color="#AAFF00"
+            elif [ "$speed" -ge "2500" ]; then
+                color="#FFF700"
+            elif [ "$speed" -ge "1000" ]; then
+                color="#FF8400"
+            fi
+
+            echo "%{F$color}${speed}${unit}@${name}%{F-}"
+            ;;
+
+        *wireless*)
+            if _iwconfig="$( iwconfig "${device}" 2>/dev/null )"; then
+
+                quality="$(awk \
+                    -v cur="$( \
+                        echo "${_iwconfig}" | \
+                        grep -oE 'Link Quality=[/0-9]+' | \
+                        grep -oE '[0-9]+' | \
+                        head -1)" \
+                    -v max="$( \
+                        echo "${_iwconfig}" | \
+                        grep -oE 'Link Quality=[/0-9]+' | \
+                        grep -oE '[0-9]+' | \
+                        tail -1)" \
+                    'BEGIN{printf("%0.f", cur*100/max)}')"
+
+                color="#00FF00"
+                case "$(( quality / 20 ))" in
+                    0) color="#FF0000" ;;
+                    1) color="#FF8400" ;;
+                    2) color="#FFF700" ;;
+                    3) color="#AAFF00" ;;
+                esac
+                echo "%{F${color}}${quality}%@${name}%{F-}"
+            else
+                echo
+            fi
+            ;;
+        *)
+            echo
+            ;;
+    esac
+}
+
+print_block
+nmcli monitor | grep -E --line-buffered "(connected|disconnected|device removed)$" | while read -r line; do
+    print_block
+done

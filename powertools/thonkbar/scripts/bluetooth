@@ -19,6 +19,6 @@ print_block(){
 }
 
 print_block
-# while read -r; do
-    # print_block
-# done <  <(bluetoothctl | grep -E --line-buffered "CHG|NEW|DEL")
+bluetoothctl | grep -E --line-buffered "CHG|NEW|DEL" | while read -r; do
+    print_block
+done

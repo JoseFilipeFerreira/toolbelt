@@ -7,9 +7,8 @@ underline_width = 2
 position = top
 
 [right]
-scripts/bluetooth, 5
-scripts/ethernet, CONTINUOUS
-scripts/wifi, CONTINUOUS
+#scripts/bluetooth, CONTINUOUS
+scripts/net, CONTINUOUS
 blind backlight --block, ONCE
 deaf --subscribe, CONTINUOUS
 scripts/battery, 10
