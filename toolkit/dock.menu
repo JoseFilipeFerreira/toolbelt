@@ -46,4 +46,4 @@ notify "$layout"
 killall --quiet thonkbar lemonbar
 thonkbar &
 
-wall
+wall --rng
