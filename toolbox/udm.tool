@@ -43,6 +43,7 @@ next_socket(){
 }
 
 update_bar(){
+    notify-send "updated"
     pgrep -x "thonkbar" > /dev/null &&
         pkill --signal 61 thonkbar
 }
@@ -132,7 +133,7 @@ mpv_get(){
 media_control(){
     if pgrep mpv &>/dev/null; then
         local socket
-        echo "$3"
+        socket="$current_socket"
         if [[ "$3" =~ -[0-9]+ ]]; then
             socket="$socket_folder/mpvsocket$(current_socket_numbers | tail "$3" | head -1)"
         elif [[ "$3" =~ [0-9]+ ]]; then
@@ -140,10 +141,8 @@ media_control(){
                 socket="$socket_folder/mpvsocket$3"
             else
                 echo "Invalid player id"
-                exit
+                echo "Using most recent one"
             fi
-        else
-            socket="$current_socket"
         fi
 
         mpv_control "$socket" "$1"
@@ -194,7 +193,6 @@ echo_block(){
     esac
 }
 
-
 case "$1" in
     -a|--add)
         # Add music to playlist
@@ -237,25 +235,25 @@ case "$1" in
         # Pause media
         media_control 'set pause yes' 'pause' "${@:2}"
         ;;
-    --play-pause)
+    --play-pause|LEFT)
         # Toggle play-pause
         media_control 'cycle pause' 'play-pause' "${@:2}"
         ;;
-    --next)
+    --next|RIGHT)
         # Next music
         media_control 'playlist-next' 'next' "${@:2}"
         ;;
-    --previous|--prev)
+    --previous|--prev|CENTER)
         # Previous music
         media_control 'playlist-prev' 'previous' "${@:2}"
         ;;
 
-    --volume-up)
+    --volume-up|UP)
         # Increase player volume
         media_control 'add volume 5' 'volume 5+' "${@:2}"
         ;;
 
-    --volume-down)
+    --volume-down|DOWN)
         # Decrease player volume
         media_control 'add volume -5' 'volume 5-' "${@:2}"
         ;;

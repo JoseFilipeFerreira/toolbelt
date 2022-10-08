@@ -9,8 +9,8 @@ position = top
 [right]
 #scripts/bluetooth, CONTINUOUS
 scripts/net, CONTINUOUS
-blind backlight --block, ONCE
-deaf --subscribe, CONTINUOUS
+blind backlight --block, ONCE, blind backlight
+deaf --subscribe, CONTINUOUS, deaf
 scripts/battery, 10
 date '+%d/%m  %H:%M   ', 5
 
@@ -20,4 +20,4 @@ scripts/platform_profile, CONTINUOUS
 uptime -p, 60
 
 [center]
-udm --block, ONCE
+udm --block, ONCE, udm

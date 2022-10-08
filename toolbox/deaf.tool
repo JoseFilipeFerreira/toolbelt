@@ -11,13 +11,13 @@ get_percent(){
 }
 
 case "$1" in
-    +)
+    +|UP)
         pactl set-sink-volume @DEFAULT_SINK@ +5%
         ;;
-    -)
+    -|DOWN)
         pactl set-sink-volume @DEFAULT_SINK@ -5%
         ;;
-    mute)
+    mute|LEFT)
         pactl set-sink-mute @DEFAULT_SINK@ toggle
         ;;
     mic*)

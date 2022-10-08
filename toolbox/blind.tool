@@ -27,18 +27,18 @@ usage(){
 
 }
 
-control_keybord_light(){
+control_lights(){
     max="$(brightnessctl "${@:2}" max)"
 
     step="$(( max / 9 ))"
     [[ "$step" = 0 ]] && step=1
 
     case "$1" in
-        +)
+        UP|+)
             # Increase brightness
             set_value="+$step"
             ;;
-        -)
+        DOWN|-)
             # Decrease brightness
             set_value="$step-"
             ;;
@@ -60,10 +60,10 @@ control_keybord_light(){
 
 case "$1" in
     keyboard)
-        control_keybord_light "$2" --device="*kbd*"
+        control_lights "$2" --device="*kbd*"
         ;;
     backlight)
-        control_keybord_light "$2" --class="backlight" --min-value=6
+        control_lights "$2" --class="backlight" --min-value=6
         ;;
     *)
         usage
