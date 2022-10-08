@@ -188,8 +188,8 @@ echo_block(){
     echo "#FFFFFF"
 
     case "$(mpv_get "$current_socket" "pause")" in
-        true)  echo "#AAAAAA" ;;
         false) echo "#00EE00" ;;
+        *)  echo "#AAAAAA" ;;
     esac
 }
 
