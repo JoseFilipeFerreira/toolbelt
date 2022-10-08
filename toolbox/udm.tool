@@ -43,7 +43,6 @@ next_socket(){
 }
 
 update_bar(){
-    notify-send "updated"
     pgrep -x "thonkbar" > /dev/null &&
         pkill --signal 61 thonkbar
 }
