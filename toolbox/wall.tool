@@ -189,7 +189,7 @@ if [[ "$ADD" ]]; then
         *)
             [[ ! -f "$ADD_CHOICE" ]] && echo "file does not exist" && exit
             if [[ "$(hostname)" != "$remote" ]]; then
-                check_res "$ADD_CHOICE" && scp "$ADD_CHOICE" "$remote":"$folder/$ADD_RENAME"
+                check_res "$ADD_CHOICE" && scp "$ADD_CHOICE" "${remote}:${folder}/${ADD_RENAME}"
             else
                 check_res "$ADD_CHOICE" && cp -v "$ADD_CHOICE" "$HOME/$folder/$ADD_RENAME"
             fi

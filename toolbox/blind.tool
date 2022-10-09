@@ -55,7 +55,7 @@ control_lights(){
     esac
 
     brightnessctl "${@:2}" set "$set_value"
-    pkill --signal 37 thonkbar
+    pkill --signal 35 thonkbar
 }
 
 case "$1" in

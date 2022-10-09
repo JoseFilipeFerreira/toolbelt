@@ -85,6 +85,6 @@ print_block(){
 }
 
 print_block
-nmcli monitor | grep -E --line-buffered "(connected|disconnected|device removed)$" | while read -r line; do
+nmcli monitor | grep -E --line-buffered "(connected|disconnected|device removed)$" | while read -r; do
     print_block
 done

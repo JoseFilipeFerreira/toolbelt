@@ -26,9 +26,11 @@ case "$1" in
 
     --subscribe)
         get_percent
-        while read -r line; do
+
+        pactl subscribe | grep --line-buffered "sink" |
+        while read -r; do
             get_percent
-        done <  <(pactl subscribe | grep --line-buffered "sink")
+        done
         ;;
     --info)
         get_percent
