@@ -12,7 +12,7 @@ local on_attach = function(autoformat)
         -- Mappings
         local opts = { noremap = true, silent = true }
         buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-        if autoformat and client.resolved_capabilities.document_formatting then
+        if autoformat and client.server_capabilities.document_formatting then
             au.group('Format', function(g)
                 g.BufWritePre = {
                     '<buffer>',
