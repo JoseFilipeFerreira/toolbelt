@@ -6,7 +6,8 @@ get_percent(){
     if [[ "$mute_status" =~ yes$ ]]; then
         echo "MUTE"
     else
-        pactl get-sink-volume @DEFAULT_SINK@ | grep -Eo "[0-9]+%" | head -n1
+        percent="$(pactl get-sink-volume @DEFAULT_SINK@ | grep -Eo "[0-9]+%" | head -n1)"
+        echo "${percent}%"
     fi
 }
 

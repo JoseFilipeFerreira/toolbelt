@@ -73,7 +73,7 @@ print_block(){
                     2) color="#FFF700" ;;
                     3) color="#AAFF00" ;;
                 esac
-                echo "%{F${color}}${quality}%@${name}%{F-}"
+                echo "%{F${color}}${quality}%%@${name}%{F-}"
             else
                 echo
             fi

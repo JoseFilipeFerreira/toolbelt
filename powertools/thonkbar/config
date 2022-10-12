@@ -1,9 +1,10 @@
 [config]
-delimiter = "  |  "
+delimiter = " | "
 delimiter_color = "#666666"
-font = "xft:DejaVu Sans Mono:size=8"
+font = "DejaVuSansMono Nerd Font:size=8"
 background_color = "#B3000000"
 underline_width = 2
+right_padding = 3
 position = top
 
 [right]
@@ -12,7 +13,7 @@ scripts/net, CONTINUOUS
 blind backlight --block, ONCE, blind backlight
 deaf --subscribe, CONTINUOUS, deaf
 scripts/battery, 10
-date '+%d/%m  %H:%M   ', 5
+scripts/date, 5, scripts/date
 
 [left]
 scripts/workspaces, CONTINUOUS

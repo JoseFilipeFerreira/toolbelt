@@ -13,13 +13,11 @@ def print_workspaces():
         name = workspace.name
 
         if workspace.urgent:
-            print('%{B#E6900000} ', name, end='')
+            print('%{B#E6900000}', name, '%{B-} ', end='')
         elif workspace.focused:
-            print('%{B#E6285577} ', name, end='')
+            print('%{B#E6285577}', name, '%{B-} ', end='')
         else:
-            print('%{B#E6222222} ', name, end='')
-
-        print('  %{B-} ', end='')
+            print('%{B#E6222222}', name, '%{B-} ', end='')
     print()
 
     stdout.flush()

@@ -16,10 +16,10 @@ for i in "${!charges[@]}"; do
     charges["$i"]="$symbol${charges[i]}%"
 done
 
-printf "%s" "${charges[0]}"
+printf "%s%%" "${charges[0]}"
 
 [[ "${#charges[@]}" -gt 1 ]] &&
-    printf "    %s" "${charges[@]:1}"
+    printf " %s%%" "${charges[@]:1}"
 
 echo ""
 

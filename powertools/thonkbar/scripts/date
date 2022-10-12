@@ -1,0 +1,9 @@
+#!/bin/bash
+case "$1" in
+    RIGHT)
+        calendar
+        ;;
+    *)
+        date '+%d/%m %H:%M'
+esac
+
