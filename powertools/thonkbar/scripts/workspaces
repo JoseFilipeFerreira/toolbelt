@@ -1,6 +1,5 @@
 #!/bin/python
 """block to display i3 workspaces on thonkbar"""
-from os import name
 from sys import stdout
 
 from i3ipc import Connection, Event # type: ignore
