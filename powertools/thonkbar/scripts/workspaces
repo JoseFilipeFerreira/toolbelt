@@ -1,5 +1,6 @@
 #!/bin/python
 """block to display i3 workspaces on thonkbar"""
+from os import name
 from sys import stdout
 
 from i3ipc import Connection, Event # type: ignore
@@ -8,18 +9,27 @@ I3WM = Connection()
 
 def print_workspaces():
     """print workspaces in lemonbar format"""
-    print('%{F-}', end='')
+
+    workspaces = [None] * 10
+
     for workspace in I3WM.get_workspaces():
-        name = workspace.name
+        try:
+            name_int = (int(workspace.name)) - 1
+            if workspace.urgent:
+                workspaces[name_int] = '%{F#E6f22c40}'
+            elif workspace.focused:
+                workspaces[name_int] = '%{F#E6407ee7}'
+            else:
+                workspaces[name_int] = '%{F#E6a8a19f}'
+        except ValueError:
+            print("re")
 
-        if workspace.urgent:
-            print('%{B#E6900000}', name, '%{B-} ', end='')
-        elif workspace.focused:
-            print('%{B#E6285577}', name, '%{B-} ', end='')
-        else:
-            print('%{B#E6222222}', name, '%{B-} ', end='')
-    print()
+    while workspaces[-1] is None:
+        workspaces.pop()
 
+    workspaces = [x if x else "%{F#E6a8a18f}" for x in workspaces]
+
+    print(*workspaces, "%{F-}")
     stdout.flush()
 
 def react_on_event(_, __):

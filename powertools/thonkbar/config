@@ -1,10 +1,12 @@
 [config]
 delimiter = " | "
 delimiter_color = "#666666"
-font = "DejaVuSansMono Nerd Font:size=8"
+font = "DejaVuSansMono Nerd Font:size=11"
 background_color = "#B3000000"
 underline_width = 2
-right_padding = 3
+text_offset = 5
+left_padding = 1
+right_padding = 1
 position = top
 
 [right]

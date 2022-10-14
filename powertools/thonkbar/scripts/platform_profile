@@ -9,6 +9,12 @@ profile_colors=(
     "#f22c40" # performance
 )
 
+profile_name=(
+    "בֿ" # low
+    "ﰌ" # balanced
+    "省" # performance
+)
+
 [[ -f  "$profile_file" ]] || exit 0
 
 readarray -t options < <(sed 's/ /\n/g' "$options_file")
@@ -22,7 +28,7 @@ print_profile(){
         fi
     done
 
-    echo "%{F${profile_colors[index]}} $profile %{F-}"
+    echo "%{F${profile_colors[index]}}${profile_name[index]}%{F-}"
 }
 
 print_profile

@@ -27,10 +27,21 @@ usage(){
 
 }
 
+emoji_array=(
+""
+""
+""
+""
+""
+""
+""
+)
+
 control_lights(){
     max="$(brightnessctl "${@:2}" max)"
 
-    step="$(( max / 9 ))"
+    n_step="${#emoji_array[@]}"
+    step="$(( max / (n_step - 1) ))"
     [[ "$step" = 0 ]] && step=1
 
     case "$1" in
@@ -45,7 +56,8 @@ control_lights(){
         --block)
             # Block compatible with Thonkbar
             curr="$(brightnessctl "${@:2}" get)"
-            echo "$(( curr / step ))"
+            i="$(( curr / step ))"
+            echo "${emoji_array[i]}"
             exit
             ;;
         *)
