@@ -1,0 +1,18 @@
+#!/bin/bash
+
+case "$1" in
+    LEFT)
+        dunstctl set-paused toggle
+        pkill --signal "$2" thonkbar
+        ;;
+    *)
+        case "$(dunstctl is-paused)" in
+            true)
+                echo ""
+                ;;
+            false)
+                echo ""
+                ;;
+        esac
+        ;;
+esac
