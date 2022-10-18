@@ -1,5 +1,4 @@
-*.font: "DejaVu Sans Mono"
-
+*.font: "DejaVuSansMono Nerd Font"
 Nsxiv.window.background: #181A1C
 Nsxiv.bar.background: #111111
 Nsxiv.window.foreground: #FFFFFF
