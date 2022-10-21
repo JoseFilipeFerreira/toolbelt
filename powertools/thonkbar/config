@@ -11,15 +11,16 @@ position = top
 
 [right]
 #scripts/bluetooth, CONTINUOUS
-scripts/net, CONTINUOUS
-blind backlight --block, ONCE, blind backlight
+net, CONTINUOUS
+blind --block, ONCE, blind
 deaf --subscribe, CONTINUOUS, deaf
-scripts/battery, 10
-scripts/date, 5, scripts/date
+battery, 10
+date-calendar, 5, date-calendar
+notify, ONCE, notify
 
 [left]
-scripts/workspaces, CONTINUOUS
-scripts/platform_profile, CONTINUOUS
+workspaces, CONTINUOUS
+platform_profile, CONTINUOUS
 uptime -p, 60
 
 [center]

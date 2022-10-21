@@ -1,83 +1,95 @@
 #!/bin/bash
-# brightness changer for backlight and keyboard (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+# brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 
+bar_signal_id=35
+emoji_array=("" "" "" "" "" "" "")
+
+name="$(basename "$0")"
 usage(){
-
     echo "NAME:"
-    echo "    blind - brightness manager"
+    echo "    $name - brightness manager"
     echo
     echo "USAGE:"
-    echo "    blind DEVICE OPTION"
-    echo
-    echo "DEVICE:"
-
-    readarray -t devices < <(\
-        awk '/^case/,/^esac/' "$0" |
-            grep -E '^    [a-z|]*)$' |
-            sed 's/)//g;s/ //g')
-
-    printf "    %s\n" "${devices[@]}"
-
+    echo "    $name OPTION"
     echo
     echo "OPTION:"
 
     awk '/^    case/,/^    esac/' "$0" |
-        grep -E "^\s*(#|;;|[^*]\)|-.*\))" |
+        grep -E "^\s*(#|;;|[^*]\)|(-)*[a-zA-Z]*\))" |
         sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
-
 }
 
-emoji_array=(
-""
-""
-""
-""
-""
-""
-""
-)
-
-control_lights(){
-    max="$(brightnessctl "${@:2}" max)"
-
+get_step(){
+    max="$(brightnessctl "${brightnessctl_args[@]}" max)"
     n_step="${#emoji_array[@]}"
     step="$(( max / (n_step - 1) ))"
     [[ "$step" = 0 ]] && step=1
+    echo "$step"
+}
 
+[[ ! "$1" ]] && usage && exit
+
+brightnessctl_args=( --class="backlight" --min-value=6 )
+
+while (( "$#" )); do
     case "$1" in
-        UP|+)
-            # Increase brightness
-            set_value="+$step"
+        keyboard)
+            # Control the keyboard backlight
+            brightnessctl_args=( --device="*kbd*" )
+            shift
             ;;
-        DOWN|-)
+        backlight)
+            # Control the screen backlight [default]
+            shift
+            ;;
+        +)
+            # Increase brightness
+            set_value="+$(get_step)"
+            shift
+            ;;
+        -)
             # Decrease brightness
-            set_value="$step-"
+            set_value="$(get_step)-"
+            shift
+            ;;
+        UP)
+            # Increase brightness, with id as next arg
+            set_value="+$(get_step)"
+            [[ "$2" ]] || exit
+            bar_signal_id="$2"
+            shift 2
+            ;;
+        DOWN)
+            # Decrease brightness, with id as next arg
+            set_value="$(get_step)-"
+            [[ "$2" ]] || exit
+            bar_signal_id="$2"
+            shift 2
             ;;
         --block)
-            # Block compatible with Thonkbar
-            curr="$(brightnessctl "${@:2}" get)"
-            i="$(( curr / step ))"
-            echo "${emoji_array[i]}"
-            exit
+            # Print a block compatible with Thonkbar
+            print_block="true"
+            shift
             ;;
-        *)
+        --help)
+            # Send this help message and exit
             usage
             exit
             ;;
+        *)
+            shift
     esac
+done
 
-    brightnessctl "${@:2}" set "$set_value"
-    pkill --signal 35 thonkbar
-}
 
-case "$1" in
-    keyboard)
-        control_lights "$2" --device="*kbd*"
-        ;;
-    backlight)
-        control_lights "$2" --class="backlight" --min-value=6
-        ;;
-    *)
-        usage
-        ;;
-esac
+if [[ "$set_value" ]]; then
+    brightnessctl "${brightnessctl_args[@]}" set "${set_value}"
+    pkill --signal "$bar_signal_id" thonkbar
+fi
+
+if [[ "$print_block" ]]; then
+    curr="$(brightnessctl "${brightnessctl_args[@]}" get)"
+    step="$(get_step)"
+    i="$(( curr / step ))"
+    echo "${emoji_array[i]}"
+fi

@@ -27,18 +27,15 @@ super + control + l
 # XF86 KEYS
 
 XF86MonBrightness{Up,Down}
-        blind backlight {+,-}
+        blind {+,-}
 
 XF86KbdBrightness{Up,Down}
         blind keyboard {+,-}
 
 ## control media
 
-XF86Audio{_,Mic}Mute
-        deaf {mute, mic}
-
-XF86Audio{Raise,Lower}Volume
-        deaf {+,-}
+XF86Audio{RaiseVolume,LowerVolume,Mute,MicMute}
+        deaf {+,-, mute, mic}
 
 XF86Audio{Play,Stop,Prev,Next}
         udm {--play-pause,--stop,--previous, --next}
