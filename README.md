@@ -7,7 +7,7 @@ Static config files
 
 ## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
-* [ascii2png](toolbox/ascii2png.tool) convert ascii compatible with neofetch to png
+* [ascii2png](toolbox/ascii2png.tool) convert [fetch](toolbox/fetch) logos to png
 * [autologin](toolbox/autologin.tool) setup auto login in TTY (made by [Mendess](https://github.com/mendess))
 * [blind](toolbox/blind.tool) brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
