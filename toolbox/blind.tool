@@ -29,13 +29,13 @@ get_step(){
 
 [[ ! "$1" ]] && usage && exit
 
-brightnessctl_args=( --class="backlight" --min-value=6 )
+brightnessctl_args=( "--class=backlight" "--min-value=6" )
 
 while (( "$#" )); do
     case "$1" in
         keyboard)
             # Control the keyboard backlight
-            brightnessctl_args=( --device="*kbd*" )
+            brightnessctl_args=( "--device=*kbd*" )
             shift
             ;;
         backlight)
