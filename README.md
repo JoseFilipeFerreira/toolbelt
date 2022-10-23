@@ -20,7 +20,7 @@ Scripts used in the terminal or on a keybind
 * [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with app usage history
 * [ex](toolbox/ex.tool) extract anything
-* [fetch](toolbox/fetch.tool) 
+* [fetch](toolbox/fetch.tool) neofetch wrapper to show logo based on hostname
 * [focus-bro](toolbox/focus-bro.py) 
 * [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand

@@ -1,12 +1,13 @@
 #!/bin/bash
+# neofetch wrapper to show logo based on hostname
 
 image="$(hostname | sed 's/\./-/g')"
 
 args=()
 while (( $# )); do
     case "$1" in
-        --logo)
-            args+=("--logo")
+        --*)
+            args+=("$1")
             shift
             ;;
         *)
