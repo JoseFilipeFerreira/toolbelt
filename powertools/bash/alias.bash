@@ -64,6 +64,9 @@ hash awk &>/dev/null &&
 hash nsxiv &>/dev/null &&
     alias sxiv='nsxiv'
 
+hash bc &>/dev/null &&
+    alias bc='bc --quiet'
+
 # ~/ clean-up
 hash yarn &>/dev/null &&
     alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
