@@ -16,8 +16,7 @@ i3.conf,~/.config/i3/config,link,extra
 khal.conf,~/.config/khal/config,link,essential
 mimeapps.list,~/.config/mimeapps.list,link,extra
 mpv,~/.config/mpv,link,extra
-neofetch/ascii,~/.config/neofetch/ascii,link,essential
-neofetch/config.conf,~/.config/neofetch/config.conf,generate,essential
+neofetch,~/.config/neofetch,link,essential
 newsboat.conf,~/.config/newsboat/config,link,essential
 npmrc,~/.config/npm/npmrc,link,essential
 nsxiv,~/.config/nsxiv,link,extra

@@ -7,7 +7,7 @@ Static config files
 
 ## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
-* [ascii2png](toolbox/ascii2png.py) convert ascii compatible with neofetch to png
+* [ascii2png](toolbox/ascii2png.tool) convert ascii compatible with neofetch to png
 * [autologin](toolbox/autologin.tool) setup auto login in TTY (made by [Mendess](https://github.com/mendess))
 * [blind](toolbox/blind.tool) brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
@@ -20,6 +20,7 @@ Scripts used in the terminal or on a keybind
 * [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with app usage history
 * [ex](toolbox/ex.tool) extract anything
+* [fetch](toolbox/fetch.tool) 
 * [focus-bro](toolbox/focus-bro.py) 
 * [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand

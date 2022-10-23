@@ -60,7 +60,7 @@ export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 [[ -f "$HOME/.bashrc" ]] && . "$HOME/.bashrc"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
-    neofetch --logo
+    fetch --logo
     rm -rf /tmp/startx.log
     startx &> /tmp/startx.log
     clear
