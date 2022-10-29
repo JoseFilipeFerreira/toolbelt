@@ -16,10 +16,10 @@ local on_attach = function(autoformat)
             au.group('Format', function(g)
                 g.BufWritePre = {
                     '<buffer>',
-                    vim.lsp.buf.formatting_seq_sync
+                    vim.lsp.buf.format
                 }
             end)
-            buf_set_keymap('n', '<leader>f', '<Cmd>lua vim.lsp.buf.formatting_seq_sync()<CR>', opts)
+            buf_set_keymap('n', '<leader>f', '<Cmd>lua vim.lsp.buf.format()<CR>', opts)
         end
     end
 end
