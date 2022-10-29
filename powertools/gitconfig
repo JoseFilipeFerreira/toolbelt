@@ -5,6 +5,6 @@
 	email = jose.filipe.matos.ferreira@gmail.com
 [core]
 	hooksPath = .githooks/
-	editor = vim
+	editor = nvim
 [init]
 	defaultBranch = master
