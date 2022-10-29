@@ -3,6 +3,8 @@ local set = vim.opt
 local au = require('utils.au')
 local command = require('utils.command')
 
+set.mouse=nil
+
 -- tabs
 set.tabstop = 4
 set.softtabstop = 4
