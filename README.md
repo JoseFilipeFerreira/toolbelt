@@ -40,16 +40,16 @@ Scripts used in the terminal or on a keybind
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 * [workin](toolbox/workin.tool) workout manager
 
-## :wrench: [Toolkit](toolkit) (dmenu scripts)
+## :wrench: [Toolkit](powertools/dmenu/scripts) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
-* [dock](toolkit/dock.menu) choose display setting
-* [games](toolkit/games.menu) launch games from steam
-* [nitro](toolkit/nitro.menu) pick from a list of emojis and gifs
-* [power](toolkit/power.menu) machine state menu
-* [rss](toolkit/rss.menu) subscribe to a RSS feed with categories
-* [todo](toolkit/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
-* [trayer](toolkit/trayer.menu) toggle trayer
-* [wine](toolkit/wine.menu) launch programs installed with [wine](https://www.winehq.org/)
+* [dock](powertools/dmenu/scripts/dock.menu) choose display setting
+* [games](powertools/dmenu/scripts/games.menu) launch games from steam
+* [nitro](powertools/dmenu/scripts/nitro.menu) pick from a [list](powertools/dmenu/nitro) of emojis and gifs
+* [power](powertools/dmenu/scripts/power.menu) machine state menu
+* [rss](powertools/dmenu/scripts/rss.menu) subscribe to a RSS feed with categories
+* [todo](powertools/dmenu/scripts/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
+* [trayer](powertools/dmenu/scripts/trayer.menu) toggle trayer
+* [wine](powertools/dmenu/scripts/wine.menu) launch programs installed with [wine](https://www.winehq.org/)
 
 ## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and

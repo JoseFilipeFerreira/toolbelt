@@ -44,9 +44,9 @@ Static config files
 Scripts used in the terminal or on a keybind
 $(generate_description "toolbox")
 
-## :wrench: [Toolkit](toolkit) (dmenu scripts)
+## :wrench: [Toolkit](powertools/dmenu/scripts) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
-$(generate_description "toolkit")
+$(generate_description "powertools/dmenu/scripts")
 
 ## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and

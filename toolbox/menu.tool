@@ -1,7 +1,7 @@
 #!/bin/bash
 # dmenu menu launcher
 
-scripts="$DOTFILES/toolkit"
+scripts=~/.config/dmenu/scripts
 
 "$scripts"/"$( \
     find "$scripts" -type f -printf "%f\n" |

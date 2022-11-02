@@ -7,6 +7,7 @@ bash/bashrc,~/.bashrc,link,essential
 bash/inputrc,~/.inputrc,link,essential
 bash/profile,~/.bash_profile,link,essential
 clang-format,~/.clang-format,link,essential
+dmenu,~/.config/dmenu,link,extra
 dunstrc,~/.config/dunst/dunstrc,link,extra
 ghci.conf,~/.ghc/ghci.conf,link,essential
 gitconfig,~/.gitconfig,link,essential

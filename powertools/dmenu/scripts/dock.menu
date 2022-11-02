@@ -43,7 +43,7 @@ esac
 
 notify "$layout"
 
-killall --quiet thonkbar
+killall --quiet thonkbar lemonbar
 thonkbar &
 
 wall --rng

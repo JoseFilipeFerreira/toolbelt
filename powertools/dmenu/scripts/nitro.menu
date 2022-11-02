@@ -1,7 +1,7 @@
 #!/bin/bash
-# pick from a list of emojis and gifs
+# pick from a [list](powertools/dmenu/nitro) of emojis and gifs
 
-file=~/.local/share/dmenu/nitro
+file=~/.config/dmenu/nitro
 mkdir -p "$(dirname "$file")"
 touch "$file"
 
