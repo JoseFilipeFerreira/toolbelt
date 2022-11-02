@@ -14,3 +14,5 @@ link="$(grep -E "^$pick" "$file" | awk '{print $(NF)}')"
 echo "$link" | xclip -sel clip
 
 notify-send -a "nitro" -i "apps/discord" "$pick" "to clipboard"
+
+# vim: set ft=bash:

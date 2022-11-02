@@ -69,3 +69,5 @@ escaped_link="$(echo "$link" | sed 's/\&/\\\&/g;s/ /+/g')"
 sed -i "s|---$cat---|&\n$escaped_link ${tags[*]}|g" "$urls"
 
 notify "Added New Feed to $cat" "$link"
+
+# vim: set ft=bash:

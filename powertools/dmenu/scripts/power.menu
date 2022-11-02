@@ -20,3 +20,5 @@ case "$option" in
         systemctl reboot
         ;;
 esac
+
+# vim: set ft=bash:

@@ -41,3 +41,5 @@ f=~/.local/share/Steam/appcache/librarycache/${id}_logo.png; [[ -f "$f" ]] && ic
 notify-send -a "Steam" -i "$icon" "Launching Game" "$name"
 
 steam -applaunch "$id"
+
+# vim: set ft=bash:

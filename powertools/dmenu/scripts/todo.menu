@@ -28,3 +28,5 @@ while : ; do
 done
 
 sync
+
+# vim: set ft=bash:

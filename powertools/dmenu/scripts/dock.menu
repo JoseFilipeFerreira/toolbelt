@@ -47,3 +47,5 @@ killall --quiet thonkbar lemonbar
 thonkbar &
 
 wall --rng
+
+# vim: set ft=bash:

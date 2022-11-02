@@ -12,3 +12,5 @@ path="$(find ~/.wine/drive_c | grep -E "Program Files.*/$program\.exe" | head -n
 
 cd "$(dirname "$path")" || exit
 wine "$path"
+
+# vim: set ft=bash:
