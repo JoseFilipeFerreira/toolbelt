@@ -46,7 +46,6 @@ Scripts launched from my [menu](toolbox/menu.tool)
 * [games](powertools/dmenu/scripts/games.menu) launch games from steam
 * [nitro](powertools/dmenu/scripts/nitro.menu) pick from a [list](powertools/dmenu/nitro) of emojis and gifs
 * [power](powertools/dmenu/scripts/power.menu) machine state menu
-* [rss](powertools/dmenu/scripts/rss.menu) subscribe to a RSS feed with categories
 * [todo](powertools/dmenu/scripts/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](powertools/dmenu/scripts/trayer.menu) toggle trayer
 * [wine](powertools/dmenu/scripts/wine.menu) launch programs installed with [wine](https://www.winehq.org/)

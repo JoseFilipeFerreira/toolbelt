@@ -59,7 +59,6 @@ pacman,extra,khal
 pacman,extra,libnotify
 pacman,extra,mpv
 pacman,extra,network-manager-applet
-pacman,extra,newsboat
 pacman,extra,noto-fonts
 pacman,extra,noto-fonts-cjk
 pacman,extra,noto-fonts-emoji

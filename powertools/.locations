@@ -18,7 +18,6 @@ khal.conf,~/.config/khal/config,link,essential
 mimeapps.list,~/.config/mimeapps.list,link,extra
 mpv,~/.config/mpv,link,extra
 neofetch,~/.config/neofetch,link,essential
-newsboat.conf,~/.config/newsboat/config,link,essential
 npmrc,~/.config/npm/npmrc,link,essential
 nsxiv,~/.config/nsxiv,link,extra
 nvim/init.lua,~/.config/nvim/init.lua,link,essential
