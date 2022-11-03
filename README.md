@@ -13,6 +13,7 @@ Scripts used in the terminal or on a keybind
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
+* [clippy](toolbox/clippy.tool) simple bookmark manager
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer
@@ -38,7 +39,6 @@ Scripts used in the terminal or on a keybind
 * [urls-to-opml](toolbox/urls-to-opml.tool) convert list of urls to opml and filter categories
 * [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
-* [workin](toolbox/workin.tool) workout manager
 
 ## :wrench: [Toolkit](powertools/dmenu/scripts) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)

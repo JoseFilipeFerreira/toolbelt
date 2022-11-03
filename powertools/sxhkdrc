@@ -9,6 +9,9 @@ super + Home
 super + {_,shift +} d
         {dmenu_IQ,menu}
 
+super + {_, shift +} b
+        clippy {--select, --add}
+
 {_,control +, alt +, super +} @Print
         cuffs {--select --clipboard, --clipboard, --select --floating, }
 
@@ -107,11 +110,5 @@ super + space
 super + shift + space
         i3-msg 'floating toggle; sticky toggle'
 
-super + v
-        i3-msg split toggle
-
-super + f
-        i3-msg fullscreen toggle
-
-super + e
-        i3-msg layout toggle tabbed splith
+super + {v, f}
+        i3-msg {split, fullscreen} toggle
