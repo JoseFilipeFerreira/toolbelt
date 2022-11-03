@@ -1,9 +1,8 @@
 #!/bin/bash
 # dmenu app launcher with app usage history
 
-cache="$XDG_DATA_HOME/dmenu"
-mkdir -p "$cache"
-cache_file="$cache""/IQhist"
+cache_file=~/.local/share/toolbelt/IQhist
+mkdir -p "$(dirname "$cache_file")"
 touch "$cache_file"
 
 all=$(dmenu_path | grep -E '[[:alnum:]]')

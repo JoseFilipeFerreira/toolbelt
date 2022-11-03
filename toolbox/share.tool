@@ -1,7 +1,7 @@
 #!/bin/bash
 # share files in my webserver
 
-cache="$XDG_CACHE_HOME/fileshare"
+cache=~/.cache/fileshare
 
 upload(){
     rsync -av --info=progress2 "$1" kiwi:~/share
