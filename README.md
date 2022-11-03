@@ -36,7 +36,6 @@ Scripts used in the terminal or on a keybind
 * [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
-* [urls-to-opml](toolbox/urls-to-opml.tool) convert list of urls to opml and filter categories
 * [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit
 * [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
 
@@ -44,7 +43,7 @@ Scripts used in the terminal or on a keybind
 Scripts launched from my [menu](toolbox/menu.tool)
 * [dock](powertools/dmenu/scripts/dock.menu) choose display setting
 * [games](powertools/dmenu/scripts/games.menu) launch games from steam
-* [nitro](powertools/dmenu/scripts/nitro.menu) pick from a [list](powertools/dmenu/nitro) of emojis and gifs
+* [nitro](powertools/dmenu/scripts/nitro.menu) pick from a list of emojis and gifs
 * [power](powertools/dmenu/scripts/power.menu) machine state menu
 * [todo](powertools/dmenu/scripts/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
 * [trayer](powertools/dmenu/scripts/trayer.menu) toggle trayer
