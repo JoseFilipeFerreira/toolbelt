@@ -89,10 +89,13 @@ while (( "$#" )); do
             ;;
         -h|--help)
             # Send this help message
-            echo "USAGE:"
-            echo "    $script_name [OPTIONS] FILE"
+            echo "NAME"
+            echo "        $script_name - supercharged screenshot tool"
             echo
-            echo "OPTIONS:"
+            echo "SYNOPSIS"
+            echo "        $script_name [OPTIONS] FILE"
+            echo
+            echo "OPTIONS"
 
             awk '/^while/,/^done/' "$0" |
                 grep -E "^\s*(#|-.*|;;)" |

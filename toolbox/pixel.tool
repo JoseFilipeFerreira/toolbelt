@@ -5,9 +5,40 @@ set -e
 pixel="██"
 tmp_space="__"
 
+file="output.ascii"
+
+help_message(){
+    name="$(basename "$0")"
+    echo "NAME"
+    echo "        $name - pixel art for neofetch"
+    echo
+    echo "SYNOPSIS"
+    echo "        $name color1 color2 color3 color5 color6 [FILE]"
+    echo
+    echo "OPTIONS"
+    echo "        color[1-6]"
+    echo "            number from 0 to 9 representing each of the six colors for the pixel art"
+    echo
+    echo "        FILE"
+    echo "            where to store the ascii art (defaults to $file)"
+    echo
+    echo "KEYBINDS"
+    echo "        [1-6]  Draw one pixel with that color slot"
+    echo
+    echo "        Space  Draw one space"
+    echo
+    echo "        Return Go to a new line"
+    echo
+    echo "        x      Delete last character"
+    echo
+    echo "        c      Delete entire screen"
+    echo
+    echo "        Escape Save and Exit"
+}
+
 
 if [ "$#" -ne 6 ] && [ "$#" -ne 7 ]; then
-    echo "USAGE: pixel color1 color2 color3 color4 color5 color6 FILE"
+    help_message
     exit
 fi
 
@@ -18,7 +49,6 @@ c4="\e[$((30 + $4))m"
 c5="\e[$((30 + $5))m"
 c6="\e[$((30 + $6))m"
 
-file="output.ascii"
 [[ "$7" ]] && file="$7"
 
 reset_color="\e[0m"

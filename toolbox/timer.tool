@@ -14,17 +14,22 @@ while (( "$#" )); do
             shift
             ;;
         -h|--help)
-            echo "USAGE:"
-            echo "    $(basename "$0") [OPTIONS] TIME"
-            echo "OPTIONS:"
-            echo "    -m, --message"
-            echo "        Set the timer message"
+            name="$(basename "$0")"
+            echo "NAME"
+            echo "        $name - timer with notification"
             echo
-            echo "    -s, --sound"
-            echo "        Turn on timer sound"
+            echo "SYNOPSIS"
+            echo "        $name [OPTIONS] TIME"
             echo
-            echo "    -h, --help"
-            echo "        Send this help message"
+            echo "OPTIONS"
+            echo "        -m, --message"
+            echo "            Set the timer message"
+            echo
+            echo "        -s, --sound"
+            echo "            Turn on timer sound"
+            echo
+            echo "        -h, --help"
+            echo "            Send this help message"
             exit
             ;;
         *)

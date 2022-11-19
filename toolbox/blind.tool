@@ -6,13 +6,13 @@ emoji_array=("" "" "" "" "" "" "")
 
 name="$(basename "$0")"
 usage(){
-    echo "NAME:"
-    echo "    $name - brightness manager"
+    echo "NAME"
+    echo "        $name - brightness manager"
     echo
-    echo "USAGE:"
-    echo "    $name OPTION"
+    echo "SYNOPSIS"
+    echo "        $name OPTIONS"
     echo
-    echo "OPTION:"
+    echo "OPTIONS"
 
     awk '/^    case/,/^    esac/' "$0" |
         grep -E "^\s*(#|;;|[^*]\)|(-)*[a-zA-Z]*\))" |

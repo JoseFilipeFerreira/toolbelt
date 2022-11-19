@@ -144,13 +144,14 @@ while (( "$#" )); do
 
         -h|--help)
             # Send this help message
-            echo "NAME:"
-            echo "    wall - wallpaper manager"
+            name="$(basename "$0")"
+            echo "NAME"
+            echo "        $name - wallpaper manager"
             echo
-            echo "USAGE:"
-            echo "    wall [OPTIONS]|FILE"
+            echo "SINOPSYS"
+            echo "        $name [OPTIONS] [FILE]"
             echo
-            echo "OPTIONS:"
+            echo "OPTIONS"
 
             awk '/^    case/,/^    esac/' "$0" |
                 grep -E "^\s*(#|-.*|;;)" |

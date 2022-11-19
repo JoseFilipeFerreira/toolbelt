@@ -40,30 +40,29 @@ status
 program_name="$(basename "$0")"
 send_help(){
 echo "NAME
-    $program_name - icon pack manager
+        $program_name - icon pack manager
 
-USAGE
-    $program_name [--add CATEGORY FILE] [--generate] [--check] [--completion]
+SYNOPSIS
+        $program_name [--add CATEGORY FILE] [--generate] [--check] [--completion]
 
 OPTIONS
-    --add CATEGORY FILE
-        add an image to a given category to the repository
+        --add CATEGORY FILE
+            add an image to a given category to the repository
 
-    --generate
-        install or update icon pack to $dest_icons
+        --generate
+            install or update icon pack to $dest_icons
 
-    --check
-        check if icon pack is installed and up to date
+        --check
+            check if icon pack is installed and up to date
 
-    --completion
-        generate bash completion scripts
+        --completion
+            generate bash completion scripts
 
-        hash $program_name &> /dev/null &&
-            . <($program_name --completion)
+            hash $program_name &> /dev/null &&
+                . <($program_name --completion)
 
-CATEGORY
-    list of valid categories:"
-printf "        - %s\n" "${contexts[@]}"
+CATEGORY"
+printf "        %s\n" "${contexts[@]}"
 
 }
 

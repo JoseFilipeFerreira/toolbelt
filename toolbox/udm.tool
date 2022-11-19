@@ -279,13 +279,14 @@ case "$1" in
 
     -h|--help)
         # Send this help message
-        echo "NAME:"
-        echo "    udm - playlist manager"
+        name="$(basename "$0")"
+        echo "NAME"
+        echo "        $name - playlist manager"
         echo
-        echo "USAGE:"
-        echo "    udm [OPTIONS]"
+        echo "SYNOPSIS"
+        echo "        udm [OPTIONS] [FILE]"
         echo
-        echo "OPTIONS:"
+        echo "OPTIONS"
 
         awk '/^case/,/^esac/' "$0" |
             grep -E "^\s*(#|-.*|;;)" |

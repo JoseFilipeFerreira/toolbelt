@@ -38,7 +38,7 @@ case "$1" in
         ;;
 
     *)
-        echo "USAGE: deaf [+|-|mute|mic|--subscribe|--info]"
+        echo "SYNOPSIS: deaf [+|-|mute|mic|--subscribe|--info]"
         exit
         ;;
 esac
