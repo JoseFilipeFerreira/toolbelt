@@ -55,7 +55,7 @@ hash telnet &>/dev/null &&
     alias starwars='telnet towel.blinkenlights.nl'
 
 hash oneko &>/dev/null &&
-    alias mi='oneko -tora -name Mi & disown' &&
+    alias mi='oneko -tora -rv -name Mi & disown' &&
     alias byemi='killall oneko'
 
 hash awk &>/dev/null &&
