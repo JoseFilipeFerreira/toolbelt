@@ -34,6 +34,11 @@ lsp.pyright.setup{
     capabilities = default_capabilities()
 }
 
+lsp.fortls.setup{
+    on_attach = on_attach,
+    capabilities = default_capabilities()
+}
+
 lsp.rust_analyzer.setup {
     on_attach = on_attach,
     settings = {

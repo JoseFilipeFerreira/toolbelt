@@ -2,9 +2,9 @@ aur,essential,shellcheck-bin
 aur,extra,lemonbar-xft-git
 aur,extra,nerd-fonts-dejavu-complete
 aur,extra,nsxiv
+aur,extra,raw-thumbnailer
 aur,extra,thonkbar-git
 aur,extra,web-xdg-open-git
-aur,extra,raw-thumbnailer
 pacman,essential,base-devel
 pacman,essential,bash-completion
 pacman,essential,bat
@@ -91,6 +91,7 @@ pacman,extra,xorg-xrandr
 pacman,extra,zathura
 pacman,extra,zathura-pdf-poppler
 pip,essential,cmake-language-server
+pip,essential,fortls
 pip,essential,qbittorrent-api
 pkg,essential,bat
 pkg,essential,clang
