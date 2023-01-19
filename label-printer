@@ -51,7 +51,7 @@ $(generate_description "powertools/dmenu/scripts")
 ## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
-$(generate_description "handtools")
+$(generate_description "powertools/termux/handtools")
 
 
 ## :link: Install

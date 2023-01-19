@@ -74,47 +74,6 @@ run_generate(){
     fi
 }
 
-
-deploy_dotfiles(){
-    while IFS= read -r line; do
-        IFS=',' read -ra linevec <<< "$line"
-        attrs=("${linevec[@]:2}")
-
-        [[ -n "$FILTERS" ]] &&
-        [[ ! "$(comm -12 \
-            <(printf '%s\n' "${FILTERS[@]}" | sort) \
-            <(printf '%s\n' "${attrs[@]}" | sort))" \
-        ]] &&
-            continue
-
-        orig="$DOTFILES/powertools/${linevec[0]}"
-        dest="${linevec[1]//\~/$HOME}"
-
-        mkdir -p "$(dirname "$dest")"
-
-        unset mode
-        for attr in "${attrs[@]}"; do
-            case "$attr" in
-                link)
-                    create_link "$orig" "$dest" "$mode"
-                    ;;
-                make)
-                    run_make "$orig"
-                    ;;
-                install)
-                    run_install "$orig" "$mode"
-                    ;;
-                generate)
-                    run_generate "$orig" "$dest" "$mode"
-                    ;;
-                sudo)
-                    mode=sudo
-                    ;;
-            esac
-        done
-    done < "$DOTFILES/powertools/.locations"
-}
-
 store_tools(){
     orig="$1"
     dest="$2"
@@ -153,17 +112,42 @@ printf "%s\n" "${FILTERS[@]}" | sort -u >| "$config"
     exit
 
 store_tools "$DOTFILES"/toolbox ~/.local/bin
-deploy_dotfiles
 
-if [[ " ${FILTERS[*]} " =~ " mobile " ]]; then
-    mkdir -p ~/.termux/tasker
-    for tool in "$DOTFILES"/handtools/*.tool; do
-        tool_name=$(basename "$tool" .tool)
-        tool_dest=~/.termux/tasker/"$tool_name"
-        if [[ "$tool" -nt "$tool_dest" ]]; then
-            echo -e "\033[32m$tool_name\033[0m"
-            cp "$tool" "$tool_dest"
-        fi
+# deploy dotfiles
+while IFS= read -r line; do
+    IFS=',' read -ra linevec <<< "$line"
+    attrs=("${linevec[@]:2}")
+
+    [[ "${#FILTERS[@]}" -gt 0 ]] &&
+    [[ ! "$(comm -12 \
+        <(printf '%s\n' "${FILTERS[@]}" | sort) \
+        <(printf '%s\n' "${attrs[@]}" | sort))" \
+    ]] &&
+        continue
+
+    orig="$DOTFILES/powertools/${linevec[0]}"
+    dest="${linevec[1]//\~/$HOME}"
+
+    mkdir -p "$(dirname "$dest")"
+
+    unset mode
+    for attr in "${attrs[@]}"; do
+        case "$attr" in
+            link)
+                create_link "$orig" "$dest" "$mode"
+                ;;
+            make)
+                run_make "$orig"
+                ;;
+            install)
+                run_install "$orig" "$mode"
+                ;;
+            generate)
+                run_generate "$orig" "$dest" "$mode"
+                ;;
+            sudo)
+                mode=sudo
+                ;;
+        esac
     done
-    bash "$DOTFILES"/schedule
-fi
+done < "$DOTFILES/powertools/.locations"

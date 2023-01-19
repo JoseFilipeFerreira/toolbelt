@@ -53,11 +53,11 @@ Scripts launched from my [menu](toolbox/menu.tool)
 ## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 [Termux](https://github.com/termux/termux-app))
-* [change_lock](handtools/change_lock.tool) change phone wallpaper
-* [control_music](handtools/control_music.tool) control music on a remote device
-* [music_devices](handtools/music_devices.tool) choose a remote device to connect with history
-* [sync_kiwi](handtools/sync_kiwi.tool) sync phone data with remote
-* [toggle_light](handtools/toggle_light.tool) toggle lights
+* [change_lock](powertools/termux/handtools/change_lock.tool) change phone wallpaper
+* [control_music](powertools/termux/handtools/control_music.tool) control music on a remote device
+* [music_devices](powertools/termux/handtools/music_devices.tool) choose a remote device to connect with history
+* [sync_kiwi](powertools/termux/handtools/sync_kiwi.tool) sync phone data with remote
+* [toggle_light](powertools/termux/handtools/toggle_light.tool) toggle lights
 
 
 ## :link: Install
@@ -67,7 +67,6 @@ Installation scripts I use to setup my dotfiles
 * [label-printer](./label-printer) autogenerate [README](README.md)
 * [link-check](./link-check) check the validity of relative and hard links in all the md files
 * [nail](./nail) symlink dotfiles and scripts
-* [schedule](./schedule) run job scheduler for [Termux](https://github.com/termux/termux-app)
 
 ## :blue_book: [Blueprints](blueprints)
 Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repeat them
