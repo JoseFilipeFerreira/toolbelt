@@ -3,7 +3,7 @@
 
 [[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
 
-make_symlink(){
+create_link(){
     if [ -h "$2" ] && [ ! -e "$2" ]; then
         case "$3" in
             sudo)
@@ -30,13 +30,13 @@ make_symlink(){
     fi
 }
 
-make_makefile(){
+run_make(){
     make --directory="$1" | grep -q "is up to date" && return
     out_install="$(make install --directory="$1" | grep -v "directory")"
     echo -e "\033[32mmake install:\033[0m $out_install"
 }
 
-make_install(){
+run_install(){
     script="$1/install.sh"
     [[ -f "$script" ]] || return
 
@@ -57,7 +57,7 @@ make_install(){
     fi
 }
 
-make_generate(){
+run_generate(){
     if [ "$1" -nt "$2" ]; then
         case "$3" in
             sudo)
@@ -96,16 +96,16 @@ deploy_dotfiles(){
         for attr in "${attrs[@]}"; do
             case "$attr" in
                 link)
-                    make_symlink "$orig" "$dest" "$mode"
+                    create_link "$orig" "$dest" "$mode"
                     ;;
                 make)
-                    make_makefile "$orig"
+                    run_make "$orig"
                     ;;
                 install)
-                    make_install "$orig" "$mode"
+                    run_install "$orig" "$mode"
                     ;;
                 generate)
-                    make_generate "$orig" "$dest" "$mode"
+                    run_generate "$orig" "$dest" "$mode"
                     ;;
                 sudo)
                     mode=sudo
