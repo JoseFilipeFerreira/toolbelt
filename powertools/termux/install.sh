@@ -20,13 +20,14 @@ if [[ ! -d "$dest_folder" ]]; then
 fi
 
 for tool in "$dest_folder"/*; do
-    if [[ ! -f "$script_folder/${tool}.tool" ]]; then
+    tool_name="$(basename "$tool")"
+    if [[ ! -f "$script_folder/${tool_name}.tool" ]]; then
         case "$1" in
             check)
                 exit 0
                 ;;
             *)
-                echo -e "\033[31m$(basename "$tool")\033[0m"
+                echo -e "\033[31m$tool_name\033[0m"
                 rm "$tool"
                 ;;
         esac
