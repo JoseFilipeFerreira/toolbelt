@@ -21,9 +21,15 @@ fi
 
 for tool in "$dest_folder"/*; do
     if [[ ! -f "$script_folder/${tool}.tool" ]]; then
-        [[ "$1" == "check" ]] && exit 0
-        echo -e "\033[31m$(basename "$tool")\033[0m"
-        rm "$tool"
+        case "$1" in
+            check)
+                exit 0
+                ;;
+            *)
+                echo -e "\033[31m$(basename "$tool")\033[0m"
+                rm "$tool"
+                ;;
+        esac
     fi
 done
 
@@ -31,9 +37,15 @@ for tool in "$script_folder"/*.tool; do
     tool_name=$(basename "$tool" .tool)
     tool_dest="$dest_folder/$tool_name"
     if [[ "$tool" -nt "$tool_dest" ]]; then
-        [[ "$1" == "check" ]] && exit 0
-        echo -e "\033[32m$tool_name\033[0m"
-        cp "$tool" "$tool_dest"
+        case "$1" in
+            check)
+                exit 0
+                ;;
+            *)
+                echo -e "\033[32m$tool_name\033[0m"
+                cp "$tool" "$tool_dest"
+                ;;
+        esac
     fi
 done
 
