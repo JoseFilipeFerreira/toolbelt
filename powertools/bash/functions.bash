@@ -78,6 +78,23 @@ srsync(){
     sudo rsync -av -e "ssh $USER@$1 -i $HOME/.ssh/id_rsa" "$2" "$3" --progress
 }
 
+nest() {
+    # example:
+    # nest new-dir *
+    [[ "$#" -lt 2 ]] &&
+        echo "USAGE: nest NEW_DIR FILE...." &&
+        return
+
+    tmp=..
+    [ "$PWD" = / ] && tmp=/tmp
+    dir="$tmp/$1"
+    echo "Nest files in $1 (tmp on $dir)"
+    read
+    mkdir "$dir" || return
+    mv "${@:2}" "$dir" || return
+    mv "$dir" . || return
+}
+
 ingest(){
     [ "$#" -ne 2 ] && echo "USAGE: ingest DRIVE FOLDERNAME" && return
     mkdir -vp /tmp/ingest
