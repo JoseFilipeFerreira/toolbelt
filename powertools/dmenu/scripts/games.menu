@@ -1,6 +1,10 @@
 #!/bin/bash
 # launch games from steam
 
+extra_games=(
+    minecraft-launcher
+)
+
 get_key(){
     gawk -F'[[:space:]]' -v key="\"$1\"" '
         BEGIN { FPAT = "\"([^\"]+)\""; }
@@ -26,7 +30,14 @@ games="$(
                 echo -e "$(get_key "name" < "$acf")\t$(get_key "appid" < "$acf")"
             done
         done
+
+        for game in "${extra_games[@]}"; do
+            if hash "$game" > /dev/null; then
+                echo -e "$game\t0"
+            fi
+        done
     } | grep -Ev '(Proton|Redistributable|Linux)')"
+
 
 [[ ! "$games" ]] && notify-send -a "Steam" -i "steam" "No games installed" && exit
 
@@ -34,12 +45,20 @@ line="$(echo "$games" | sort | column -ts$'\t' | dmenu -i -l 20 -p "Steam")"
 [[ "$line" ]] || exit
 
 id="$(echo "$line" | grep -o '[0-9]*$')"
-name="${name//$id/}"
+name="$(echo "${line//$id/}" | awk '{$1=$1};1')"
 
 icon='steam'
-f=~/.local/share/Steam/appcache/librarycache/${id}_logo.png; [[ -f "$f" ]] && icon="$f"
-notify-send -a "Steam" -i "$icon" "Launching Game" "$name"
 
-steam -applaunch "$id"
+if [[ "$id" -gt 0 ]]; then
+    game_icon=~/.local/share/Steam/appcache/librarycache/${id}_logo.png
+    [[ -f "$game_icon" ]] && icon="$game_icon"
+    notify-send -a "Steam" -i "$icon" "Launching Game" "$name"
+    steam -applaunch "$id"
+else
+    game_icon="$(find /usr/share/icons | grep "$name" | head -n 1)"
+    [[ "$game_icon" ]] && icon="$game_icon"
+    notify-send -a "not Steam" -i "$icon" "Launching Game" "$name"
+    ${name} & disown
+fi
 
 # vim: set ft=bash:
