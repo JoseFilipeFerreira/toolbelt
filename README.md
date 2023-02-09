@@ -13,7 +13,6 @@ Scripts used in the terminal or on a keybind
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
-* [clippy](toolbox/clippy.tool) simple bookmark manager
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
 * [cuffs](toolbox/cuffs.tool) screenshot tool
 * [deaf](toolbox/deaf.tool) volume changer
@@ -42,6 +41,7 @@ Scripts used in the terminal or on a keybind
 
 ## :wrench: [Toolkit](powertools/dmenu/scripts) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
+* [clippy](powertools/dmenu/scripts/clippy.menu) simple bookmark manager
 * [dock](powertools/dmenu/scripts/dock.menu) choose display setting
 * [games](powertools/dmenu/scripts/games.menu) launch games from steam
 * [nitro](powertools/dmenu/scripts/nitro.menu) pick from a list of emojis and gifs

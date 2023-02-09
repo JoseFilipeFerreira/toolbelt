@@ -168,7 +168,7 @@ echo_info(){
                 ;;
         esac
 
-        name="$(basename "${path%.*}" | sed -E 's/-/ - /g;s/_/ /g')"
+        name="$(basename "${path%.*}" | sed -E '0,/-/{s// - /};s/_/ /g')"
 
         echo "$n_socket: $name"
     done
