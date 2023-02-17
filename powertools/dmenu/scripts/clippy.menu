@@ -19,8 +19,11 @@ case "$1" in
             echo "$bookmark" >> "$file"
         fi
         ;;
-    --select)
-        xdotool type "$(grep -v '^#' "$file" | dmenu -l 20 -i | cut -d' ' -f1)"
+    --select|"")
+        choice="$(grep -v '^#' "$file" | dmenu -l 20 -i | cut -d' ' -f1)"
+        xdotool type "$choice"
+        notify "Wrote" "$choice"
         ;;
 esac
 
+# vim: set ft=bash:
