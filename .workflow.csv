@@ -53,6 +53,8 @@ pacman,extra,feh
 pacman,extra,ffmpegthumbnailer
 pacman,extra,firefox
 pacman,extra,gimp
+pacman,extra,gvfs
+pacman,extra,gvfs-gphoto2
 pacman,extra,hacksaw
 pacman,extra,i3-gaps
 pacman,extra,khal
