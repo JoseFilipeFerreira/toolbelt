@@ -37,4 +37,5 @@ user-dirs.dirs,~/.config/user-dirs.dirs,link,essential
 vdirsyncer.conf,~/.config/vdirsyncer/config,link,essential
 wgetrc,~/.config/wgetrc,link,essential
 wxorc,~/.config/wxorc,link,extra
+xfce4/helpers.rc,~/.config/xfce4/helpers.rc,link,extra
 zathurarc,~/.config/zathura/zathurarc,link,extra
