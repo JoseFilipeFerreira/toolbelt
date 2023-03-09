@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 """templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))"""
 
 import os
