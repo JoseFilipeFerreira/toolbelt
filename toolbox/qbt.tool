@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 """qbittorrent management on remote"""
 
 # to setup for firefox:

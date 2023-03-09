@@ -41,11 +41,11 @@ jobs:
             watchdog
       - name: run pylint
         run: |
-          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
+          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python3' .)
           pylint -j 0 "${files[@]}"
       - name: run mypy
         run: |
-          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
+          readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python3' .)
           for file in "${files[@]}"; do
             mypy --install-types --non-interactive --color-output "$file"
           done

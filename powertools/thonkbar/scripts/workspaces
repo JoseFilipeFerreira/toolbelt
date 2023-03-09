@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 """block to display i3 workspaces on thonkbar"""
 from os import getlogin
 from sys import stdout

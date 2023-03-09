@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 # convert [fetch](toolbox/fetch.tool) logos to png
 
 import subprocess

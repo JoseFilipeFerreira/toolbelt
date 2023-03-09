@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 """TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)"""
 from dataclasses import dataclass
 from enum import Enum
