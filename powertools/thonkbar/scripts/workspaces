@@ -59,9 +59,11 @@ class ColorschemeHandler(FileSystemEventHandler):
             pass
 
     def on_modified(self, _):
+        """ update when file is modified """
         self.update_colorscheme()
 
     def on_created(self, _):
+        """ update when file is created """
         self.update_colorscheme()
 
 

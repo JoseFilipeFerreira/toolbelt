@@ -38,6 +38,7 @@ jobs:
             pylint
             qbittorrent-api
             requests
+            watchdog
       - name: run pylint
         run: |
           readarray -t files < <(grep -rIzlE '^#![[:blank:]]*/bin/python' .)
