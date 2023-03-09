@@ -3,7 +3,7 @@ local lsp = require('lspconfig')
 local default_capabilities = require('cmp_nvim_lsp').default_capabilities
 local au = require('utils.au')
 
-local on_attach = function(client, bufnr)
+local on_attach = function(client, bufnr) -- luacheck: ignore 212
         -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
         -- Mappings
