@@ -25,6 +25,17 @@ print_block(){
 
             [ "$speed" -lt "0" ] && echo && return
 
+            color="#FF0000"
+            if [ "$speed" -ge "10000" ]; then
+                color="#00FF00"
+            elif [ "$speed" -ge "5000" ]; then
+                color="#AAFF00"
+            elif [ "$speed" -ge "2500" ]; then
+                color="#FFF700"
+            elif [ "$speed" -ge "1000" ]; then
+                color="#FF8400"
+            fi
+
             unit="Mbps"
             if [ "$speed" -ge "1000" ]; then
                 if (( speed % 1000 == 0 )); then
@@ -36,16 +47,6 @@ print_block(){
                 unit="Gbps"
             fi
 
-            color="#FF0000"
-            if [ "$speed" -ge "10000" ]; then
-                color="#00FF00"
-            elif [ "$speed" -ge "5000" ]; then
-                color="#AAFF00"
-            elif [ "$speed" -ge "2500" ]; then
-                color="#FFF700"
-            elif [ "$speed" -ge "1000" ]; then
-                color="#FF8400"
-            fi
 
             echo "%{F$color}${speed}${unit}@${name}%{F-}"
             ;;
@@ -73,7 +74,7 @@ print_block(){
                     2) color="#FFF700" ;;
                     3) color="#AAFF00" ;;
                 esac
-                echo "%{F${color}}${quality}%%@${name}%{F-}"
+                echo "%{F${color}}${name}%{F-}"
             else
                 echo
             fi
