@@ -1,11 +1,12 @@
 #!/bin/python3
 # convert [fetch](toolbox/fetch.tool) logos to png
 
-import subprocess
-from PIL import Image, ImageColor
 from os import listdir, path
 from pathlib import Path
 from sys import argv
+import subprocess
+
+from PIL import Image, ImageColor
 
 background_color = (0,0,0,0)
 
