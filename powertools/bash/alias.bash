@@ -13,6 +13,9 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
+hash dust &>/dev/null &&
+    alias df='dust'
+
 if hash exa &>/dev/null; then
     alias ls='exa -g'
     alias tree='exa -T'

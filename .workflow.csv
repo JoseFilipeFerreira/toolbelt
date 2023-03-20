@@ -12,6 +12,7 @@ pacman,essential,bc
 pacman,essential,clang
 pacman,essential,cmake
 pacman,essential,curl
+pacman,essential,dust
 pacman,essential,exa
 pacman,essential,ffmpeg
 pacman,essential,fzf
