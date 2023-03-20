@@ -3,7 +3,7 @@
 
 from os import listdir, path
 from pathlib import Path
-from sys import argv, exit
+import sys
 import subprocess
 
 from PIL import Image, ImageColor
@@ -11,24 +11,24 @@ from PIL import Image, ImageColor
 background_color = (0,0,0,0)
 
 DEST_FOLDER="./"
-if len(argv) > 1:
-    DEST_FOLDER = argv[1]
+if len(sys.argv) > 1:
+    DEST_FOLDER = sys.argv[1]
 
 config_dir=f"{Path.home()}/.config/neofetch"
 
 def get_property(field: str):
     """ get Xresources field """
-    process = subprocess.Popen(["xrdb", "-get", field], stdout=subprocess.PIPE)
-    output, error = process.communicate()
+    with subprocess.Popen(["xrdb", "-get", field], stdout=subprocess.PIPE) as process:
+        output, error = process.communicate()
 
-    if error:
-        return None
+        if error:
+            return None
 
-    return output.decode("utf-8").rstrip()
+        return output.decode("utf-8").rstrip()
 
-def hex2rgb(color: str):
+def hex2rgb(hexcolor: str):
     """ Convert a HTML color string to RGBA """
-    return ImageColor.getcolor(color, "RGBA")
+    return ImageColor.getcolor(hexcolor, "RGBA")
 
 
 # generate colorscheme from Xresources
@@ -38,7 +38,7 @@ for i in range(16):
 
     if not color:
         print(f"color{i} not found")
-        exit()
+        sys.exit()
     color_scheme[f"{i}"] = hex2rgb(color)
 
 # generate images
@@ -77,7 +77,7 @@ for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
                         line = line[5:]
                     case _:
                         print("error")
-                        exit()
+                        sys.exit()
             parsed_ascii += [result] * 2
 
     # normalize list of lists
