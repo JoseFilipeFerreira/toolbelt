@@ -1,32 +1,33 @@
 #!/bin/python3
-# convert [fetch](toolbox/fetch.tool) logos to png
+""" convert [fetch](toolbox/fetch.tool) logos to png """
 
 from os import listdir, path
 from pathlib import Path
-from sys import argv
+from sys import argv, exit
 import subprocess
 
 from PIL import Image, ImageColor
 
 background_color = (0,0,0,0)
 
-dest_folder="./"
+DEST_FOLDER="./"
 if len(argv) > 1:
-    dest_folder = argv[1]
+    DEST_FOLDER = argv[1]
 
 config_dir=f"{Path.home()}/.config/neofetch"
 
 def get_property(field: str):
-    # get Xresources field
+    """ get Xresources field """
     process = subprocess.Popen(["xrdb", "-get", field], stdout=subprocess.PIPE)
     output, error = process.communicate()
+
     if error:
         return None
-    else:
-        return output.decode("utf-8").rstrip()
+
+    return output.decode("utf-8").rstrip()
 
 def hex2rgb(color: str):
-    # Convert a HTML color string to RGBA
+    """ Convert a HTML color string to RGBA """
     return ImageColor.getcolor(color, "RGBA")
 
 
@@ -45,20 +46,20 @@ for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
     ascii_file=f"{config_dir}/ascii/{icon}.ascii"
     color_file=f"{config_dir}/colors/{icon}.colors"
 
-    target_file=f"{dest_folder}/computer-{icon}.png"
+    target_file=f"{DEST_FOLDER}/computer-{icon}.png"
 
     if path.exists(target_file):
         continue
 
     color_key={}
-    with open(color_file, "r") as file:
+    with open(color_file, "r", encoding="utf-8") as file:
         colors = file.readlines()[0].split("=")[1].replace("(", "").replace(")", "").split()
         for i in range(6):
             color_key[f"{i+1}"] = colors[i]
 
 
     parsed_ascii=[]
-    with open(ascii_file, "r") as file:
+    with open(ascii_file, "r", encoding="utf-8") as file:
         curr_color=(0,0,0,0)
         for line in file.readlines():
             line = line.rstrip()
