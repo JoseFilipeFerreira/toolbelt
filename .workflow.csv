@@ -7,7 +7,6 @@ aur,extra,web-xdg-open-git
 pacman,essential,base-devel
 pacman,essential,bash-completion
 pacman,essential,bat
-pacman,essential,bc
 pacman,essential,clang
 pacman,essential,cmake
 pacman,essential,curl
@@ -93,7 +92,7 @@ pacman,extra,xorg-xev
 pacman,extra,xorg-xinit
 pacman,extra,xorg-xrandr
 pacman,extra,zathura
-pacman,extra,zathura-pdf-poppler
+pacman,extra,zathura-pdf-mupdf
 pip,essential,cmake-language-server
 pip,essential,fortls
 pip,essential,qbittorrent-api

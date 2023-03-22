@@ -1,10 +1,15 @@
 set selection-clipboard clipboard
 
-set default-bg "#000000"
+set default-bg "#2A2A37"
+set statusbar-bg "#363646"
 
 set recolor "true"
-set recolor-lightcolor "#181a1c"
-set recolor-darkcolor "#E0E0E0"
+set recolor-darkcolor "#DCD7BA"
+set recolor-lightcolor "#1F1F28"
+
+set highlight-color "#2D4F67"
+set highlight-fg "#C8C093"
+
 set recolor-reverse-video "true"
 set recolor-keephue "true"
 
