@@ -14,7 +14,7 @@ alias .....='cd ../../../..'
 alias ......='cd ../../../../..'
 
 hash dust &>/dev/null &&
-    alias df='dust'
+    alias du='dust'
 
 if hash exa &>/dev/null; then
     alias ls='exa -g'
@@ -33,8 +33,6 @@ hash bat &>/dev/null &&
 
 hash neofetch &>/dev/null ||
     alias neofetch="curl --silent https://jff.sh/share/neofetch | bash"
-
-alias stahp='poweroff'
 
 alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
@@ -69,6 +67,9 @@ hash nsxiv &>/dev/null &&
 
 hash bc &>/dev/null &&
     alias bc='bc --quiet'
+
+hash eva &>/dev/null &&
+    alias bc='eva'
 
 # ~/ clean-up
 hash yarn &>/dev/null &&
