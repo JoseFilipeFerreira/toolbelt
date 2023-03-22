@@ -1,7 +1,7 @@
 # PROGRAMS
 
-super + {F1,F2}
-        {discord,$BROWSER}
+super + {F1,F2,F3}
+        {discord,$BROWSER,thunar}
 
 super + Home
         meross-cli --toggle
