@@ -1,6 +1,5 @@
 aur,essential,shellcheck-bin
 aur,extra,lemonbar-xft-git
-aur,extra,nerd-fonts-dejavu-complete
 aur,extra,nsxiv
 aur,extra,raw-thumbnailer
 aur,extra,thonkbar-git
@@ -13,6 +12,7 @@ pacman,essential,clang
 pacman,essential,cmake
 pacman,essential,curl
 pacman,essential,dust
+pacman,essential,eva
 pacman,essential,exa
 pacman,essential,ffmpeg
 pacman,essential,fzf
@@ -79,6 +79,7 @@ pacman,extra,thunar
 pacman,extra,todoman
 pacman,extra,trayer
 pacman,extra,ttf-dejavu
+pacman,extra,ttf-dejavu-nerd
 pacman,extra,ttf-font-awesome
 pacman,extra,ttf-liberation
 pacman,extra,tumbler
