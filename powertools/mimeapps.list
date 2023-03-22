@@ -1,12 +1,18 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura-pdf-poppler.desktop
-image/jpeg=nsxiv.desktop
+audio/mpeg=mpv.desktop
+audio/x-wav=mpv.desktop
 image/jpg=nsxiv.desktop
-image/png=nsxiv.desktop
-image/webp=nsxiv.desktop
+image/x-fuji-raf=org.darktable.darktable.desktop
+inode/directory=thunar.desktop
 text/html=firefox.desktop
 text/plain=nvim.desktop
 text/x-c=nvim.desktop
 text/x-cpp=nvim.desktop
 text/x-script.python=nvim.desktop
 text/x-shellscript=nvim.desktop
+video/dv=mpv.desktop
+video/mp4=mpv.desktop
+video/mpeg=mpv.desktop
+video/webm=mpv.desktop
+video/x-matroska=mpv.desktop
