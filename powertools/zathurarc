@@ -1,18 +1,45 @@
 set selection-clipboard clipboard
 
-set default-bg "#2A2A37"
-set statusbar-bg "#363646"
-
-set recolor "true"
-set recolor-darkcolor "#DCD7BA"
-set recolor-lightcolor "#1F1F28"
-
-set highlight-color "#2D4F67"
-set highlight-fg "#C8C093"
-
-set recolor-reverse-video "true"
-set recolor-keephue "true"
+set statusbar-home-tilde true
 
 map i recolor
 map b toggle_statusbar
 map <Space> navigate next
+
+set font "DejaVuSansMono Nerd Font 11"
+
+set default-fg "#DCD7BA"
+set default-bg "#1F1F28"
+
+set recolor "true"
+set recolor-darkcolor "#DCD7BA"
+set recolor-lightcolor "#2A2A37"
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+set index-fg "#DCD7BA"
+set index-bg "#2A2A37"
+set index-active-fg "#C8C093"
+set index-active-bg "#363646"
+
+set statusbar-bg "#16161D"
+set statusbar-fg "#C8C093"
+
+set inputbar-bg "#16161D"
+set inputbar-fg "#C8C093"
+
+set notification-bg "#16161D"
+set notification-fg "#C8C093"
+set notification-error-bg "#16161D"
+set notification-error-fg "#E82424"
+set notification-warning-bg "#16161D"
+set notification-warning-fg "#FF9E3B"
+
+set highlight-color "#2d4f67"
+set highlight-fg "#c8c093"
+set highlight-active-color "#957FB8"
+
+set completion-bg "#16161D"
+set completion-fg "#DCD7BA"
+set completion-highlight-bg "#363646"
+set completion-highlight-fg "#C8C093"
