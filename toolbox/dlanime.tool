@@ -14,22 +14,7 @@ import sys
 
 import requests
 from bs4 import BeautifulSoup # type: ignore
-from qbittorrentapi import Client
-
-def check_if_valid(dirname: str):
-    """check if a folder exists"""
-    if not os.path.isdir(dirname):
-        print_error(f"Location does not exist: {dirname}")
-        sys.exit()
-
-DOWNLOAD_FOLDER = "/home/mightymime/dl/dlanime"
-check_if_valid(DOWNLOAD_FOLDER)
-
-ANIME_LOCATION = "/mnt/media/anime"
-check_if_valid(ANIME_LOCATION)
-
-THUMB_LOCATION = "/home/mightymime/suitcase-storage/iron-cake/thumb/anime"
-check_if_valid(THUMB_LOCATION)
+from qbittorrent import Client
 
 def print_info(string: str):
     """print information"""
@@ -42,6 +27,22 @@ def print_error(string: str):
 def print_success(string: str):
     """print information"""
     print(f"[\033[32msuccess\033[0m] {string}")
+
+def check_if_valid(dirname: str):
+    """check if a folder exists"""
+    if not os.path.isdir(dirname):
+        print_error(f"Location does not exist: {dirname}")
+        sys.exit()
+
+DOWNLOAD_FOLDER = "/home/jff/dl/dlanime"
+check_if_valid(DOWNLOAD_FOLDER)
+
+ANIME_LOCATION = "/mnt/media/anime"
+check_if_valid(ANIME_LOCATION)
+
+THUMB_LOCATION = "/home/jff/suitcase-storage/iron-cake/thumb/anime"
+check_if_valid(THUMB_LOCATION)
+
 
 @dataclass
 class NyaaResult():
@@ -68,8 +69,13 @@ class NyaaResult():
     def is_valid_result(self, episode: Optional[int], searched_title: str) -> bool:
         """check if self is valid result"""
 
-        if searched_title.lower() not in self.title.lower():
+
+        if not all(x in self.title.lower() for x in searched_title.lower().split()):
+
             return False
+
+        # if searched_title.lower() not in self.title.lower():
+        #     return False
 
         if not episode:
             return True
@@ -95,9 +101,10 @@ class NyaaResult():
         soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         soc.connect(("8.8.8.8", 80))
         local_ip = soc.getsockname()[0]
-        client = Client(host=f'{local_ip}:8090')
 
-        out = client.torrents_add(urls=self.magnet, category="dlanime")
+        client = Client(f'http://{local_ip}:8090/')
+
+        out = client.download_from_link(self.magnet, category="dlanime")
 
         if out == "Fails.":
             return None
@@ -134,7 +141,7 @@ class MalResult():
         self.url = dic['url']
         self.airing_status = AiringStatus(dic['airing_status'])
 
-        remove = ["!", ".", ":"]
+        remove = ["!", ".", ":", '"']
         self.clean_title = self.title.translate({ord(x): '' for x in remove})
         for char in ["☆"]:
             self.clean_title = self.clean_title.replace(char, " ")
@@ -270,7 +277,7 @@ def prompt_torrent(name: str, content: List[NyaaResult]) -> Optional[NyaaResult]
 def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
     """get filtered results of Nyaa"""
 
-    search_nyaa = anime.title
+    search_nyaa = anime.clean_title
     last_episode = get_last_episode(anime.anime_path)
     if last_episode is None:
         return None

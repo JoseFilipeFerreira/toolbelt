@@ -25,57 +25,50 @@ def notify(header, content):
 def connect():
     """create socket that connects to qbittorrent"""
     # pylint: disable=import-outside-toplevel
-    from qbittorrentapi import Client
+    from qbittorrent import Client
+
     soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     soc.connect(("8.8.8.8", 80))
     local_ip = soc.getsockname()[0]
-    return Client(host=f'{local_ip}:8090')
+
+    return Client(f'http://{local_ip}:8090/')
 
 def print_torrents():
     """print current torrents"""
     print(
-        f"{'ID':3} {'Category':9} {'Done':5} {'Up':7} {'Down':7} {'Ratio':6} {'Status':8} Name")
+        f"{'ID':3} {'Category':9} {'Done':5} {'Up':7} {'Down':7} {'Ratio':6} {'Status':15} Name")
 
-    for i, torrent in enumerate(connect().torrents_info()):
+    for i, torrent in enumerate(connect().torrents()):
         # Category
-        cat = torrent.category
+        cat = torrent["category"]
         cat = cat if cat != "" else "-"
         # Done
-        progress = f"{round(torrent.progress * 100)}%"
+        progress = f"{round(torrent['progress'] * 100)}%"
         # ETA
         # Up
-        upload = torrent.upspeed
+        upload = torrent["upspeed"]
         upload = upload if upload > 0 else "-"
         # Down
-        down = torrent.dlspeed
+        down = torrent["dlspeed"]
         down = down if down > 0 else "-"
 
-        ratio = round(torrent.ratio, 1)
+        ratio = round(torrent["ratio"], 1)
 
-        status="Unknown"
-        if torrent.state_enum.is_checking:
-            status="Check"
-        elif torrent.state_enum.is_complete:
-            status="Done"
-        elif torrent.state_enum.is_downloading:
-            status="Down"
-        elif torrent.state_enum.is_errored:
-            status="Error"
-        elif torrent.state_enum.is_paused:
-            status="Pause"
-        elif torrent.state_enum.is_uploading:
-            status="Up"
+        status=torrent["state"]
+
         # Name
-        name = torrent.name
+        name = torrent["name"]
 
-        print(f"{i:3} {cat:9} {progress:5} {upload:7} {down:7} {ratio:6} {status:8} {name}")
+        print(f"{i:3} {cat:9} {progress:5} {upload:7} {down:7} {ratio:6} {status:15} {name}")
 
 def add_torrents(magnet: str):
     """Add torrents to dowload queue"""
-    print(connect().torrents_add(urls=magnet))
+    print(connect().download_from_link(magnet))
 
 def main():
     """main entry function"""
+
+
     if socket.gethostname() == "kiwi":
         if argv[1] in ["--list", "-l"]:
             print_torrents()
