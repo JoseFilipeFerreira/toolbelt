@@ -67,6 +67,8 @@ tidy(){
 }
 
 explode(){
+    [[ "$#" -ne 1 ]] && echo "USAGE: explode DIR" && return
+    [[ ! -d "$1" ]] && echo "$1 not a dir" && return
     mv "$1"/* .
     rmdir "$1"
 }
