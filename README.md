@@ -21,6 +21,7 @@ Scripts used in the terminal or on a keybind
 * [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with app usage history
 * [ex](toolbox/ex.tool) extract anything
 * [fetch](toolbox/fetch.tool) neofetch wrapper to show logo based on hostname
+* [focus-bro](toolbox/focus-bro.py) 
 * [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand
 * [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
@@ -30,6 +31,7 @@ Scripts used in the terminal or on a keybind
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
 * [qbt](toolbox/qbt.tool) qbittorrent management on remote
 * [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
+* [setup-raspberry-SD](toolbox/setup-raspberry-SD.tool) setup SD card with Arch for Raspberry (armv6/armv7)
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
