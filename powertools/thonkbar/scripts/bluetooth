@@ -19,6 +19,10 @@ print_block(){
 }
 
 print_block
+
+exit
+
+# TODO: find suitable event trigger
 bluetoothctl | grep -E --line-buffered "CHG|NEW|DEL" | while read -r; do
     print_block
 done
