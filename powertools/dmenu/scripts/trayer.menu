@@ -1,18 +1,26 @@
 #!/bin/bash
 # toggle trayer
 
+applets=(
+    nm-applet
+    blueberry-tray
+)
+
 if pgrep -x trayer >/dev/null; then
-    killall -q trayer nm-applet
+    killall -q trayer "${applets[@]}"
 else
     trayer \
         --edge top \
         --align right \
-        --height 18 \
+        --padding 6 \
+        --height 22 \
         --transparent true \
-        --alpha 77 \
-        --tint 000000B3 &
+        --alpha 0 \
+        --tint 0xFF1F1F28 &
 
-    nm-applet &
+    for applet in "${applets[@]}"; do
+        "$applet" &
+    done
 fi
 
 # vim: set ft=bash:
