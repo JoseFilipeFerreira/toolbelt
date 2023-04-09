@@ -2,7 +2,6 @@ xrdb -merge ~/.config/X11/Xresources
 
 wall --rng &
 sxhkd &
-picom --daemon
 thunar --daemon &
 dunst &
 thonkbar &

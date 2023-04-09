@@ -25,9 +25,9 @@ return require('packer').startup({function(use)
         'rebelot/kanagawa.nvim',
         config = function()
             require('kanagawa').setup({
-                transparent = true
+                transparent = false
             })
-            vim.cmd("colorscheme kanagawa")
+            vim.cmd("colorscheme kanagawa-wave")
         end
     }
     use {

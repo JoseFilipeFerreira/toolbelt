@@ -45,6 +45,7 @@ pacman,essential,yt-dlp
 pacman,essential,zip
 pacman,extra,acpi
 pacman,extra,alacritty
+pacman,extra,blueberry
 pacman,extra,brightnessctl
 pacman,extra,clipmenu
 pacman,extra,discord
@@ -65,7 +66,6 @@ pacman,extra,noto-fonts
 pacman,extra,noto-fonts-cjk
 pacman,extra,noto-fonts-emoji
 pacman,extra,pavucontrol
-pacman,extra,picom
 pacman,extra,playerctl
 pacman,extra,pulseaudio
 pacman,extra,python-i3ipc
