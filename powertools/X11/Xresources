@@ -1,12 +1,12 @@
 *.font: "DejaVuSansMono Nerd Font"
-Nsxiv.window.background: #181A1C
-Nsxiv.bar.background: #111111
-Nsxiv.window.foreground: #FFFFFF
-Nsxiv.mark.foreground: #F22c40
+
+Nsxiv.window.background: #16161D
+Nsxiv.bar.background: #2A2A37
+Nsxiv.mark.foreground: #E82424
 
 ! special
-*.foreground:   #ffffff
-*.background:   #0a0a0a
+*.foreground:   #dcd7ba
+*.background:   #1F1F28
 *.cursorColor:  #d8d8d8
 
 ! black
