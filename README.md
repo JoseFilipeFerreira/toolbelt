@@ -9,7 +9,7 @@ Static config files
 Scripts used in the terminal or on a keybind
 * [ascii2png](toolbox/ascii2png.tool) convert [fetch](toolbox/fetch.tool) logos to png
 * [autologin](toolbox/autologin.tool) setup auto login in TTY (made by [Mendess](https://github.com/mendess))
-* [blind](toolbox/blind.tool) brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+* [blind](toolbox/blind.tool) brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar) and [range2color](toolbox/range2color))
 * [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer

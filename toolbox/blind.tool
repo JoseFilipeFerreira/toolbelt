@@ -1,7 +1,7 @@
 #!/bin/bash
-# brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
+# brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar) and [range2color](toolbox/range2color))
 
-bar_signal_id=35
+bar_signal_id=36
 emoji_array=("" "" "" "" "" "" "")
 
 name="$(basename "$0")"
@@ -19,15 +19,12 @@ usage(){
         sed -E 's/\|/, /g;s/(\)$)//g;s/# //g;s/;;//g'
 }
 
-get_step(){
-    max="$(brightnessctl "${brightnessctl_args[@]}" max)"
-    n_step="${#emoji_array[@]}"
-    step="$(( max / (n_step - 1) ))"
-    [[ "$step" = 0 ]] && step=1
-    echo "$step"
-}
-
 [[ ! "$1" ]] && usage && exit
+
+max="$(brightnessctl "${brightnessctl_args[@]}" max)"
+n_step="${#emoji_array[@]}"
+step="$(( max / (n_step - 1) ))"
+[[ "$step" = 0 ]] && step=1
 
 brightnessctl_args=( "--class=backlight" "--min-value=6" )
 
@@ -44,24 +41,24 @@ while (( "$#" )); do
             ;;
         +)
             # Increase brightness
-            set_value="+$(get_step)"
+            set_value="+$step"
             shift
             ;;
         -)
             # Decrease brightness
-            set_value="$(get_step)-"
+            set_value="${step}-"
             shift
             ;;
         UP)
             # Increase brightness, with id as next arg
-            set_value="+$(get_step)"
+            set_value="+$step"
             [[ "$2" ]] || exit
             bar_signal_id="$2"
             shift 2
             ;;
         DOWN)
             # Decrease brightness, with id as next arg
-            set_value="$(get_step)-"
+            set_value="$step-"
             [[ "$2" ]] || exit
             bar_signal_id="$2"
             shift 2
@@ -89,7 +86,10 @@ fi
 
 if [[ "$print_block" ]]; then
     curr="$(brightnessctl "${brightnessctl_args[@]}" get)"
-    step="$(get_step)"
-    i="$(( curr / step ))"
-    echo "${emoji_array[i]}"
+    echo "${emoji_array[curr/ step]}"
+    range2color \
+        --max-color "#FFFFFF" \
+        --min-color "#727169" \
+        --max "$max" \
+        "$curr"
 fi
