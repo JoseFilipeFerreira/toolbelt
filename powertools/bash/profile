@@ -62,8 +62,10 @@ export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
 if [ "$(tty)" = "/dev/tty1" ]; then
     fetch --logo
-    rm -rf /tmp/startx.log
-    startx &> /tmp/startx.log
+    if hash startx &> /dev/null; then
+        rm -rf /tmp/startx.log
+        startx &> /tmp/startx.log
+    fi
     clear
 elif [[ "$SSH_CLIENT" ]]; then
     export TERM=xterm
