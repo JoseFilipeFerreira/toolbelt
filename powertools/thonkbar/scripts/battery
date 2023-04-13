@@ -23,10 +23,4 @@ printf "%s%%" "${charges[0]}"
 
 echo ""
 
-case "$(( max_charge / 20 ))" in
-  0) echo "#f22c40" ;;
-  1) echo "#FF8400" ;;
-  2) echo "#FFF700" ;;
-  3) echo "#AAFF00" ;;
-  *) echo "#00FF00" ;;
-esac
+range2color "$max_charge"
