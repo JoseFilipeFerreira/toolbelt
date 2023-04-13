@@ -13,8 +13,8 @@ import socket
 import sys
 
 import requests
-from bs4 import BeautifulSoup # type: ignore
-from qbittorrent import Client
+from bs4 import BeautifulSoup
+from qbittorrent import Client # type: ignore
 
 def print_info(string: str):
     """print information"""
@@ -190,12 +190,15 @@ class MediaType(Enum):
 def get_mal(
         user: str,
         media: MediaType = MediaType.ANIME,
-        state: ListType = ListType.WATCHING) -> List[MalResult]:
+        state: ListType = ListType.WATCHING) -> Optional[List[MalResult]]:
     """get list of all media from user"""
 
     url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
     soup = BeautifulSoup(requests.get(url, timeout=10).content, "html.parser")
     table = soup.find('table', {"class", "list-table"})
+
+    if not table:
+        return None
 
     res = []
     for line in loads(table['data-items']):
@@ -211,9 +214,14 @@ def get_nyaa(title: str) -> Optional[List[NyaaResult]]:
     url = f"https://nyaa.si/?{urlencode(get_vars)}"
     soup = BeautifulSoup(requests.get(url, timeout=10).content, "html.parser")
     table = soup.find('table')
+
     if not table:
         return None
+
     content = table.find('tbody')
+
+    if not content:
+        return None
 
     res = []
     for line in content.find_all('tr'):
@@ -317,8 +325,12 @@ def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
 
 def main():
     """entrypoint"""
-    print_info("fetching users animes")
+    print_info("fetching animes form user")
     animes = get_mal("nifernandes")
+
+    if not animes:
+        print_error("failed to get list of animes from user")
+        return
 
     for anime in animes:
         print("\n>", anime.title)
