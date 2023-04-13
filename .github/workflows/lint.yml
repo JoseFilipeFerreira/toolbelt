@@ -37,7 +37,7 @@ jobs:
             i3ipc
             mypy
             pylint
-            qbittorrent-api
+            python-qbittorrent
             requests
             watchdog
       - name: run pylint
