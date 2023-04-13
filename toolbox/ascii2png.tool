@@ -86,7 +86,7 @@ for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
 
     # convert to image
     image = Image.new("RGBA", (max_len, len(parsed_ascii)))
-    image.putdata([i for s in parsed_ascii for i in s])
+    image.putdata(list(*[i for s in parsed_ascii for i in s]))
 
     # upsacle image
     width, height = image.size
@@ -98,7 +98,7 @@ for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
     new_size = (512, 512)
     new_im = Image.new("RGBA", new_size, background_color)
     box = tuple((n - o) // 2 for n, o in zip(new_size, (n_width, n_height)))
-    new_im.paste(upscaled_image, box)
+    new_im.paste(upscaled_image, box) # type: ignore
 
     new_im.save(target_file)
     print("> generated:", icon)
