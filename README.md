@@ -8,9 +8,9 @@ Static config files
 ## 🧰 [Toolbox](toolbox)(scripts)
 Scripts used in the terminal or on a keybind
 * [ascii2png](toolbox/ascii2png.tool) convert [fetch](toolbox/fetch.tool) logos to png
-* [autologin](toolbox/autologin.tool) setup auto login in TTY (made by [Mendess](https://github.com/mendess))
+* [autologin](toolbox/autologin.tool) setup auto login in TTY (by [Mendess](https://github.com/mendess))
 * [blind](toolbox/blind.tool) brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar) and [range2color](toolbox/range2color))
-* [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (made by [Mendes](https://github.com/mendess/))
+* [bulkrename](toolbox/bulkrename.tool) rename files in your `$EDITOR` (by [Mendes](https://github.com/mendess/))
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
@@ -32,13 +32,12 @@ Scripts used in the terminal or on a keybind
 * [qbt](toolbox/qbt.tool) qbittorrent management on remote
 * [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
 * [range2color](toolbox/range2color.tool) Convert a value inside a numeric range to a color inside a color range
-* [setup-raspberry-SD](toolbox/setup-raspberry-SD.tool) setup SD card with Arch for Raspberry (armv6/armv7)
 * [share](toolbox/share.tool) share files in my webserver
 * [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit
-* [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
+* [wall](toolbox/wall.tool) wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker by [mendess](https://github.com/mendess))
 
 ## :wrench: [Toolkit](powertools/dmenu/scripts) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
@@ -63,7 +62,7 @@ Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and
 
 ## :link: Install
 Installation scripts I use to setup my dotfiles
-* [generate_config](./generate_config) templating language for dotfiles (made by [Mendess](https://github.com/mendess/spell-book))
+* [generate_config](./generate_config) templating language for dotfiles (by [Mendess](https://github.com/mendess/spell-book))
 * [hammer](./hammer) Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 * [label-printer](./label-printer) autogenerate [README](README.md)
 * [link-check](./link-check) check the validity of relative and hard links in all the md files

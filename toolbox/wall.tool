@@ -1,5 +1,5 @@
 #!/bin/bash
-# wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker made by [mendess](https://github.com/mendess))
+# wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker by [mendess](https://github.com/mendess))
 
 set -e
 remote="kiwi"

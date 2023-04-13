@@ -1,5 +1,5 @@
 #!/bin/bash
-# setup auto login in TTY (made by [Mendess](https://github.com/mendess))
+# setup auto login in TTY (by [Mendess](https://github.com/mendess))
 
 BLUE="\033[34m"
 GREEN="\033[32m"

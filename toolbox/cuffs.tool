@@ -1,8 +1,8 @@
 #!/bin/bash
 # screenshot tool
 
-# made by Mendess
 rename(){
+    # by Mendess (https://github.com/mendess/)
     rename="$(: | dmenu -p 'rename to' |
         sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"
     [[ -z "$rename" ]] && return 1
