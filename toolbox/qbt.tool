@@ -25,7 +25,7 @@ def notify(header, content):
 def connect():
     """create socket that connects to qbittorrent"""
     # pylint: disable=import-outside-toplevel
-    from qbittorrent import Client
+    from qbittorrent import Client # type: ignore
 
     soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     soc.connect(("8.8.8.8", 80))
