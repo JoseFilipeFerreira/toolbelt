@@ -25,7 +25,18 @@ return require('packer').startup({function(use)
         'rebelot/kanagawa.nvim',
         config = function()
             require('kanagawa').setup({
-                transparent = false
+                overrides = function(colors)
+                    local theme = colors.theme
+                    return {
+                        -- Telescope
+                        TelescopeTitle = { fg = theme.ui.special, bold = true },
+                        -- Autocomplete
+                        Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
+                        PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
+                        PmenuSbar = { bg = theme.ui.bg_m1 },
+                        PmenuThumb = { bg = theme.ui.bg_p2 },
+                    }
+                end
             })
             vim.cmd("colorscheme kanagawa-wave")
         end
