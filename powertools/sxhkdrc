@@ -9,14 +9,11 @@ super + Home
 super + {_,shift +} d
         {dmenu_IQ,menu}
 
-super + {_, shift +} b
-        clippy {--select, --add}
-
 {_,control +, alt +, super +} @Print
         cuffs {--select --clipboard, --clipboard, --select --floating, }
 
 super + {_, shift +} Return
-        {$TERMINAL,termFromHere}
+        {$TERMINAL,term-from-here}
 
 super + {w, c}
         {wall --rng, calendar}
@@ -29,11 +26,8 @@ super + control + l
 
 # XF86 KEYS
 
-XF86MonBrightness{Up,Down}
-        blind {+,-}
-
-XF86KbdBrightness{Up,Down}
-        blind keyboard {+,-}
+XF86{Mon,Kbd}Brightness{Up,Down}
+        blind {_,keyboard} {+,-}
 
 ## control media
 
@@ -53,17 +47,6 @@ control + XF86Audio{Raise,Lower}Volume
 
 super + control + {Prior,Next,Left,Right,Up,Down}
         ssh kiwi .local/bin/udm {--play-pause,--stop,--previous,--next,--volume-up,--volume-down}
-
-## kiwi specific
-
-XF86Search
-        dmenu_IQ
-
-XF86{WWW,Mail}
-        launch-and-move {3 $BROWSER,4 discord}
-
-XF86HomePage
-        meross-cli --toggle
 
 # DUNST KEYBINDS
 
@@ -91,7 +74,7 @@ super + {1-9, 0, Tab}
 super + {h,j,k,l}
         i3-msg focus {left,down,up,right}
 
-## CONTAINER
+## MOVE
 
 super + shift + {1-9,0}
         i3-msg move container to workspace {1-9,10}
@@ -99,16 +82,18 @@ super + shift + {1-9,0}
 super + shift + {h,j,k,l}
         i3-msg move {left,down,up,right}
 
+super + control + shift {h,j,k,l}
+        i3-msg move workspace to output {left,down,up,right}
+
+## RESIZE
+
 super + alt + {h,j,k,l}
-       i3-msg resize {shrink width,grow height,shrink height,grow width} 10 px or 10 ppt
+       i3-msg resize {shrink width,grow height,shrink height,grow width} 3 px or 3 ppt
 
-## CHANGE LAYOUT
+## LAYOUT
 
-super + space
-        i3-msg 'floating toggle'
-
-super + shift + space
-        i3-msg 'floating toggle; sticky toggle'
+super + {_, shift +} space
+        i3-msg {'floating toggle', 'floating toggle; sticky toggle'}
 
 super + {v, f}
         i3-msg {split, fullscreen} toggle
