@@ -33,7 +33,7 @@ Scripts used in the terminal or on a keybind
 * [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
 * [range2color](toolbox/range2color.tool) Convert a value inside a numeric range to a color inside a color range
 * [share](toolbox/share.tool) share files in my webserver
-* [termFromHere](toolbox/termFromHere.tool) open terminal in the current user, machine and directory
+* [term-from-here](toolbox/term-from-here.tool) open terminal in the current user, machine and directory
 * [timer](toolbox/timer.tool) timer with message and alarm sound
 * [udm](toolbox/udm.tool) playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 * [vimtemp](toolbox/vimtemp.tool) open your `$EDITOR` and copy to clipboard on save&exit

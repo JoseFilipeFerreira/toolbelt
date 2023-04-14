@@ -4,7 +4,7 @@
 wt="$(xdotool getwindowfocus getwindowname)"
 
 [[ "$wt" =~ ^.+@.+:.+$ ]] || {
-    notify-send -u low -a termFromHere "Couldn't find cwd"
+    notify-send -i terminal -u low -a "$(basename "$0")" "Couldn't find cwd"
     "$TERMINAL" "$@" &
 }
 
