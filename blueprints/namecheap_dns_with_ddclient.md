@@ -2,7 +2,7 @@
 
 1. install `ddclient`
 
-1. edit the config file at `/etc/ddclient/ddclient.conf`:
+2. edit the config file at `/etc/ddclient/ddclient.conf`:
 ```ini
 use=web, web=dynamicdns.park-your-domain.com/getip
 protocol=namecheap
@@ -11,6 +11,6 @@ login=yourdomain.com
 password=your dynamic dns password
 yourhost
 ```
-[source](https://www.namecheap.com/support/knowledgebase/article.aspx/583/11/how-do-i-configure-ddclient/)
+> [source](https://www.namecheap.com/support/knowledgebase/article.aspx/583/11/how-do-i-configure-ddclient/)
 
-1. start ddclient
+3. start ddclient
