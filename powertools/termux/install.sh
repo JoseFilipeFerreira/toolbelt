@@ -32,6 +32,8 @@ case "$1" in
         for tool in "$script_folder"/*.tool; do
             [[ "$tool" -nt "$dest_folder/$(basename "$tool" .tool)" ]] && exit 0
         done
+
+        exit 1
         ;;
 
     *)
@@ -60,10 +62,5 @@ case "$1" in
         ;;
 esac
 
-
-
-
 # termux-job-scheduler --cancel-all
 # termux_task_set change_lock 900000
-
-exit 1
