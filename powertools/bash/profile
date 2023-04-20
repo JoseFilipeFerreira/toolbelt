@@ -17,6 +17,10 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
+if hash bat &> /dev/null; then
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 export JQ_COLORS='1;31:0;33:0;33:0;39:0;32:1;39:1;39'
 
@@ -54,7 +58,6 @@ export VAGRANT_HOME="$XDG_DATA_HOME/vagrant"
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
-# ssh
 export SSH_KEY_PATH="$HOME/.ssh/rsa_id"
 
 # shellcheck disable=SC1090,SC1091
