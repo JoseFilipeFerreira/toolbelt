@@ -7,8 +7,10 @@
     height=250
     offset=7x30
 
-    progress_bar_height = 4
+    progress_bar_height = 6
     progress_bar_frame_width = 0
+    progress_bar_corner_radius = 3
+    # highlight = "#FFFFFF"
 
     transparency = 10
 
@@ -27,7 +29,7 @@
 
     ### Text ###
 
-    font = DejaVu Sans Mono 8
+    font = DejaVuSansMono Nerd Font 8
 
     markup = full
     format = "<b>%s</b>\n%b\n<i>%a</i>"
@@ -59,6 +61,7 @@
     mouse_left_click = do_action
     mouse_middle_click = close_current
     mouse_right_click = context
+
 
 [discord]
     desktop_entry = "discord"
