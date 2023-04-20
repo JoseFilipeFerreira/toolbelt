@@ -25,7 +25,6 @@ nvim/lua,~/.config/nvim/lua,link,essential
 pulse.conf,~/.config/pulse/daemon.conf,link,extra
 sxhkdrc,~/.config/sxhkd/sxhkdrc,link,extra
 termux,,install,mobile
-termux/colors.properties,~/.termux/colors.properties,link,mobile
 termux/termux-url-opener,~/bin/termux-url-opener,link,mobile
 termux/termux.properties,~/.termux/termux.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
