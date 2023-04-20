@@ -242,7 +242,7 @@ if [[ "$FILL_CACHE" ]]; then
     total_cache="$(find "$color_cache" -type f | wc -l)"
     missing="$(( total - total_cache ))"
 
-    [[ "$missing" -le 0 ]] && return
+    [[ "$missing" -le 0 ]] && exit 0
 
     id="$(notify-send --print-id "Computing cache... ($i/$missing)")"
 
