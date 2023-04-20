@@ -7,9 +7,9 @@ notification_id="$RANDOM"
 notification_title="Syncing jff.sh"
 notification_content=()
 
-remote="mightymime@jff.sh"
+remote="jff@jff.sh"
 if ping -c 1 kiwi &>/dev/null; then
-    remote="mightymime@kiwi"
+    remote="jff@kiwi"
     notification_title="Syncing kiwi"
 fi
 
