@@ -10,9 +10,9 @@ profile_colors=(
 )
 
 profile_name=(
-    "${1:-"בֿ"}" # low
-    "${2:-"ﰌ"}" # balanced
-    "${3:-"省"}" # performance
+    "${1:-"L"}" # low
+    "${2:-"M"}" # balanced
+    "${3:-"H"}" # performance
 )
 
 [[ -f  "$profile_file" ]] || exit 0

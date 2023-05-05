@@ -2,7 +2,7 @@
 # brightness control for screens and keyboards (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar) and [range2color](toolbox/range2color))
 
 bar_signal_id=36
-emoji_array=("" "" "" "" "" "" "")
+emoji_array=("0" "1" "2" "3" "4" "5" "6")
 
 name="$(basename "$0")"
 usage(){
