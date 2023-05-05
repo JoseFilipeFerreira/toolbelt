@@ -33,7 +33,7 @@ pacman,essential,pyright
 pacman,essential,python
 pacman,essential,python-pip
 pacman,essential,rsync
-pacman,essential,rust-analyzer
+pacman,essential,rustup
 pacman,essential,tar
 pacman,essential,tmux
 pacman,essential,unrar
