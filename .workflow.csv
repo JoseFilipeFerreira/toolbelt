@@ -69,6 +69,7 @@ pacman,extra,pavucontrol
 pacman,extra,playerctl
 pacman,extra,pulseaudio
 pacman,extra,python-i3ipc
+pacman,extra,python-watchdog
 pacman,extra,qrencode
 pacman,extra,shotgun
 pacman,extra,simple-scan
@@ -94,8 +95,7 @@ pacman,extra,xorg-xrandr
 pacman,extra,zathura
 pacman,extra,zathura-pdf-mupdf
 pip,essential,cmake-language-server
-pip,essential,fortls
-pip,essential,qbittorrent-api
+pip,essential,python-qbittorrent
 pkg,essential,bat
 pkg,essential,clang
 pkg,essential,exa
