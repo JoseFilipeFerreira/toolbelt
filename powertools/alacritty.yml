@@ -14,7 +14,7 @@ window:
 # Font configuration
 font:
   normal:
-    family: DejaVuSansM Nerd Font
+    family: DejaVuSansM Nerd Font Mono
 
   size: 10
 
