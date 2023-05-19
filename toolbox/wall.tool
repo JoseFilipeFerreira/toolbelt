@@ -1,6 +1,10 @@
 #!/bin/bash
 # wallpaper manager (integrates with [dmenu](https://github.com/mendess/dmenu)) (color picker by [mendess](https://github.com/mendess))
 
+GREEN="\033[32m"
+RED="\033[31m"
+RESET="\033[0m"
+
 set -e
 remote="kiwi"
 folder=".local/share/wallpapers"
@@ -44,11 +48,11 @@ sync_walls(){
     [[ "$(hostname)" == "$remote" ]] && return 0
 
     if ssh -q "$remote" exit; then
-        echo -e "\033[32mSyncing Walls...\033[0m"
+        echo -e "${GREEN}Syncing Walls...$RESET"
         rsync --exclude '.config' --delete -av "$remote:$folder/" "$HOME/$folder"
         return 0
     else
-        echo -e "\e[31mCouldn't connect to server\e[0m"
+        echo -e "${RED}Couldn't connect to server$RESET"
         return 1
     fi
 }
@@ -64,7 +68,7 @@ check_res(){
     if [[ "$w" -ge 1920 ]] && [[ "$h" -ge 1080 ]]; then
         return 0
     else
-        echo -e "\033[31mImage too small\033[0m"
+        echo -e "${RED}Image too small$RESET"
         return 1
     fi
 }
@@ -177,7 +181,7 @@ if [[ "$ADD" ]]; then
     case "$ADD_CHOICE" in
         http*)
             if [[ "$(hostname)" != "$remote" ]]; then
-                echo -e "\e[32mDownloading on $remote...\e[0m"
+                echo -e "${GREEN}Downloading on $remote...$RESET"
                 ssh "$remote" .local/bin/wall --add "$ADD_CHOICE" "$ADD_RENAME"
             else
                 file="$(basename "$ADD_CHOICE")"

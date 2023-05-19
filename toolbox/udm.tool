@@ -2,6 +2,10 @@
 # playlist manager (integrates with [thonkbar](https://github.com/JoseFilipeFerreira/thonkbar))
 set -e
 
+GREEN="\033[32m"
+RED="\033[31m"
+RESET="\033[0m"
+
 remote="kiwi"
 folder=".local/share/music"
 
@@ -51,12 +55,12 @@ sync_music(){
     [[ "$(hostname)" == "$remote" ]] && return 0
 
     if ssh -q "$remote" exit; then
-        echo -e "\e[32mSyncing Music...\e[0m"
+        echo -e "${GREEN}Syncing Music...$RESET"
         rsync -av --delete --exclude ".config" "$remote:$folder/" "$HOME/$folder"
         echo
         return 0
     else
-        echo -e "\e[31mCouldn't connect to server\e[0m"
+        echo -e "${RED}Couldn't connect to server$RESET"
         echo
         return 1
     fi
@@ -78,7 +82,7 @@ add_music(){
         ;;
         http*)
             if [[ "$(hostname)" != "$remote" ]]; then
-                echo -e "\e[32mDownloading on $remote...\e[0m"
+                echo -e "${GREEN}Downloading on $remote...$RESET"
                 ssh "$remote" .local/bin/udm --add "$@"
             else
                 case "$1" in
