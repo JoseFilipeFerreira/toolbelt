@@ -1,6 +1,6 @@
 -- luacheck: globals vim
 local lsp = require('lspconfig')
-local default_capabilities = require('cmp_nvim_lsp').default_capabilities
+local default_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local au = require('utils.au')
 
 local on_attach = function(client, bufnr) -- luacheck: ignore 212
@@ -21,22 +21,22 @@ end
 
 lsp.clangd.setup {
     on_attach = on_attach,
-    capabilities = default_capabilities()
+    capabilities = default_capabilities
 }
 
 lsp.cmake.setup{
     on_attach = on_attach,
-    capabilities = default_capabilities()
+    capabilities = default_capabilities
 }
 
 lsp.pyright.setup{
     on_attach = on_attach,
-    capabilities = default_capabilities()
+    capabilities = default_capabilities
 }
 
 -- lsp.fortls.setup{
 --     on_attach = on_attach,
---     capabilities = default_capabilities()
+--     capabilities = default_capabilities
 -- }
 
 lsp.rust_analyzer.setup {
@@ -54,7 +54,7 @@ lsp.rust_analyzer.setup {
             },
         }
     },
-    capabilities = default_capabilities()
+    capabilities = default_capabilities
 }
 
 vim.cmd [[LspStart]]
