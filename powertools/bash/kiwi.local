@@ -97,3 +97,5 @@ _add_media_completion(){
 
 alias amedia=add_media
 complete -o filenames -F _add_media_completion add_media amedia
+
+# vim: set ft=bash:

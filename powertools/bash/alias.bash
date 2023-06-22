@@ -37,7 +37,8 @@ hash neofetch &>/dev/null ||
 alias cleantex='rm *.{aux,idx,log,nav,out,snm,toc,vrb,bbl,blg}(.N) 2>/dev/null'
 
 hash nvim &>/dev/null &&
-    alias vim="nvim"
+    alias vim="nvim" &&
+    alias v="nvim"
 
 hash python &>/dev/null &&
     alias py="python"
@@ -70,6 +71,26 @@ hash bc &>/dev/null &&
 
 hash eva &>/dev/null &&
     alias bc='eva'
+
+# CARGO
+if hash cargo &>/dev/null; then
+    alias c=cargo
+    alias cr='cargo run'
+    alias cb='cargo build'
+    alias crr='cargo run --release'
+    alias cbr='cargo build --release'
+    alias cch='cargo check'
+    alias ct='cargo test'
+    alias cdoc='BROWSER=vimb cargo doc --open'
+
+    alias cn='cargo +nightly'
+    alias cnr='cargo +nightly run'
+    alias cnb='cargo +nightly build'
+    alias cnrr='cargo +nightly run --release'
+    alias cnbr='cargo +nightly build --release'
+    alias cnch='cargo +nightly check'
+    alias cnt='cargo +nightly test'
+fi
 
 # ~/ clean-up
 hash yarn &>/dev/null &&
