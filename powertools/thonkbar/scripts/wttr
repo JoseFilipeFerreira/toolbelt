@@ -1,0 +1,9 @@
+#!/bin/bash
+
+wttr="$(curl wttr.in?format=j1)"
+
+get_jq(){
+    echo "$wttr" | jq "$@" | sed 's/"//g'
+}
+
+name="$(get_jq '.nearest_area[].areaName[].value')"
