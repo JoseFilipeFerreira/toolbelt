@@ -52,10 +52,10 @@ install_pkgs(){
         pkg install "${pkg_pkg[@]}"
     fi
 
-    if hash pip &> /dev/null; then
-        readarray -t pkg_pip < <(get_pkgs pip "$@")
-        pip install "${pkg_pip[@]}"
-    fi
+    # if hash pip &> /dev/null; then
+    #     readarray -t pkg_pip < <(get_pkgs pip "$@")
+    #     pip install "${pkg_pip[@]}"
+    # fi
 }
 
 setup_home(){
