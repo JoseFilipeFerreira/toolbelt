@@ -8,15 +8,15 @@ different internal clocks and it is needed to sync them.
 Apply offset to EXIF time with `exiftool`:
 ```bash
 # add offset
-exiftool -v "-AllDates+=Y:M:D H:M:S" *.jpg
+exiftool -v "-AllDates+=Y:M:D H:M:S" *
 # subtract offset
-exiftool -v "-AllDates-=Y:M:D H:M:S" *.jpg
+exiftool -v "-AllDates-=Y:M:D H:M:S" *
 ```
 
 ## Sync Date Modified with EXIF
 Sync Date Modified of File with EXIF time with `exiftool`:
 ```bash
- exiftool -v '-FileModifyDate<CreationDate' *.jpg
+ exiftool -v '-FileModifyDate<DateTimeOriginal' *
 ```
 
 ## Check
@@ -26,5 +26,5 @@ exiftool FILE FILE_original
 ```
 If modifications where successful
 ```bash
-rm *.jpg_original
+rm *_original
 ```
