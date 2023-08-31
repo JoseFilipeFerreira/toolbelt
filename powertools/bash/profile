@@ -18,6 +18,7 @@ export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;4;32m'
 
 if hash bat &> /dev/null; then
+    export MANROFFOPT="-c"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
