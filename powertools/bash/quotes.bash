@@ -24,6 +24,7 @@ quotes=(
 "Imagine a life where instead of looking for problems you look for solutions - Joshua Weissman"
 "How fleeting are all human passions compared with the massive continuity of ducks - Dorothy L. Sayers"
 "Nobody writes perfect code the first time. Except for me, but there is only one of me - Linus Torvalds"
+"A loose cannon eventually points your way - bradorsomething"
 )
 
 
