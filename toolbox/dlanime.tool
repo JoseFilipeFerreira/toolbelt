@@ -71,11 +71,7 @@ class NyaaResult():
 
 
         if not all(x in self.title.lower() for x in searched_title.lower().split()):
-
             return False
-
-        # if searched_title.lower() not in self.title.lower():
-        #     return False
 
         if not episode:
             return True
@@ -96,7 +92,7 @@ class NyaaResult():
         return False
 
     def queue_magnet_link(self):
-        """queue magnet link in transmission-remote"""
+        """queue magnet link"""
 
         soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         soc.connect(("8.8.8.8", 80))
@@ -141,7 +137,7 @@ class MalResult():
         self.url = dic['url']
         self.airing_status = AiringStatus(dic['airing_status'])
 
-        remove = ["!", ".", ":", '"']
+        remove = ['!', '.', ':', '"', '?']
         self.clean_title = self.title.translate({ord(x): '' for x in remove})
         for char in ["☆"]:
             self.clean_title = self.clean_title.replace(char, " ")
@@ -297,7 +293,7 @@ def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
     if last_episode:
         print("> episode:", last_episode, "/", anime.num_episodes)
 
-    if last_episode and anime.num_episodes > 0 and last_episode >= anime.num_episodes:
+    if last_episode and anime.num_episodes > 0 and last_episode == anime.num_episodes:
         print_info("anime already downloaded")
         return None
 
@@ -325,7 +321,7 @@ def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
 
 def main():
     """entrypoint"""
-    print_info("fetching animes form user")
+    print_info("fetching animes from user")
     animes = get_mal("nifernandes")
 
     if not animes:
