@@ -1,4 +1,6 @@
 # Toolbelt
+![Linter](https://github.com/JoseFilipeFerreira/toolbelt/actions/workflows/.github/workflows/lint.yml/badge.svg)
+
 Collection of scripts, dotfiles and self-created guides that follow me on all
 of my linux adventures
 
