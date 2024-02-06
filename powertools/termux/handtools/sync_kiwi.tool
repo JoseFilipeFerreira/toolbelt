@@ -19,7 +19,6 @@ folders=(
 dcim/Camera
 dcim/MyAlbums
 pictures/Messenger
-pictures/Reddit
 )
 
 update_notification(){
