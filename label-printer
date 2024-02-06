@@ -22,6 +22,15 @@ generate_blueprints(){
         done
 }
 
+generate_icons(){
+    echo '<p float="right">'
+    find ./powertools/toolicons/512x512/devices \
+        -type f \
+        -name "computer-*.png" \
+        -exec echo "  <img src=\"{}\" width=64/>" \;
+    echo '</p>'
+}
+
 
 echo \
 "# :blue_book: Blueprints
@@ -33,7 +42,11 @@ $(generate_blueprints)" >| blueprints/README.md
 git add blueprints/README.md
 
 echo \
-"# Toolbelt
+"$(generate_icons)
+
+----
+
+# Toolbelt
 Collection of scripts, dotfiles and self-created guides that follow me on all
 of my linux adventures
 
