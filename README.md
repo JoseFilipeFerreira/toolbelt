@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="./powertools/toolicons/512x512/devices/computer-search7edu-local.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-ryscas.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-lion.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-kiwi.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-localhost.png" width=64/>
   <img src="./powertools/toolicons/512x512/devices/computer-crab.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-kiwi.png" width=64/>
   <img src="./powertools/toolicons/512x512/devices/computer-koala.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-pine.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-pika.png" width=64/>
-  <img src="./powertools/toolicons/512x512/devices/computer-orca.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-lion.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-localhost.png" width=64/>
   <img src="./powertools/toolicons/512x512/devices/computer-macc.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-orca.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-pika.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-pine.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-ryscas.png" width=64/>
+  <img src="./powertools/toolicons/512x512/devices/computer-search7edu-local.png" width=64/>
   <img src="./powertools/toolicons/512x512/devices/computer-tolaria.png" width=64/>
 </p>
 

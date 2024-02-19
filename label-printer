@@ -24,10 +24,9 @@ generate_blueprints(){
 
 generate_icons(){
     echo '<p align="center">'
-    find ./powertools/toolicons/512x512/devices \
-        -type f \
-        -name "computer-*.png" \
-        -exec echo "  <img src=\"{}\" width=64/>" \;
+    find ./powertools/toolicons/512x512/devices -type f -name "computer-*.png" |
+        sort |
+        xargs printf '  <img src="%s" width=64/>\n'
     echo '</p>'
 }
 
