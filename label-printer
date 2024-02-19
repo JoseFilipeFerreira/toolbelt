@@ -23,7 +23,7 @@ generate_blueprints(){
 }
 
 generate_icons(){
-    echo '<p float="right">'
+    echo '<p align="center">'
     find ./powertools/toolicons/512x512/devices \
         -type f \
         -name "computer-*.png" \

@@ -1,4 +1,4 @@
-<p float="right">
+<p align="center">
   <img src="./powertools/toolicons/512x512/devices/computer-search7edu-local.png" width=64/>
   <img src="./powertools/toolicons/512x512/devices/computer-ryscas.png" width=64/>
   <img src="./powertools/toolicons/512x512/devices/computer-lion.png" width=64/>
