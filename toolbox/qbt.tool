@@ -82,7 +82,10 @@ def main():
         else:
             print("USAGE: qbt [--list|--add]")
     else:
-        with Popen(["ssh", "jff@jff.sh", ".local/bin/qbt"] + argv[1:], stdout=PIPE, stderr=PIPE) as proc:
+        with Popen(
+            ["ssh", "jff@jff.sh", ".local/bin/qbt"] + argv[1:],
+            stdout=PIPE, stderr=PIPE) as proc:
+
             stdout, _ = proc.communicate()
             stdout = stdout.decode("utf-8")
 

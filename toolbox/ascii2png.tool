@@ -86,7 +86,7 @@ for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
 
     # convert to image
     image = Image.new("RGBA", (max_len, len(parsed_ascii)))
-    image.putdata(list([i for s in parsed_ascii for i in s]))
+    image.putdata([i for s in parsed_ascii for i in s])
 
     # upsacle image
     width, height = image.size
