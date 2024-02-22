@@ -7,3 +7,5 @@ get_jq(){
 }
 
 name="$(get_jq '.nearest_area[].areaName[].value')"
+
+echo "$name"
