@@ -1,9 +1,14 @@
 #!/bin/bash
-# screenshot tool
+# screenshot tool (Wayland support by [mendess](https://github.com/mendess))
 
 rename(){
     # by Mendess (https://github.com/mendess/)
-    rename="$(: | dmenu -p 'rename to' |
+    if [[ "$wayland" ]]; then
+        picker=(tofi --prompt-text 'rename to ' --require-match=false --height=40 --horizontal=true)
+    else
+        picker=(dmenu -p 'rename to')
+    fi
+    rename="$(: | "${picker[@]}" |
         sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"
     [[ -z "$rename" ]] && return 1
     while [[ -e "${rename}${i}" ]]; do
@@ -16,6 +21,10 @@ rename(){
 script_name="$(basename "$0")"
 
 file="$(date +'screenshot_%d%h%Y-%Hh%Mm%Ss')"
+
+if [[ "$XDG_SESSION_TYPE" = wayland ]]; then
+    wayland=1
+fi
 
 type="image"
 while (( "$#" )); do
@@ -56,7 +65,11 @@ while (( "$#" )); do
             ;;
         -s|--select)
             # Select area to print
-            hack="$(hacksaw)"
+            if [[ $wayland ]]; then
+                hack=$(slurp)
+            else
+                hack="$(hacksaw)"
+            fi
             hack_info="area"
             shift
             ;;
@@ -112,7 +125,11 @@ while (( "$#" )); do
     esac
 done
 
-[[ "$hack" ]] || hack="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')+0+0"
+[[ "$hack" ]] || if [[ "$wayland" ]]; then
+    hack="0,0 $(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')"
+else
+    hack="$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')+0+0"
+fi
 
 [[ "$delay" ]] && sleep "$delay"
 
@@ -161,7 +178,11 @@ case "$type" in
     image)
         file="$file.png"
 
-        shotgun -g "$hack" "$file"
+        if [[ "$wayland" = 1 ]]; then
+            grim -g "$hack" "$file"
+        else
+            shotgun -g "$hack" "$file"
+        fi
 
         if [[ "$rename" ]]; then
             if new_file="$(rename "$file")"; then
@@ -186,7 +207,11 @@ case "$type" in
                 [[ "$keep" ]] || rm "$file"
                 ;;
             clip)
-                xclip -t 'image/png' -selection clipboard -i "$file"
+                if [[ "$wayland" = 1 ]]; then
+                    wl-copy -t 'image/png' < "$file"
+                else
+                    xclip -t 'image/png' -selection clipboard -i "$file"
+                fi
                 [[ "$keep" ]] || rm "$file"
                 ;;
             *)
@@ -197,6 +222,12 @@ case "$type" in
         file="$file.mkv"
 
         flags=(-framerate 25 -f x11grab)
+
+        if [[ "$wayland" ]]; then
+            # TODO FIX $hack format
+            notify-send -u critical "Can't record video in wayland" "soon ™️"
+            exit 1
+        fi
 
         [[ "$time" ]] && flags+=( -t "$time" ) && content+="during ${time}s "
         size="$(echo "$hack" | cut -d+ -f 1)"
