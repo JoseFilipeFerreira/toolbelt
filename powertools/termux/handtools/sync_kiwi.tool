@@ -41,7 +41,7 @@ notification_content=()
 for folder in "${folders[@]}"; do
     if [ -d ~/storage/"$folder" ]; then
         update_notification "$folder"
-        rsync "${rsync_flags[@]}" --relative ~/storage/./"$folder" "$remote":phone/
+        rsync "${rsync_flags[@]}" --relative ~/storage/./"$folder" "$remote":backup/phone_jff/
     else
         update_notification "File not found: $folder"
     fi

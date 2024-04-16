@@ -31,7 +31,7 @@ Scripts used in the terminal or on a keybind
 * [calendar](toolbox/calendar.tool) notify of next event (with action to open it)
 * [calsync](toolbox/calsync.tool) Sync calendar with vdirsyncer
 * [colors](toolbox/colors.tool) display all color codes for text formating (from [flogisoft](https://misc.flogisoft.com/bash/tip_colors_and_formatting))
-* [cuffs](toolbox/cuffs.tool) screenshot tool
+* [cuffs](toolbox/cuffs.tool) screenshot tool (Wayland support by [mendess](https://github.com/mendess))
 * [deaf](toolbox/deaf.tool) volume changer
 * [death](toolbox/death.tool) warn if all batteries are bellow a certain percent
 * [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
