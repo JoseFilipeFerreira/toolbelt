@@ -34,15 +34,8 @@ def check_if_valid(dirname: str):
         print_error(f"Location does not exist: {dirname}")
         sys.exit()
 
-DOWNLOAD_FOLDER = "/home/jff/dl/dlanime"
-check_if_valid(DOWNLOAD_FOLDER)
-
 ANIME_LOCATION = "/mnt/media/anime"
 check_if_valid(ANIME_LOCATION)
-
-THUMB_LOCATION = "/home/jff/suitcase-storage/iron-cake/thumb/anime"
-check_if_valid(THUMB_LOCATION)
-
 
 @dataclass
 class NyaaResult():
@@ -151,7 +144,7 @@ class MalResult():
 
     def download_thumb(self):
         """download image in url"""
-        path = THUMB_LOCATION + "/" + self.clean_title + ".jpg"
+        path = self.anime_path + "/poster.jpg"
 
         if os.path.exists(path):
             return
@@ -237,6 +230,7 @@ def get_last_episode(anime_path: str) -> Optional[int]:
     """get number of last downloaded episode"""
     dl_animes = os.listdir(anime_path)
     dl_animes.sort(reverse=True)
+    dl_animes.remove("poster.jpg")
 
     if len(dl_animes) == 0:
         return 0
