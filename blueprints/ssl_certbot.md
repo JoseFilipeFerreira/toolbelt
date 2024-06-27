@@ -8,8 +8,8 @@ include /etc/nginx/sites-enabled/*
 * create `/etc/nginx/sites-enabled/your-domain-name.com`
 ```
 server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+    listen 80;
+    listen [::]:80;
     root /var/www/html;
     server_name example.com www.example.com;
 }
