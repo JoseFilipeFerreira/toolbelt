@@ -8,3 +8,4 @@ Notes I take on my linux ~~tribulations~~ adventures in case I ever need to repe
 * [Namecheap DNS using ddclient](namecheap_dns_with_ddclient.md)
 * [Create a simple bootloader entry](simple_bootloader.md)
 * [Creating SSL Certificate for NGINX using Certbot](ssl_certbot.md)
+* [Control MEO router with Telnet](telnet_meo.md)
