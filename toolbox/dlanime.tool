@@ -18,11 +18,15 @@ from qbittorrent import Client # type: ignore
 
 def print_info(string: str):
     """print information"""
-    print(f"[info] {string}")
+    print(f"[\033[34minfo\033[0m] {string}")
 
 def print_error(string: str):
     """print errors"""
     print(f"[\033[31merror\033[0m] {string}")
+
+def print_warn(string: str):
+    """print warnings"""
+    print(f"[\033[33mwarning\033[0m] {string}")
 
 def print_success(string: str):
     """print information"""
@@ -291,12 +295,12 @@ def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
         print_info("anime already downloaded")
         return None
 
-    print(">", search_nyaa)
+    # print(">", search_nyaa)
 
     results = get_nyaa(search_nyaa)
 
     if not results:
-        print_error("no results found")
+        print_warn("no results found")
         return None
 
     results = list(filter(
@@ -304,7 +308,7 @@ def get_results(anime: MalResult) -> Optional[List[NyaaResult]]:
         results))
 
     if not results:
-        print_error("all results were removed")
+        print_warn("all results were removed")
         return None
 
     print_info(f"{len(results)} results found")
@@ -344,7 +348,7 @@ def main():
             nyaa = prompt_torrent("pick torrent", results)
 
         if not nyaa:
-            print_error("no magnet selected")
+            print_warn("no magnet selected")
             continue
 
         if nyaa.queue_magnet_link():
