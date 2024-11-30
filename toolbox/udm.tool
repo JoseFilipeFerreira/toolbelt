@@ -180,7 +180,7 @@ echo_info(){
 
 echo_block(){
     local volume
-    volume="$(mpv_get "$current_socket" "volume")"
+    volume="$(mpv_get "$current_socket" "volume" | LC_ALL=C xargs /usr/bin/printf "%.*f\n" "$p")"
 
     local path
     path="$(echo_info | tail -1 | sed -E 's/^0: //g')"
@@ -280,6 +280,19 @@ case "$1" in
         # Show info on current music
         echo_info
         ;;
+
+    --paste)
+        # play music on discord
+        sleep 5
+        for f in $(find ~/.local/share/music/ -type f -exec basename {} \; | sed 's/_/ /g;s/.mp3//g;s/-/ - /g' | shuf); do
+            xdotool type "/play $f"
+            xdotool key Return
+            sleep 1
+        done
+        ;;
+
+
+
 
     -h|--help)
         # Send this help message
