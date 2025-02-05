@@ -1,8 +1,6 @@
 #!/bin/bash
 # symlink dotfiles and scripts
 
-[[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
-
 create_link(){
     if [ -h "$2" ] && [ ! -e "$2" ]; then
         case "$3" in
@@ -62,12 +60,12 @@ run_generate(){
         case "$3" in
             sudo)
                 echo -en "\033[32msudo generate:\033[0m "
-                sudo python "$DOTFILES"/generate_config "$1" "$2" |
+                sudo python ~/.toolbelt/generate_config "$1" "$2" |
                     sed "s|$HOME|~|g;s|'||g"
                 ;;
             *)
                 echo -en "\033[32mgenerate:\033[0m "
-                python "$DOTFILES"/generate_config "$1" "$2" |
+                python ~/.toolbelt/generate_config "$1" "$2" |
                     sed "s|$HOME|~|g;s|'||g"
                 ;;
         esac
@@ -95,10 +93,10 @@ store_tools(){
             ln -s "$tool" "$dest/$tool_name"
         fi
     done
-    chmod +x "$DOTFILES"/toolbox/*
+    chmod +x ~/.toolbelt/toolbox/*
 }
 
-config="$DOTFILES/.instalation_config"
+config=~/.toolbelt/.instalation_config
 
 touch "$config"
 IFS=$'\n' read -d '' -r -a FILTERS < "$config"
@@ -111,7 +109,7 @@ printf "%s\n" "${FILTERS[@]}" | sort -u >| "$config"
     echo "run hammer for initial setup" &&
     exit
 
-store_tools "$DOTFILES"/toolbox ~/.local/bin
+store_tools ~/.toolbelt/toolbox ~/.local/bin
 
 # deploy dotfiles
 while IFS= read -r line; do
@@ -125,7 +123,7 @@ while IFS= read -r line; do
     ]] &&
         continue
 
-    orig="$DOTFILES/powertools/${linevec[0]}"
+    orig=~/.toolbelt/powertools/"${linevec[0]}"
     dest="${linevec[1]//\~/$HOME}"
 
     mkdir -p "$(dirname "$dest")"
@@ -150,4 +148,4 @@ while IFS= read -r line; do
                 ;;
         esac
     done
-done < "$DOTFILES/powertools/.locations"
+done < ~/.toolbelt/powertools/.locations

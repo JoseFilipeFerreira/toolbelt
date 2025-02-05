@@ -1,6 +1,8 @@
 #!/bin/bash
 # timer with message and alarm sound
 
+timer_sound_file=~/.toolbelt/assets/timer.mp3
+
 while (( "$#" )); do
     case $1 in
         -m|--message)
@@ -26,7 +28,7 @@ while (( "$#" )); do
             echo "            Set the timer message"
             echo
             echo "        -s, --sound"
-            echo "            Turn on timer sound"
+            echo "            Turn on timer sound: $timer_sound_file"
             echo
             echo "        -h, --help"
             echo "            Send this help message"
@@ -46,5 +48,5 @@ done
 
     notify-send -u critical -i "timer" -a "timer" "Time is up: $input" "$message"
 
-    [[ $sound ]] && mpv --no-video "$DOTFILES/assets/timer.mp3" &>/dev/null
+    [[ $sound ]] && mpv --no-video "$timer_sound_file" &>/dev/null
 } & disown

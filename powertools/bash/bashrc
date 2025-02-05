@@ -3,10 +3,7 @@
 
 stty -ixon # Disable ctrl-s and ctrl-q
 
-[[ ! "$DOTFILES" ]] && {
-    DOTFILES="$(dirname "$(dirname "$(dirname "$(readlink "$HOME"/.bash_profile)")")")"
-    export DOTFILES
-}
+BASH_FILES=~/.toolbelt/powertools/bash
 
 # History settings
 export HISTSIZE=""
@@ -21,9 +18,9 @@ GPG_TTY="$(tty)"; export GPG_TTY
 
 # Source all global configs
 #shellcheck disable=SC1090
-for f in "$DOTFILES"/powertools/bash/*.bash; do . "$f"; done
+for f in "$BASH_FILES"/*.bash; do . "$f"; done
 
 # Source local configs
-local="$DOTFILES"/powertools/bash/"$(hostname)".local
+local="$BASH_FILES"/"$(hostname)".local
 #shellcheck disable=SC1090
 [ -f "$local" ] && . "$local"

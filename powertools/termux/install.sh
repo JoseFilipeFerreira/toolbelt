@@ -3,10 +3,10 @@
 # check if in a termux install
 ! hash termux-job-scheduler &> /dev/null && echo "Not in termux env" && exit
 
-script_folder="$DOTFILES"/powertools/termux/handtools
+script_folder=~/.toolbelt/powertools/termux/handtools
 dest_folder=~/.termux/tasker
 
-xresources_file="$DOTFILES"/powertools/X11/Xresources
+xresources_file=~/.toolbelt/powertools/X11/Xresources
 color_properties=~/.termux/colors.properties
 
 termux_task_set(){

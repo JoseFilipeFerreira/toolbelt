@@ -3,7 +3,7 @@
 # https://specifications.freedesktop.org/icon-theme-spec/icon-theme-spec-latest.html
 # https://specifications.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
 
-src_icons="$DOTFILES"/powertools/toolicons
+src_icons=~/.toolbelt/powertools/toolicons
 dest_icons=/usr/share/icons/toolicons
 tmp_index_file="$src_icons"/index.theme
 index_file="$dest_icons"/index.theme

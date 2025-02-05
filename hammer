@@ -2,8 +2,6 @@
 # Deploy dotfiles and install programs that are part of my [workflow](.workflow.csv)
 set -e
 
-[[ "$DOTFILES" ]] || DOTFILES="$(dirname "$(readlink -f "$0")")"
-
 make_repos(){
     for repo in "$@"; do
         name="$(basename "$repo")"
@@ -28,7 +26,7 @@ get_pkgs(){
             ]] ;
         } &&
             echo "${args[2]}"
-    done < "$DOTFILES/.workflow.csv"
+    done < ~/.toolbelt/.workflow.csv
 }
 
 install_pkgs(){
@@ -71,19 +69,19 @@ read -r -p "Type of installation [(F)ULL | (e)ssential | (m)obile]: "
 case "$REPLY" in
     FULL|F|"")
         install_pkgs
-        bash "$DOTFILES"/nail essential extra
+        bash ~/.toolbelt/nail essential extra
         setup_home
         ;;
     essential|e)
         install_pkgs essential
-        bash "$DOTFILES"/nail essential
+        bash ~/.toolbelt/nail essential
         setup_home
         ;;
     mobile|m)
         ! hash termux-setup-storage &> /dev/null &&
             echo "error: not in a termux env" && exit
         install_pkgs essential
-        bash "$DOTFILES"/nail essential mobile
+        bash ~/.toolbelt/nail essential mobile
         [ -d ~/storage ] || termux-setup-storage
         termux-reload-settings
         ;;
