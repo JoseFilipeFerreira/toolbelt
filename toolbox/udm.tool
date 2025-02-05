@@ -180,7 +180,7 @@ echo_info(){
 
 echo_block(){
     local volume
-    volume="$(mpv_get "$current_socket" "volume" | LC_ALL=C xargs /usr/bin/printf "%.*f\n" "$p")"
+    volume="$(mpv_get "$current_socket" "volume" | cut -d'.' -f1)"
 
     local path
     path="$(echo_info | tail -1 | sed -E 's/^0: //g')"
