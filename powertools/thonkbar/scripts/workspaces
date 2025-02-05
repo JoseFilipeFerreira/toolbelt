@@ -44,7 +44,7 @@ class ColorschemeHandler(FileSystemEventHandler):
                     self.focused = colors[0]
                     print_workspaces(self)
         except OSError as _:
-            return
+            pass
 
     def on_modified(self, _):
         """ update when file is modified """
