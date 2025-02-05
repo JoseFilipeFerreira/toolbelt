@@ -171,9 +171,9 @@ class MalResult():
             with open(path, 'wb') as file:
                 file.write(response.content)
             return True
-        else:
-            print_error("could not download image")
-            return False
+
+        print_error("could not download image")
+        return False
 
 class ListType(Enum):
     """possible media status in MAL"""
@@ -221,7 +221,7 @@ def get_nyaa(title: str) -> Optional[List[NyaaResult]]:
         get_vars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
         url = f"https://nyaa.si/?{urlencode(get_vars)}"
         request = requests.get(url, timeout=10)
-    except:
+    except requests.ReadTimeout:
         print_error(f"Nyaa timedout for: {title}")
         return None
 

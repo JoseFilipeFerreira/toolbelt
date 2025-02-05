@@ -14,7 +14,7 @@ DEST_FOLDER="./"
 if len(sys.argv) > 1:
     DEST_FOLDER = sys.argv[1]
 
-config_dir=f"{Path.home()}/.config/neofetch"
+CONFIG_DIR=f"{Path.home()}/.config/neofetch"
 
 def get_property(field: str):
     """ get Xresources field """
@@ -42,24 +42,24 @@ for i in range(16):
     color_scheme[f"{i}"] = hex2rgb(color)
 
 # generate images
-for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
-    ascii_file=f"{config_dir}/ascii/{icon}.ascii"
-    color_file=f"{config_dir}/colors/{icon}.colors"
+for icon in [x.split(".")[0] for x in listdir(f"{CONFIG_DIR}/ascii")]:
+    ASCII_FILE=f"{CONFIG_DIR}/ascii/{icon}.ascii"
+    COLOR_FILE=f"{CONFIG_DIR}/colors/{icon}.colors"
 
-    target_file=f"{DEST_FOLDER}/computer-{icon}.png"
+    TARGET_FILE=f"{DEST_FOLDER}/computer-{icon}.png"
 
-    if path.exists(target_file):
+    if path.exists(TARGET_FILE):
         continue
 
     color_key={}
-    with open(color_file, "r", encoding="utf-8") as file:
+    with open(COLOR_FILE, "r", encoding="utf-8") as file:
         colors = file.readlines()[0].split("=")[1].replace("(", "").replace(")", "").split()
         for i in range(6):
             color_key[f"{i+1}"] = colors[i]
 
 
     parsed_ascii=[]
-    with open(ascii_file, "r", encoding="utf-8") as file:
+    with open(ASCII_FILE, "r", encoding="utf-8") as file:
         curr_color=(0,0,0,0)
         for line in file.readlines():
             line = line.rstrip()
@@ -100,7 +100,7 @@ for icon in [x.split(".")[0] for x in listdir(f"{config_dir}/ascii")]:
     box = tuple((n - o) // 2 for n, o in zip(new_size, (n_width, n_height)))
     new_im.paste(upscaled_image, box) # type: ignore
 
-    new_im.save(target_file)
+    new_im.save(TARGET_FILE)
     print("> generated:", icon)
 
 # vim: set ft=python:
