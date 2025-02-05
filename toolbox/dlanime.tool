@@ -146,16 +146,22 @@ class MalResult():
             Path(self.anime_path).mkdir(parents=True, exist_ok=True)
             print_info(f"created folder:{self.anime_path}")
 
-    def download_thumb(self):
+    def download_thumb(self) -> bool:
         """download image in url"""
         path = self.anime_path + "/poster.jpg"
 
         if os.path.exists(path):
-            return
+            return True
 
         print_info("downloading image: " + path)
-        url = "http://myanimelist.net" + self.url
-        soup = BeautifulSoup(requests.get(url, timeout=10) .content, "html.parser")
+        try:
+            url = "http://myanimelist.net" + self.url
+            request = requests.get(url, timeout=10)
+        except requests.ReadTimeout:
+            print_error("Read timeout for Nyaa full image url")
+            return False
+
+        soup = BeautifulSoup(request.content, "html.parser")
         image_url = soup.find("img", {"class", "ac"})["data-src"]
 
         os.makedirs(os.path.dirname(path), exist_ok=True)
@@ -164,8 +170,10 @@ class MalResult():
         if response.status_code == 200:
             with open(path, 'wb') as file:
                 file.write(response.content)
+            return True
         else:
             print_error("could not download image")
+            return False
 
 class ListType(Enum):
     """possible media status in MAL"""
@@ -185,9 +193,15 @@ def get_mal(
         media: MediaType = MediaType.ANIME,
         state: ListType = ListType.WATCHING) -> Optional[List[MalResult]]:
     """get list of all media from user"""
+    try:
+        url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
+        request = requests.get(url, timeout=10)
+    except requests.ReadTimeout:
+        print_error("MAL request timed out")
+        return None
 
-    url = f'https://myanimelist.net/{media.value}/{user}?status={state.value}'
-    soup = BeautifulSoup(requests.get(url, timeout=10).content, "html.parser")
+
+    soup = BeautifulSoup(request.content, "html.parser")
     table = soup.find('table', {"class", "list-table"})
 
     if not table:
@@ -203,9 +217,15 @@ def get_mal(
 
 def get_nyaa(title: str) -> Optional[List[NyaaResult]]:
     """get nyaa's search result"""
-    get_vars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
-    url = f"https://nyaa.si/?{urlencode(get_vars)}"
-    soup = BeautifulSoup(requests.get(url, timeout=10).content, "html.parser")
+    try:
+        get_vars = {'f': 0, 'c': '1_2', 'q': f"{title}"}
+        url = f"https://nyaa.si/?{urlencode(get_vars)}"
+        request = requests.get(url, timeout=10)
+    except:
+        print_error(f"Nyaa timedout for: {title}")
+        return None
+
+    soup = BeautifulSoup(request.content, "html.parser")
     table = soup.find('table')
 
     if not table:
@@ -332,9 +352,12 @@ def main():
             print_error("anime not yet aired")
             continue
 
-        anime.download_thumb()
-        anime.mkdir()
+        image = anime.download_thumb()
+        if not image:
+            print_error("Failed to download image")
+            continue
 
+        anime.mkdir()
 
         results = get_results(anime)
         if not results:
