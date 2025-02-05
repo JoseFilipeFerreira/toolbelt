@@ -1,5 +1,16 @@
 #!/bin/bash
 
+print_vpn(){
+    ip link show | awk -F': ' '/^[0-9]+: / {print $2}' | while read -r iface; do
+        mtu=$(ip link show "$iface" | awk '/mtu/ {print $5}')
+        if [[ "$mtu" == "1420" ]]; then  # WireGuard typically uses an MTU of 1420
+            echo "$iface"
+            break
+        fi
+    done
+
+}
+
 print_block(){
     readarray -t connections < <(nmcli --terse connection show --active)
 
@@ -56,7 +67,12 @@ print_block(){
 
                 color="$(range2color --max "$max" "$cur")"
 
-                echo "%{F${color}}${name}%{F-}"
+                _vpn="$(print_vpn)"
+                if [[ -n "$_vpn" ]]; then
+                    echo "%{F${color}}${name}($(print_vpn))%{F-}"
+                else
+                    echo "%{F${color}}${name}%{F-}"
+                fi
             else
                 echo
             fi
