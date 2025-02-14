@@ -39,6 +39,7 @@ Scripts used in the terminal or on a keybind
 * [ex](toolbox/ex.tool) extract anything
 * [fetch](toolbox/fetch.tool) neofetch wrapper to show logo based on hostname
 * [focus-bro](toolbox/focus-bro.tool) help me focus (by [Mendes](https://github.com/mendess/))
+* [iadl](toolbox/iadl.tool) blazing fast download from internet archive
 * [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand
 * [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
