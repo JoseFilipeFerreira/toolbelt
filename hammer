@@ -56,7 +56,7 @@ install_pkgs(){
     # fi
 }
 
-setup_home(){
+setup_full_home(){
     echo -e "\033[32mCreating home structure...\033[0m"
     mkdir -vp "$HOME/dl"
     mkdir -vp "$HOME/docs"
@@ -65,17 +65,23 @@ setup_home(){
     mkdir -vp "$HOME/repos"
 }
 
+setup_essential_home(){
+    echo -e "\033[32mCreating home structure...\033[0m"
+    mkdir -vp "$HOME/dl"
+    mkdir -vp "$HOME/repos"
+}
+
 read -r -p "Type of installation [(F)ULL | (e)ssential | (m)obile]: "
 case "$REPLY" in
     FULL|F|"")
         install_pkgs
         bash ~/.toolbelt/nail essential extra
-        setup_home
+        setup_full_home
         ;;
     essential|e)
         install_pkgs essential
         bash ~/.toolbelt/nail essential
-        setup_home
+        setup_essential_home
         ;;
     mobile|m)
         ! hash termux-setup-storage &> /dev/null &&
