@@ -13,14 +13,6 @@ if ping -c 1 kiwi &>/dev/null; then
     notification_title="Syncing kiwi"
 fi
 
-rsync_flags=( --progress --recursive --perms --times --owner --group --devices --specials --copy-links --verbose)
-
-folders=(
-dcim/Camera
-dcim/MyAlbums
-pictures/Messenger
-)
-
 update_notification(){
     [[ "$1" ]] && notification_content+=("$1")
 
@@ -37,25 +29,15 @@ update_notification(){
 
 update_notification "..."
 
-notification_content=()
-for folder in "${folders[@]}"; do
-    if [ -d ~/storage/"$folder" ]; then
-        update_notification "$folder"
-        rsync "${rsync_flags[@]}" --relative ~/storage/./"$folder" "$remote":backup/phone_jff/
-    else
-        update_notification "File not found: $folder"
-    fi
-
-done
-
-rsync_delete_flags=( --exclude '.config' --progress -av --delete )
+rsync_delete_flags=( --exclude '.config' --progress -aO --delete)
 
 update_notification "media/music"
-rsync "${rsync_delete_flags[@]}" "$remote":.local/share/music/ ~/storage/music
+rsync "${rsync_delete_flags[@]}" "$remote":.local/share/music/ ~/storage/music/
 termux-media-scan ~/storage/music
 
 update_notification "wallpapers"
-rsync "${rsync_delete_flags[@]}" "$remote":.local/share/wallpapers ~/.local/share
+rsync "${rsync_delete_flags[@]}" "$remote":.local/share/wallpapers/ ~/storage/dcim/wallpapers/
+termux-media-scan ~/storage/dcim/wallpapers
 
 notification_title+=" Done"
 update_notification

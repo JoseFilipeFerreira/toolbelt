@@ -99,8 +99,7 @@ pacman,extra,zathura-pdf-mupdf
 pip,essential,python-qbittorrent
 pkg,essential,bat
 pkg,essential,clang
-pkg,essential,exa
-pkg,essential,ffmpeg
+pkg,essential,eza
 pkg,essential,fzf
 pkg,essential,git
 pkg,essential,htop
