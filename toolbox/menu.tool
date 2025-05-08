@@ -1,12 +1,12 @@
 #!/bin/bash
-# dmenu menu launcher
+# menu launcher
 
-scripts=~/.config/dmenu/scripts
+scripts=~/.config/menu/scripts
 
 "$scripts"/"$( \
     find "$scripts" -type f -printf "%f\n" |
     grep '\.menu' |
     sed -e 's|./||g' -e 's/\.menu$//g' |
     sort |
-    dmenu -i -l 20 -p "Pick a menu:")".menu &
+    picker -i -l 20 -p "Pick a menu:")".menu &
 disown

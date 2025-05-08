@@ -6,7 +6,7 @@ rename(){
     if [[ "$wayland" ]]; then
         picker=(tofi --prompt-text 'rename to ' --require-match=false --height=40 --horizontal=true)
     else
-        picker=(dmenu -p 'rename to')
+        picker=(picker -p 'rename to')
     fi
     rename="$(: | "${picker[@]}" |
         sed -E 's/^\s *//; s/\s*$//; s/\s+/_/g')"

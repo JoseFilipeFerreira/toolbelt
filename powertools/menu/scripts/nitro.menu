@@ -5,7 +5,7 @@ file=~/.local/share/toolbelt/nitro
 mkdir -p "$(dirname "$file")"
 touch "$file"
 
-pick="$(awk 'NF{NF-=1};1' "$file" | sort | dmenu -i -l 20 -p "pick emoji:")"
+pick="$(awk 'NF{NF-=1};1' "$file" | sort | picker -i -l 20 -p "pick emoji:")"
 
 [[ "$pick" ]] || exit
 

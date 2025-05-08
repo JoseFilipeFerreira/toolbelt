@@ -42,10 +42,9 @@ Scripts used in the terminal or on a keybind
 * [iadl](toolbox/iadl.tool) blazing fast download from internet archive
 * [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand
-* [launch-and-move](toolbox/launch-and-move.tool) move to a workspace and launch a program (if that program is not running)
-* [menu](toolbox/menu.tool) dmenu menu launcher
-* [meross-cli](toolbox/meross-cli.tool) control meross lights (integrates with [merossd](https://github.com/JoseFilipeFerreira/merossd))
+* [menu](toolbox/menu.tool) menu launcher
 * [nospace](toolbox/nospace.tool) correct filenames
+* [picker](toolbox/picker.tool) dmenu/tofi/fzf wrapper (by [Mendess](https://github.com/mendess))
 * [pixel](toolbox/pixel.tool) TUI to draw pixelart for [neofetch](powertools/neofetch)
 * [qbt](toolbox/qbt.tool) qbittorrent management on remote
 * [qrwifi](toolbox/qrwifi.tool) generate qrcode for the current wifi connection
@@ -59,14 +58,7 @@ Scripts used in the terminal or on a keybind
 
 ## :wrench: [Toolkit](powertools/dmenu/scripts) (dmenu scripts)
 Scripts launched from my [menu](toolbox/menu.tool)
-* [clippy](powertools/dmenu/scripts/clippy.menu) simple bookmark manager
-* [dock](powertools/dmenu/scripts/dock.menu) choose display setting
-* [games](powertools/dmenu/scripts/games.menu) launch games from steam
-* [nitro](powertools/dmenu/scripts/nitro.menu) pick from a list of emojis and gifs
-* [power](powertools/dmenu/scripts/power.menu) machine state menu
-* [todo](powertools/dmenu/scripts/todo.menu) simple TODO list using [todoman](https://github.com/pimutils/todoman) and [vdirsyncer](https://github.com/pimutils/vdirsyncer)
-* [trayer](powertools/dmenu/scripts/trayer.menu) toggle trayer
-* [wine](powertools/dmenu/scripts/wine.menu) launch programs installed with [wine](https://www.winehq.org/)
+
 
 ## :iphone: [Handtools](handtools)
 Scripts I use on my phone (used with [Tasker](https://tasker.joaoapps.com/) and

@@ -41,7 +41,7 @@ games="$(
 
 [[ ! "$games" ]] && notify-send -a "Steam" -i "steam" "No games installed" && exit
 
-line="$(echo "$games" | sort | column -ts$'\t' | dmenu -i -l 20 -p "Steam")"
+line="$(echo "$games" | sort | column -ts$'\t' | picker -i -l 20 -p "Steam")"
 [[ "$line" ]] || exit
 
 id="$(echo "$line" | grep -o '[0-9]*$')"

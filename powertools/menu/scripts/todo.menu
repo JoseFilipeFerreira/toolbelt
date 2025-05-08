@@ -14,7 +14,7 @@ sync
 
 while : ; do
     events="$(todo --porcelain | jq -r '.[] | "\(.summary) (\(.id))" ' | sort)"
-    cmd="$(echo "$events" | dmenu -l 20 -p "Add/delete a task:")"
+    cmd="$(echo "$events" | picker -l 20 -p "Add/delete a task:")"
 
     [[ "$cmd" ]] || break
 

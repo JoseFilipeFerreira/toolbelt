@@ -6,7 +6,7 @@ SketchUp
 TopoSEM
 )
 
-program="$(printf '%s\n' "${programs[@]}" | sort | dmenu -i -l 20 -p "launch program:")"
+program="$(printf '%s\n' "${programs[@]}" | sort | picker -i -l 20 -p "launch program:")"
 
 path="$(find ~/.wine/drive_c | grep -E "Program Files.*/$program\.exe" | head -n 1)"
 

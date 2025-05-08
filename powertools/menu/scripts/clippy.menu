@@ -20,7 +20,7 @@ case "$1" in
         fi
         ;;
     --select|"")
-        choice="$(grep -v '^#' "$file" | dmenu -l 20 -i | cut -d' ' -f1)"
+        choice="$(grep -v '^#' "$file" | picker -l 20 -i | cut -d' ' -f1)"
         xdotool type "$choice"
         notify "Wrote" "$choice"
         ;;

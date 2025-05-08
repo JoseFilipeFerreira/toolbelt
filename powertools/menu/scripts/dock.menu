@@ -19,7 +19,7 @@ layout="$( \
     awk '/^case/,/^esac/' "$0" |
         grep -E "^\s*[a-zA-Z0-9-]*)$" |
         sed -E 's/[ \)]//g' |
-        dmenu -i -l 20 -p "Monitor Layout")"
+        picker -i -l 20 -p "Monitor Layout")"
 
 [[ "$layout" ]] || exit
 
