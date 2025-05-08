@@ -1,7 +1,20 @@
 #!/bin/bash
 # open terminal in the current user, machine and directory
 
-wt="$(xdotool getwindowfocus getwindowname)"
+get_window_name(){
+    # Hyprland
+    if [[ -n "$WAYLAND_DISPLAY" ]] && command -v hyprctl &>/dev/null; then
+        hyprctl activewindow -j | jq -r '.title' 2>/dev/null
+    # X11
+    elif [[ -n "$DISPLAY" ]] && command -v xdotool &>/dev/null; then
+        xdotool getwindowfocus getwindowname 2>/dev/null
+    else
+        return 1
+    fi
+}
+
+
+wt="$(get_window_name)"
 
 [[ "$wt" =~ ^.+@.+:.+$ ]] || {
     notify-send -i terminal -u low -a "$(basename "$0")" "Couldn't find cwd"

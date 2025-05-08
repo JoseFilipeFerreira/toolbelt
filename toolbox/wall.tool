@@ -60,8 +60,8 @@ sync_walls(){
 check_res(){
     touch -m "$1"
 
-    w="$(convert "$1" -format '%[w]' info:)"
-    h="$(convert "$1" -format '%[h]' info:)"
+    w="$(magick "$1" -format '%[w]' info:)"
+    h="$(magick "$1" -format '%[h]' info:)"
 
     echo "resolution: ${w}x${h}"
 
@@ -80,7 +80,7 @@ get_wall_colors(){
         cp "$color_cache/$filename" "/tmp/$USER/wall_colors"
     else
         mapfile -t colors < <(
-            convert "$1" +dither -colors 10 histogram: |
+            magick "$1" +dither -colors 10 histogram: |
                 sed -n '/comment={/,/^}/p' |
                 sed -E 's/comment=\{\s*|\}|^\s*//g' |
                 awk '/[0-9]e\+[0-9]/ { split($0, s, "e+"); base=s[1]; split(s[2], ss, ":"); exponent=ss[1]; print((base * (10^exponent)) ":" ss[2]); }
@@ -225,7 +225,15 @@ if [[ "$RNG" ]]; then
 fi
 
 if [[ "$NEW_WALL" ]]; then
-    feh --no-fehbg --bg-fill "$NEW_WALL"
+    # wayland
+    if [[ -n "$WAYLAND_DISPLAY" ]]; then
+        swaybg -i "$NEW_WALL" -m fill &
+    # X11
+    elif [[ -n "$DISPLAY" ]] && command -v xdotool &>/dev/null; then
+        feh --bg-fill "$NEW_WALL"
+    else
+        return 1
+    fi
 
     [[ -f "$NEW_WALL" ]] && get_wall_colors "$NEW_WALL"
 
