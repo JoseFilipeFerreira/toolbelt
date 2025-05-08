@@ -9,13 +9,11 @@ bash/profile,~/.bash_profile,link,essential
 clang-format,~/.clang-format,link,essential
 menu,~/.config/menu,link,extra
 dunstrc,~/.config/dunst/dunstrc,link,extra
-ghci.conf,~/.ghc/ghci.conf,link,essential
 gitconfig,~/.gitconfig,link,essential
 gtk-2.0/gtkrc,~/.config/gtk-2.0/gtkrc,link,extra
 gtk-3.0,~/.config/gtk-3.0,link,extra
 hypr,~/.config/hypr,link,extra
 i3.conf,~/.config/i3/config,link,extra
-khal.conf,~/.config/khal/config,link,essential
 mimeapps.list,~/.config/mimeapps.list,link,extra
 mpv,~/.config/mpv,link,extra
 neofetch,~/.config/neofetch,link,essential
@@ -29,11 +27,9 @@ termux,,install,mobile
 termux/termux-url-opener,~/bin/termux-url-opener,link,mobile
 termux/termux.properties,~/.termux/termux.properties,link,mobile
 thonkbar,~/.config/thonkbar,link,extra
-todoman.py,~/.config/todoman/config.py,link,extra
 toolicons,,install,extra
 toolsounds,/usr/share/sounds/toolsounds,sudo,link,extra
 user-dirs.dirs,~/.config/user-dirs.dirs,link,essential
-vdirsyncer.conf,~/.config/vdirsyncer/config,link,essential
 wgetrc,~/.config/wgetrc,link,essential
 wxorc,~/.config/wxorc,link,extra
 xfce4/helpers.rc,~/.config/xfce4/helpers.rc,link,extra
