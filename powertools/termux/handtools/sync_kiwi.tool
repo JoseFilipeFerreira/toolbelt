@@ -36,8 +36,8 @@ rsync "${rsync_delete_flags[@]}" "$remote":.local/share/music/ ~/storage/music/
 termux-media-scan ~/storage/music
 
 update_notification "wallpapers"
-rsync "${rsync_delete_flags[@]}" "$remote":.local/share/wallpapers/ ~/storage/dcim/wallpapers/
-termux-media-scan ~/storage/dcim/wallpapers
+rsync "${rsync_delete_flags[@]}" "$remote":.local/share/wallpapers/ ~/storage/pictures/wallpapers
+termux-media-scan ~/storage/pictures/wallpapers
 
 notification_title+=" Done"
 update_notification
