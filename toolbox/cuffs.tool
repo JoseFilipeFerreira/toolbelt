@@ -221,31 +221,33 @@ case "$type" in
     video)
         file="$file.mkv"
 
-        flags=(-framerate 25 -f x11grab)
-
         if [[ "$wayland" ]]; then
-            # TODO FIX $hack format
-            notify-send -u critical "Can't record video in wayland" "soon ™️"
-            exit 1
+            flags=(--framerate 25 -a -g "$hack")
+            [[ "$time" ]] && echo "time is not implemented for wayland recording"
+            cmd=(wf-recorder "${flags[@]}" -f "$file")
+        else
+            flags=(-framerate 25 -f x11grab)
+
+            [[ "$time" ]] && flags+=( -t "$time" ) && content+="during ${time}s "
+            size="$(echo "$hack" | cut -d+ -f 1)"
+            start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
+
+            flags+=(-video_size "$size" -i :0.0+"$start")
+
+            cmd=(ffmpeg "${flags[@]}" "$file")
         fi
 
-        [[ "$time" ]] && flags+=( -t "$time" ) && content+="during ${time}s "
-        size="$(echo "$hack" | cut -d+ -f 1)"
-        start="$(echo "$hack" | cut -d+ -f 2,3 --output-delimiter=,)"
-
-        flags+=(-video_size "$size" -i :0.0+"$start")
-
         if [[ -t 1 ]]; then
-            ffmpeg "${flags[@]}" "$file"
+            "${cmd[@]}"
         else
-            ffmpeg "${flags[@]}" "$file" &
+            "${cmd[@]}" &
 
             pid_file="/tmp/$USER/ffmpeg_screenshot_pid"
             mkdir -p "$(dirname "$pid_file")"
 
             jobs -p > "$pid_file"
             wait
-            rm "$pid_file"
+            rm -f "$pid_file" # allow other scripts to delete this file earlier if they want to
         fi
 
         if [[ "$rename" ]]; then
