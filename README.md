@@ -35,13 +35,14 @@ Scripts used in the terminal or on a keybind
 * [deaf](toolbox/deaf.tool) volume changer
 * [death](toolbox/death.tool) warn if all batteries are bellow a certain percent
 * [dlanime](toolbox/dlanime.tool) TUI to download from [nyaa](https://nyaa.si) based on data from [MAL](https://myanimelist.net)
-* [dmenu_IQ](toolbox/dmenu_IQ.tool) dmenu app launcher with app usage history
 * [ex](toolbox/ex.tool) extract anything
 * [fetch](toolbox/fetch.tool) neofetch wrapper to show logo based on hostname
+* [film-metadata](toolbox/film-metadata.tool) from typing import List
 * [focus-bro](toolbox/focus-bro.tool) help me focus (by [Mendes](https://github.com/mendess/))
 * [iadl](toolbox/iadl.tool) blazing fast download from internet archive
 * [icons](toolbox/icons.tool) icon pack manager for [toolicons](powertools/toolicons)
 * [labib](toolbox/labib.tool) compile LaTeX and BibTeX with a single commmand
+* [menu_IQ](toolbox/menu_IQ.tool) menu app launcher with app usage history
 * [menu](toolbox/menu.tool) menu launcher
 * [nospace](toolbox/nospace.tool) correct filenames
 * [picker](toolbox/picker.tool) dmenu/tofi/fzf wrapper (by [Mendess](https://github.com/mendess))

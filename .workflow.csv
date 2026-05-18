@@ -52,6 +52,7 @@ pacman,extra,bluez-utils
 pacman,extra,brightnessctl
 pacman,extra,clipmenu
 pacman,extra,discord
+pacman,extra,dmenu
 pacman,extra,dunst
 pacman,extra,feh
 pacman,extra,ffmpegthumbnailer
@@ -61,7 +62,6 @@ pacman,extra,gvfs
 pacman,extra,gvfs-gphoto2
 pacman,extra,hacksaw
 pacman,extra,i3-gaps
-pacman,extra,khal
 pacman,extra,libnotify
 pacman,extra,mpv
 pacman,extra,network-manager-applet
@@ -75,23 +75,19 @@ pacman,extra,python-i3ipc
 pacman,extra,python-watchdog
 pacman,extra,qrencode
 pacman,extra,shotgun
-pacman,extra,simple-scan
 pacman,extra,socat
 pacman,extra,sxhkd
 pacman,extra,thunar
-pacman,extra,todoman
 pacman,extra,trayer
 pacman,extra,ttf-dejavu-nerd
 pacman,extra,ttf-font-awesome
 pacman,extra,ttf-liberation
 pacman,extra,tumbler
-pacman,extra,vdirsyncer
 pacman,extra,wireless_tools
 pacman,extra,xclip
 pacman,extra,xdotool
 pacman,extra,xorg-server
 pacman,extra,xorg-xdpyinfo
-pacman,extra,xorg-xev
 pacman,extra,xorg-xinit
 pacman,extra,xorg-xrandr
 pacman,extra,zathura
@@ -119,4 +115,3 @@ pkg,essential,tree
 pkg,essential,wget
 repos,essential,https://github.com/jtexeira/tiny-aura
 repos,extra,https://github.com/JoseFilipeFerreira/slock
-repos,extra,https://github.com/mendess/dmenu

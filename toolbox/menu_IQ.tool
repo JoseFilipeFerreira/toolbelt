@@ -1,5 +1,5 @@
 #!/bin/bash
-# dmenu app launcher with app usage history
+# menu app launcher with app usage history
 
 cache_file=~/.local/share/toolbelt/IQhist
 mkdir -p "$(dirname "$cache_file")"
@@ -13,7 +13,7 @@ echo "${used[*]}"
 
 not_used=$(echo -e "$all" | grep -Fxvf <(echo -e "$used"))
 
-cmd=$(echo -e "${used}\n${not_used}" | dmenu -l 20 -i)
+cmd=$(echo -e "${used}\n${not_used}" | picker -l 20 -i)
 
 [[ "$cmd" ]] || exit 1
 

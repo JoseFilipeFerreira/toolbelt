@@ -7,7 +7,7 @@ super + Home
         meross-cli --toggle
 
 super + {_,shift +} d
-        {dmenu_IQ,menu}
+        {menu_IQ,menu}
 
 {_,control +, alt +, super +} @Print
         cuffs {--select --clipboard, --clipboard, --select --floating, }
@@ -39,14 +39,6 @@ XF86Audio{Play,Stop,Prev,Next}
 
 super + {Prior,Next,Left,Right,Up,Down}
         udm {--play-pause,--stop,--previous,--next,--volume-up,--volume-down}
-
-## control media on kiwi remotely
-
-control + XF86Audio{Raise,Lower}Volume
-        ssh kiwi .local/bin/deaf {+,-}
-
-super + control + {Prior,Next,Left,Right,Up,Down}
-        ssh kiwi .local/bin/udm {--play-pause,--stop,--previous,--next,--volume-up,--volume-down}
 
 # DUNST KEYBINDS
 
