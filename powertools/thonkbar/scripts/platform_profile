@@ -32,6 +32,3 @@ print_profile(){
 }
 
 print_profile
-while inotifywait -e modify "$profile_file" &> /dev/null; do
-    print_profile
-done
