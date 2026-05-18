@@ -33,6 +33,15 @@ PS1_ELEMENTS+=("$(__c "$GREEN" "\w")")
 
 PS1_ELEMENTS+=("$(__c "$BOLD_RED" "\$(__stopped_jobs_status)")")
 
+if [[ -f /usr/share/git/completion/git-prompt.sh ]]; then
+    source /usr/share/git/completion/git-prompt.sh
+elif [[ -f /usr/share/git/git-prompt.sh ]]; then
+    source /usr/share/git/git-prompt.sh
+fi
+
+if hash __git_ps1 &>/dev/null; then
+    PS1_ELEMENTS+=("$(__c "$BLUE" "\$(__git_ps1)")")
+fi
 
 PS1=$(
     IFS=
